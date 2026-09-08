@@ -1,6 +1,8 @@
 // Mock data for the NTZDC (zone development council) Operations view.
 // Illustrative only.
 
+import { toProblemReport, toVerificationClaim } from '../contracts/adapters'
+
 export const NTZDC = {
   // Green-leaf moisture target band is 70–74%.
   moistureBand: { low: 70, high: 74 },
@@ -248,3 +250,11 @@ export const NTZDC = {
     ],
   },
 }
+
+// ── API contract projections ────────────────────────────────────────────────
+// The same records in the shape a real endpoint should return (see
+// `lib/contracts/shapes.js`). The Verification Queue and Problem Reports
+// modules consume the internal `NTZDC.*` shapes today; swapping to a live API is
+// `const claims = (await api()).map(fromVerificationClaim)` at the import site.
+export const verificationClaimsContract = NTZDC.verification.claims.map(toVerificationClaim)
+export const problemReportsContract = NTZDC.problems.reports.map(toProblemReport)

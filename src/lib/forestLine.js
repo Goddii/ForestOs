@@ -12,6 +12,10 @@ import { EUDR, FAIR_PAY, SATELLITE } from './dashboardData'
 import { BATCH_CHAIN, isNonAuction } from './batchChain'
 import { managementRollup } from './dashboard/ntzdcManagement'
 import { ESG } from './dashboard/esg'
+import { toBatchRecord } from './contracts/adapters'
+
+/** Every batch in the shape a real endpoint should return (`BatchRecord`). */
+export const batchRecordsContract = BATCH_CHAIN.map(toBatchRecord)
 
 // Verification pipeline shared with the NTZDC Verification Queue.
 export const VERIFICATION_STAGES = [

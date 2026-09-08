@@ -5,6 +5,8 @@
 // operator-tuned per zone — the spread between them is the disparity this view
 // exists to surface.
 
+import { toZoneComparisonRow } from '../contracts/adapters'
+
 export const NTZDC_MANAGEMENT = {
   season: '2025/26',
   priorSeason: '2024/25',
@@ -114,6 +116,14 @@ export function zoneTotalPay(zone) {
   const { baseKesPerKg, qualityPremiumKesPerKg, conservationPremiumKesPerKg } = zone.pay
   return baseKesPerKg + qualityPremiumKesPerKg + conservationPremiumKesPerKg
 }
+
+/**
+ * The zone rows in the shape a real endpoint should return
+ * (`ZoneComparisonRow` in `lib/contracts/shapes.js`). The Zone Comparison
+ * module reads `NTZDC_MANAGEMENT.zones` today; the swap is
+ * `zones.map(fromZoneComparisonRow)` at the import site.
+ */
+export const zoneComparisonContract = NTZDC_MANAGEMENT.zones.map(toZoneComparisonRow)
 
 /** Org-wide aggregates derived from the zone set (intake-weighted where a rate). */
 export function managementRollup() {
