@@ -1,11 +1,29 @@
 import { AlertTriangle } from 'lucide-react'
-import { Panel, StatTile, Sparkline } from '../DashboardKit'
+import { ExplainPanel, Panel, StatTile, Sparkline } from '../DashboardKit'
 import SectorFocusView from '../sector/SectorFocusView'
 import { SATELLITE } from '../../../lib/dashboardData'
+
+/**
+ * Compose the plain-language reading from the page's own verified figures.
+ * A real "Verified Data → AI → Human Understanding" assistant call would replace
+ * the body here; the inputs and the "no new claim" contract stay the same.
+ */
+function explainSatellite({ ndvi, carbon, water, openAlerts }) {
+  const delta = +(ndvi.current - ndvi.baseline).toFixed(2)
+  const dir = delta > 0 ? 'greener' : delta < 0 ? 'thinner' : 'unchanged'
+  return [
+    `The vegetation index across the covenant area reads ${ndvi.current}, ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} from the ${ndvi.baseline} baseline set in 2020. In plain terms, the forest edge is ${dir} now than when monitoring started — consistent with regrowth on retired plots.`,
+    openAlerts === 0
+      ? 'No encroachment alerts are currently open along the protected boundary.'
+      : `${openAlerts} encroachment alert${openAlerts === 1 ? ' is' : 's are'} open near the boundary and with rangers — small clearings detected by satellite that a field team is following up.`,
+    `Roughly ${carbon.sinkTonnesCo2.toLocaleString()} tonnes of CO₂ are estimated to be held in above-ground biomass across the belt, and modelled water yield from the tower catchments is about ${water.changePct}% higher than the 2018 baseline.`,
+  ]
+}
 
 export default function SatelliteModule() {
   const { ndvi, carbon, water, encroachmentAlerts } = SATELLITE
   const ndviDelta = (ndvi.current - ndvi.baseline).toFixed(2)
+  const openAlerts = encroachmentAlerts.filter((a) => a.status !== 'Resolved — replanted').length
 
   return (
     <div className="space-y-5">
@@ -33,6 +51,8 @@ export default function SatelliteModule() {
           tone="positive"
         />
       </div>
+
+      <ExplainPanel lines={explainSatellite({ ndvi, carbon, water, openAlerts })} />
 
       <SectorFocusView variant="ndvi" />
 

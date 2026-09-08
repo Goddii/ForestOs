@@ -260,6 +260,38 @@ export function PrototypeTag({ label = 'Prototype data', className = '' }) {
   )
 }
 
+/**
+ * "Verified Data → AI → Human Understanding" (Forest Line PRD): a collapsible
+ * plain-language reading of the verified figures already on the page. `lines`
+ * are pre-composed from the page's own data — this is not a live model call and
+ * never asserts a new measurement. `explain` is the seam where a real assistant
+ * request would slot in later.
+ */
+export function ExplainPanel({ lines, className = '' }) {
+  return (
+    <details
+      className={
+        'group rounded-xl border border-emerald-900/10 bg-paper-sunk/50 [&_summary]:list-none ' + className
+      }
+    >
+      <summary className="flex cursor-pointer items-center gap-2 px-4 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-ink">
+        <ChevronsUpDown className="h-3.5 w-3.5 text-line-strong" strokeWidth={2} aria-hidden="true" />
+        Read this in plain language
+      </summary>
+      <div className="border-t border-line px-4 py-3.5">
+        {lines.map((line, i) => (
+          <p key={i} className="mt-2 max-w-[72ch] text-[13px] leading-relaxed text-ink first:mt-0">
+            {line}
+          </p>
+        ))}
+        <p className="mt-3 border-t border-line pt-3 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
+          A plain-language reading of the verified figures above — not a new measurement or claim.
+        </p>
+      </div>
+    </details>
+  )
+}
+
 /** Page header for a module: deep-green serif title + a mono context line. */
 export function ModuleHeader({ title, sub, actions, prototype = false }) {
   return (
