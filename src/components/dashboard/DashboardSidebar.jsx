@@ -23,6 +23,7 @@ import {
   Sprout,
   Trees,
   Users,
+  Waypoints,
 } from 'lucide-react'
 import { ROLES, modulePath } from '../../lib/dashboard/roles'
 
@@ -138,8 +139,12 @@ export default function DashboardSidebar({ role }) {
       </div>
 
       <nav className="-mx-1 flex gap-0.5 overflow-x-auto px-1 lg:mx-0 lg:flex-1 lg:flex-col lg:overflow-visible lg:px-0">
-        <p className="hidden px-2.5 pb-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-100/40 lg:block">
-          Modules
+        <NavLink to="/dashboard/overview" className={navLinkClass}>
+          <Waypoints className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+          <span className="whitespace-nowrap">Forest Line overview</span>
+        </NavLink>
+        <p className="mt-2 hidden px-2.5 pb-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-100/40 lg:block">
+          {role.label.replace(/ View$/, '')}
         </p>
         {role.modules.map((item) => {
           const Icon = NAV_ICON[item.label] ?? LayoutGrid

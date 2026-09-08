@@ -3,6 +3,8 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar'
 import { roleFromPath } from '../lib/dashboard/roles'
 
+// Cross-cutting
+import OverviewLandscapeModule from '../components/dashboard/modules/OverviewLandscapeModule'
 // Brand / Offtaker modules
 import OverviewModule from '../components/dashboard/modules/OverviewModule'
 import EudrModule from '../components/dashboard/modules/EudrModule'
@@ -48,12 +50,15 @@ const AS_OF = '2026-09-07'
 export default function B2BDashboard() {
   const { pathname } = useLocation()
   const role = roleFromPath(pathname)
+  const isOverview = pathname === '/dashboard/overview'
+  const stripLabel = isOverview ? 'Forest Line' : role.label
+  const stripScope = isOverview ? 'One connected record' : role.org.scope
 
   useEffect(() => {
-    document.title = `ForestOS — ${role.label}`
+    document.title = isOverview ? 'ForestOS — Forest Line' : `ForestOS — ${role.label}`
     document.documentElement.classList.add('dash-root')
     return () => document.documentElement.classList.remove('dash-root')
-  }, [role.label])
+  }, [role.label, isOverview])
 
   return (
     <div className="dash flex min-h-screen flex-col bg-paper text-ink lg:flex-row">
@@ -61,8 +66,8 @@ export default function B2BDashboard() {
       <main className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-line px-4 py-2.5 sm:px-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-            {role.label} <span className="text-line-strong">/</span>{' '}
-            <span className="text-ink-muted">{role.org.scope}</span>
+            {stripLabel} <span className="text-line-strong">/</span>{' '}
+            <span className="text-ink-muted">{stripScope}</span>
           </p>
           <p className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
             As of {AS_OF}
@@ -70,6 +75,9 @@ export default function B2BDashboard() {
         </div>
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-8 sm:py-8">
           <Routes>
+            {/* Cross-cutting — the Forest Line front door */}
+            <Route path="overview" element={<OverviewLandscapeModule />} />
+
             {/* Brand / Offtaker (default, unprefixed) */}
             <Route index element={<OverviewModule />} />
             <Route path="eudr" element={<EudrModule />} />
