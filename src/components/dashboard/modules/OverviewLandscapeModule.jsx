@@ -61,13 +61,13 @@ function buildFlow() {
   ]
 }
 
-function FlowStage({ stage }) {
+function FlowStage({ stage, index }) {
   return (
     <div className="flex h-full min-w-0 flex-1 flex-col rounded-xl border border-emerald-900/10 bg-card p-5 shadow-card">
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
-        {stage.key === 'see' ? 'Start' : stage.key === 'reward' ? 'Close the loop' : 'Then'}
-      </p>
-      <h3 className="mt-1 font-display text-2xl leading-none text-emerald-950">{stage.verb}</h3>
+      <h3 className="flex items-baseline gap-2 font-display text-2xl leading-none text-emerald-950">
+        <span className="font-mono text-[13px] text-ink-faint">{index + 1}</span>
+        {stage.verb}
+      </h3>
       <p className="mt-2 text-[13px] leading-relaxed text-ink-muted">{stage.line}</p>
 
       <dl className="mt-4 space-y-2.5">
@@ -114,12 +114,17 @@ export default function OverviewLandscapeModule() {
       </p>
 
       <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {flow.map((stage) => (
+        {flow.map((stage, i) => (
           <li key={stage.key} className="flex">
-            <FlowStage stage={stage} />
+            <FlowStage stage={stage} index={i} />
           </li>
         ))}
       </ol>
+
+      <p className="max-w-[70ch] text-[13px] leading-relaxed text-ink-faint">
+        <span className="text-ink-muted">Reward reinvests in the buffer</span> — patrols, replanting,
+        training, verification — which is what widens the landscape you See on the next cycle.
+      </p>
 
       <Panel
         title="The landscape"
