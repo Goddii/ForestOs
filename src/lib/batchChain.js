@@ -38,6 +38,7 @@ const RECORDS = [
     protectedPerCup: '10 m²',
     hectaresPreserved: 3.2,
     carbonTonnesCo2: 141,
+    settlementDays: 4,
     land: {
       name: 'Mau Forest Complex',
       region: 'South West Mau',
@@ -99,6 +100,7 @@ const RECORDS = [
     protectedPerCup: '9 m²',
     hectaresPreserved: 2.6,
     carbonTonnesCo2: 118,
+    settlementDays: 5,
     land: {
       name: 'Mau Forest Complex',
       region: 'South West Mau',
@@ -160,6 +162,7 @@ const RECORDS = [
     protectedPerCup: '8 m²',
     hectaresPreserved: 1.7,
     carbonTonnesCo2: 74,
+    settlementDays: 6,
     land: {
       name: 'Aberdare Range',
       region: 'Central Highlands',
@@ -221,6 +224,7 @@ const RECORDS = [
     protectedPerCup: '8 m²',
     hectaresPreserved: 2.1,
     carbonTonnesCo2: 92,
+    settlementDays: 5,
     land: {
       name: 'Mount Kenya Forest',
       region: 'Central Highlands',
@@ -283,6 +287,7 @@ const RECORDS = [
     protectedPerCup: null,
     hectaresPreserved: null,
     carbonTonnesCo2: null,
+    settlementDays: null,
     land: { name: 'Mixed origin', region: 'Rift Valley', waterTowers: [] },
     block: { id: 'MIX', name: 'Pooled', bufferZone: '—', region: 'Multiple blocks', covenantHa: 0, patrolsThisMonth: 0, seedlingsPlanted: 0 },
     plot: { id: '—', centre: 'Multiple', lat: 0, lon: 0, areaHa: 0, canopyBaseline2020Pct: 0, canopyNowPct: 0, ndvi: 0, farmers: 0 },
@@ -458,6 +463,7 @@ export function toLegacyBatch(record) {
     sourcedVolumeKg: record.volumeKg,
     sourcedVolumeLabel: `${record.volumeKg.toLocaleString()} kg made tea`,
     pluckerPremiumKesPerKg: record.premiumKesPerKg,
+    settlementDays: record.settlementDays ?? null,
     collectionCentre: {
       name: record.plot.centre,
       lon: roundCoord(record.plot.lon, 3),

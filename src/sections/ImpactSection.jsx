@@ -1,18 +1,58 @@
 import { ArrowRight, ShieldCheck } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import LoopingVideo from '../components/LoopingVideo'
-import { IMPACT } from '../lib/mock'
+import { ERAS, IMPACT } from '../lib/mock'
 import { useBatch } from '../lib/batchContext'
 
+/**
+ * The quick, tangible read — what one cup from this batch did — before the
+ * detailed records below. Figures come from the scanned batch; no gamification.
+ */
+function CupReceipt() {
+  const BATCH = useBatch()
+  const items = [
+    { v: BATCH.protectedPerCup, k: 'forest protected, per cup' },
+    { v: `${BATCH.hectaresPreserved} ha`, k: 'held under covenant for this batch' },
+    { v: `+KES ${BATCH.pluckerPremiumKesPerKg}`, k: 'per kg, paid direct to the picker' },
+    BATCH.settlementDays
+      ? { v: `${BATCH.settlementDays} days`, k: `to settle ${BATCH.collectionCentre.pluckers.toLocaleString()} pluckers` }
+      : { v: BATCH.collectionCentre.pluckers.toLocaleString(), k: 'pluckers on this batch' },
+  ]
+  return (
+    <div className="rounded-2xl border border-bone/15 bg-forest-950/40 p-6 backdrop-blur-sm sm:p-8">
+      <p className="max-w-[34ch] font-display text-2xl leading-tight text-bone sm:text-3xl">
+        One cup from Batch&nbsp;#{BATCH.id}.
+      </p>
+      <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+        {items.map((it) => (
+          <div key={it.k}>
+            <dt className="tnum font-display text-3xl leading-none text-bone sm:text-4xl">{it.v}</dt>
+            <dd className="mt-1.5 text-[12px] leading-snug text-sage-300">{it.k}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-6 border-t border-bone/10 pt-4 font-mono text-[11px] tracking-[0.06em] text-sage-500">
+        Canopy on the retired plots this buffer covers:{' '}
+        <span className="text-bone-300">{ERAS['2015'].canopyCoverPct}% in {ERAS['2015'].label}</span>{' '}
+        <ArrowRight className="inline h-3 w-3" strokeWidth={2.5} aria-hidden="true" />{' '}
+        <span className="text-bone-300">{ERAS.today.canopyCoverPct}% {ERAS.today.label.toLowerCase()}</span>
+        {' — '}scroll up to switch the map between the two.
+      </p>
+    </div>
+  )
+}
+
 function PreservedRecord() {
+  const BATCH = useBatch()
   const { preserved } = IMPACT
-  const pct = Math.round((Number(preserved.value) / preserved.ofFarmHectares) * 100)
+  const value = BATCH.hectaresPreserved ?? preserved.value
+  const pct = Math.round((Number(value) / preserved.ofFarmHectares) * 100)
   return (
     <div className="flex h-full flex-col justify-between rounded-2xl border border-bone/15 bg-forest-950/40 p-6 backdrop-blur-sm sm:p-7">
       <div>
         <div className="flex items-baseline gap-2">
           <span className="tnum font-display text-6xl leading-none text-bone">
-            {preserved.value}
+            {value}
           </span>
           <span className="font-mono text-sm text-sage-300">ha</span>
         </div>
@@ -25,7 +65,7 @@ function PreservedRecord() {
           <div className="h-full rounded-full bg-sage-500" style={{ width: `${pct}%` }} />
         </div>
         <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-500">
-          {preserved.value} of {preserved.ofFarmHectares.toFixed(1)} ha under the farm
+          {value} of {preserved.ofFarmHectares.toFixed(1)} ha under the farm
         </p>
       </div>
     </div>
@@ -112,6 +152,10 @@ export default function ImpactSection() {
 
       <div className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
         <Reveal>
+          <CupReceipt />
+        </Reveal>
+
+        <Reveal className="mt-16 block sm:mt-20">
           <h2 className="max-w-[16ch] font-display text-3xl leading-[1.08] text-bone sm:text-5xl">
             What Batch&nbsp;#{BATCH.id} actually bought.
           </h2>
