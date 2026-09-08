@@ -241,12 +241,34 @@ export function Sparkline({ values, width = 240, height = 56, tone = '#059669', 
   )
 }
 
+/**
+ * Small tag marking a surface as prototype / illustrative data. The DESIGN
+ * north star and the Forest Line PRD both require that simulated conservation
+ * and financial figures never read as verified real-world evidence.
+ */
+export function PrototypeTag({ label = 'Prototype data', className = '' }) {
+  return (
+    <span
+      className={
+        'inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line-strong bg-paper-sunk px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint ' +
+        className
+      }
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-ink-faint/50" aria-hidden="true" />
+      {label}
+    </span>
+  )
+}
+
 /** Page header for a module: deep-green serif title + a mono context line. */
-export function ModuleHeader({ title, sub, actions }) {
+export function ModuleHeader({ title, sub, actions, prototype = false }) {
   return (
     <header className="flex flex-wrap items-start justify-between gap-3">
       <div>
-        <h2 className="font-display text-2xl text-emerald-950 sm:text-3xl">{title}</h2>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <h2 className="font-display text-2xl text-emerald-950 sm:text-3xl">{title}</h2>
+          {prototype && <PrototypeTag />}
+        </div>
         {sub && (
           <p className="mt-1 max-w-[64ch] font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">
             {sub}

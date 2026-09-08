@@ -7,8 +7,10 @@
 //     volumeKg, batchCount, verification: { standard, status, field, satellite },
 //     lines: [{ block, hectares, carbonTonnesCo2, verification }] }
 
+import { sanitizeForPdf } from './pdfText'
+
 function escapePdfText(value) {
-  return String(value).replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)')
+  return sanitizeForPdf(value).replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)')
 }
 
 function buildContentStream(report) {

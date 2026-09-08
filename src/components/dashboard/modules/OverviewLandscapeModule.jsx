@@ -135,10 +135,6 @@ export default function OverviewLandscapeModule() {
         </div>
         <SectorFocusView variant="eudr" />
       </Panel>
-
-      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
-        Prototype · illustrative data · South West Mau sector only
-      </p>
     </div>
   )
 }

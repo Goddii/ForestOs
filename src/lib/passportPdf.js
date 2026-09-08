@@ -2,8 +2,10 @@
 // This stands in for a real "Conservation Passport" export until the
 // ForestOS backend exists — the document says so on its face.
 
+import { sanitizeForPdf } from './pdfText'
+
 function escapeText(value) {
-  return String(value).replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)')
+  return sanitizeForPdf(value).replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)')
 }
 
 function buildContentStream(batch) {

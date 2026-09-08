@@ -73,6 +73,12 @@ export default function B2BDashboard() {
             As of {AS_OF}
           </p>
         </div>
+        <div className="flex items-center gap-2 border-b border-line bg-paper-sunk/60 px-4 py-1.5 sm:px-8">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" aria-hidden="true" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+            Prototype · every figure is illustrative mock data, not verified evidence
+          </p>
+        </div>
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-8 sm:py-8">
           <Routes>
             {/* Cross-cutting — the Forest Line front door */}
