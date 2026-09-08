@@ -1,4 +1,5 @@
 import { Suspense, lazy, useCallback, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useReducedMotion } from 'framer-motion'
 import ErrorBoundary from '../../ErrorBoundary'
 import SectorLayerToggle from './SectorLayerToggle'
@@ -67,8 +68,14 @@ function NdviLegend() {
 
 export default function SectorFocusView({ variant = 'eudr' }) {
   const reduced = useReducedMotion()
+  const navigate = useNavigate()
   const [layers, setLayers] = useState(DEFAULT_LAYERS[variant] ?? DEFAULT_LAYERS.eudr)
   const [selectedPlotId, setSelectedPlotId] = useState(null)
+
+  const openBatch = useCallback(
+    (batchId) => navigate(`/dashboard/buyer/batches?batch=${encodeURIComponent(batchId)}`),
+    [navigate],
+  )
 
   const plotIds = useMemo(() => EUDR.plots.map((plot) => plot.id), [])
   const selectedPlot = EUDR.plots.find((plot) => plot.id === selectedPlotId) ?? null
@@ -143,6 +150,7 @@ export default function SectorFocusView({ variant = 'eudr' }) {
             onClose={() => setSelectedPlotId(null)}
             onDownloadGeoJSON={downloadOneGeoJSON}
             onDownloadCert={downloadOneCert}
+            onOpenBatch={openBatch}
           />
         </div>
 

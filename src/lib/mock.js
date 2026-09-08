@@ -1,13 +1,13 @@
 // All data on this page is mocked — there is no ForestOS backend yet.
 // Values, coordinates, hashes and timestamps are illustrative placeholders.
 
-import { BATCH_CHAIN, findBatchRecord, toLegacyBatch } from './batchChain'
+import { BATCH_CHAIN, findBatchRecord, isNonAuction, toLegacyBatch } from './batchChain'
 
-// The public QR page only ever renders a branded retail batch — never an
-// auction lot — so its resolver ignores non-branded records.
+// The public QR page only ever renders a branded / direct-sold retail batch —
+// never an auction lot — so its resolver ignores auction records.
 function findPublicBatch(batchId) {
   const record = findBatchRecord(batchId)
-  return record && record.channel === 'direct' ? record : null
+  return record && isNonAuction(record.channel) ? record : null
 }
 
 // The reference batch, projected from the shared canonical chain

@@ -9,6 +9,8 @@
 // redaction levels differ only in how much of the operational chain is exposed.
 // Illustrative mock data; there is no ForestOS backend.
 
+import { EUDR } from './dashboardData'
+
 export const REDACTION = {
   // The public QR scan page: provenance and verification, coarse operational detail.
   public: { coords: 2, harvestDetail: false, lotIds: false, fullReference: false },
@@ -16,10 +18,18 @@ export const REDACTION = {
   buyer: { coords: 3, harvestDetail: true, lotIds: true, fullReference: true },
 }
 
+// Channels the buyer / consumer surfaces are allowed to show (never 'auction').
+// Per ForestOS Responses: Phase 1 priority is branded / value-added / direct-sold
+// / specific-offtaker tea; auction volume is out of scope until later.
+const NON_AUCTION = new Set(['direct_sold', 'branded'])
+export const isNonAuction = (channel) => NON_AUCTION.has(channel)
+
 const RECORDS = [
   {
-    id: '802',
-    channel: 'direct', // 'direct' = direct-sold / branded; 'auction' = auction pool
+    id: '802', // short retail code carried on the pack / QR
+    traceId: 'TL-2026-00482', // full production trace id (dashboard + contract layer)
+    sectorPlotId: 'KIP-09', // the SW-MAU sector-map plot this batch was pressed from
+    channel: 'branded', // 'direct_sold' | 'branded' | 'auction'
     brand: 'Rift Valley Tea Co.',
     product: 'Origin Series — First Flush',
     season: '2026 main crop',
@@ -78,7 +88,9 @@ const RECORDS = [
   },
   {
     id: '774',
-    channel: 'direct',
+    traceId: 'TL-2026-00461',
+    sectorPlotId: 'NES-10',
+    channel: 'branded',
     brand: 'Rift Valley Tea Co.',
     product: 'Origin Series — Highland Reserve',
     season: '2026 main crop',
@@ -137,7 +149,9 @@ const RECORDS = [
   },
   {
     id: '618',
-    channel: 'direct',
+    traceId: 'TL-2026-00388',
+    sectorPlotId: null, // Aberdare Range — outside the SW-MAU sector map
+    channel: 'direct_sold',
     brand: 'Highland Leaf Collective',
     product: 'Single-Origin Aberdare',
     season: '2026 main crop',
@@ -196,7 +210,9 @@ const RECORDS = [
   },
   {
     id: '540',
-    channel: 'direct',
+    traceId: 'TL-2026-00327',
+    sectorPlotId: null, // Mount Kenya East — outside the SW-MAU sector map
+    channel: 'branded',
     brand: 'Rift Valley Tea Co.',
     product: 'Origin Series — Mount Kenya',
     season: '2026 early crop',
@@ -256,6 +272,8 @@ const RECORDS = [
   {
     // Auction-pool volume — deliberately NOT branded. Batch Lookup rejects it.
     id: 'AUC-4471',
+    traceId: null,
+    sectorPlotId: null,
     channel: 'auction',
     brand: null,
     product: 'Mombasa auction lot',
@@ -287,18 +305,45 @@ export const BATCH_CHAIN = RECORDS
 
 /** Only direct-sold / branded batches — the buyer surfaces never show auction volume. */
 export function brandedBatches() {
-  return RECORDS.filter((r) => r.channel === 'direct')
+  return RECORDS.filter((r) => isNonAuction(r.channel))
 }
 
-/** Case-insensitive id lookup across the whole chain (branded and auction). */
+/** Case-insensitive lookup by short retail code or full trace id, across all channels. */
 export function findBatchRecord(batchId) {
   if (!batchId) return null
   const q = String(batchId).trim().toUpperCase().replace(/^#/, '')
-  return RECORDS.find((r) => r.id.toUpperCase() === q) ?? null
+  return (
+    RECORDS.find((r) => r.id.toUpperCase() === q || (r.traceId && r.traceId.toUpperCase() === q)) ??
+    null
+  )
 }
 
 const roundCoord = (n, dp) => Number(n.toFixed(dp))
 const shortRef = (ref) => (ref.length > 12 ? `${ref.slice(0, 6)}…${ref.slice(-4)}` : ref)
+
+/**
+ * The plot a batch was pressed from. Geographic + canopy facts come from the
+ * sector map plot when the batch is linked to one (so the chain, the 3D map and
+ * the audit export never disagree); centre name and farmer count stay from the
+ * record.
+ */
+export function resolvePlot(record) {
+  const mapPlot = record.sectorPlotId
+    ? EUDR.plots.find((p) => p.id === record.sectorPlotId)
+    : null
+  if (!mapPlot) return record.plot
+  return {
+    ...record.plot,
+    id: mapPlot.id,
+    lat: mapPlot.lat,
+    lon: mapPlot.lon,
+    areaHa: mapPlot.hectares,
+    canopyBaseline2020Pct: mapPlot.canopy2020,
+    canopyNowPct: mapPlot.canopyNow,
+    ndvi: mapPlot.ndvi,
+    eudrStatus: mapPlot.status,
+  }
+}
 
 /**
  * Project a canonical record to one redaction level. Returns the chain as an
@@ -308,7 +353,8 @@ const shortRef = (ref) => (ref.length > 12 ? `${ref.slice(0, 6)}…${ref.slice(-
  */
 export function redactBatchRecord(record, level = 'public') {
   const cfg = REDACTION[level] ?? REDACTION.public
-  const { land, block, plot, harvest, batch, processing, verification } = record
+  const { land, block, harvest, batch, processing, verification } = record
+  const plot = resolvePlot(record)
   const coords = `${Math.abs(plot.lat).toFixed(cfg.coords)}° ${plot.lat < 0 ? 'S' : 'N'}, ${plot.lon.toFixed(cfg.coords)}° E`
 
   const stages = [
@@ -357,10 +403,11 @@ export function redactBatchRecord(record, level = 'public') {
       label: 'Batch',
       title: `#${record.id}`,
       rows: [
+        cfg.lotIds && record.traceId ? { k: 'Trace id', v: record.traceId } : null,
         { k: 'Sealed', v: batch.sealedAt },
         { k: 'Made tea', v: `${batch.madeTeaKg.toLocaleString()} kg` },
         { k: 'Grade', v: batch.grade },
-      ],
+      ].filter(Boolean),
     },
     {
       key: 'processing',
@@ -376,8 +423,9 @@ export function redactBatchRecord(record, level = 'public') {
 
   return {
     id: record.id,
+    traceId: record.traceId,
     channel: record.channel,
-    branded: record.channel === 'direct',
+    branded: isNonAuction(record.channel),
     brand: record.brand,
     product: record.product,
     stages,
@@ -397,6 +445,10 @@ export function redactBatchRecord(record, level = 'public') {
  * the canonical record so `lib/mock.js` no longer hand-maintains its own copy.
  */
 export function toLegacyBatch(record) {
+  // `collectionCentre` is the delivery facility (a fixed location, distinct from
+  // the plot), so it keeps the record's hand-authored coordinates — the public
+  // globe pin does not move. `plotId` follows the resolved sector plot so the
+  // downloaded passport agrees with the dashboard chain.
   return {
     id: record.id,
     bufferZone: record.block.bufferZone,
@@ -416,7 +468,7 @@ export function toLegacyBatch(record) {
       standard: record.verification.standard,
       status: record.verification.status,
       timestamp: record.verification.timestamp,
-      plotId: record.plot.id,
+      plotId: resolvePlot(record).id,
       reference: record.verification.reference,
     },
   }

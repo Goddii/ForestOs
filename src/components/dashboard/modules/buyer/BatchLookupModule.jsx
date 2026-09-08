@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { Search, Download, FileJson, FileText } from 'lucide-react'
 import { ModuleHeader, Panel } from '../../DashboardKit'
 import BatchProvenanceChain from '../../../batch/BatchProvenanceChain'
 import SectorFocusView from '../../sector/SectorFocusView'
-import { brandedBatches, findBatchRecord, redactBatchRecord, toLegacyBatch } from '../../../../lib/batchChain'
+import { brandedBatches, findBatchRecord, isNonAuction, redactBatchRecord, resolvePlot, toLegacyBatch } from '../../../../lib/batchChain'
 import { plotsToGeoJSON, plotToAuditCert, downloadJSON, downloadCert } from '../../../../lib/geojson'
 import { downloadConservationPassport } from '../../../../lib/passportPdf'
 import { SECTOR } from '../../../../lib/dashboardData'
@@ -12,7 +13,7 @@ const BASELINE_DATE = '2020-12-31'
 
 /** Adapt a canonical chain plot to the shape the GeoJSON / cert helpers expect. */
 function batchToPlot(record) {
-  const { plot } = record
+  const plot = resolvePlot(record)
   return {
     id: plot.id,
     centre: plot.centre,
@@ -22,16 +23,36 @@ function batchToPlot(record) {
     canopy2020: plot.canopyBaseline2020Pct,
     canopyNow: plot.canopyNowPct,
     loss: Math.max(0, plot.canopyBaseline2020Pct - plot.canopyNowPct),
-    status: 'clear',
+    status: plot.eudrStatus ?? 'clear',
     ndvi: plot.ndvi,
   }
 }
 
+// A ?batch= deep link (from the sector map) resolves to a branded batch id, or null.
+function deepLinkedId(param) {
+  if (!param) return null
+  const hit = findBatchRecord(param)
+  return hit && isNonAuction(hit.channel) ? hit.id : null
+}
+
 export default function BatchLookupModule() {
   const branded = useMemo(() => brandedBatches(), [])
-  const [activeId, setActiveId] = useState(branded[0].id)
+  const [searchParams, setSearchParams] = useSearchParams()
+  // Selection = the manual pick, else the sector-map deep link (`?batch=…`
+  // resolved once at mount), else the first batch.
+  const [pickedId, setPickedId] = useState(() => deepLinkedId(searchParams.get('batch')))
   const [query, setQuery] = useState('')
   const [error, setError] = useState(null)
+  const activeId = pickedId ?? branded[0].id
+
+  // Strip the consumed deep-link param so the address bar stays clean. This only
+  // touches the URL (an external system) — no React state is set here.
+  useEffect(() => {
+    if (!searchParams.has('batch')) return
+    const next = new URLSearchParams(searchParams)
+    next.delete('batch')
+    setSearchParams(next, { replace: true })
+  }, [searchParams, setSearchParams])
 
   const record = branded.find((b) => b.id === activeId) ?? branded[0]
   const view = redactBatchRecord(record, 'buyer')
@@ -43,12 +64,12 @@ export default function BatchLookupModule() {
       setError(`No batch matches “${query.trim()}”.`)
       return
     }
-    if (hit.channel !== 'direct') {
+    if (!isNonAuction(hit.channel)) {
       setError(`Batch #${hit.id} is auction-pool volume — not a direct-sold batch, so it has no branded provenance chain.`)
       return
     }
     setError(null)
-    setActiveId(hit.id)
+    setPickedId(hit.id)
     setQuery('')
   }
 
@@ -82,12 +103,12 @@ export default function BatchLookupModule() {
     <div className="space-y-5">
       <ModuleHeader
         title="Batch Lookup"
-        sub={`Direct-sold batches only · ${branded.length} branded batches · auction volume excluded`}
+        sub={`Branded & direct-sold volume · ${branded.length} batches with a provenance chain · auction volume excluded`}
       />
 
       <Panel
         title="Find a batch"
-        lede="Search by batch ID, or pick from your direct-sold batches. Auction-pool volume is not tracked to a chain."
+        lede="Search by pack code (802) or trace id (TL-2026-00482), or pick a batch below. Auction-pool volume is not tracked to a chain."
       >
         <form onSubmit={handleSearch} className="flex flex-wrap gap-2">
           <label htmlFor="batch-q" className="sr-only">
@@ -127,7 +148,7 @@ export default function BatchLookupModule() {
                 <button
                   type="button"
                   onClick={() => {
-                    setActiveId(b.id)
+                    setPickedId(b.id)
                     setError(null)
                   }}
                   aria-pressed={active}
@@ -148,7 +169,7 @@ export default function BatchLookupModule() {
 
       <Panel
         title={`Batch #${record.id} · ${record.product}`}
-        lede={`${record.brand} · ${record.season} · ${record.volumeKg.toLocaleString()} kg made tea, direct-sold.`}
+        lede={`${record.brand} · ${record.season} · ${record.volumeKg.toLocaleString()} kg made tea · ${record.channel === 'branded' ? 'branded' : 'direct-sold'}.`}
         actions={
           <div className="flex flex-wrap gap-2">
             {evidence.map(({ label, Icon, onClick }) => (
