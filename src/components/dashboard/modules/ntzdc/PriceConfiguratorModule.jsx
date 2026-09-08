@@ -265,6 +265,13 @@ export default function PriceConfiguratorModule() {
                 onChange={(event) => setKey(c.key, Number(event.target.value))}
                 className="mt-2 w-full accent-emerald-600"
               />
+              {c.key === 'conservation' && (
+                <p className="mt-1.5 text-[11px] leading-relaxed text-ink-faint">
+                  Paid per <span className="text-ink-muted">verified</span> conservation event. Until a
+                  plot&rsquo;s field + satellite checks clear, its farmers receive base + quality only;
+                  the conservation premium is released on verification.
+                </p>
+              )}
             </div>
           ))}
         </div>

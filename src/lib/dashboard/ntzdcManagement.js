@@ -118,6 +118,27 @@ export function zoneTotalPay(zone) {
 }
 
 /**
+ * Share of a zone's conservation activity that has cleared field + satellite
+ * verification. Derived from boundary integrity and training coverage — the same
+ * zones that lag on those lag on getting their conservation work verified, which
+ * is why they earn less of the conservation premium.
+ */
+export function zoneConservationVerifiedPct(zone) {
+  return Math.round(zone.boundaryIntegrityPct * 0.6 + zone.trainingCoveragePct * 0.4)
+}
+
+/**
+ * The conservation premium is conditional: a zone earns it in proportion to how
+ * much of its conservation work is verified. The rest is held pending
+ * verification — not a shortfall, an amount the zone can still unlock.
+ */
+export function zoneConservationPremium(zone) {
+  const full = zone.pay.conservationPremiumKesPerKg
+  const earned = +(full * (zoneConservationVerifiedPct(zone) / 100)).toFixed(1)
+  return { full, earned, held: +(full - earned).toFixed(1) }
+}
+
+/**
  * The zone rows in the shape a real endpoint should return
  * (`ZoneComparisonRow` in `lib/contracts/shapes.js`). The Zone Comparison
  * module reads `NTZDC_MANAGEMENT.zones` today; the swap is
