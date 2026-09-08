@@ -1,0 +1,225 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Forest ground — deep greens fading to near-black */
+  --color-forest-950: #08140e;
+  --color-forest-900: #0c1f16;
+  --color-forest-850: #10261b;
+  --color-forest-800: #14301f;
+  --color-forest-700: #1d3e2a;
+  --color-forest-600: #2c5a3c;
+
+  /* Slate — cool structural neutrals */
+  --color-slate-deep: #161c1a;
+  --color-slate-700: #232b28;
+
+  /* Sage — muted foliage, used for secondary text on dark grounds */
+  --color-sage-500: #8fa98a;
+  --color-sage-300: #b7c9ae;
+  --color-sage-200: #cdd9c4;
+
+  /* Bone — warm off-white */
+  --color-bone: #f3eee3;
+  --color-bone-300: #ddd6c6;
+  --color-bone-500: #c3bba6;
+
+  /* Amber — the single warm accent: CTAs, pins, the "cup" */
+  --color-amber-500: #ce8e4e;
+  --color-amber-400: #e8a85c;
+
+  /* River — cool secondary accent for data / verification */
+  --color-river-500: #6fa5a0;
+
+  /* ── ESG Portal (B2B dashboard) — light "operations console" surface ──
+     The one light-mode subtree in the system. Scoped to `.dash`; every
+     other surface stays on the forest scale. */
+  --color-paper: #f7f5f0; /* dashboard canvas — warm parchment */
+  --color-paper-sunk: #e7e3d6; /* meter tracks, inset wells, hovered rows */
+  --color-card: #ffffff; /* panels and KPI cards */
+  --color-line: #e0dbcb; /* hairline borders on light */
+  --color-line-strong: #d1cab8; /* dividers, focused field edge */
+  --color-ink: #17251c; /* primary text on light */
+  --color-ink-muted: #4f5c52; /* secondary + body text — AA on paper/card/paper-sunk */
+  --color-ink-faint: #5b6960; /* mono labels + tertiary meta — now AA (≥4.5:1) on all three grounds */
+  --color-amber-700: #7c5322; /* accessible amber for text / detail on the light console */
+
+  /* ── ESG Portal green accent ──
+     The portal's action + data-viz green. A muted emerald ramp — nudged
+     desaturated from Tailwind's default so it sits with bone / parchment /
+     the forest scale. Amber is demoted to semantic warnings only
+     ("watch" / "flagged" / encroachment alerts). */
+  --color-emerald-100: #d1fae5; /* light emerald text on the dark sidebar */
+  --color-emerald-400: #34d399; /* bright indicator — active nav left border */
+  --color-emerald-500: #10b981; /* on-dark buttons, sparkline gradient stop */
+  --color-emerald-600: #059669; /* progress-bar fills, positive data */
+  --color-emerald-700: #047857; /* primary CTA buttons on parchment */
+  --color-emerald-800: #065f46; /* CTA hover, sidebar hairlines */
+  --color-emerald-900: #064e3b; /* sidebar cards, active-tab fill */
+  --color-emerald-950: #022c22; /* sidebar ground, deep-green page headers */
+
+  --shadow-card: 0 1px 2px rgba(23, 37, 28, 0.04), 0 2px 10px -3px rgba(23, 37, 28, 0.06);
+  --shadow-card-raised: 0 2px 4px rgba(23, 37, 28, 0.05), 0 12px 32px -8px rgba(23, 37, 28, 0.12);
+
+  --font-display: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Liberation Mono', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-forest-950);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 400;
+    letter-spacing: -0.018em;
+  }
+
+  ::selection {
+    background: var(--color-amber-400);
+    color: var(--color-forest-950);
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-forest-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-forest-700);
+    border-radius: 999px;
+    border: 3px solid var(--color-forest-950);
+  }
+  * {
+    scrollbar-color: var(--color-forest-700) var(--color-forest-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-amber-400);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Numeric readouts sit better with lining, tabular figures */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* ── ESG Portal light console — scoped overrides ──
+     The dashboard shell adds `.dash` to its root and `dash-root` to <html>
+     (so overscroll / short pages show paper, not the forest body base). */
+  html.dash-root,
+  html.dash-root body {
+    background-color: var(--color-paper);
+  }
+  html.dash-root {
+    color-scheme: light;
+    scrollbar-color: var(--color-line-strong) var(--color-paper);
+  }
+  html.dash-root ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  html.dash-root ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border: 3px solid var(--color-paper);
+  }
+
+  .dash {
+    color-scheme: light;
+    color: var(--color-ink);
+    /* The portal's display register is Newsreader — an editorial "of record"
+       serif that suits a conservation ledger, distinct from the cinematic
+       Instrument Serif the public site keeps. Scoped so the landing page is
+       untouched. */
+    --font-display: 'Newsreader', ui-serif, Georgia, 'Times New Roman', serif;
+  }
+
+  .dash .font-display {
+    font-optical-sizing: auto;
+    letter-spacing: -0.017em;
+    font-weight: 420;
+  }
+
+  .dash ::selection {
+    background: var(--color-emerald-900);
+    color: var(--color-bone);
+  }
+
+  .dash :focus-visible {
+    outline-color: var(--color-emerald-700);
+  }
+
+  /* On the dark-emerald sidebar the parchment-side outline colour is invisible
+     (fails WCAG 2.4.11 non-text contrast) — use white there. */
+  .dash aside :focus-visible {
+    outline-color: #ffffff;
+    outline-offset: 2px;
+  }
+
+  .dash ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  .dash ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border: 3px solid var(--color-paper);
+  }
+  .dash * {
+    scrollbar-color: var(--color-line-strong) var(--color-paper);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Cesium chrome — theme the parts the widget draws for us */
+.cesium-widget,
+.cesium-widget canvas {
+  background: var(--color-forest-950);
+}
+.cesium-credit-container,
+.cesium-widget-credits {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  color: var(--color-bone-500) !important;
+  filter: saturate(0.6) opacity(0.7);
+}
+.cesium-credit-container a,
+.cesium-widget-credits a {
+  color: var(--color-sage-300) !important;
+}
+/* Not an Ion project — drop the Ion logo, keep imagery attribution text */
+.cesium-credit-logoContainer {
+  display: none !important;
+}
+.cesium-viewer-bottom {
+  right: 8px;
+  left: auto;
+}
