@@ -34,17 +34,16 @@ export default function VideoTerrain({
     el.loop = true
     el.muted = true
     el.playsInline = true
-    el.autoplay = !reduced
     el.disablePictureInPicture = true
-    if (reduced) {
-      // An off-DOM <video> that's never played may never decode a frame,
-      // leaving the texture blank. Play briefly, then freeze on that frame.
-      el.play()
-        .then(() => el.pause())
-        .catch(() => {})
-    } else {
-      el.play().catch(() => {})
-    }
+    // No preload, no autoplay, no initial .play() here — this element is
+    // created the moment the section's chunk resolves, which for a section
+    // below the fold happens well before it's actually in view. Starting the
+    // fetch/decode at creation time meant every video-terrain section on the
+    // page began downloading its footage at page load, competing with the
+    // hero video and (once scrolled) the Cesium bundle for bandwidth. The
+    // `active`-driven effect below is the only place playback starts, so the
+    // byte fetch is deferred until the section is actually on screen.
+    el.preload = 'none'
     return el
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [src])
@@ -55,9 +54,20 @@ export default function VideoTerrain({
   // section's video would otherwise keep playing simultaneously, which is a
   // real source of scroll jank as more sections join the page.
   useEffect(() => {
-    if (reduced) return
-    if (active) video.play().catch(() => {})
-    else video.pause()
+    if (!active) {
+      video.pause()
+      return
+    }
+    if (reduced) {
+      // An off-DOM <video> that's never played may never decode a frame,
+      // leaving the texture blank. Play briefly, then freeze on that frame.
+      video
+        .play()
+        .then(() => video.pause())
+        .catch(() => {})
+    } else {
+      video.play().catch(() => {})
+    }
   }, [active, reduced, video])
 
   const texture = useMemo(() => {

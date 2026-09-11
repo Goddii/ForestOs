@@ -15,6 +15,7 @@ export default function BackgroundVideo({ videoRef }) {
         muted
         playsInline
         preload="auto"
+        fetchPriority="high"
         disablePictureInPicture
         aria-hidden="true"
         tabIndex={-1}

@@ -34,6 +34,16 @@ export default function Home() {
     document.title = 'ForestOS — Kenya’s Tea Buffer Belt'
   }, [])
 
+  // Warm the Cesium/globe chunk once the browser has spare idle time, so the
+  // ~4MB bundle is already cached by the time DeferredMount actually shows
+  // it — without competing with the hero video for bandwidth at page load.
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 1500))
+    const cancelIdle = window.cancelIdleCallback ?? clearTimeout
+    const handle = idle(() => import('../sections/GlobeSection'))
+    return () => cancelIdle(handle)
+  }, [])
+
   // A partner card selects its block and scrolls the belt map into view.
   const handleExploreBlock = useCallback((blockId) => {
     setActiveBlockId(blockId)
