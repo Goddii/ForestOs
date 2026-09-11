@@ -143,7 +143,7 @@ export function landscapeSummary() {
     value: {
       // Central Value Pool inflow (illustrative) — ESG capital deployed + the
       // premium the season's branded volume carries above the auction price.
-      esgDeployedUsd: ESG.fund.deployedUsd,
+      esgDeployedKes: ESG.fund.deployedKes,
       premiumKesPerKg: FAIR_PAY.totalPremiumKesPerKg,
       auctionBaselineKesPerKg: FAIR_PAY.auctionBaselineKesPerKg,
       seasonIntakeT: rollup.intakeSeasonT,

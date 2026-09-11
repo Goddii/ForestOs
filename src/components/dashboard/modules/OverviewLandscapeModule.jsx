@@ -42,7 +42,7 @@ function buildFlow() {
       line: 'Verified conservation and branded volume become visible economic value, in Kenyan Shillings.',
       figures: [
         { v: `+${s.value.premiumKesPerKg}`, k: `KES/kg above the ${kes(s.value.auctionBaselineKesPerKg)} auction price` },
-        { v: `$${(s.value.esgDeployedUsd / 1e6).toFixed(1)}M`, k: 'ESG capital deployed into the value pool' },
+        { v: `KES ${(s.value.esgDeployedKes / 1e9).toFixed(2)}B`, k: 'ESG capital deployed into the value pool' },
       ],
       to: '/dashboard/capital',
       cta: 'Open the value pool',

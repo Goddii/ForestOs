@@ -1,28 +1,29 @@
 // Mock data for the ESG Capital Manager view. Illustrative only — figures in
-// USD, no real fund.
+// KES, no real fund. USD mock figures converted at KES 129 / USD.
+const KES_PER_USD = 129
 
 export const ESG = {
   fund: {
-    committedUsd: 12_000_000,
-    deployedUsd: 7_450_000,
+    committedKes: 12_000_000 * KES_PER_USD,
+    deployedKes: 7_450_000 * KES_PER_USD,
     vintage: '2023',
     programs: [
-      { name: 'Buffer covenant payments', allocationPct: 38, deployedUsd: 3_100_000 },
-      { name: 'Satellite MRV & verification', allocationPct: 18, deployedUsd: 1_420_000 },
-      { name: 'Collection & processing infra', allocationPct: 22, deployedUsd: 1_680_000 },
-      { name: 'Farmer training & extension', allocationPct: 12, deployedUsd: 780_000 },
-      { name: 'Fund operations', allocationPct: 10, deployedUsd: 470_000 },
+      { name: 'Buffer covenant payments', allocationPct: 38, deployedKes: 3_100_000 * KES_PER_USD },
+      { name: 'Satellite MRV & verification', allocationPct: 18, deployedKes: 1_420_000 * KES_PER_USD },
+      { name: 'Collection & processing infra', allocationPct: 22, deployedKes: 1_680_000 * KES_PER_USD },
+      { name: 'Farmer training & extension', allocationPct: 12, deployedKes: 780_000 * KES_PER_USD },
+      { name: 'Fund operations', allocationPct: 10, deployedKes: 470_000 * KES_PER_USD },
     ],
   },
 
   drawdowns: [
-    { id: 'DD-14', date: '2026-09-01', amountUsd: 900_000, purpose: 'Q3 buffer covenant tranche', status: 'scheduled' },
-    { id: 'DD-13', date: '2026-06-03', amountUsd: 1_100_000, purpose: 'Nessuit processing line', status: 'drawn' },
-    { id: 'DD-12', date: '2026-03-04', amountUsd: 850_000, purpose: 'Q1 covenant + MRV', status: 'drawn' },
-    { id: 'DD-11', date: '2025-12-02', amountUsd: 1_000_000, purpose: 'Sentinel tasking + audit', status: 'drawn' },
-    { id: 'DD-15', date: '2026-12-01', amountUsd: 950_000, purpose: 'Q4 covenant tranche', status: 'pending' },
+    { id: 'DD-14', date: '2026-09-01', amountKes: 900_000 * KES_PER_USD, purpose: 'Q3 buffer covenant tranche', status: 'scheduled' },
+    { id: 'DD-13', date: '2026-06-03', amountKes: 1_100_000 * KES_PER_USD, purpose: 'Nessuit processing line', status: 'drawn' },
+    { id: 'DD-12', date: '2026-03-04', amountKes: 850_000 * KES_PER_USD, purpose: 'Q1 covenant + MRV', status: 'drawn' },
+    { id: 'DD-11', date: '2025-12-02', amountKes: 1_000_000 * KES_PER_USD, purpose: 'Sentinel tasking + audit', status: 'drawn' },
+    { id: 'DD-15', date: '2026-12-01', amountKes: 950_000 * KES_PER_USD, purpose: 'Q4 covenant tranche', status: 'pending' },
   ],
-  cumulativeDrawnUsdM: [2.0, 2.85, 3.85, 4.95, 6.35, 7.45],
+  cumulativeDrawnKesM: [2.0, 2.85, 3.85, 4.95, 6.35, 7.45].map((m) => m * KES_PER_USD),
 
   recovery: {
     ndviCurrent: 0.71,
