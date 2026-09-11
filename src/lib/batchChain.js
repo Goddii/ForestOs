@@ -31,6 +31,7 @@ const RECORDS = [
     sectorPlotId: 'KIP-09', // the SW-MAU sector-map plot this batch was pressed from
     channel: 'branded', // 'direct_sold' | 'branded' | 'auction'
     brand: 'Rift Valley Tea Co.',
+    brandId: 'riftValley', // → lib/brands.js BRANDS (public brand-beat + belt standings)
     product: 'Origin Series — First Flush',
     season: '2026 main crop',
     volumeKg: 1840,
@@ -93,6 +94,7 @@ const RECORDS = [
     sectorPlotId: 'NES-10',
     channel: 'branded',
     brand: 'Rift Valley Tea Co.',
+    brandId: 'riftValley',
     product: 'Origin Series — Highland Reserve',
     season: '2026 main crop',
     volumeKg: 1520,
@@ -150,11 +152,79 @@ const RECORDS = [
     community: { farmersRepresented: 29, womenPluckersPct: 57, paidMobileMoneyPct: 100, settledSameWeekPct: 88 },
   },
   {
+    // The consumer / artist collaboration batch — the public QR-scan demo pairs
+    // with this one (`/batch/921`). It sits in South West Mau like 802 so the
+    // public globe's fixed Kiptunga dive still reads true; `sectorPlotId` is
+    // null so it stays out of the dashboard's SW-MAU sector roll-up.
+    id: '921',
+    traceId: 'TL-2026-00521',
+    sectorPlotId: null,
+    channel: 'branded',
+    brand: 'Nyashinski Tea',
+    brandId: 'nyashinski',
+    product: 'I.D TAICHI — The Guardian Edition',
+    season: '2026 main crop',
+    volumeKg: 1660,
+    premiumKesPerKg: 15,
+    protectedPerCup: '11 m²',
+    hectaresPreserved: 3.0,
+    carbonTonnesCo2: 128,
+    settlementDays: 4,
+    land: {
+      name: 'Mau Forest Complex',
+      region: 'South West Mau',
+      waterTowers: ['Mara', 'Sondu', 'Ewaso Ng’iro'],
+    },
+    block: {
+      id: 'MAR',
+      name: 'Mariashoni Block',
+      bufferZone: 'Mau Forest',
+      region: 'Mariashoni Block, South West Mau',
+      covenantHa: 2870,
+      patrolsThisMonth: 12,
+      seedlingsPlanted: 3800,
+    },
+    plot: {
+      id: 'MAU-MAR-0921',
+      centre: 'Mariashoni Collection Centre',
+      lat: -0.552,
+      lon: 35.548,
+      areaHa: 3.7,
+      canopyBaseline2020Pct: 64,
+      canopyNowPct: 70,
+      ndvi: 0.7,
+      farmers: 33,
+    },
+    harvest: {
+      window: '2026-08-19 – 2026-08-25',
+      month: 'August 2026',
+      greenLeafKg: 7400,
+      pluckers: 1010,
+    },
+    batch: { sealedAt: '2026-08-27', madeTeaKg: 1660, grade: 'BP1' },
+    processing: {
+      facility: 'Mariashoni Tea Factory',
+      lotId: 'MTF-2026-0921',
+      processedAt: '2026-08-28',
+      method: 'CTC · 14 h withering',
+    },
+    verification: {
+      standard: 'EUDR — Deforestation-Free',
+      status: 'Verified',
+      timestamp: '2026-08-30 15:18 EAT',
+      reference: '0x3ac41f9e7b25d086',
+      field: { status: 'Verified', date: '2026-08-21', by: 'NTZDC field officer' },
+      satellite: { status: 'Verified', date: '2026-08-30', source: 'Sentinel-2 L2A', baseline: '2020-12-31' },
+    },
+    community: { farmersRepresented: 33, womenPluckersPct: 63, paidMobileMoneyPct: 100, settledSameWeekPct: 94 },
+  },
+  {
     id: '618',
     traceId: 'TL-2026-00388',
     sectorPlotId: null, // Aberdare Range — outside the SW-MAU sector map
     channel: 'direct_sold',
     brand: 'Highland Leaf Collective',
+    brandId: null, // no rich brand profile — brand-beat renders the minimal variant
     product: 'Single-Origin Aberdare',
     season: '2026 main crop',
     volumeKg: 980,
@@ -217,6 +287,7 @@ const RECORDS = [
     sectorPlotId: null, // Mount Kenya East — outside the SW-MAU sector map
     channel: 'branded',
     brand: 'Rift Valley Tea Co.',
+    brandId: 'riftValley',
     product: 'Origin Series — Mount Kenya',
     season: '2026 early crop',
     volumeKg: 1310,
@@ -280,6 +351,7 @@ const RECORDS = [
     sectorPlotId: null,
     channel: 'auction',
     brand: null,
+    brandId: null,
     product: 'Mombasa auction lot',
     season: '2026 main crop',
     volumeKg: 5400,
@@ -456,8 +528,18 @@ export function toLegacyBatch(record) {
   // downloaded passport agrees with the dashboard chain.
   return {
     id: record.id,
+    brandId: record.brandId ?? null,
+    brand: record.brand,
+    product: record.product,
     bufferZone: record.block.bufferZone,
     region: record.block.region,
+    block: {
+      name: record.block.name,
+      bufferZone: record.block.bufferZone,
+      covenantHa: record.block.covenantHa,
+      patrolsThisMonth: record.block.patrolsThisMonth,
+      seedlingsPlanted: record.block.seedlingsPlanted,
+    },
     protectedPerCup: record.protectedPerCup,
     hectaresPreserved: record.hectaresPreserved == null ? null : String(record.hectaresPreserved),
     sourcedVolumeKg: record.volumeKg,

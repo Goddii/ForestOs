@@ -4,6 +4,7 @@ import DeferredMount from '../components/util/DeferredMount'
 import MacroNav from '../components/home/MacroNav'
 import MacroHero from '../components/home/MacroHero'
 import ImpactTicker from '../components/home/ImpactTicker'
+import BufferBeltViewer from '../components/home/BufferBeltViewer'
 import PartnerShowcase from '../components/home/PartnerShowcase'
 import MacroFooter from '../components/home/MacroFooter'
 
@@ -58,6 +59,7 @@ export default function Home() {
           </Suspense>
         </DeferredMount>
         <ImpactTicker />
+        <BufferBeltViewer />
         <PartnerShowcase onExplore={handleExploreBlock} />
       </main>
 

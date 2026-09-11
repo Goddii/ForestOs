@@ -1,6 +1,9 @@
+import { lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, FileCheck2, HandCoins, Satellite, QrCode } from 'lucide-react'
-import LoopingVideo from '../LoopingVideo'
+import { useInViewport } from '../../hooks/useInViewport'
+
+const VideoTerrainScene = lazy(() => import('../../scenes/videoTerrain/VideoTerrainScene'))
 
 const MODULES = [
   { icon: FileCheck2, label: 'EUDR audit export', note: 'plot-level GeoJSON' },
@@ -10,23 +13,40 @@ const MODULES = [
 ]
 
 /**
- * Corporate gateway — "the export". Muted cargo-ship footage runs behind a
- * gradient that carries the palette from the forest ground at the top edge down
- * into the cool structural neutrals of the B2B dashboard theme.
+ * Corporate gateway — "the export". The cargo-ship footage is the same
+ * real-footage WebGL relief treatment as the Buffer Belt viewer, not a flat
+ * video — a gentle, subtle parallax befitting a footer rather than a focal
+ * viewer (`parallaxRange` is turned down).
+ *
+ * The footer's height is content-driven (its card + banner + disclosure
+ * rows), so the background layer can't use `height:100%` the way a
+ * fixed-height section can (that needs a *definite* ancestor height — see
+ * `BufferBeltViewer`). Instead, the footer is a CSS grid whose background
+ * layer and content layer share one implicit cell (`col/row-start-1`): the
+ * content's natural height sizes the row, and the grid's default stretch
+ * behaviour gives the background layer that same height directly — no
+ * ResizeObserver needed.
  */
 export default function MacroFooter() {
+  const [sectionRef, inView] = useInViewport()
+
   return (
-    <footer className="relative z-10 overflow-hidden bg-forest-950">
-      <LoopingVideo
-        src="/media/cargo-ship.mp4"
-        playbackRate={0.7}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+    <footer ref={sectionRef} className="relative z-10 grid overflow-hidden bg-forest-950">
+      <div className="col-start-1 row-start-1 h-full w-full min-w-0">
+        <Suspense fallback={null}>
+          <VideoTerrainScene
+            src="/media/cargo-ship.mp4"
+            active={inView}
+            parallaxRange={0.3}
+            shadeRange={[0.65, 0.98]}
+          />
+        </Suspense>
+      </div>
       {/* Forest-950 at the top seam → opaque cool slate at the base, bridging the
           site palette into the dark corporate dashboard shell. */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-deep via-slate-deep/72 to-forest-950/92" />
+      <div className="pointer-events-none col-start-1 row-start-1 min-w-0 bg-gradient-to-t from-slate-deep via-slate-deep/72 to-forest-950/92" />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
+      <div className="relative col-start-1 row-start-1 mx-auto min-w-0 max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
         <div className="grid gap-6 rounded-3xl border border-amber-400/25 bg-slate-deep/55 p-8 shadow-[0_24px_70px_-20px_rgba(0,0,0,0.7)] backdrop-blur-xl sm:p-12 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">
@@ -63,7 +83,21 @@ export default function MacroFooter() {
           </ul>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-bone/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-bone/10 bg-slate-deep/50 px-6 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <p className="text-[14px] leading-snug text-bone-300">
+            <span className="text-bone">Not sponsoring a block yet?</span> Launch a
+            co-branded edition and adopt a sector of the belt.
+          </p>
+          <Link
+            to="/launch"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-amber-400/40 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-amber-400 transition-colors duration-200 hover:border-amber-400 hover:bg-amber-400/10"
+          >
+            Request a Forest Edition
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-bone/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-sage-500">
             ForestOS · Prototype · Nairobi
           </p>

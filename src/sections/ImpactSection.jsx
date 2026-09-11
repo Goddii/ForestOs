@@ -1,6 +1,7 @@
-import { ArrowRight, ShieldCheck } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import LoopingVideo from '../components/LoopingVideo'
+import VerificationBadge from '../components/ui/VerificationBadge'
 import { ERAS, IMPACT } from '../lib/mock'
 import { useBatch } from '../lib/batchContext'
 
@@ -110,35 +111,6 @@ function FarmerRecord() {
   )
 }
 
-function TransparencyRecord() {
-  const { transparency } = IMPACT
-  return (
-    <div className="rounded-2xl border border-bone/15 bg-forest-950/40 p-6 backdrop-blur-sm sm:p-8">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-start gap-4">
-          <span className="mt-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-full border border-amber-400/40 bg-amber-400/10">
-            <ShieldCheck className="h-5 w-5 text-amber-400" strokeWidth={2} />
-          </span>
-          <div>
-            <h3 className="font-display text-2xl text-bone">{transparency.badge}</h3>
-            <p className="mt-1 max-w-[44ch] text-[14px] leading-relaxed text-bone-300">
-              {transparency.body}
-            </p>
-          </div>
-        </div>
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-2 font-mono text-[11px] sm:text-right">
-          <dt className="text-sage-500">Plot</dt>
-          <dd className="text-bone-300">{transparency.plotId}</dd>
-          <dt className="text-sage-500">Verified</dt>
-          <dd className="text-bone-300">{transparency.timestamp}</dd>
-          <dt className="text-sage-500">Ref</dt>
-          <dd className="text-bone-300">{transparency.reference}</dd>
-        </dl>
-      </div>
-    </div>
-  )
-}
-
 export default function ImpactSection() {
   const BATCH = useBatch()
   return (
@@ -169,7 +141,15 @@ export default function ImpactSection() {
             <FarmerRecord />
           </Reveal>
           <Reveal className="lg:col-span-12" delay={0.12}>
-            <TransparencyRecord />
+            <VerificationBadge
+              title={IMPACT.transparency.badge}
+              body={IMPACT.transparency.body}
+              fields={[
+                { label: 'Plot', value: IMPACT.transparency.plotId },
+                { label: 'Verified', value: IMPACT.transparency.timestamp },
+                { label: 'Ref', value: IMPACT.transparency.reference },
+              ]}
+            />
           </Reveal>
         </div>
       </div>

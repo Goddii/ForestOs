@@ -15,13 +15,25 @@ export default function MacroNav() {
 
   useEffect(() => {
     let last = window.scrollY
-    const onScroll = () => {
+    let ticking = false
+
+    const update = () => {
       const y = window.scrollY
       setSolid(y > SOLID_AFTER)
       setHidden(y > last && y > window.innerHeight * 0.9)
       last = y
+      ticking = false
     }
-    onScroll()
+
+    // Batch to one state update per animation frame — a raw scroll listener
+    // can fire far more often than that and drives redundant re-renders.
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(update)
+    }
+
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -54,6 +66,12 @@ export default function MacroNav() {
               className="hidden px-1 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-300 transition-colors hover:text-bone sm:inline"
             >
               The Belt
+            </a>
+            <a
+              href="#buffer-belt"
+              className="hidden px-1 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-300 transition-colors hover:text-bone sm:inline"
+            >
+              Buffer Belt
             </a>
             <a
               href="#partners"

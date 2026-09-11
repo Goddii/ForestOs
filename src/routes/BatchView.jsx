@@ -5,6 +5,7 @@ import BackgroundVideo from '../components/BackgroundVideo'
 import DeferredMount from '../components/util/DeferredMount'
 import Hero from '../sections/Hero'
 import ImpactSection from '../sections/ImpactSection'
+import BrandBeatSection from '../sections/BrandBeatSection'
 import PassportFooter from '../sections/PassportFooter'
 import { BatchContext } from '../lib/batchContext'
 import { resolveBatch } from '../lib/mock'
@@ -61,6 +62,7 @@ export default function BatchView() {
           </Suspense>
         </DeferredMount>
         <ImpactSection />
+        <BrandBeatSection />
         <PassportFooter />
       </main>
     </BatchContext.Provider>

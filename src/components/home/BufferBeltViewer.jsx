@@ -1,0 +1,56 @@
+import { Suspense, lazy } from 'react'
+import { PARTNERS } from '../../lib/platformData'
+import { useInViewport } from '../../hooks/useInViewport'
+
+const VideoTerrainScene = lazy(() => import('../../scenes/videoTerrain/VideoTerrainScene'))
+
+const lead = PARTNERS[0]
+
+/**
+ * The buffer belt itself, full-bleed — same Video-Bleed Section Rule every
+ * other section on this page follows (fixed video plane, opaque wash at the
+ * seams, content in a layer above), except the "video" is a live WebGL
+ * scene: a plane whose relief is displaced from the real footage's own
+ * luminance, with the camera genuinely moving in 3D as the pointer moves.
+ * No bordered card — the terrain bleeds straight into the section.
+ *
+ * Uses an explicit `h-[85svh]` (not `min-h`) — the Canvas's internal wrapper
+ * sizes itself via `height: 100%`, which cannot resolve against an
+ * auto-height ancestor, so an auto/min-height section collapses the canvas
+ * to the browser's 150px default. Same reason `Act1Scene` uses `h-[100svh]`.
+ */
+export default function BufferBeltViewer() {
+  const [sectionRef, inView] = useInViewport()
+
+  return (
+    <section
+      id="buffer-belt"
+      ref={sectionRef}
+      className="relative z-10 h-[85svh] scroll-mt-20 overflow-hidden bg-forest-950"
+    >
+      <Suspense fallback={null}>
+        <VideoTerrainScene src="/media/field1.mp4" active={inView} />
+      </Suspense>
+
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-forest-950 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-forest-950 to-transparent" />
+
+      <div className="pointer-events-none absolute inset-x-0 top-0 mx-auto max-w-6xl px-6 pt-20 sm:px-8 sm:pt-24">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-sage-500">
+          {lead.block} · {lead.hectares.toLocaleString()} ha under covenant
+        </p>
+        <h2 className="mt-3 max-w-[20ch] font-display text-3xl leading-[1.08] text-bone sm:text-5xl">
+          The buffer belt, up close.
+        </h2>
+        <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-sage-300">
+          A tea-farm corridor running the forest edge, built from the real
+          footage itself. Move your cursor across the frame to look around it.
+        </p>
+      </div>
+
+      <p className="pointer-events-none absolute bottom-8 left-6 font-mono text-[10px] uppercase tracking-[0.16em] text-sage-300 sm:bottom-10 sm:left-8">
+        {lead.sector} · {lead.counties} counties
+      </p>
+    </section>
+  )
+}

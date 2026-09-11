@@ -16,6 +16,14 @@ const EGRESS_FRACTION = 0.3
 const EGRESS_RISE = -50
 // Scrub catch-up in seconds — smooths coarse webm keyframe seeks.
 const SCRUB = 0.5
+// Idle loop: plays this opening slice, at real native playback (not a
+// manually-scrubbed currentTime — see the hook doc below for why that
+// matters), before the visitor scrolls, so the canopy feels alive rather
+// than sitting frozen on frame 0.
+const IDLE_LOOP_END = 7
+// Loop-point and scroll-handoff cuts are masked with a brief opacity dip
+// rather than shown as a hard jump — this is what makes both feel smooth.
+const CUT_FADE_MS = 260
 
 // Narrative sequence: three statements sweep the middle of the window, one per
 // 20% band (30-50-70-90%), each entering, holding, then clearing before the next.
@@ -30,6 +38,23 @@ const STORY_EXIT_Y = -44 // keeps drifting up on the way out
 
 /**
  * "Dive into the canopy" — the hero's scroll-driven handoff to the 3D map.
+ *
+ * Before the visitor scrolls at all, the opening `IDLE_LOOP_END` seconds of
+ * the background video play at real, native playback — a gentle "the scene
+ * is alive" cue rather than a frozen first frame. This deliberately does
+ * NOT reuse the scroll-scrub's technique of repeatedly setting `currentTime`
+ * on a paused video: browsers only decode and paint a seek's target frame
+ * when the seek is left to settle, and a paused video seeked 60 times a
+ * second (an earlier version of this idle loop did exactly that) never gets
+ * a chance to actually paint anything — the number advances, the picture
+ * doesn't. Real playback has no such problem.
+ *
+ * Both the loop-point (looping back to 0) and the scroll-handoff (killing
+ * the idle loop so the scrub below takes over `currentTime`) are hard cuts
+ * in the underlying frame — masked with a brief opacity dip
+ * (`CUT_FADE_MS`) rather than left as a visible jump. Skipped altogether if
+ * the page is already scrolled on mount (a reload mid-page, a deep link) —
+ * the scrub is the only source of truth then.
  *
  * A single pinned ScrollTrigger opens a dedicated scroll-window over `heroRef`.
  * Across that window it:
@@ -55,6 +80,46 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
     if (!hero || !video || !enabled) return
 
     video.pause()
+
+    // Idle loop — only meaningful if the page hasn't already been scrolled
+    // into the dive (a reload, a deep link straight to a lower section).
+    let idleActive = window.scrollY <= 4
+    let cutTimer = null
+
+    // Dips opacity, runs `action` while the frame is hidden, fades back in —
+    // hides a hard cut instead of showing it.
+    const cutThrough = (action) => {
+      video.style.transition = `opacity ${CUT_FADE_MS}ms ease`
+      video.style.opacity = '0'
+      clearTimeout(cutTimer)
+      cutTimer = setTimeout(() => {
+        action()
+        video.style.opacity = '1'
+      }, CUT_FADE_MS)
+    }
+
+    const onIdleTimeUpdate = () => {
+      if (video.currentTime < IDLE_LOOP_END) return
+      // Pausing stops further `timeupdate` events immediately, so this can't
+      // re-fire and restart the fade mid-cut.
+      video.pause()
+      cutThrough(() => {
+        video.currentTime = 0
+        video.play().catch(() => {})
+      })
+    }
+    const stopIdle = () => {
+      if (!idleActive) return
+      idleActive = false
+      video.removeEventListener('timeupdate', onIdleTimeUpdate)
+      cutThrough(() => video.pause())
+    }
+    if (idleActive) {
+      video.addEventListener('timeupdate', onIdleTimeUpdate)
+      video.play().catch(() => {})
+      // Any scroll input at all hands control to the scrub below.
+      window.addEventListener('scroll', stopIdle, { once: true, passive: true })
+    }
 
     let ctx
     let removeMetaListener = () => {}
@@ -157,6 +222,9 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
 
     return () => {
       removeMetaListener()
+      window.removeEventListener('scroll', stopIdle)
+      if (idleActive) video.removeEventListener('timeupdate', onIdleTimeUpdate)
+      clearTimeout(cutTimer)
       ctx?.revert()
     }
   }, [heroRef, videoRef, enabled])

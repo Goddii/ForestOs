@@ -52,7 +52,8 @@ export const BELT_BLOCKS = [
     view: { lon: 35.55, lat: -1.15, height: 240000, pitchDeg: -38, headingDeg: 8 },
     hectares: 4820,
     collectionCentres: ['Kiptunga', 'Nessuit', 'Mariashoni', 'Tinet'],
-    sponsor: 'Rift Valley Tea Co.',
+    sponsor: 'Nyashinski Tea',
+    brandId: 'nyashinski',
     sector: 'South West Mau Sector',
   },
   {
@@ -64,7 +65,8 @@ export const BELT_BLOCKS = [
     view: { lon: 36.75, lat: -0.95, height: 200000, pitchDeg: -40, headingDeg: -6 },
     hectares: 3140,
     collectionCentres: ['Wanjohi', 'Ndunyu Njeru', 'Othaya'],
-    sponsor: 'Highland Leaf Brands',
+    sponsor: 'Rift Valley Tea Co.',
+    brandId: 'riftValley',
     sector: 'Aberdare East Belt',
   },
   {
@@ -77,6 +79,7 @@ export const BELT_BLOCKS = [
     hectares: 3960,
     collectionCentres: ['Kangaita', 'Ndima', 'Weru', 'Michimikuru'],
     sponsor: 'Meridian Beverages',
+    brandId: 'meridian',
     sector: 'Mt. Kenya West Ridge',
   },
   {
@@ -89,6 +92,7 @@ export const BELT_BLOCKS = [
     hectares: 1490,
     collectionCentres: ['Kapsara', 'Kabolet'],
     sponsor: 'Nordic Chai Import',
+    brandId: 'nordicChai',
     sector: 'Cherangany Escarpment',
   },
   {
@@ -101,6 +105,7 @@ export const BELT_BLOCKS = [
     hectares: 840,
     collectionCentres: ['Kaptama', 'Kimothon'],
     sponsor: 'West Ridge Organics',
+    brandId: 'westRidge',
     sector: 'Elgon Southern Foot',
   },
 ]

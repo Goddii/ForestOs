@@ -1,15 +1,20 @@
-import { ArrowUpRight } from 'lucide-react'
 import LoopingVideo from '../LoopingVideo'
+import Reveal from '../Reveal'
 import SectionIntro from '../ui/SectionIntro'
-import { PARTNERS, PARTNER_MAX_HECTARES } from '../../lib/platformData'
-
-// Bento spans, largest block first — the grid carries the belt's real scale.
-const SPANS = ['lg:col-span-3', 'lg:col-span-3', 'lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2']
+import BrandFeature from './BrandFeature'
+import ImpactLeague from './ImpactLeague'
+import Cop32Milestone from './Cop32Milestone'
+import AmbitionRoadmap from './AmbitionRoadmap'
+import EnablingPartners from './EnablingPartners'
+import PartnerArchetypes from './PartnerArchetypes'
+import { STANDINGS } from '../../lib/brands'
 
 /**
  * Participating brands and the belt sectors they sponsor — "the consumer".
- * Muted tea-pour footage runs behind a heavy forest wash; each card is sized by
- * its block's hectares and flies the belt globe to that sector on click.
+ * Muted tea-pour footage runs behind a heavy forest wash; a lead-brand feature
+ * sits above a ranked Conservation Impact League, with every card and row flying
+ * the belt globe to that block. The COP32 milestone is the finish line the
+ * standings race toward.
  *
  * @param {(blockId: string) => void} onExplore
  */
@@ -26,53 +31,34 @@ export default function PartnerShowcase({ onExplore }) {
 
       <div className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-24">
         <SectionIntro
-          eyebrow="5 blocks · 5 sponsoring brands"
+          eyebrow={`${STANDINGS.length} sponsoring brands · 1 belt`}
           title="Every sector of the belt has a name on it."
-          body="Offtakers and consumer brands adopt a forest block, fund its plucker premium and conservation covenant, and report against it in the ESG portal."
+          body="Consumer brands adopt a forest block, fund its plucker premium and conservation covenant, and report against it in the ESG portal. This is where they stand."
         />
 
-        <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6">
-          {PARTNERS.map((partner, i) => {
-            const fill = Math.round((partner.hectares / PARTNER_MAX_HECTARES) * 100)
-            return (
-              <li key={partner.id} className={SPANS[i] ?? 'lg:col-span-2'}>
-                <button
-                  type="button"
-                  onClick={() => onExplore?.(partner.id)}
-                  aria-label={`Fly the belt map to ${partner.block}, sponsored by ${partner.brand}`}
-                  className="group flex w-full flex-col rounded-2xl border border-bone/15 bg-forest-950/40 p-5 text-left backdrop-blur-md transition-colors duration-200 hover:bg-forest-950/60"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="font-display text-xl text-bone">{partner.brand}</p>
-                    <ArrowUpRight
-                      className="h-4 w-4 shrink-0 text-sage-500 transition-colors group-hover:text-amber-400"
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <p className="mt-1 text-[13px] text-bone-300">
-                    sponsors the {partner.sector}
-                  </p>
-                  <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-500">
-                    {partner.counties} counties · {partner.centres} collection centres
-                  </p>
+        <Reveal className="mt-12 block">
+          <BrandFeature onExplore={onExplore} />
+        </Reveal>
 
-                  <div className="mt-4 pt-4">
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-bone/15">
-                      <div
-                        className="h-full rounded-full bg-sage-500"
-                        style={{ width: `${fill}%` }}
-                      />
-                    </div>
-                    <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-500">
-                      {partner.block} · {partner.hectares.toLocaleString()} ha
-                    </p>
-                  </div>
-                </button>
-              </li>
-            )
-          })}
-        </ul>
+        <Reveal className="mt-16 block" delay={0.05}>
+          <ImpactLeague onExplore={onExplore} />
+        </Reveal>
+
+        <Reveal className="mt-10 block" delay={0.08}>
+          <Cop32Milestone />
+        </Reveal>
+
+        <Reveal className="mt-16 block" delay={0.1}>
+          <AmbitionRoadmap />
+        </Reveal>
+
+        <Reveal className="mt-14 block" delay={0.12}>
+          <EnablingPartners />
+        </Reveal>
+
+        <Reveal className="mt-10 block" delay={0.14}>
+          <PartnerArchetypes />
+        </Reveal>
       </div>
     </section>
   )
