@@ -34,14 +34,22 @@ export default function Home() {
     document.title = 'ForestOS — Kenya’s Tea Buffer Belt'
   }, [])
 
-  // Warm the Cesium/globe chunk once the browser has spare idle time, so the
-  // ~4MB bundle is already cached by the time DeferredMount actually shows
-  // it — without competing with the hero video for bandwidth at page load.
+  // Warm the Cesium/globe chunk (~1.2MB gzip) a couple seconds after mount,
+  // so it's already cached by the time DeferredMount actually shows it —
+  // without competing with the hero video for bandwidth at page load.
+  //
+  // Neither `requestIdleCallback` nor `window.load` are a reliable "the
+  // critical path is clear" signal on this page: `requestIdleCallback` just
+  // means "no pending paint work queued right now", which is true within
+  // milliseconds of mount on a page whose only synchronous work is the
+  // initial render; and Chrome fires `load` once the hero `<video>`'s
+  // request has *started* (not once it's actually buffered), so it fires
+  // almost as early. Both were measured firing inside the same network wave
+  // as the hero video and initial JS — the opposite of what this warm-up is
+  // for. A fixed delay is the dependable version of the same intent.
   useEffect(() => {
-    const idle = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 1500))
-    const cancelIdle = window.cancelIdleCallback ?? clearTimeout
-    const handle = idle(() => import('../sections/GlobeSection'))
-    return () => cancelIdle(handle)
+    const handle = setTimeout(() => import('../sections/GlobeSection'), 2000)
+    return () => clearTimeout(handle)
   }, [])
 
   // A partner card selects its block and scrolls the belt map into view.

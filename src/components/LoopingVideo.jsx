@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useInViewport } from '../hooks/useInViewport'
 
 /**
@@ -8,16 +8,30 @@ import { useInViewport } from '../hooks/useInViewport'
  * motion, matching the reduced-motion convention used across the page — and
  * paused/resumed as the section scrolls out of and back into view, so a
  * section a visitor has long scrolled past doesn't keep decoding video.
+ *
+ * `preload` starts at "none" and only flips to "auto" the first time the
+ * section enters the viewport — otherwise every LoopingVideo on the page
+ * (several screens below the fold) starts buffering at mount, competing with
+ * the fixed hero video and the initial JS/CSS for bandwidth before the
+ * visitor has scrolled at all. Once fetched it stays fetched (no reverting
+ * to "none" on scroll-out — only playback pauses).
  */
 export default function LoopingVideo({ src, className, playbackRate = 1 }) {
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const videoRef = useRef(null)
   const [viewportRef, inView] = useInViewport()
+  const loadedRef = useRef(false)
 
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
     node.playbackRate = playbackRate
+
+    if (inView && !loadedRef.current) {
+      loadedRef.current = true
+      node.preload = 'auto'
+      node.load()
+    }
 
     if (reduced) {
       node.pause()
@@ -38,7 +52,7 @@ export default function LoopingVideo({ src, className, playbackRate = 1 }) {
       loop
       muted
       playsInline
-      preload="auto"
+      preload="none"
       disablePictureInPicture
       aria-hidden="true"
       tabIndex={-1}

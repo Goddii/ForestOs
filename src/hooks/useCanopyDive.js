@@ -1,8 +1,4 @@
 import { useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 // Length of the pinned scroll-window, as a fraction of viewport height.
 const DIVE_DISTANCE = '+=150%'
@@ -72,6 +68,12 @@ const STORY_EXIT_Y = -44 // keeps drifting up on the way out
  * All GSAP work is scoped through `gsap.context(fn, heroRef)`, so every tween,
  * the ScrollTrigger, and its pin-spacer are fully reverted on unmount, on a
  * dependency change, or on a React re-run — no leaked triggers or stale pins.
+ *
+ * `gsap` and `gsap/ScrollTrigger` are dynamically imported inside the effect
+ * rather than statically at module scope, so their ~44KB (gzip) doesn't sit
+ * on the Home route's critical bundle. Nothing here needs GSAP before the
+ * visitor scrolls — the idle loop above runs on native `video.play()` alone —
+ * so the pin/scrub simply attaches a beat later once the chunk arrives.
  */
 export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
   useEffect(() => {
@@ -122,9 +124,10 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
     }
 
     let ctx
+    let cancelled = false
     let removeMetaListener = () => {}
 
-    const build = () => {
+    const build = (gsap, ScrollTrigger) => {
       const duration = video.duration
       if (!Number.isFinite(duration) || duration <= 0) return
 
@@ -212,15 +215,26 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
       ScrollTrigger.refresh()
     }
 
-    if (video.readyState >= 1 && Number.isFinite(video.duration)) {
-      build()
-    } else {
-      const onMeta = () => build()
-      video.addEventListener('loadedmetadata', onMeta, { once: true })
-      removeMetaListener = () => video.removeEventListener('loadedmetadata', onMeta)
-    }
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+      ([{ gsap }, { ScrollTrigger }]) => {
+        // Effect deps changed (or the component unmounted) before the chunk
+        // arrived — the cleanup below already ran, nothing left to attach.
+        if (cancelled) return
+
+        gsap.registerPlugin(ScrollTrigger)
+        const runBuild = () => build(gsap, ScrollTrigger)
+
+        if (video.readyState >= 1 && Number.isFinite(video.duration)) {
+          runBuild()
+        } else {
+          video.addEventListener('loadedmetadata', runBuild, { once: true })
+          removeMetaListener = () => video.removeEventListener('loadedmetadata', runBuild)
+        }
+      },
+    )
 
     return () => {
+      cancelled = true
       removeMetaListener()
       window.removeEventListener('scroll', stopIdle)
       if (idleActive) video.removeEventListener('timeupdate', onIdleTimeUpdate)

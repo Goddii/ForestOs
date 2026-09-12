@@ -1,5 +1,8 @@
 // Served from /public/media (copied in during project setup).
 const FOREST_VIDEO = '/media/forest1.webm'
+// One still frame of the same footage — paints instantly while the video
+// buffers, instead of a flat bg-forest-950 fill.
+const FOREST_POSTER = '/media/forest1-poster.jpg'
 
 /**
  * Fixed, full-viewport cinematic background. The hero drives its playback head
@@ -12,6 +15,7 @@ export default function BackgroundVideo({ videoRef }) {
         ref={videoRef}
         className="h-full w-full object-cover"
         src={FOREST_VIDEO}
+        poster={FOREST_POSTER}
         muted
         playsInline
         preload="auto"

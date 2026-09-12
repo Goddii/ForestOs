@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -11,7 +12,7 @@ export default function Hotspot({ x, y, label, title, body }) {
   const [open, setOpen] = useState(false)
   const rootRef = useRef(null)
   const cardId = useId()
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
     if (!open) return

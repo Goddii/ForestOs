@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -7,7 +8,7 @@ const EASE = [0.16, 1, 0.3, 1]
  * short blur + rise. Honors prefers-reduced-motion by rendering statically.
  */
 export default function Reveal({ children, className, delay = 0, y = 22 }) {
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   if (reduced) return <div className={className}>{children}</div>
   return (
     <motion.div

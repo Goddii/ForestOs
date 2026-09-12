@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { useCanopyDive } from '../../hooks/useCanopyDive'
 import Hotspot from '../Hotspot'
 
@@ -29,7 +29,7 @@ export default function CinematicHero({
   children,
 }) {
   const heroRef = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
 
   useCanopyDive(heroRef, videoRef, { enabled: !reduced })
 

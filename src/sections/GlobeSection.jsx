@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
+import '../lib/cesiumBootstrap'
 import Reveal from '../components/Reveal'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Globe from '../components/Globe'

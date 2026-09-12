@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react'
+import '../../../lib/cesiumBootstrap'
 import { Viewer, Entity, PolygonGraphics, useCesium } from 'resium'
 import {
   Cartesian2,
