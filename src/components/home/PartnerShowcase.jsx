@@ -1,4 +1,3 @@
-import LoopingVideo from '../LoopingVideo'
 import Reveal from '../Reveal'
 import SectionIntro from '../ui/SectionIntro'
 import BrandFeature from './BrandFeature'
@@ -11,9 +10,12 @@ import { STANDINGS } from '../../lib/brands'
 
 /**
  * Participating brands and the belt sectors they sponsor — "the consumer".
- * Muted tea-pour footage runs behind a heavy forest wash; a lead-brand feature
- * sits above a ranked Conservation Impact League, with every card and row flying
- * the belt globe to that block. The COP32 milestone is the finish line the
+ * A still frame of the tea-pour footage sits behind a heavy forest wash
+ * (the wash already muted the video to near-static, so the swap from a
+ * looping clip to one frame reads the same but costs nothing at scroll —
+ * no fetch, no decode, no GPU work); a lead-brand feature sits above a
+ * ranked Conservation Impact League, with every card and row flying the
+ * belt globe to that block. The COP32 milestone is the finish line the
  * standings race toward.
  *
  * @param {(blockId: string) => void} onExplore
@@ -21,11 +23,18 @@ import { STANDINGS } from '../../lib/brands'
 export default function PartnerShowcase({ onExplore }) {
   return (
     <section id="partners" className="relative z-10 scroll-mt-20 overflow-hidden bg-forest-950">
-      <LoopingVideo
-        src="/media/tea-pour.webm"
-        playbackRate={0.8}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      <picture>
+        <source srcSet="/media/tea-pour-poster.webp" type="image/webp" />
+        <img
+          src="/media/tea-pour-poster.jpg"
+          alt=""
+          width={1920}
+          height={1080}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </picture>
       {/* Heavy, moody wash — opaque at the seams, ~70% through the middle. */}
       <div className="absolute inset-0 bg-gradient-to-b from-forest-950 via-forest-950/72 to-forest-950/92 backdrop-blur-[2px]" />
 

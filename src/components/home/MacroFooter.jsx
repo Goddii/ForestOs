@@ -1,9 +1,5 @@
-import { lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, FileCheck2, HandCoins, Satellite, QrCode } from 'lucide-react'
-import { useInViewport } from '../../hooks/useInViewport'
-
-const VideoTerrainScene = lazy(() => import('../../scenes/videoTerrain/VideoTerrainScene'))
 
 const MODULES = [
   { icon: FileCheck2, label: 'EUDR audit export', note: 'plot-level GeoJSON' },
@@ -13,10 +9,13 @@ const MODULES = [
 ]
 
 /**
- * Corporate gateway — "the export". The cargo-ship footage is the same
- * real-footage WebGL relief treatment as the Buffer Belt viewer, not a flat
- * video — a gentle, subtle parallax befitting a footer rather than a focal
- * viewer (`parallaxRange` is turned down).
+ * Corporate gateway — "the export". Previously carried the same real-footage
+ * WebGL relief treatment as the Buffer Belt viewer, backed by cargo-ship
+ * footage — pulled for now because that clip is unlicensed Shutterstock
+ * preview footage (visible watermark). Falls back to the plain gradient
+ * below until a licensed replacement (video or still) is ready; re-add a
+ * `<VideoTerrainScene src="/media/<licensed-clip>" .../>` in the empty cell
+ * below the same way `BufferBeltViewer` does when one lands.
  *
  * The footer's height is content-driven (its card + banner + disclosure
  * rows), so the background layer can't use `height:100%` the way a
@@ -28,20 +27,8 @@ const MODULES = [
  * ResizeObserver needed.
  */
 export default function MacroFooter() {
-  const [sectionRef, inView] = useInViewport()
-
   return (
-    <footer ref={sectionRef} className="relative z-10 grid overflow-hidden bg-forest-950">
-      <div className="col-start-1 row-start-1 h-full w-full min-w-0">
-        <Suspense fallback={null}>
-          <VideoTerrainScene
-            src="/media/cargo-ship.mp4"
-            active={inView}
-            parallaxRange={0.3}
-            shadeRange={[0.65, 0.98]}
-          />
-        </Suspense>
-      </div>
+    <footer className="relative z-10 grid overflow-hidden bg-forest-950">
       {/* Forest-950 at the top seam → opaque cool slate at the base, bridging the
           site palette into the dark corporate dashboard shell. */}
       <div className="pointer-events-none col-start-1 row-start-1 min-w-0 bg-gradient-to-t from-slate-deep via-slate-deep/72 to-forest-950/92" />
