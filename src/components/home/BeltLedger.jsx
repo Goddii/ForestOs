@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import CountUp from '../ui/CountUp'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { useInViewport } from '../../hooks/useInViewport'
 import { BELT_BLOCKS } from '../../lib/platformData'
 
 const SORTED_BLOCKS = [...BELT_BLOCKS].sort((a, b) => b.hectares - a.hectares)
@@ -14,6 +15,8 @@ const TOTAL = SORTED_BLOCKS.length
 // a swipe rather than springing back to centre.
 const SWIPE_DISTANCE = 90
 const SWIPE_VELOCITY = 500
+// How long the stack holds on a card before auto-advancing.
+const AUTOPLAY_MS = 4500
 
 const cardVariants = {
   enter: (dir) => ({ x: dir > 0 ? 320 : -320, opacity: 0, scale: 0.94 }),
@@ -23,7 +26,7 @@ const cardVariants = {
 
 /** The front, draggable card — a direct-manipulation "flick through the
     blocks" gesture rather than a passive list. */
-function BlockCard({ block, index, direction, reduced, onSwipe }) {
+function BlockCard({ block, index, direction, reduced, onSwipe, onDragStart, onDragEnd }) {
   return (
     <motion.div
       custom={direction}
@@ -40,7 +43,9 @@ function BlockCard({ block, index, direction, reduced, onSwipe }) {
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.6}
       whileDrag={{ cursor: 'grabbing' }}
+      onDragStart={onDragStart}
       onDragEnd={(_event, info) => {
+        onDragEnd()
         if (info.offset.x < -SWIPE_DISTANCE || info.velocity.x < -SWIPE_VELOCITY) onSwipe('next')
         else if (info.offset.x > SWIPE_DISTANCE || info.velocity.x > SWIPE_VELOCITY) onSwipe('prev')
       }}
@@ -75,7 +80,9 @@ function BlockCard({ block, index, direction, reduced, onSwipe }) {
  */
 export default function BeltLedger() {
   const reduced = usePrefersReducedMotion()
+  const [sectionRef, inView] = useInViewport({ rootMargin: '0px' })
   const [[index, direction], setState] = useState([0, 0])
+  const [paused, setPaused] = useState(false)
 
   const go = (way) => {
     setState(([current]) => {
@@ -88,10 +95,24 @@ export default function BeltLedger() {
     setState(([current]) => (target === current ? [current, direction] : [target, target > current ? 1 : -1]))
   }
 
+  // Auto-advances one card at a time — paused on hover, mid-drag, out of
+  // view, or when the visitor asked for reduced motion (WCAG 2.2.2: an
+  // auto-moving carousel needs a way to stop, and "never starts" satisfies
+  // that as well as a pause button would). Re-armed on every index change,
+  // whether that change came from the timer itself or a manual swipe/click,
+  // so a manual interaction always buys a full interval before the next
+  // auto-advance rather than fighting the timer.
+  useEffect(() => {
+    if (reduced || !inView || paused) return
+    const id = setInterval(() => go('next'), AUTOPLAY_MS)
+    return () => clearInterval(id)
+  }, [reduced, inView, paused, index])
+
   const active = SORTED_BLOCKS[index]
 
   return (
     <section
+      ref={sectionRef}
       id="belt-ledger"
       className="relative z-10 scroll-mt-20 overflow-hidden bg-forest-950 py-20 sm:py-28"
     >
@@ -123,6 +144,10 @@ export default function BeltLedger() {
             role="region"
             aria-roledescription="carousel"
             aria-label="Forest blocks"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={() => setPaused(false)}
             className="relative h-[300px] sm:h-[320px]"
           >
             {/* Two flattened cards stacked behind the live one — a "more
@@ -147,6 +172,8 @@ export default function BeltLedger() {
                 direction={direction}
                 reduced={reduced}
                 onSwipe={go}
+                onDragStart={() => setPaused(true)}
+                onDragEnd={() => setPaused(false)}
               />
             </AnimatePresence>
           </div>
