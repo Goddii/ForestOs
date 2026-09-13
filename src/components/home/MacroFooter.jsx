@@ -1,9 +1,5 @@
-import { Suspense, lazy } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, FileCheck2, HandCoins, Satellite, QrCode } from 'lucide-react'
-import { useInViewport } from '../../hooks/useInViewport'
-
-const SatelliteGrid = lazy(() => import('../../scenes/homeAmbient/SatelliteGrid'))
 
 const MODULES = [
   { icon: FileCheck2, label: 'EUDR audit export', note: 'plot-level GeoJSON' },
@@ -15,13 +11,11 @@ const MODULES = [
 /**
  * Corporate gateway — "the export". Previously carried the same real-footage
  * WebGL relief treatment as the Buffer Belt viewer, backed by cargo-ship
- * footage — pulled because that clip was unlicensed Shutterstock preview
- * footage (visible watermark). Rather than wait on a licensed clip, the
- * background layer is now a small original scene instead: a quiet plot grid
- * with one slow scanning pass, in the same river-500 "data / verification"
- * accent the rest of the site already uses for this idea — it needs no
- * footage at all, so it directly answers "EUDR audit export" / "Satellite
- * analytics" / "QR scan attribution" in the card beside it.
+ * footage — pulled for now because that clip is unlicensed Shutterstock
+ * preview footage (visible watermark). A generated plot-grid/scan-line
+ * placeholder stood in here briefly but didn't earn its keep; falls back to
+ * the plain gradient below until a licensed replacement (video or still) is
+ * ready, re-added the same way `BufferBeltViewer` does when one lands.
  *
  * The footer's height is content-driven (its card + banner + disclosure
  * rows), so the background layer can't use `height:100%` the way a
@@ -33,16 +27,8 @@ const MODULES = [
  * ResizeObserver needed.
  */
 export default function MacroFooter() {
-  const [footerRef, inView] = useInViewport({ rootMargin: '400px 0px' })
-
   return (
-    <footer ref={footerRef} className="relative z-10 grid overflow-hidden bg-forest-950">
-      <Suspense fallback={null}>
-        <div className="pointer-events-none relative col-start-1 row-start-1 min-w-0 opacity-70">
-          <SatelliteGrid active={inView} />
-        </div>
-      </Suspense>
-
+    <footer className="relative z-10 grid overflow-hidden bg-forest-950">
       {/* Forest-950 at the top seam → opaque cool slate at the base, bridging the
           site palette into the dark corporate dashboard shell. */}
       <div className="pointer-events-none col-start-1 row-start-1 min-w-0 bg-gradient-to-t from-slate-deep via-slate-deep/72 to-forest-950/92" />

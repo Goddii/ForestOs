@@ -1,93 +1,101 @@
-import { Suspense, lazy, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import Reveal from '../Reveal'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import CountUp from '../ui/CountUp'
-import { useInViewport } from '../../hooks/useInViewport'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { BELT_BLOCKS } from '../../lib/platformData'
-
-// Same split rationale as GlobeSection/BufferBeltViewer — three.js + r3f is
-// a heavy chunk, so it loads lazily and only once this section is reachable.
-const CanopyBackdrop = lazy(() => import('../../scenes/homeAmbient/CanopyBackdrop'))
 
 const SORTED_BLOCKS = [...BELT_BLOCKS].sort((a, b) => b.hectares - a.hectares)
 const TOTAL_COUNTIES = new Set(BELT_BLOCKS.flatMap((b) => b.counties)).size
 const TOTAL_HECTARES = BELT_BLOCKS.reduce((sum, b) => sum + b.hectares, 0)
+const TOTAL = SORTED_BLOCKS.length
 
-/**
- * One row of the ledger — its own IntersectionObserver so the belt-line dot
- * beside it can light up while that block is near the middle of the
- * viewport, a plain scroll-position cue rather than decoration.
- */
-function LedgerRow({ block, delay }) {
-  const [ref, active] = useInViewport({ rootMargin: '-42% 0px -42% 0px' })
+// How far (px) or how fast (px/s) a drag has to travel before it counts as
+// a swipe rather than springing back to centre.
+const SWIPE_DISTANCE = 90
+const SWIPE_VELOCITY = 500
 
+const cardVariants = {
+  enter: (dir) => ({ x: dir > 0 ? 320 : -320, opacity: 0, scale: 0.94 }),
+  center: { x: 0, opacity: 1, scale: 1 },
+  exit: (dir) => ({ x: dir > 0 ? -320 : 320, opacity: 0, scale: 0.94 }),
+}
+
+/** The front, draggable card — a direct-manipulation "flick through the
+    blocks" gesture rather than a passive list. */
+function BlockCard({ block, index, direction, reduced, onSwipe }) {
   return (
-    <Reveal delay={delay}>
-      <div ref={ref} className="relative flex items-center gap-5 py-5 pl-8 sm:gap-8 sm:pl-10">
-        <span
-          aria-hidden="true"
-          className={
-            'absolute left-0 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-forest-950 transition-colors duration-300 ' +
-            (active ? 'bg-river-500' : 'bg-forest-700')
-          }
-        />
+    <motion.div
+      custom={direction}
+      variants={cardVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={
+        reduced
+          ? { duration: 0.15 }
+          : { type: 'spring', stiffness: 320, damping: 32 }
+      }
+      drag={reduced ? false : 'x'}
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.6}
+      whileDrag={{ cursor: 'grabbing' }}
+      onDragEnd={(_event, info) => {
+        if (info.offset.x < -SWIPE_DISTANCE || info.velocity.x < -SWIPE_VELOCITY) onSwipe('next')
+        else if (info.offset.x > SWIPE_DISTANCE || info.velocity.x > SWIPE_VELOCITY) onSwipe('prev')
+      }}
+      role="group"
+      aria-roledescription="slide"
+      aria-label={`${index + 1} of ${TOTAL}: ${block.name}`}
+      className="absolute inset-0 cursor-grab touch-pan-y rounded-3xl border border-bone/10 bg-forest-900/80 p-8 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] backdrop-blur-xl active:cursor-grabbing sm:p-10"
+    >
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">{block.sector}</p>
+      <h3 className="mt-2 max-w-[22ch] font-display text-2xl text-bone sm:text-3xl">{block.name}</h3>
 
-        <div className="min-w-0 flex-1">
-          <p className="font-display text-lg text-bone sm:text-xl">{block.name}</p>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-500">
-            {block.counties.length} counties · {block.collectionCentres.length} collection centres
-          </p>
-        </div>
+      <p className="tnum mt-8 font-display text-5xl leading-none text-bone sm:text-6xl">
+        <CountUp to={block.hectares} separator="," duration={1.2} />
+      </p>
+      <p className="mt-1.5 text-[12px] text-bone-500">hectares under covenant</p>
 
-        <div className="shrink-0 text-right">
-          <p className="tnum font-display text-3xl leading-none text-bone sm:text-4xl">
-            <CountUp to={block.hectares} separator="," duration={1.4} />
-          </p>
-          <p className="mt-1 text-[11px] text-bone-500">hectares under covenant</p>
-        </div>
-      </div>
-    </Reveal>
+      <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-500">
+        {block.counties.length} counties · {block.collectionCentres.length} collection centres
+      </p>
+    </motion.div>
   )
 }
 
 /**
  * The belt, quantified — sits right after GlobeSection, which shows and
  * names the five blocks on the 3D map; this turns that same list into a
- * ledger. A sticky claim (two-weight headline, same serif, hierarchy from
- * colour alone) holds the left column while the five blocks scroll past on
- * the right, each tallied against a belt-line spine that actually draws
- * itself in as the list scrolls (an SVG `pathLength` tied to scroll
- * progress via `useScroll`/`useTransform` — motion.dev's own pattern for
- * scroll-linked line drawing), with each row's dot lighting up as it nears
- * the middle of the viewport and its hectare figure counting up in place.
+ * physical, draggable stack instead of a scrolling one. The sticky claim
+ * (two-weight headline, same serif, hierarchy from colour alone) holds the
+ * left column while a card for each block sits in the right, swiped or
+ * clicked through — one live card, two flattened ones stacked behind it as
+ * a visual "more here" cue.
  */
 export default function BeltLedger() {
-  const [sectionRef, inView] = useInViewport({ rootMargin: '400px 0px' })
-  const listRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: listRef,
-    offset: ['start end', 'end start'],
-  })
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const reduced = usePrefersReducedMotion()
+  const [[index, direction], setState] = useState([0, 0])
+
+  const go = (way) => {
+    setState(([current]) => {
+      const next = way === 'next' ? (current + 1) % TOTAL : (current - 1 + TOTAL) % TOTAL
+      return [next, way === 'next' ? 1 : -1]
+    })
+  }
+
+  const jumpTo = (target) => {
+    setState(([current]) => (target === current ? [current, direction] : [target, target > current ? 1 : -1]))
+  }
+
+  const active = SORTED_BLOCKS[index]
 
   return (
     <section
-      ref={sectionRef}
       id="belt-ledger"
       className="relative z-10 scroll-mt-20 overflow-hidden bg-forest-950 py-20 sm:py-28"
     >
-      {/* A held glimpse of the same low-poly canopy Act1Scene uses for the
-          batch story — an ambient backdrop, not a hero moment, so it only
-          mounts once this section is reachable. The wash is opaque at the
-          seams (Video-Bleed Section Rule, same as every other section) but
-          genuinely sheer through the middle — a /70 mid-stop here once left
-          only 30% of the canopy visible, which read as barely there. */}
-      <Suspense fallback={null}>
-        <CanopyBackdrop active={inView} />
-      </Suspense>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-forest-950 via-forest-950/15 to-forest-950" />
-
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <img
             src="/media/forest1-poster.jpg"
@@ -106,39 +114,80 @@ export default function BeltLedger() {
 
           <p className="mt-4 max-w-[42ch] text-[14px] leading-relaxed text-sage-300">
             Mau, the Aberdares, Mt. Kenya, Cherangany and Mt. Elgon each carry their own
-            hectare count, county list and collection centres, verified and summed below.
+            hectare count, county list and collection centres. Drag through them.
           </p>
         </div>
 
         <div>
-          <div ref={listRef} className="relative divide-y divide-bone/10">
-            {/* The belt-line spine — a faint full-height track plus a
-                brighter stroke that draws itself in as the list scrolls,
-                rather than sitting fully drawn from the first frame. */}
-            <svg
-              aria-hidden="true"
-              className="absolute left-0 top-2 bottom-2 w-0.5 -translate-x-1/2 overflow-visible"
-              viewBox="0 0 1 100"
-              preserveAspectRatio="none"
-            >
-              <line x1="0.5" y1="0" x2="0.5" y2="100" stroke="var(--color-river-500)" strokeOpacity="0.18" strokeWidth="1" />
-              <motion.line
-                x1="0.5"
-                y1="0"
-                x2="0.5"
-                y2="100"
-                stroke="var(--color-river-500)"
-                strokeOpacity="0.75"
-                strokeWidth="1"
-                style={{ pathLength }}
+          <div
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Forest blocks"
+            className="relative h-[300px] sm:h-[320px]"
+          >
+            {/* Two flattened cards stacked behind the live one — a "more
+                here" cue, not interactive themselves. */}
+            {[2, 1].map((offset) => (
+              <div
+                key={offset}
+                aria-hidden="true"
+                className="absolute inset-0 rounded-3xl border border-bone/5 bg-forest-900/40"
+                style={{
+                  transform: `translateY(${offset * 10}px) scale(${1 - offset * 0.035})`,
+                  zIndex: 10 - offset,
+                }}
               />
-            </svg>
-            {SORTED_BLOCKS.map((block, index) => (
-              <LedgerRow key={block.id} block={block} delay={index * 0.06} />
             ))}
+
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              <BlockCard
+                key={active.id}
+                block={active}
+                index={index}
+                direction={direction}
+                reduced={reduced}
+                onSwipe={go}
+              />
+            </AnimatePresence>
           </div>
 
-          <div className="mt-6 flex items-baseline justify-between border-t border-amber-400/25 pt-6 pl-8 sm:pl-10">
+          <div className="mt-6 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => go('prev')}
+              aria-label="Previous forest block"
+              className="grid h-9 w-9 place-items-center rounded-full border border-bone/15 text-bone-300 transition-colors duration-200 hover:border-bone/30 hover:text-bone"
+            >
+              <ChevronLeft className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
+            </button>
+
+            <div className="flex items-center gap-2">
+              {SORTED_BLOCKS.map((block, i) => (
+                <button
+                  key={block.id}
+                  type="button"
+                  onClick={() => jumpTo(i)}
+                  aria-label={`Show ${block.name}`}
+                  aria-current={i === index}
+                  className={
+                    'h-1.5 rounded-full transition-all duration-300 ' +
+                    (i === index ? 'w-6 bg-river-500' : 'w-1.5 bg-bone/20 hover:bg-bone/35')
+                  }
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => go('next')}
+              aria-label="Next forest block"
+              className="grid h-9 w-9 place-items-center rounded-full border border-bone/15 text-bone-300 transition-colors duration-200 hover:border-bone/30 hover:text-bone"
+            >
+              <ChevronRight className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="mt-8 flex items-baseline justify-between border-t border-amber-400/25 pt-6">
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-sage-500">
               Whole belt · {TOTAL_COUNTIES} counties
             </p>
