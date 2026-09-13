@@ -63,12 +63,14 @@ export default function BeltLedger() {
     >
       {/* A held glimpse of the same low-poly canopy Act1Scene uses for the
           batch story — an ambient backdrop, not a hero moment, so it only
-          mounts once this section is reachable and stays behind a heavy
-          wash (Video-Bleed Section Rule, same as every other section). */}
+          mounts once this section is reachable. The wash is opaque at the
+          seams (Video-Bleed Section Rule, same as every other section) but
+          genuinely sheer through the middle — the previous /70 mid-stop
+          left only 30% of the canopy visible, which read as barely there. */}
       <Suspense fallback={null}>
         <CanopyBackdrop active={inView} />
       </Suspense>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-forest-950 via-forest-950/70 to-forest-950" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-forest-950 via-forest-950/15 to-forest-950" />
 
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
