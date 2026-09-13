@@ -223,3 +223,19 @@
   right: 8px;
   left: auto;
 }
+
+/* OperationsTicker marquee — content is duplicated exactly once (see the
+   component), so translating by -50% loops seamlessly. Transform-only, so
+   it stays on the compositor; the blanket reduced-motion rule above already
+   freezes it to a static first frame. */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: ticker-scroll 32s linear infinite;
+}

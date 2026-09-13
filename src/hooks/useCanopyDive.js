@@ -60,7 +60,9 @@ const STORY_EXIT_Y = -44 // keeps drifting up on the way out
  *   3. zooms the frame from 1x to 1.5x for a sense of physical descent;
  *   4. fades and lifts the text, CTA and hotspots (`[data-egress]`) out of frame
  *      during the first 30% so the canopy fills the screen;
- *   5. reveals three narrative statements (`[data-story]`) one at a time across
+ *   5. deepens a three-stop atmosphere grade (`[data-descent-grade]`) and pulses
+ *      a transient mist band (`[data-mist-layer]`) through the 12-64% stretch;
+ *   6. reveals three narrative statements (`[data-story]`) one at a time across
  *      the 30-90% band, each clearing before the next and all gone by 100%;
  * then releases the pin so the Cesium map scrolls up from the bottom and takes
  * over exactly where the dive ends.
@@ -190,6 +192,20 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
           { opacity: 0.12 },
           { opacity: 0.82 },
           0,
+        )
+
+        // Mist band — a transient haze the dive passes through partway down,
+        // in and back out before the narrative sequence below takes over.
+        tl.fromTo(
+          '[data-mist-layer]',
+          { opacity: 0 },
+          { opacity: 0.85, ease: 'sine.inOut', duration: 0.22 },
+          0.12,
+        )
+        tl.to(
+          '[data-mist-layer]',
+          { opacity: 0, ease: 'sine.inOut', duration: 0.22 },
+          0.42,
         )
 
         // (5) Narrative sequence — three statements fade through the mid-window,
