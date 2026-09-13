@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { PARTNERS } from '../../lib/platformData'
 import { useInViewport } from '../../hooks/useInViewport'
+import DeferredMount from '../util/DeferredMount'
 
 const VideoTerrainScene = lazy(() => import('../../scenes/videoTerrain/VideoTerrainScene'))
 
@@ -18,6 +19,20 @@ const lead = PARTNERS[0]
  * sizes itself via `height: 100%`, which cannot resolve against an
  * auto-height ancestor, so an auto/min-height section collapses the canvas
  * to the browser's 150px default. Same reason `Act1Scene` uses `h-[100svh]`.
+ *
+ * `VideoTerrainScene` is lazy-imported, but unlike GlobeSection this
+ * section was never gated behind `DeferredMount` — network profiling
+ * (Fast 3G + 4x CPU throttle, cold cache) showed its `import()` firing
+ * immediately on Home's first render, right alongside the hero's own
+ * critical requests: the react-three-fiber/three.js chunk (~225KB gzip)
+ * and this section's own 5MB video both started competing for bandwidth
+ * before the visitor had scrolled anywhere. `useInViewport`'s `active`
+ * flag already stops the video *playing* off-screen, but the chunk and
+ * the byte fetch it triggers had no equivalent gate on when they *start*.
+ * `minScrollY` is tuned to this section's actual position on the page
+ * (measured at ~4090px), so the fetch has a full screen or two of lead
+ * time to land before the visitor scrolls this far, without starting at
+ * page load and racing the hero.
  */
 export default function BufferBeltViewer() {
   const [sectionRef, inView] = useInViewport()
@@ -28,9 +43,11 @@ export default function BufferBeltViewer() {
       ref={sectionRef}
       className="relative z-10 h-[85svh] scroll-mt-20 overflow-hidden bg-forest-950"
     >
-      <Suspense fallback={null}>
-        <VideoTerrainScene src="/media/field1.mp4" active={inView} />
-      </Suspense>
+      <DeferredMount placeholder={null} minScrollY={2400}>
+        <Suspense fallback={null}>
+          <VideoTerrainScene src="/media/field1.mp4" active={inView} />
+        </Suspense>
+      </DeferredMount>
 
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-forest-950 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-forest-950 to-transparent" />
