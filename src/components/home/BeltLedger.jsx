@@ -18,6 +18,54 @@ const SWIPE_VELOCITY = 500
 // How long the stack holds on a card before auto-advancing.
 const AUTOPLAY_MS = 4500
 
+// Real photos of each block, sourced from Wikimedia Commons under
+// CC BY-SA (credited in-card, bottom-right of each photo, per the
+// licence's attribution requirement). Cherangany's source photo included
+// identifiable people who hadn't consented to appearing on a commercial
+// site, so it's cropped to the tree line above them, not used as shot.
+const BLOCK_PHOTOS = {
+  mau: {
+    jpg: '/media/forests/mau.jpg',
+    webp: '/media/forests/mau.webp',
+    credit: {
+      name: 'Galkey',
+      url: 'https://commons.wikimedia.org/wiki/File:Mau_Forest_natural_spring.jpg',
+    },
+  },
+  aberdares: {
+    jpg: '/media/forests/aberdares.jpg',
+    webp: '/media/forests/aberdares.webp',
+    credit: {
+      name: 'Tony0991',
+      url: 'https://commons.wikimedia.org/wiki/File:Aberdare_range.jpg',
+    },
+  },
+  'mt-kenya': {
+    jpg: '/media/forests/mt-kenya.jpg',
+    webp: '/media/forests/mt-kenya.webp',
+    credit: {
+      name: 'Daniel Case',
+      url: 'https://commons.wikimedia.org/wiki/File:Montane_forest_with_understory,_Mount_Kenya.jpg',
+    },
+  },
+  cherangany: {
+    jpg: '/media/forests/cherangany.jpg',
+    webp: '/media/forests/cherangany.webp',
+    credit: {
+      name: 'Shadybiwott33',
+      url: 'https://commons.wikimedia.org/wiki/File:Kapolet_Forest.jpg',
+    },
+  },
+  'mt-elgon': {
+    jpg: '/media/forests/mt-elgon.jpg',
+    webp: '/media/forests/mt-elgon.webp',
+    credit: {
+      name: 'Josep M. Gracia',
+      url: 'https://commons.wikimedia.org/wiki/File:ELGON_-_Montane_forest_in_Mount_Elgon_National_Park,_Kenya,_2012.jpg',
+    },
+  },
+}
+
 const cardVariants = {
   enter: (dir) => ({ x: dir > 0 ? 320 : -320, opacity: 0, scale: 0.94 }),
   center: { x: 0, opacity: 1, scale: 1 },
@@ -25,8 +73,13 @@ const cardVariants = {
 }
 
 /** The front, draggable card — a direct-manipulation "flick through the
-    blocks" gesture rather than a passive list. */
+    blocks" gesture rather than a passive list. Its own real photo sits
+    behind the figures, under a wash heavy enough to hold every line of
+    type legible, same principle as the rest of the site's Video-Bleed
+    Section Rule. */
 function BlockCard({ block, index, direction, reduced, onSwipe, onDragStart, onDragEnd }) {
+  const photo = BLOCK_PHOTOS[block.id]
+
   return (
     <motion.div
       custom={direction}
@@ -52,19 +105,42 @@ function BlockCard({ block, index, direction, reduced, onSwipe, onDragStart, onD
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${TOTAL}: ${block.name}`}
-      className="absolute inset-0 cursor-grab touch-pan-y rounded-3xl border border-bone/10 bg-forest-900/80 p-8 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] backdrop-blur-xl active:cursor-grabbing sm:p-10"
+      className="absolute inset-0 cursor-grab touch-pan-y overflow-hidden rounded-3xl border border-bone/10 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] active:cursor-grabbing"
     >
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">{block.sector}</p>
-      <h3 className="mt-2 max-w-[22ch] font-display text-2xl text-bone sm:text-3xl">{block.name}</h3>
+      <picture>
+        <source srcSet={photo.webp} type="image/webp" />
+        <img
+          src={photo.jpg}
+          alt=""
+          draggable={false}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </picture>
+      <div className="absolute inset-0 bg-gradient-to-b from-forest-950/78 via-forest-950/45 to-forest-950/82" />
 
-      <p className="tnum mt-8 font-display text-5xl leading-none text-bone sm:text-6xl">
-        <CountUp to={block.hectares} separator="," duration={1.2} />
-      </p>
-      <p className="mt-1.5 text-[12px] text-bone-500">hectares under covenant</p>
+      <div className="relative p-8 sm:p-10">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-300">{block.sector}</p>
+        <h3 className="mt-2 max-w-[22ch] font-display text-2xl text-bone sm:text-3xl">{block.name}</h3>
 
-      <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-500">
-        {block.counties.length} counties · {block.collectionCentres.length} collection centres
-      </p>
+        <p className="tnum mt-8 font-display text-5xl leading-none text-bone sm:text-6xl">
+          <CountUp to={block.hectares} separator="," duration={1.2} />
+        </p>
+        <p className="mt-1.5 text-[12px] text-bone-300">hectares under covenant</p>
+
+        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-300">
+          {block.counties.length} counties · {block.collectionCentres.length} collection centres
+        </p>
+      </div>
+
+      <a
+        href={photo.credit.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onPointerDown={(e) => e.stopPropagation()}
+        className="absolute bottom-3 right-4 font-mono text-[8px] uppercase tracking-[0.1em] text-bone/45 transition-colors duration-200 hover:text-bone/80"
+      >
+        Photo: {photo.credit.name} · CC BY-SA
+      </a>
     </motion.div>
   )
 }
