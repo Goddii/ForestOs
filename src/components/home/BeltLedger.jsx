@@ -1,5 +1,10 @@
+import { Suspense, lazy } from 'react'
 import { useInViewport } from '../../hooks/useInViewport'
 import { BELT_BLOCKS, PLATFORM } from '../../lib/platformData'
+
+// Same split rationale as GlobeSection/BufferBeltViewer — three.js + r3f is
+// a heavy chunk, so it loads lazily and only once this section is reachable.
+const CanopyBackdrop = lazy(() => import('../../scenes/homeAmbient/CanopyBackdrop'))
 
 const SORTED_BLOCKS = [...BELT_BLOCKS].sort((a, b) => b.hectares - a.hectares)
 const TOTAL_COUNTIES = new Set(BELT_BLOCKS.flatMap((b) => b.counties)).size
@@ -48,12 +53,24 @@ function LedgerRow({ block }) {
  * up for whichever block is centred in view.
  */
 export default function BeltLedger() {
+  const [sectionRef, inView] = useInViewport({ rootMargin: '400px 0px' })
+
   return (
     <section
+      ref={sectionRef}
       id="belt-ledger"
       className="relative z-10 scroll-mt-20 overflow-hidden bg-forest-950 py-20 sm:py-28"
     >
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      {/* A held glimpse of the same low-poly canopy Act1Scene uses for the
+          batch story — an ambient backdrop, not a hero moment, so it only
+          mounts once this section is reachable and stays behind a heavy
+          wash (Video-Bleed Section Rule, same as every other section). */}
+      <Suspense fallback={null}>
+        <CanopyBackdrop active={inView} />
+      </Suspense>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-forest-950 via-forest-950/70 to-forest-950" />
+
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <img
             src="/media/forest1-poster.jpg"
