@@ -105,42 +105,49 @@ function BlockCard({ block, index, direction, reduced, onSwipe, onDragStart, onD
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${TOTAL}: ${block.name}`}
-      className="absolute inset-0 cursor-grab touch-pan-y overflow-hidden rounded-3xl border border-bone/10 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] active:cursor-grabbing"
+      className="absolute inset-0 z-10 cursor-grab touch-pan-y rounded-3xl border border-bone/10 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] active:cursor-grabbing"
     >
-      <picture>
-        <source srcSet={photo.webp} type="image/webp" />
-        <img
-          src={photo.jpg}
-          alt=""
-          draggable={false}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      </picture>
-      <div className="absolute inset-0 bg-gradient-to-b from-forest-950/78 via-forest-950/45 to-forest-950/82" />
+      {/* Clipping lives on this static child, never the transformed/dragged
+          parent above — Chromium can fail to clip a child to a rounded,
+          overflow-hidden box while that same box is mid-transform, which is
+          exactly what let the photo spill past the card's corners while
+          dragging or animating in/out. */}
+      <div className="absolute inset-0 overflow-hidden rounded-3xl">
+        <picture>
+          <source srcSet={photo.webp} type="image/webp" />
+          <img
+            src={photo.jpg}
+            alt=""
+            draggable={false}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </picture>
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-950/78 via-forest-950/45 to-forest-950/82" />
 
-      <div className="relative p-8 sm:p-10">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-300">{block.sector}</p>
-        <h3 className="mt-2 max-w-[22ch] font-display text-2xl text-bone sm:text-3xl">{block.name}</h3>
+        <div className="relative p-8 sm:p-10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-300">{block.sector}</p>
+          <h3 className="mt-2 max-w-[22ch] font-display text-2xl text-bone sm:text-3xl">{block.name}</h3>
 
-        <p className="tnum mt-8 font-display text-5xl leading-none text-bone sm:text-6xl">
-          <CountUp to={block.hectares} separator="," duration={1.2} />
-        </p>
-        <p className="mt-1.5 text-[12px] text-bone-300">hectares under covenant</p>
+          <p className="tnum mt-8 font-display text-5xl leading-none text-bone sm:text-6xl">
+            <CountUp to={block.hectares} separator="," duration={1.2} />
+          </p>
+          <p className="mt-1.5 text-[12px] text-bone-300">hectares under covenant</p>
 
-        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-300">
-          {block.counties.length} counties · {block.collectionCentres.length} collection centres
-        </p>
+          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-sage-300">
+            {block.counties.length} counties · {block.collectionCentres.length} collection centres
+          </p>
+        </div>
+
+        <a
+          href={photo.credit.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onPointerDown={(e) => e.stopPropagation()}
+          className="absolute bottom-3 right-4 font-mono text-[8px] uppercase tracking-[0.1em] text-bone/45 transition-colors duration-200 hover:text-bone/80"
+        >
+          Photo: {photo.credit.name} · CC BY-SA
+        </a>
       </div>
-
-      <a
-        href={photo.credit.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        onPointerDown={(e) => e.stopPropagation()}
-        className="absolute bottom-3 right-4 font-mono text-[8px] uppercase tracking-[0.1em] text-bone/45 transition-colors duration-200 hover:text-bone/80"
-      >
-        Photo: {photo.credit.name} · CC BY-SA
-      </a>
     </motion.div>
   )
 }
@@ -227,18 +234,36 @@ export default function BeltLedger() {
             className="relative h-[300px] sm:h-[320px]"
           >
             {/* Two flattened cards stacked behind the live one — a "more
-                here" cue, not interactive themselves. */}
-            {[2, 1].map((offset) => (
-              <div
-                key={offset}
-                aria-hidden="true"
-                className="absolute inset-0 rounded-3xl border border-bone/5 bg-forest-900/40"
-                style={{
-                  transform: `translateY(${offset * 10}px) scale(${1 - offset * 0.035})`,
-                  zIndex: 10 - offset,
-                }}
-              />
-            ))}
+                here" cue, not interactive themselves. Each carries the
+                actual photo of the block coming up next in the stack
+                (heavily darkened), rather than a flat colour panel, so the
+                deck reads as a stack of real photos at graduated sizes
+                instead of a bare shape sitting behind a much busier one. */}
+            {[2, 1].map((offset) => {
+              const upcoming = SORTED_BLOCKS[(index + offset) % TOTAL]
+              const upcomingPhoto = BLOCK_PHOTOS[upcoming.id]
+              return (
+                <div
+                  key={offset}
+                  aria-hidden="true"
+                  className="absolute inset-0 overflow-hidden rounded-3xl border border-bone/5"
+                  style={{
+                    transform: `translateY(${offset * 10}px) scale(${1 - offset * 0.035})`,
+                    zIndex: 10 - offset,
+                  }}
+                >
+                  <picture>
+                    <source srcSet={upcomingPhoto.webp} type="image/webp" />
+                    <img
+                      src={upcomingPhoto.jpg}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  </picture>
+                  <div className="absolute inset-0 bg-forest-950/72" />
+                </div>
+              )
+            })}
 
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <BlockCard
