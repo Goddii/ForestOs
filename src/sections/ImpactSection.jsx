@@ -8,6 +8,9 @@ import { useBatch } from '../lib/batchContext'
 /**
  * The quick, tangible read — what one cup from this batch did — before the
  * detailed records below. Figures come from the scanned batch; no gamification.
+ * (This is a deliberate choice for the plain ForestOS `/batch/:id` record —
+ * the tenant-owned `/passport/:tenantSlug/:batchId` experience intentionally
+ * reverses it; see `TenantEarnSection`.)
  */
 function CupReceipt() {
   const BATCH = useBatch()
