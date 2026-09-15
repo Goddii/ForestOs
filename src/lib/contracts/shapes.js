@@ -109,4 +109,29 @@ export const CHANNELS = ['direct_sold', 'branded', 'auction']
  * @property {?string} farmerId            internal-only — omit from buyer and consumer payloads
  */
 
+/**
+ * Visitor passport — PROPOSED. The record a tenant-owned consumer experience
+ * (`/passport/:tenantSlug/:batchId`, `TenantEarnSection`) needs once a real
+ * backend exists to make "every scan progressively builds something around
+ * this person" actually durable, instead of the visual-only, derived-from-
+ * the-batch-id preview it renders today. Shared across channels by design —
+ * the web frontend, the companion mobile app, and USSD flows should all read
+ * and write the same passport rather than each keeping their own notion of a
+ * visitor's collection/status.
+ * @typedef {Object} VisitorPassport
+ * @property {string} passportId          PSP-2026-00931 — see `ID_PREFIX`; add a `passport` entry there once this is real
+ * @property {string} tenantSlug          majani — → `src/lib/tenants.js` TENANTS
+ * @property {Stamp[]} stamps
+ * @property {string} tier                matches the owning tenant's `collection.tierLabel`
+ * @property {?string} ownerContact       PROPOSED — phone number or other identifier once a real identity exists (no accounts today; USSD in particular will need one)
+ */
+
+/**
+ * @typedef {Object} Stamp
+ * @property {string} batchId             the scanned batch that earned this stamp
+ * @property {string} tenantSlug
+ * @property {string} earnedAt            ISO 8601
+ * @property {?{lat:number,lng:number}} geo   PROPOSED — only if the scan flow captures location
+ */
+
 export {}

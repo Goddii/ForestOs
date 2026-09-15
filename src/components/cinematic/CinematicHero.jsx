@@ -44,11 +44,30 @@ export default function CinematicHero({
           : 'h-[100svh] overflow-hidden')
       }
     >
-      {/* Deepening grade as the descent progresses */}
+      {/* Deepening grade as the descent progresses — a three-stop atmosphere
+          (mist, canopy sage, forest floor) rather than a flat dark wash, so
+          the dive reads as passing through real air, not a dimmer switch. */}
       <div
         aria-hidden="true"
         data-descent-grade
-        className="pointer-events-none absolute inset-0 bg-forest-950 opacity-[0.12]"
+        className="pointer-events-none absolute inset-0 opacity-[0.12]"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(221,214,198,0) 0%, rgba(143,169,138,0.55) 42%, rgba(8,20,14,0.96) 100%)',
+        }}
+      />
+
+      {/* Transient haze the dive passes through mid-descent, echoing the
+          real canopy fog in forest1-poster.jpg — a beat, not a state, so it
+          fades back out before the narrative lines take over. */}
+      <div
+        aria-hidden="true"
+        data-mist-layer
+        className="pointer-events-none absolute inset-0 opacity-0"
+        style={{
+          background:
+            'radial-gradient(120% 60% at 50% 30%, rgba(205,217,196,0.55) 0%, rgba(205,217,196,0) 62%)',
+        }}
       />
 
       {/* Bottom scrim so the overlay type holds contrast over a bright frame */}

@@ -34,8 +34,18 @@ const globeFallback = (
  *
  * In macro mode the selected block is controlled by the parent (`activeBlockId`
  * + `onSelectBlock`) so a partner card elsewhere on the page can drive the map.
+ *
+ * `introOverride` swaps the default ForestOS-voiced `SectionIntro` for one a
+ * caller supplies (`{ eyebrow, title, body }`) — used by the tenant Discover
+ * section so the map keeps its ForestOS-built mechanism while the words above
+ * it are the tenant's own. Omitted, behavior is exactly as before.
  */
-export default function GlobeSection({ macroMode = false, activeBlockId = null, onSelectBlock }) {
+export default function GlobeSection({
+  macroMode = false,
+  activeBlockId = null,
+  onSelectBlock,
+  introOverride = null,
+}) {
   const BATCH = useBatch()
   const reduced = useReducedMotion()
 
@@ -89,7 +99,9 @@ export default function GlobeSection({ macroMode = false, activeBlockId = null, 
   return (
     <section id="proof" className="relative z-10 scroll-mt-20 bg-forest-950">
       <div className="mx-auto max-w-6xl px-6 pb-10 pt-20 sm:px-8 sm:pt-28">
-        {macroMode ? (
+        {introOverride ? (
+          <SectionIntro {...introOverride} />
+        ) : macroMode ? (
           <SectionIntro
             eyebrow="5 blocks · 14,250 ha · 5 water towers"
             title="Five forest blocks, held as one contiguous buffer."

@@ -3,6 +3,7 @@ import BackgroundVideo from '../components/BackgroundVideo'
 import DeferredMount from '../components/util/DeferredMount'
 import MacroNav from '../components/home/MacroNav'
 import MacroHero from '../components/home/MacroHero'
+import BeltLedger from '../components/home/BeltLedger'
 import ImpactTicker from '../components/home/ImpactTicker'
 import BufferBeltViewer from '../components/home/BufferBeltViewer'
 import PartnerShowcase from '../components/home/PartnerShowcase'
@@ -76,6 +77,7 @@ export default function Home() {
             />
           </Suspense>
         </DeferredMount>
+        <BeltLedger />
         <ImpactTicker />
         <BufferBeltViewer />
         <PartnerShowcase onExplore={handleExploreBlock} />

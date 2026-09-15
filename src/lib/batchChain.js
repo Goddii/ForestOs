@@ -558,6 +558,12 @@ export function toLegacyBatch(record) {
       timestamp: record.verification.timestamp,
       plotId: resolvePlot(record).id,
       reference: record.verification.reference,
+      // Additive — existing consumers (the public `/batch/:id` page) don't
+      // destructure these, so this doesn't change their render. Added for
+      // the tenant passport's Verify stage, which needs the field-check and
+      // satellite-confirm dates as two distinct real values, not one.
+      field: record.verification.field,
+      satellite: record.verification.satellite,
     },
   }
 }

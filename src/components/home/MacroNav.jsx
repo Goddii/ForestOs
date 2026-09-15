@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Leaf } from 'lucide-react'
+import OperationsTicker from './OperationsTicker'
 
 const SOLID_AFTER = 120 // px scrolled before the bar takes a background
 
@@ -45,6 +46,11 @@ export default function MacroNav() {
         (hidden ? '-translate-y-full' : 'translate-y-0')
       }
     >
+      {/* Only shown pre-scroll, over the transparent hero — a hero-arrival
+          flourish, not permanent chrome (mirrors the rest of the page:
+          the cinematic budget spends early, then gets out of the way). */}
+      {!solid && <OperationsTicker />}
+
       <div
         className={
           'transition-colors duration-300 ' +

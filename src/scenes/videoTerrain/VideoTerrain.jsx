@@ -35,15 +35,18 @@ export default function VideoTerrain({
     el.muted = true
     el.playsInline = true
     el.disablePictureInPicture = true
-    // No preload, no autoplay, no initial .play() here — this element is
-    // created the moment the section's chunk resolves, which for a section
-    // below the fold happens well before it's actually in view. Starting the
-    // fetch/decode at creation time meant every video-terrain section on the
-    // page began downloading its footage at page load, competing with the
-    // hero video and (once scrolled) the Cesium bundle for bandwidth. The
-    // `active`-driven effect below is the only place playback starts, so the
-    // byte fetch is deferred until the section is actually on screen.
-    el.preload = 'none'
+    // No autoplay/.play() here — playback (and its decode cost) still waits
+    // for the `active`-driven effect below. But the byte fetch itself can
+    // start as soon as this element is created: the caller (BufferBeltViewer)
+    // only mounts this component behind `DeferredMount`, gated on scroll
+    // position well before the section is in view, so `preload="auto"` here
+    // no longer races the hero at page load the way it would have before
+    // that gate existed. It instead gives the video a full scroll runway to
+    // buffer ahead of `useInViewport`'s much narrower 200px rootMargin,
+    // which is what was causing visible stalling on a throttled connection:
+    // the fetch previously didn't begin until the section was already
+    // almost on screen.
+    el.preload = 'auto'
     return el
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [src])

@@ -12,10 +12,10 @@ const MODULES = [
  * Corporate gateway — "the export". Previously carried the same real-footage
  * WebGL relief treatment as the Buffer Belt viewer, backed by cargo-ship
  * footage — pulled for now because that clip is unlicensed Shutterstock
- * preview footage (visible watermark). Falls back to the plain gradient
- * below until a licensed replacement (video or still) is ready; re-add a
- * `<VideoTerrainScene src="/media/<licensed-clip>" .../>` in the empty cell
- * below the same way `BufferBeltViewer` does when one lands.
+ * preview footage (visible watermark). A generated plot-grid/scan-line
+ * placeholder stood in here briefly but didn't earn its keep; falls back to
+ * the plain gradient below until a licensed replacement (video or still) is
+ * ready, re-added the same way `BufferBeltViewer` does when one lands.
  *
  * The footer's height is content-driven (its card + banner + disclosure
  * rows), so the background layer can't use `height:100%` the way a
