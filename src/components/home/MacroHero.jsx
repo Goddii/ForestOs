@@ -1,4 +1,5 @@
 import { ArrowDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import CinematicHero from '../cinematic/CinematicHero'
 import BatchLookupBar from './BatchLookupBar'
 import { PLATFORM } from '../../lib/platformData'
@@ -46,6 +47,12 @@ export default function MacroHero({ videoRef }) {
             Scanned a pack of this tea?
           </p>
           <BatchLookupBar variant="compact" />
+          <Link
+            to="/passport/majani/802"
+            className="mt-2 inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-sage-500 underline decoration-sage-500/40 underline-offset-2 transition-colors hover:text-amber-400 hover:decoration-amber-400/60"
+          >
+            Or see it as a Majani Passport tenant →
+          </Link>
         </div>
       </div>
     </CinematicHero>
