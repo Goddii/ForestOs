@@ -27,8 +27,9 @@ import { resolveTenant } from '../lib/tenants'
  * were adapted to this project's real batch/tenant data and design tokens.
  *
  * Full per-tenant visual identity comes from the `.tenant-{slug}` class this
- * component adds to both the page root and `<html>` (mirroring how
- * `B2BDashboard` scopes the light `.dash`/`dash-root` palette): every reused
+ * component adds to both the page root and `<html>` (the same scoping
+ * mechanism the former `.dash`/`dash-root` B2B portal used, before it moved
+ * to the separate `forestos-ops` app): every reused
  * ForestOS component underneath keeps its existing `bg-forest-950` /
  * `text-amber-400` / `text-bone` classes unmodified — Tailwind v4 compiles
  * those to `var(--color-*)`, so redefining the same variable names under the

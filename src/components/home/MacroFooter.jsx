@@ -46,13 +46,6 @@ export default function MacroFooter() {
               Every block your brand sponsors, audited and exportable — the proof
               a Conservation Passport is built from.
             </p>
-            <Link
-              to="/dashboard"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-amber-400 px-6 py-3.5 text-sm font-semibold text-forest-950 transition-colors duration-200 hover:bg-amber-500"
-            >
-              Open the ESG portal
-              <ArrowRight className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
-            </Link>
           </div>
 
           <ul className="grid gap-2 self-center border-t border-bone/10 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">

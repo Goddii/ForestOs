@@ -1,9 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Leaf } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowRight, Leaf, Menu, X } from 'lucide-react'
 import OperationsTicker from './OperationsTicker'
+import NavMegaMenu from './NavMegaMenu'
+import { RECORD_MENU_COLUMNS, PARTNERS_MENU_COLUMNS } from '../../data/navMenus'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 const SOLID_AFTER = 120 // px scrolled before the bar takes a background
+const EASE = [0.16, 1, 0.3, 1]
+
+const MOBILE_LINKS = [
+  { href: '#proof', label: '3D Proof Map' },
+  { href: '#buffer-belt', label: 'Buffer Belt' },
+  { href: '#belt-ledger', label: 'Trees Funded' },
+  { to: '/solutions/eudr-compliance', label: 'EUDR Compliance' },
+  { href: '#partners', label: 'Sponsoring Brands' },
+]
 
 /**
  * Top navigation for the macro home. Transparent over the hero, then a solid
@@ -13,6 +26,9 @@ const SOLID_AFTER = 120 // px scrolled before the bar takes a background
 export default function MacroNav() {
   const [solid, setSolid] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const reduced = usePrefersReducedMotion()
+  const closeButtonRef = useRef(null)
 
   useEffect(() => {
     let last = window.scrollY
@@ -38,6 +54,31 @@ export default function MacroNav() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Lock body scroll while the full-screen mobile menu is open — otherwise
+  // the page behind it scrolls along with a touch drag on the drawer.
+  useEffect(() => {
+    if (!mobileOpen) return
+    const { overflow } = document.body.style
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = overflow
+    }
+  }, [mobileOpen])
+
+  // Escape closes the mobile menu too, matching the mega-menu's own pattern.
+  useEffect(() => {
+    if (!mobileOpen) return
+    const onKey = (e) => e.key === 'Escape' && setMobileOpen(false)
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [mobileOpen])
+
+  // Move focus into the drawer on open, so a keyboard/screen-reader user
+  // lands somewhere inside it rather than on the now-hidden trigger button.
+  useEffect(() => {
+    if (mobileOpen) closeButtonRef.current?.focus()
+  }, [mobileOpen])
 
   return (
     <header
@@ -66,36 +107,109 @@ export default function MacroNav() {
             ForestOS
           </Link>
 
-          <nav className="flex items-center gap-4 sm:gap-5">
-            <a
-              href="#proof"
-              className="hidden px-1 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-300 transition-colors hover:text-bone sm:inline"
-            >
-              The Belt
-            </a>
-            <a
-              href="#buffer-belt"
-              className="hidden px-1 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-300 transition-colors hover:text-bone sm:inline"
-            >
-              Buffer Belt
-            </a>
-            <a
-              href="#partners"
-              className="hidden px-1 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-300 transition-colors hover:text-bone sm:inline"
-            >
-              Partners
-            </a>
+          <nav className="hidden items-center gap-4 sm:flex sm:gap-5">
+            <NavMegaMenu label="The Record" columns={RECORD_MENU_COLUMNS} />
+            <NavMegaMenu
+              label="Partners"
+              columns={PARTNERS_MENU_COLUMNS}
+              panelWidthClass="w-[min(92vw,52rem)]"
+              gridColsClass="sm:grid-cols-2 lg:grid-cols-4"
+            />
             <Link
-              to="/dashboard"
-              className="inline-flex items-center gap-1.5 rounded-full bg-amber-400 px-4 py-2 font-sans text-[13px] font-semibold text-forest-950 transition-colors duration-200 hover:bg-amber-500"
+              to="/launch"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-amber-400/40 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-amber-400 transition-colors duration-200 hover:border-amber-400 hover:bg-amber-400/10"
             >
-              <span className="sm:hidden">Login</span>
-              <span className="hidden sm:inline">Offtaker &amp; Brand Login</span>
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
+              Request a Forest Edition
+              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
             </Link>
           </nav>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            aria-controls="macro-mobile-menu"
+            className="grid h-10 w-10 place-items-center rounded-full text-bone sm:hidden"
+          >
+            <Menu className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            id="macro-mobile-menu"
+            role="dialog"
+            aria-label="Menu"
+            aria-modal="true"
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={reduced ? undefined : { opacity: 0 }}
+            transition={{ duration: 0.22, ease: EASE }}
+            className="fixed inset-0 z-50 flex flex-col overscroll-contain bg-forest-950/98 backdrop-blur-md sm:hidden"
+          >
+            <div className="flex items-center justify-between px-6 py-4">
+              <span className="inline-flex items-center gap-2 font-mono text-sm font-medium uppercase tracking-[0.22em] text-bone">
+                <Leaf className="h-4 w-4 text-amber-400" strokeWidth={2.25} aria-hidden="true" />
+                ForestOS
+              </span>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close menu"
+                className="grid h-10 w-10 place-items-center rounded-full text-bone"
+              >
+                <X className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+              </button>
+            </div>
+
+            <nav className="flex flex-1 flex-col justify-center gap-1 px-6">
+              {MOBILE_LINKS.map((item) =>
+                item.to ? (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setMobileOpen(false)}
+                    className="border-b border-bone/10 py-4 font-display text-2xl text-bone transition-colors hover:text-amber-400"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="border-b border-bone/10 py-4 font-display text-2xl text-bone transition-colors hover:text-amber-400"
+                  >
+                    {item.label}
+                  </a>
+                ),
+              )}
+              <Link
+                to="/qr-experience"
+                onClick={() => setMobileOpen(false)}
+                className="border-b border-bone/10 py-4 font-display text-2xl text-bone transition-colors hover:text-amber-400"
+              >
+                Scan Experience
+              </Link>
+            </nav>
+
+            <div className="px-6 pb-10">
+              <Link
+                to="/launch"
+                onClick={() => setMobileOpen(false)}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-amber-400/40 px-5 py-3.5 font-mono text-[12px] uppercase tracking-[0.14em] text-amber-400 transition-colors duration-200 hover:border-amber-400 hover:bg-amber-400/10"
+              >
+                Request a Forest Edition
+                <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
