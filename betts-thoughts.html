@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bett's thoughts — ForestOS</title>
+    <link rel="icon" type="image/svg+xml" href="public/leaf.svg" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Working notes for the ForestOS v2 presentation branch." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,320..560&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      A standalone viewer. Not part of the app: it is not built, bundled or
+      deployed, and nothing in the project imports it. It sits next to
+      BETTS-THOUGHTS.md and renders it, so the markdown is the single source of
+      truth and the two can never drift apart. Edit the .md, refresh this.
+
+      It needs to be served over http:// (browsers block fetch on file://).
+      Easiest: `python3 -m http.server` in this folder, then open
+      http://localhost:8000/betts-thoughts.html — or just read the .md.
+
+      The renderer below deliberately supports only the subset THOUGHTS.md
+      uses: headings, lists (incl. [ ] / [x] task items), tables, fenced and
+      inline code, links, bold/italic, blockquotes, --- rules, and <small>.
+      If you need something it does not handle, the raw text still shows.
+    -->
+    <style>
+      :root {
+        --paper: #f7f5f0;
+        --paper-sunk: #e7e3d6;
+        --card: #ffffff;
+        --line: #e0dbcb;
+        --line-strong: #d1cab8;
+        --ink: #17251c;
+        --ink-muted: #4f5c52;
+        --ink-faint: #5b6960;
+        --emerald-600: #059669;
+        --emerald-700: #047857;
+        --emerald-900: #064e3b;
+        --emerald-950: #022c22;
+        --amber-700: #7c5322;
+        --font-display: 'Newsreader', ui-serif, Georgia, serif;
+        --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, 'Liberation Mono', monospace;
+      }
+      :root:not([data-theme='light']) {
+        @media (prefers-color-scheme: dark) {
+          --paper: #0c1310;
+          --paper-sunk: #131c17;
+          --card: #111a15;
+          --line: #22302a;
+          --line-strong: #2d3d35;
+          --ink: #e6ece7;
+          --ink-muted: #a8b6ac;
+          --ink-faint: #8b9a90;
+          --emerald-600: #34d399;
+          --emerald-700: #6ee7b7;
+          --emerald-900: #a7f3d0;
+          --emerald-950: #d1fae5;
+          --amber-700: #e8a85c;
+        }
+      }
+      :root[data-theme='dark'] {
+        --paper: #0c1310;
+        --paper-sunk: #131c17;
+        --card: #111a15;
+        --line: #22302a;
+        --line-strong: #2d3d35;
+        --ink: #e6ece7;
+        --ink-muted: #a8b6ac;
+        --ink-faint: #8b9a90;
+        --emerald-600: #34d399;
+        --emerald-700: #6ee7b7;
+        --emerald-900: #a7f3d0;
+        --emerald-950: #d1fae5;
+        --amber-700: #e8a85c;
+      }
+
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 15px;
+        line-height: 1.62;
+      }
+
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 16px;
+        padding: 10px 16px;
+        background: color-mix(in srgb, var(--paper) 88%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+      .bar a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+      .bar a:hover { color: var(--ink); }
+      .bar .right { display: flex; align-items: center; gap: 14px; }
+      .bar button {
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        color: var(--ink-faint);
+        background: none;
+        border: 0;
+        border-bottom: 1px solid var(--line-strong);
+        padding: 0 0 1px;
+        cursor: pointer;
+      }
+      .bar button:hover { color: var(--ink); }
+
+      main { max-width: 46rem; margin: 0 auto; padding: 28px 16px 96px; }
+
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 460;
+        font-size: clamp(1.9rem, 5vw, 2.6rem);
+        line-height: 1.1;
+        letter-spacing: -0.017em;
+        color: var(--emerald-950);
+        margin: 0 0 4px;
+      }
+      h2 {
+        font-family: var(--font-display);
+        font-weight: 460;
+        font-size: 1.35rem;
+        letter-spacing: -0.012em;
+        color: var(--emerald-950);
+        margin: 2.4em 0 0.6em;
+        padding-top: 0.5em;
+        border-top: 1px solid var(--line);
+      }
+      h3 { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin: 1.7em 0 0.4em; }
+      p { margin: 0 0 0.85em; }
+      a { color: var(--emerald-700); text-underline-offset: 3px; }
+
+      ul, ol { margin: 0 0 0.9em; padding-left: 1.3em; }
+      li { margin-bottom: 0.3em; }
+      li::marker { color: var(--ink-faint); }
+
+      /* Task list items — the open-questions checklists */
+      li.task { list-style: none; margin-left: -1.3em; padding-left: 1.55em; position: relative; }
+      li.task::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.42em;
+        width: 12px;
+        height: 12px;
+        border: 1.5px solid var(--line-strong);
+        border-radius: 3px;
+        background: var(--card);
+      }
+      li.task.done { color: var(--ink-faint); }
+      li.task.done::before {
+        border-color: var(--emerald-600);
+        background: var(--emerald-600);
+      }
+      li.task.done::after {
+        content: '';
+        position: absolute;
+        left: 4px;
+        top: 0.6em;
+        width: 3px;
+        height: 6px;
+        border: solid var(--card);
+        border-width: 0 1.5px 1.5px 0;
+        transform: rotate(45deg);
+      }
+
+      blockquote {
+        margin: 0 0 1em;
+        padding: 0.1em 0 0.1em 1em;
+        border-left: 2px solid var(--emerald-600);
+        color: var(--ink-muted);
+      }
+      blockquote p:last-child { margin-bottom: 0; }
+
+      hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
+
+      code {
+        font-family: var(--font-mono);
+        font-size: 0.86em;
+        background: var(--paper-sunk);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 0.1em 0.35em;
+      }
+      pre {
+        background: var(--paper-sunk);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px 14px;
+        overflow-x: auto;
+      }
+      pre code { background: none; border: 0; padding: 0; font-size: 0.8rem; }
+
+      .table-wrap { overflow-x: auto; margin: 0 0 1em; }
+      table { border-collapse: collapse; width: 100%; font-size: 0.87rem; }
+      th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+      th {
+        font-family: var(--font-mono);
+        font-size: 9.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        font-weight: 500;
+        border-bottom-color: var(--line-strong);
+        white-space: nowrap;
+      }
+      tbody tr:last-child td { border-bottom: 0; }
+
+      small { color: var(--ink-faint); font-size: 0.8rem; }
+      .status { padding: 40px 0; color: var(--ink-faint); font-family: var(--font-mono); font-size: 12px; }
+      .status.err { color: var(--amber-700); }
+    </style>
+  </head>
+  <body>
+    <nav class="bar">
+      <span><a href="/">ForestOS</a> · working notes</span>
+      <span class="right">
+        <a href="./BETTS-THOUGHTS.md">raw</a>
+        <button type="button" id="theme">theme</button>
+        <span id="stamp"></span>
+      </span>
+    </nav>
+
+    <main id="doc"><p class="status">Loading…</p></main>
+
+    <script>
+      // ── A deliberately small markdown renderer ────────────────────────────
+      // Handles only what THOUGHTS.md uses. Everything is escaped first, so
+      // markdown content can never inject HTML — the one exception is <small>,
+      // re-allowed afterwards because the file's footer uses it.
+      const esc = (s) =>
+        s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+      function inline(s) {
+        return esc(s)
+          .replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`)
+          .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>')
+          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
+          .replace(/&lt;(\/?)small&gt;/g, '<$1small>')
+      }
+
+      function renderTable(rows) {
+        const cells = (r) =>
+          r.replace(/^\||\|$/g, '').split('|').map((c) => c.trim())
+        const head = cells(rows[0])
+        const body = rows.slice(2).map(cells) // row 1 is the --- separator
+        return (
+          '<div class="table-wrap"><table><thead><tr>' +
+          head.map((h) => `<th>${inline(h)}</th>`).join('') +
+          '</tr></thead><tbody>' +
+          body
+            .map((r) => '<tr>' + r.map((c) => `<td>${inline(c)}</td>`).join('') + '</tr>')
+            .join('') +
+          '</tbody></table></div>'
+        )
+      }
+
+      function render(md) {
+        const lines = md.replace(/\r\n/g, '\n').split('\n')
+        const out = []
+        let i = 0
+
+        while (i < lines.length) {
+          const line = lines[i]
+
+          if (/^```/.test(line)) {
+            const buf = []
+            i++
+            while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++])
+            i++
+            out.push(`<pre><code>${esc(buf.join('\n'))}</code></pre>`)
+            continue
+          }
+
+          if (/^\|/.test(line)) {
+            const buf = []
+            while (i < lines.length && /^\|/.test(lines[i])) buf.push(lines[i++])
+            out.push(buf.length > 2 ? renderTable(buf) : `<p>${inline(buf.join(' '))}</p>`)
+            continue
+          }
+
+          if (/^\s*[-*]\s|^\s*\d+\.\s/.test(line)) {
+            const ordered = /^\s*\d+\.\s/.test(line)
+            const buf = []
+            while (i < lines.length && /^\s*([-*]|\d+\.)\s/.test(lines[i])) {
+              // Join continuation lines (indented, no marker of their own).
+              let text = lines[i++].replace(/^\s*([-*]|\d+\.)\s+/, '')
+              while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*([-*]|\d+\.)\s/.test(lines[i]))
+                text += ' ' + lines[i++].trim()
+              buf.push(text)
+            }
+            const items = buf
+              .map((t) => {
+                const task = t.match(/^\[([ xX])\]\s*(.*)$/)
+                if (!task) return `<li>${inline(t)}</li>`
+                const done = task[1].toLowerCase() === 'x'
+                return `<li class="task${done ? ' done' : ''}">${inline(task[2])}</li>`
+              })
+              .join('')
+            out.push(ordered ? `<ol>${items}</ol>` : `<ul>${items}</ul>`)
+            continue
+          }
+
+          if (/^>\s?/.test(line)) {
+            const buf = []
+            while (i < lines.length && /^>\s?/.test(lines[i]))
+              buf.push(lines[i++].replace(/^>\s?/, ''))
+            out.push(
+              '<blockquote>' +
+                buf
+                  .join('\n')
+                  .split(/\n{2,}/)
+                  .map((p) => `<p>${inline(p.replace(/\n/g, ' '))}</p>`)
+                  .join('') +
+                '</blockquote>',
+            )
+            continue
+          }
+
+          if (/^---+\s*$/.test(line)) { out.push('<hr />'); i++; continue }
+
+          const h = line.match(/^(#{1,4})\s+(.*)$/)
+          if (h) { out.push(`<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`); i++; continue }
+
+          if (!line.trim()) { i++; continue }
+
+          const buf = []
+          while (
+            i < lines.length &&
+            lines[i].trim() &&
+            !/^(#{1,4}\s|\||>|---+\s*$|```|\s*([-*]|\d+\.)\s)/.test(lines[i])
+          )
+            buf.push(lines[i++])
+          out.push(`<p>${inline(buf.join(' '))}</p>`)
+        }
+        return out.join('\n')
+      }
+
+      const doc = document.getElementById('doc')
+      const stamp = document.getElementById('stamp')
+      let last = null
+
+      async function load() {
+        try {
+          // no-store so an edit shows on refresh rather than out of cache.
+          const res = await fetch('./BETTS-THOUGHTS.md', { cache: 'no-store' })
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const md = await res.text()
+          if (md !== last) {
+            last = md
+            doc.innerHTML = render(md)
+            document.title = (md.match(/^#\s+(.*)$/m)?.[1] ?? "Bett's thoughts") + ' — ForestOS'
+          }
+          stamp.textContent = 'read ' + new Date().toLocaleTimeString()
+        } catch (err) {
+          doc.innerHTML =
+            `<p class="status err">Could not load /BETTS-THOUGHTS.md — ${esc(String(err.message))}.</p>` +
+            `<p class="status">Open <a href="./BETTS-THOUGHTS.md">the raw file</a>, or run the dev server if you opened this page straight off disk (fetch needs http://, not file://).</p>`
+        }
+      }
+
+      // "Updates itself": re-read whenever the tab regains focus, so editing
+      // the markdown and switching back to the browser is enough.
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') load()
+      })
+      window.addEventListener('focus', load)
+
+      const root = document.documentElement
+      document.getElementById('theme').addEventListener('click', () => {
+        const dark = matchMedia('(prefers-color-scheme: dark)').matches
+        const now = root.getAttribute('data-theme') ?? (dark ? 'dark' : 'light')
+        root.setAttribute('data-theme', now === 'dark' ? 'light' : 'dark')
+        try { localStorage.setItem('thoughts-theme', root.getAttribute('data-theme')) } catch {}
+      })
+      try {
+        const saved = localStorage.getItem('thoughts-theme')
+        if (saved) root.setAttribute('data-theme', saved)
+      } catch {}
+
+      load()
+    </script>
+  </body>
+</html>
