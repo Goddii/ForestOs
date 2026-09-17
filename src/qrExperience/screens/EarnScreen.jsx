@@ -1,19 +1,28 @@
 import { motion } from 'framer-motion'
-import { Leaf, ArrowRight } from 'lucide-react'
+import { Leaf, ArrowRight, RefreshCw } from 'lucide-react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 /**
  * The reward moment: an achievement, not a transaction. No speculative
- * mechanics, no currency — a badge and a step toward the next one.
+ * mechanics, no currency — a badge, a status, and a step toward the next one.
+ *
+ * What changed for v2: this screen reads the durable passport, so it can show
+ * a collection that is genuinely larger than it was on the last scan, and a
+ * status that can move. A pack already in the collection says so rather than
+ * pretending to be new — the honest version of repeat engagement.
  */
-export default function EarnScreen({ copy, passport, totalStamps, onContinue }) {
+export default function EarnScreen({ copy, experience, stats, isNewScan, onContinue }) {
   const reduced = usePrefersReducedMotion()
-  const earnedCount = Math.min(passport.experiences, totalStamps)
+  const { totalStamps } = experience.collection
+  const earnedCount = Math.min(stats.experiences, totalStamps)
+  const repeat = isNewScan === false
 
   return (
     <div className="flex min-h-dvh flex-col bg-forest-950 px-6 pb-8 pt-20">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center gap-7 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-sage-300">{copy.earnHeadline}</p>
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-sage-300">
+          {repeat ? 'Welcome back' : copy.earnHeadline}
+        </p>
 
         <motion.div
           initial={reduced ? false : { opacity: 0, scale: 0.7, rotate: -8 }}
@@ -21,21 +30,36 @@ export default function EarnScreen({ copy, passport, totalStamps, onContinue }) 
           transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
           className="grid h-24 w-24 place-items-center rounded-full border-2 border-amber-400 bg-amber-400/10"
         >
-          <Leaf className="h-10 w-10 text-amber-400" strokeWidth={1.75} aria-hidden="true" />
+          {repeat ? (
+            <RefreshCw className="h-9 w-9 text-amber-400" strokeWidth={1.75} aria-hidden="true" />
+          ) : (
+            <Leaf className="h-10 w-10 text-amber-400" strokeWidth={1.75} aria-hidden="true" />
+          )}
         </motion.div>
 
         <div className="space-y-2">
-          <h1 className="font-display text-2xl text-bone">{copy.earnBadgeLabel}</h1>
-          <p className="text-[14px] text-bone-300">Your Majani Passport badge.</p>
+          <h1 className="font-display text-2xl text-bone">{stats.tier.label}</h1>
+          <p className="text-[14px] text-bone-300">
+            {repeat
+              ? 'You have scanned this tin before — it is already in your collection.'
+              : `Added to your ${experience.communityName}.`}
+          </p>
         </div>
 
-        <div className="flex gap-6 font-mono text-[13px] text-sage-300">
-          <span>{passport.experiences} experience completed</span>
-          <span>{passport.conservationActions} conservation story discovered</span>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 font-mono text-[13px] text-sage-300">
+          <span>
+            {stats.experiences} verified {stats.experiences === 1 ? 'product' : 'products'}
+          </span>
+          <span>
+            {stats.communities} {stats.communities === 1 ? 'community' : 'communities'}
+          </span>
+          {stats.repeatScans > 0 && <span>{stats.scans} scans total</span>}
         </div>
 
         <div className="w-full space-y-2">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">Next unlock</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">
+            {stats.nextTier ? `Next status · ${stats.nextTier.label}` : 'Top status reached'}
+          </p>
           <div className="flex gap-1.5">
             {Array.from({ length: totalStamps }, (_, i) => (
               <span
@@ -51,7 +75,9 @@ export default function EarnScreen({ copy, passport, totalStamps, onContinue }) 
             ))}
           </div>
           <p className="text-[13px] text-bone-500">
-            {Math.max(totalStamps - earnedCount, 0)} more {totalStamps - earnedCount === 1 ? 'experience' : 'experiences'}
+            {stats.nextTier
+              ? `${stats.toNextTier} more verified ${stats.toNextTier === 1 ? 'product' : 'products'} to reach ${stats.nextTier.label}`
+              : `${experience.collection.seriesLabel} — complete`}
           </p>
         </div>
 

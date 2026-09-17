@@ -6,8 +6,11 @@ import {
   Boxes,
   ChevronsUpDown,
   ClipboardCheck,
+  ClipboardPlus,
   Coins,
   FileDown,
+  Fingerprint,
+  GraduationCap,
   TriangleAlert,
   Landmark,
   LayoutGrid,
@@ -22,7 +25,7 @@ import {
   ShieldCheck,
   Sprout,
   Trees,
-  Users,
+  UserCheck,
   Waypoints,
 } from 'lucide-react'
 import { ROLES, modulePath } from '../../lib/dashboard/roles'
@@ -50,7 +53,9 @@ const NAV_ICON = {
   'Buffer & Conservation Rollup': Trees,
   'Quality & Rejections': ShieldCheck,
   'Price Configurator': BarChart3,
-  'Farmer Training Alerts': Users,
+  'Farmer Training': GraduationCap,
+  'Record Delivery': ClipboardPlus,
+  'Farmer Quality': UserCheck,
   'Buffer Maintenance': Sprout,
   'Fund Allocation': Landmark,
   'Capital Drawdowns': Coins,
@@ -142,6 +147,10 @@ export default function DashboardSidebar({ role }) {
         <NavLink to="/dashboard/overview" className={navLinkClass}>
           <Waypoints className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden="true" />
           <span className="whitespace-nowrap">Forest Line overview</span>
+        </NavLink>
+        <NavLink to="/dashboard/evidence" className={navLinkClass}>
+          <Fingerprint className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+          <span className="whitespace-nowrap">Evidence chain</span>
         </NavLink>
         <p className="mt-2 hidden px-2.5 pb-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-100/40 lg:block">
           {role.label.replace(/ View$/, '')}

@@ -63,6 +63,29 @@ export const ROLES = [
     ],
   },
   {
+    // Edwin's Q1 lists "NTZDC field and collection centre staff" as a primary
+    // user who needs an app or dashboard, and Q2 puts the final transaction
+    // entry in their hands. The Operations view below is a supervisor's
+    // console — it reads the collection record but never writes it — so the
+    // centre clerk gets their own, deliberately small, role: enter a delivery,
+    // and see the quality history of the farmer standing at the scale.
+    id: 'centre',
+    label: 'Collection Centre View',
+    base: '/dashboard/centre',
+    scopeLabel: 'Centre',
+    org: {
+      name: 'NTZDC — Kiptunga Collection Centre',
+      role: 'Collection Centre Staff',
+      scope: 'Kiptunga · Mau Forest buffer zone',
+      code: 'CC-KPT',
+      since: '2021',
+    },
+    modules: [
+      { to: '', label: 'Record Delivery', end: true },
+      { to: 'quality', label: 'Farmer Quality' },
+    ],
+  },
+  {
     id: 'ntzdc',
     label: 'NTZDC Operations View',
     base: '/dashboard/ops',
@@ -80,7 +103,7 @@ export const ROLES = [
       { to: 'problems', label: 'Problem Reports' },
       { to: 'quality', label: 'Quality & Rejections' },
       { to: 'pricing', label: 'Price Configurator' },
-      { to: 'training', label: 'Farmer Training Alerts' },
+      { to: 'training', label: 'Farmer Training' },
       { to: 'buffer', label: 'Buffer Maintenance' },
     ],
   },

@@ -253,6 +253,41 @@
   html.tenant-majani body {
     background-color: var(--color-forest-950);
   }
+
+  /* Second tenant — a club's supporter experience. Its only job in the
+     prototype is to prove the front end is genuinely swappable: the same seven
+     screens, the same verification record underneath, an identity that is not
+     Majani's. Club colours (near-black navy ground, one gold accent) replace
+     the forest scale wholesale.
+
+     Typography is deliberately NOT overridden here: the tenant inherits the
+     public-site stack (Instrument Serif / Archivo / JetBrains Mono), which is
+     already a different register from Majani's Cormorant / DM pairing. Two
+     distinct tenant voices, no extra webfont request. */
+  .tenant-rangers {
+    --color-forest-950: #070c14;
+    --color-forest-900: #0b1220;
+    --color-forest-850: #0f1828;
+    --color-forest-800: #141f33;
+    --color-forest-700: #1d2c47;
+    --color-forest-600: #2c4570;
+    --color-slate-deep: #121824;
+    --color-slate-700: #1e2634;
+    --color-sage-500: #7c8798;
+    --color-sage-300: #a4aebe;
+    --color-sage-200: #c3cad6;
+    --color-bone: #eaedf2;
+    --color-bone-300: #ccd2dc;
+    --color-bone-500: #aab2c0;
+    --color-amber-500: #a8802a;
+    --color-amber-400: #e8b93c;
+    --color-river-500: #5d8fa8;
+  }
+
+  html.tenant-rangers,
+  html.tenant-rangers body {
+    background-color: var(--color-forest-950);
+  }
 }
 
 /* Cesium chrome — theme the parts the widget draws for us */

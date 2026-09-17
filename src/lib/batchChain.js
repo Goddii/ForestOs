@@ -219,6 +219,80 @@ const RECORDS = [
     community: { farmersRepresented: 33, womenPluckersPct: 63, paidMobileMoneyPct: 100, settledSameWeekPct: 94 },
   },
   {
+    // The second tenant-owned experience (`/qr-experience/rangers`). Edwin's
+    // point was that a scanner arrives as a fan, a supporter, a guest — not as
+    // a "consumer" — so the prototype needs a non-music community to prove the
+    // front end is swappable while this record underneath it is not.
+    //
+    // Kapsara Rangers FC is deliberately fictional. A real club's name and
+    // badge on a mock conservation record would be a false claim about a real
+    // organisation, and this prototype gets shown outside the team.
+    //
+    // Cherangany Hills, so the pair of consumer experiences also shows the
+    // belt is more than one forest block.
+    id: '733',
+    traceId: 'TL-2026-00604',
+    sectorPlotId: null, // Cherangany Hills — outside the SW-MAU sector map
+    channel: 'branded',
+    brand: 'Kapsara Rangers FC',
+    brandId: null, // a tenant front end, not a belt-standings block sponsor
+    product: 'Matchday Tin — Supporters’ Edition',
+    season: '2026 main crop',
+    volumeKg: 1180,
+    premiumKesPerKg: 13,
+    protectedPerCup: '9 m²',
+    hectaresPreserved: 2.1,
+    carbonTonnesCo2: 84,
+    settlementDays: 6,
+    land: {
+      name: 'Cherangany Hills',
+      region: 'Cherangany Escarpment',
+      waterTowers: ['Nzoia', 'Kerio'],
+    },
+    block: {
+      id: 'KAP',
+      name: 'Kapsara Block',
+      bufferZone: 'Cherangany Forest',
+      region: 'Kapsara Block, Cherangany Escarpment',
+      covenantHa: 1490,
+      patrolsThisMonth: 7,
+      seedlingsPlanted: 2100,
+    },
+    plot: {
+      id: 'CHE-KAP-0733',
+      centre: 'Kapsara Collection Centre',
+      lat: 1.042,
+      lon: 35.402,
+      areaHa: 2.8,
+      canopyBaseline2020Pct: 59,
+      canopyNowPct: 66,
+      ndvi: 0.66,
+      farmers: 27,
+    },
+    harvest: {
+      window: '2026-08-11 – 2026-08-17',
+      month: 'August 2026',
+      greenLeafKg: 5300,
+      pluckers: 740,
+    },
+    batch: { sealedAt: '2026-08-20', madeTeaKg: 1180, grade: 'PF1' },
+    processing: {
+      facility: 'Kapsara Tea Factory',
+      lotId: 'KTF-2026-0733',
+      processedAt: '2026-08-21',
+      method: 'CTC · 12 h withering',
+    },
+    verification: {
+      standard: 'EUDR — Deforestation-Free',
+      status: 'Verified',
+      timestamp: '2026-08-24 11:02 EAT',
+      reference: '0x9d17b4e2c8a05f31',
+      field: { status: 'Verified', date: '2026-08-13', by: 'NTZDC field officer' },
+      satellite: { status: 'Verified', date: '2026-08-24', source: 'Sentinel-2 L2A', baseline: '2020-12-31' },
+    },
+    community: { farmersRepresented: 27, womenPluckersPct: 58, paidMobileMoneyPct: 100, settledSameWeekPct: 91 },
+  },
+  {
     id: '618',
     traceId: 'TL-2026-00388',
     sectorPlotId: null, // Aberdare Range — outside the SW-MAU sector map

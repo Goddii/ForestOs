@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useParams } from 'react-router-dom'
-import { resolveExperience } from '../qrExperience/data'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { nextExperienceId, resolveExperience } from '../qrExperience/data'
 import { useExperienceFlow, STAGES } from '../qrExperience/useExperienceFlow'
 import ExperienceProgress from '../qrExperience/ExperienceProgress'
 import ScanEntry from '../qrExperience/screens/ScanEntry'
@@ -21,27 +21,58 @@ const SCREEN_TRANSITION = {
 }
 
 /**
- * The QR → Experience batch — an isolated, additive prototype living at
- * `/qr-experience`. It demonstrates the client's reframed product: a brand
- * or community (here, Nyashinski's "Majani Passport") owns the consumer
- * experience, ForestOS is the trust/verification/participation layer
- * underneath it, surfaced only where it matters (the Verify screen's
- * "Powered by ForestOS" line, and the Proof screen's bridge to the real
- * `/batch/:batchId` GIS record).
+ * The QR → Experience journey at `/qr-experience/:experienceId`. A brand or
+ * community (Nyashinski's "Majani Passport", Kapsara Rangers' supporter card)
+ * owns the front end; ForestOS is the trust/verification/participation layer
+ * underneath, surfaced only where it matters (the Verify screen's "Powered by
+ * ForestOS" line, and the Proof screen's bridge to the real `/batch/:batchId`
+ * GIS record).
+ *
+ * Two things make repeat engagement real rather than implied:
+ *
+ * 1. The passport is durable (`lib/visitorPassport`) — it survives a reload
+ *    and spans both communities, so a second scan adds to a collection and
+ *    can move the holder up a status ladder.
+ * 2. "Scan another" walks to a *different community's* real pack (`?scanned`
+ *    marks the arrival so the scan simulation is skipped), which is what
+ *    demonstrates that the experience is swappable and the record is not.
  *
  * This does not touch `/`, `/batch/:batchId`, `/passport/:tenantSlug/:batchId`
- * or any dashboard route — see `src/App.jsx` for the one added `<Route>`.
- *
- * Unlike the public site's long-scroll pages, this is a state machine: one
- * screen visible at a time (`useExperienceFlow`), matching the brief's "QR
- * code entry app" feel rather than a scrollytelling page.
+ * or any dashboard route.
  */
 export default function QrExperienceView() {
   const { experienceId } = useParams()
+  const navigate = useNavigate()
+  const [params] = useSearchParams()
+
   const experience = useMemo(() => resolveExperience(experienceId), [experienceId])
   const batch = useMemo(() => experience.getBatch(), [experience])
-  const { stage, passport, advance, completeParticipation, scanAnother } = useExperienceFlow(batch.id)
   const reduced = usePrefersReducedMotion()
+
+  // Arriving via "Scan another" means a code was already scanned — go straight
+  // to Verify instead of replaying the simulated scan.
+  const startAt = params.has('scanned') ? 'verify' : 'scan'
+
+  const handleScanAnother = useCallback(() => {
+    navigate(`/qr-experience/${nextExperienceId(experience.id)}?scanned=1`)
+  }, [experience.id, navigate])
+
+  const {
+    stage,
+    passport,
+    stats,
+    durable,
+    lastScanWasNew,
+    advance,
+    completeParticipation,
+    scanAnother,
+    startOver,
+  } = useExperienceFlow({
+    experienceId: experience.id,
+    batch,
+    startAt,
+    onScanAnother: handleScanAnother,
+  })
 
   useEffect(() => {
     document.title = `${experience.communityName} — ${STAGES.includes(stage) ? stage : 'scan'}`
@@ -54,7 +85,12 @@ export default function QrExperienceView() {
       <ScanEntry copy={experience.copy} media={experience.media} onEnter={advance} />
     ),
     verify: (
-      <VerifyScreen copy={experience.copy} brand={experience.brand} batch={batch} onContinue={advance} />
+      <VerifyScreen
+        copy={experience.copy}
+        communityName={experience.communityName}
+        batch={batch}
+        onContinue={advance}
+      />
     ),
     discover: (
       <DiscoverScreen copy={experience.copy} batch={batch} media={experience.media} onContinue={advance} />
@@ -66,18 +102,23 @@ export default function QrExperienceView() {
     earn: (
       <EarnScreen
         copy={experience.copy}
-        passport={passport}
-        totalStamps={experience.collection.totalStamps}
+        experience={experience}
+        stats={stats}
+        isNewScan={lastScanWasNew}
         onContinue={advance}
       />
     ),
     passport: (
       <PassportScreen
         copy={experience.copy}
+        experience={experience}
         passport={passport}
+        stats={stats}
+        durable={durable}
         belongCta={experience.belongCta}
         collection={experience.collection}
         onScanAnother={scanAnother}
+        onStartOver={startOver}
       />
     ),
   }
@@ -87,7 +128,7 @@ export default function QrExperienceView() {
       <ExperienceProgress stage={stage} />
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={stage}
+          key={`${experience.id}-${stage}`}
           initial={reduced ? false : SCREEN_TRANSITION.initial}
           animate={SCREEN_TRANSITION.animate}
           exit={reduced ? undefined : SCREEN_TRANSITION.exit}
