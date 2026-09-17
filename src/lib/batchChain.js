@@ -1,15 +1,15 @@
 // ── Canonical batch provenance ───────────────────────────────────────────────
-// One source of truth for a batch's Land → Block → Plot → Harvest → Batch →
-// Processing chain. Both the buyer dashboard (Batch Lookup) and the public QR
-// site read from here, each through `redactBatchRecord()` at its own level, so
-// the chain is defined once rather than re-modelled per surface.
+// A batch's Land → Block → Plot → Harvest → Batch → Processing chain, read
+// through `redactBatchRecord()` at the public redaction level. This file is
+// forked from the same source in `forestos-ops` (the buyer dashboard's Batch
+// Lookup reads its own copy at the fuller `buyer` redaction level) — the two
+// systems are allowed to diverge; nothing here syncs back.
 //
 // PRIVACY: these records carry no farmer names, phone numbers, or IDs — only
 // aggregate counts (`farmers`, `pluckers`). There is nothing personal to redact;
 // redaction levels differ only in how much of the operational chain is exposed.
 // Illustrative mock data; there is no ForestOS backend.
 
-import { EUDR } from './dashboardData'
 
 export const REDACTION = {
   // The public QR scan page: provenance and verification, coarse operational detail.
@@ -399,27 +399,15 @@ const roundCoord = (n, dp) => Number(n.toFixed(dp))
 const shortRef = (ref) => (ref.length > 12 ? `${ref.slice(0, 6)}…${ref.slice(-4)}` : ref)
 
 /**
- * The plot a batch was pressed from. Geographic + canopy facts come from the
- * sector map plot when the batch is linked to one (so the chain, the 3D map and
- * the audit export never disagree); centre name and farmer count stay from the
- * record.
+ * The plot a batch was pressed from. Each record carries its own plot facts
+ * hand-authored above; this used to cross-reference the ops system's
+ * procedural sector-map grid when a batch was linked to one, so the two
+ * surfaces never disagreed. That coupling was the kind of thing the
+ * landing/ops split exists to remove — the two systems are allowed to diverge
+ * now, so this just returns the record's own plot.
  */
 export function resolvePlot(record) {
-  const mapPlot = record.sectorPlotId
-    ? EUDR.plots.find((p) => p.id === record.sectorPlotId)
-    : null
-  if (!mapPlot) return record.plot
-  return {
-    ...record.plot,
-    id: mapPlot.id,
-    lat: mapPlot.lat,
-    lon: mapPlot.lon,
-    areaHa: mapPlot.hectares,
-    canopyBaseline2020Pct: mapPlot.canopy2020,
-    canopyNowPct: mapPlot.canopyNow,
-    ndvi: mapPlot.ndvi,
-    eudrStatus: mapPlot.status,
-  }
+  return record.plot
 }
 
 /**

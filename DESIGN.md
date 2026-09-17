@@ -118,7 +118,7 @@ Dark-ground: one deep forest-green scale carries almost every background, sage a
 
 ### Neutral
 - **Forest ground** (`forest-950` `#08140e` → `forest-600` `#2c5a3c`): the entire background system. `forest-950` is the body base and deepest wash; `forest-900`/`forest-850` are section and card grounds; `forest-700`/`600` appear only as scrollbar and border-adjacent chrome.
-- **Slate** (`slate-deep` `#161c1a`, `slate-700` `#232b28`): cool structural neutrals used **only** in the macro home's corporate-gateway footer — its gradient fades forest → slate as a one-way palette bridge toward the B2B portal handoff, and the "premium portal" card fills with `slate-deep/55` glass. Not a general background; never used above that section. (The portal it opens into is itself a light console — see "The ESG Portal" — so the footer reads as the dusk before that switch, not a colour match.)
+- **Slate** (`slate-deep` `#161c1a`, `slate-700` `#232b28`): cool structural neutrals used **only** in the macro home's corporate-gateway footer — its gradient fades forest → slate, and the "premium portal" card fills with `slate-deep/55` glass. Not a general background; never used above that section. (Originally read as dusk before the handoff into the B2B/ESG portal's light console — see "The ESG Portal (B2B dashboard) — moved" — but that CTA now lives in the separate `forestos-ops` app; the footer's own tone still stands on its own.)
 - **Bone** (`#f3eee3`, `bone-300` `#ddd6c6`, `bone-500` `#c3bba6`): primary text (`bone`), secondary body copy (`bone-300`), and the most muted disclaimers/footnotes (`bone-500`).
 - **Sage** (`sage-500` `#8fa98a`, `sage-300` `#b7c9ae`, `sage-200` `#cdd9c4`): mono labels and secondary copy sitting directly on the forest ground — dividers between metadata fields, inactive toggle state, section metadata lines under an H2. `sage-300` when the label sits over a bright video frame rather than an opaque ground.
 
@@ -185,7 +185,25 @@ A small mono, uppercase, tracked line pairs with load-bearing record data — ba
 
 ### Navigation
 - **Batch view:** no persistent nav bar; the only navigational element is a skip-link (`sr-only focus:not-sr-only`, pill-shaped, amber, appears top-left on focus) jumping to `#proof`.
-- **Macro home:** a `fixed` top bar (`MacroNav`) — the one persistent-nav exception, justified because the macro page is long and multi-audience. Transparent over the hero, then `bg-forest-950/85 backdrop-blur-md` after ~120px; it hides on scroll-down and returns on scroll-up so it never blankets the belt globe. Left: `Leaf` + wordmark → `/`. Right: two mono section anchors (`sm:` and up only — they are in-page jumps, dropped on mobile) plus the loud amber "Offtaker & Brand Login" pill → `/dashboard` ("Login" on mobile). Anchored sections carry `scroll-mt-20` to clear the bar.
+- **Macro home:** a `fixed` top bar (`MacroNav`) — the one persistent-nav exception, justified because the macro page is long and multi-audience. Transparent over the hero, then `bg-forest-950/85 backdrop-blur-md` after ~120px; it hides on scroll-down and returns on scroll-up so it never blankets the belt globe. Left: `Leaf` + wordmark → `/`. Anchored sections carry `scroll-mt-20` to clear the bar.
+
+  Right (`sm:` and up), structured after osapiens' persistent-nav pattern (studied for structure only — multi-column mega-dropdown, a standing CTA — never its branding or copy): two `NavMegaMenu` dropdowns — **"The Record"** (proof content: "See the proof" → 3D Proof Map / Buffer Belt / Trees Funded; "Trace it yourself" → Scan Experience / a real sample batch record, `/batch/921`) and **"Partners"** (what ForestOS offers each partner segment — see below) — followed by the CTA pill (`Request a Forest Edition` → `/launch`, the same outline-amber pill the footer already used — kept as the one *fill-free* amber CTA rather than adding a third `bg-amber-400`-filled button alongside the two the palette section already names). Deliberately narrower than osapiens' five-item nav: only as many dropdown columns as the site has real destinations for — no invented "Regulations" or "Company" sections standing in for pages that don't exist. The old plain `Partners` anchor (`#partners`, the sponsoring-brands showcase) was renamed **"Sponsoring Brands"** in the mobile drawer once "Partners" became the offerings dropdown's name, so the two don't collide.
+
+  `NavMegaMenu` is the one generic mega-dropdown component (`src/components/home/NavMegaMenu.jsx`) — both "The Record" and "Partners" render through it with different `columns` data (`src/data/navMenus.js`), rather than each dropdown reimplementing the open/close/outside-click logic. It reuses `Hotspot.jsx`'s established floating-glass-popover contract verbatim (`rounded-2xl border-bone/12 bg-forest-900/90 backdrop-blur-md shadow-[0_18px_50px_-12px_rgba(0,0,0,0.75)]`, the same `[0.16,1,0.3,1]` blur-settle `y`/`opacity`/`filter` transition, outside-click + Escape to close) rather than inventing a second floating-panel language. A column item without a live route renders inert at `opacity-60` with a small "Soon" badge stacked *below* its label (not beside it — an inline badge collided with two-line-wrapping labels like "Conservation Passports" in an early pass) instead of linking anywhere, so the full offering plan is visible in the menu without shipping a 404.
+
+  Below `sm:`, the hamburger opens a full-screen `role="dialog"` drawer (body-scroll locked, `overscroll-contain`, Escape closes, focus moves to its close button on open) listing every link flat — no nested accordion, there isn't enough content to need one. (The nav previously also carried an amber "Offtaker & Brand Login" pill to `/dashboard`; removed when the B2B/ESG portal moved to the separate `forestos-ops` app. That app is NTZDC-internal only now, not a partner-facing destination, so this nav doesn't link to it at all.)
+
+### Solution / offering pages ("Partners")
+
+Every item in the "Partners" nav dropdown is a full solution page — the osapiens-depth template (hero → belt-totals stat strip → problem/solution framing → capability deep-dive → testimonial → FAQ → cross-suite promo → final CTA), built once as a shared, content-driven template rather than per-page bespoke markup. All 12 pages across the four partner segments (Brands & Offtakers, ESG & Corporate, Buyers, Creators & Artists) are now live; "Co-Branded Editions" (Creators) deliberately keeps pointing at the real `/launch` configurator instead of getting a duplicate templated page, since a working lead-gen form beats a generic description of one.
+
+- **These are demo/sales pages, not the product.** Per direction: onboarding a real company means giving them dashboard access to their own data, not access to this site. Every solution page's FAQ says as much explicitly ("once your organization is onboarded, your team gets dashboard access scoped to your own data") rather than implying these pages themselves are where a customer would work.
+- **Template:** `src/routes/solutions/SolutionPage.jsx` composes eight section components from `src/components/solutions/` (`SolutionHero`, `SolutionImpactStats`, `SolutionProblem`, `SolutionModules`, `SolutionTestimonial`, `SolutionFaq`, `SolutionCrossPromo`, `SolutionFinalCta`) around one `content` object. A new offering page is a content data file plus a five-line route wrapper (see `src/routes/solutions/EudrCompliance.jsx` + `src/data/solutions/eudrCompliance.js`) — the pattern all 11 other pages followed.
+- **Register:** the same dark forest-950/forest-900 cinematic register as the rest of the site (Instrument Serif display, Archivo body, JetBrains Mono labels, amber accent), alternating `bg-forest-950`/`bg-forest-900` section-to-section for rhythm, each page's hero photo rotated across the five real forest-block images (`mau`, `aberdares`, `mt-kenya`, `cherangany`, `mt-elgon`) rather than reusing one shot everywhere — this is a *read* page (long-form, scrolled through once), not the home page's *descend-through* cinematic sequence, so there's no fixed video or scroll-triggered globe here, just a static full-bleed hero photo.
+- **Honesty rules carried over from the rest of the site:** the belt-totals stat strip reuses the exact "· illustrative figures" disclosure `ImpactTicker` established; every testimonial is explicitly labelled "Illustrative — no live customer quote yet" (`SolutionTestimonial`) rather than presented as real; and where a page describes a mechanism that has no dedicated live screen (e.g. a creator's own commission split, which is a per-deal partnership term, not a published platform rate), the copy says so plainly instead of inventing a number and presenting it as fact.
+- **CTA weight:** every hero and final-CTA "Request a Forest Edition" button uses the existing outline-amber pill, not a new filled `bg-amber-400` button, across all 12 pages — same restraint as the nav CTA, keeping the two named filled-amber buttons in the palette section the only ones site-wide.
+- **Cross-promo is now a real nav, not a preview.** `SolutionCrossPromo` items carry a `to` and render as a `group`-hover `Link` with an arrow affordance; every page's cross-promo links to its actual segment siblings (built simultaneously so nothing points to a stub). The exemplar, `/solutions/eudr-compliance`, was the only page ever built with "Soon"-badged inert cross-promo items — that state no longer exists anywhere on the site.
+- **Interactivity, kept restrained:** every section wraps its entrance in the existing `Reveal` component (blur-settle scroll-in, staggered by a small per-item `delay`) — no new animation pattern, just the same one `PartnerShowcase`/`ImpactSection` already use, applied here. Every page's hero and belt-totals numbers animate via `CountUp` (ported from reactbits.dev's text-animations/count-up in an earlier session, already reused by `ImpactTicker`/`BeltLedger`), not re-ported per page. The one genuinely new piece is `SpotlightCard` (`src/components/ui/SpotlightCard.jsx`, ported from reactbits.dev's SpotlightCard JS+Tailwind variant, zero new dependencies) — a cursor-tracking radial glow, recoloured from the source's white/neutral-900 default to this site's amber accent on `forest-900`/`bone-12` glass, applied only to each page's `SolutionModules` capability cards. Deliberately the page's one hover-interactive flourish rather than adding motion to every element — an FAQ accordion and CTA links stay plain.
 
 ### Signature Component: Spatial Hotspot
 A 12px amber dot inside two concentric rings (translucent bone ring + itself), with a `motion-safe:animate-ping` amber halo, positioned absolutely by percentage over the fixed hero video. Tapping opens a `role="dialog"` glass popover (blur-settle-in via Framer Motion: `opacity`/`y`/`filter: blur` transition, `ease: [0.16,1,0.3,1]`) with a mono label, serif title, and body copy; closes on outside click or Escape. This is the build's one bespoke interaction pattern and should be reused verbatim for any future spatial point-of-interest marker rather than reinvented.
@@ -196,302 +214,21 @@ A 12px amber dot inside two concentric rings (translucent bone ring + itself), w
 
 The macro home's `PartnerShowcase` renders, inside the tea-pour video bleed: (1) `BrandFeature` — the lead brand as an asymmetric editorial panel, a warm product plate (`/media/brand/nyashinski-tin`, framed `rounded-2xl border-bone/15` inside the glass card) beside the name, the artist line as an Instrument Serif italic pull-quote, and an amber `#1 this quarter` pill; (2) `ImpactLeague` — every brand ranked, one `<button>` row each that flies the belt globe to that block (same parent-controlled `onExplore` path the old bento cards used), the leader carried by a faint `bg-amber-400/[0.06]` wash and an amber rank numeral + bar (not a `border-left`), everyone else on `bg-sage-500` bars; (3) `Cop32Milestone` — a countdown to a real fixed date (`useCountdown`, hourly tick) plus an amber pack-progress bar; (4) `EnablingPartners` — NTZDC / M-PESA Foundation / Sentinel-2 / Carrefour named in plain `dl` text, no logos.
 
-The public batch view adds `BrandBeatSection` after Impact (see the video-bleed note): a `SectionIntro` head, then the brand identity (name + product +, when present, the artist quote), a "what this pack holds open" covenant readout with a `#proof` anchor back to the globe, a per-pack conservation-contribution figure row (distinct from the picker premium in `ImpactSection`), and `Cop32Milestone compact` with a one-line standings tie-in. A batch whose brand has no rich profile (e.g. the reference Rift Valley batch `802`) renders the lighter variant automatically — identity + covenant readout only, no plate, no contribution row, no milestone. `toLegacyBatch` carries `brandId`/`brand`/`product` and a `block` subset so the public batch object can drive all of this. The `/dashboard` buyer account stays "Rift Valley Tea Co." and its portfolio is unchanged; the Nyashinski demo lives at `/batch/921`.
+The public batch view adds `BrandBeatSection` after Impact (see the video-bleed note): a `SectionIntro` head, then the brand identity (name + product +, when present, the artist quote), a "what this pack holds open" covenant readout with a `#proof` anchor back to the globe, a per-pack conservation-contribution figure row (distinct from the picker premium in `ImpactSection`), and `Cop32Milestone compact` with a one-line standings tie-in. A batch whose brand has no rich profile (e.g. the reference Rift Valley batch `802`) renders the lighter variant automatically — identity + covenant readout only, no plate, no contribution row, no milestone. `toLegacyBatch` carries `brandId`/`brand`/`product` and a `block` subset so the public batch object can drive all of this. The Nyashinski demo lives at `/batch/921`.
 
-## The ESG Portal (B2B dashboard)
+## The ESG Portal (B2B dashboard) — moved
 
-The `/dashboard/*` route (`B2BDashboard` shell + `DashboardSidebar` + the routed
-per-role modules) is the system's **one light surface** — an "operations console"
-for the offtaker/brand account, deliberately distinct from the cinematic dark public
-site so it reads as a working tool rather than a landing page. It is the inverse
-of the forest ground, not a new palette: the same amber action accent, the same
-`river-500` data accent, the same serif/sans/mono split. Only the ground flips.
-
-**Scope & tokens.** The shell adds `.dash` to its root and `dash-root` to
-`<html>` (so overscroll and short pages show paper, not the forest body base).
-All light tokens live in `@theme` and are used only inside `.dash`:
-
-- `paper` `#f7f5f0` — canvas (the module area and the top strip).
-- `paper-sunk` `#e7e3d6` — nested wells, inset cards, hovered rows, the schematic
-  map grounds.
-- `card` `#ffffff` — panels (`Panel`) and KPI tiles (`StatTile`).
-- `line` `#e0dbcb` / `line-strong` `#d1cab8` — hairline borders; `line-strong`
-  also fills every meter/progress track so it reads on both white and paper-sunk.
-- `ink` `#17251c` / `ink-muted` `#4f5c52` / `ink-faint` `#5b6960` — primary,
-  secondary, and mono-label/tertiary text. **All three clear WCAG AA (≥4.5:1) on
-  paper, card, and paper-sunk** — `ink-faint` was darkened from `#8a948a` in the
-  post-critique pass because every functional mono label lands on it.
-- `emerald-100 #d1fae5 · 400 #34d399 · 500 #10b981 · 600 #059669 · 700 #047857 ·
-  800 #065f46 · 900 #064e3b · 950 #022c22` — canonical Tailwind emerald, declared
-  as `@theme` tokens so the literal classes (`bg-emerald-700`, `text-emerald-950`,
-  …) and the portal's own usage read from one place. This is the portal's action
-  + data-viz green (see roles below).
-- `amber-700` `#7c5322` — the accessible cut of amber for text and detail on
-  white. Amber is **warnings only** now — see roles.
-- `--shadow-card` — one soft ambient lift (`0 1px 2px` + `0 2px 10px -3px`
-  rgba(23,37,28,…)) on panels and KPI tiles. This is the portal's single
-  structural shadow; the dark site's "no structural shadow" rule does not cross
-  into `.dash`.
-
-**Colour roles inside the portal.**
-
-- **Green is the portal's action + data accent** (the role amber plays on the
-  dark public site): `emerald-700` primary CTA buttons
-  (`bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm`, replacing the
-  amber pill — "Export full GeoJSON", "Download Executive PDF", "Audit
-  Certificate"); `emerald-950` page headers (`Overview`, `EUDR & Plot
-  Compliance Suite`, …); `emerald-600` progress-bar fills, KPI sparkline stroke,
-  the soft `emerald-500/15 → transparent` gradient area under every sparkline,
-  positive `▲` delta pills, `text-emerald-700` positive KPI figures, "clear /
-  compliant" pills, active list rows, and the QR scan / dwell / campaign visuals;
-  the active nav row is `border-l-4 border-emerald-400` (bright) +
-  `bg-emerald-900/60` + `text-white`.
-- **Amber / orange is reserved strictly for semantic warnings**: `warn`-tone KPI
-  tiles (Watch / Flagged) with their leading dot, the `watch` / `flagged` status
-  pills, the flagged plot polygon on the sector map, encroachment-alert icons
-  and pills, and the `PlotInspector` "current below baseline" canopy bar. Never
-  a button, a header, a standard progress bar, or a neutral data mark.
-- **`river-500`** stays data-only — now just the "coverage" meter tone in Fair
-  Pay and the "current canopy, no loss" tone.
-- Large KPI figures are `ink` or `emerald-700` only — never amber or river as
-  text on white.
-
-**Roles & navigation.** The portal is **multi-role** — `src/lib/dashboard/roles.js`
-defines six views: **Brand / Offtaker** (default, at `/dashboard/*`), **Buyer /
-Brand** (`/dashboard/buyer/*`), **Creator & Artist** (`/dashboard/creator/*`),
-**NTZDC Operations** (`/dashboard/ops/*`), **NTZDC Management**
-(`/dashboard/management/*`), **ESG Capital Manager** (`/dashboard/capital/*`). The
-active role is **derived from the URL path** (`roleFromPath`, which matches the
-most specific non-`/dashboard` `base` that prefixes the path), not React state;
-the sidebar's "Role View" `<select>` simply `navigate()`s to a role's `base`.
-Each role carries its own identity (`org`), scope label, and ordered module list;
-`B2BDashboard` routes a flat union of every module across all roles, plus a `*` →
-`/dashboard` redirect. Every role's index route resolves to `role.base` with **no
-trailing slash** so `NavLink end` matching works. New non-Brand modules are built
-from the shared `DashboardKit` primitives (`ModuleHeader`, `StatTile` row,
-`Panel`, `BarMeter`, `Sparkline`, `DataTable`, `StatusPill`) + a per-role
-mock-data file (`src/lib/dashboard/{buyer,creator,ntzdc,ntzdcManagement,esg}.js`);
-the ESG "Satellite Recovery" and Buyer "Batch Lookup" modules both re-mount the
-full `SectorFocusView` (`variant="ndvi"`).
-
-**Buyer / Brand & the shared batch chain.** The Buyer role (`org.scope`
-"Direct-sold volume", `scopeLabel` "Active sourcing") is scoped to a brand's own
-direct-sold batches — **auction-pool volume is never shown** (`channel: 'auction'`
-records are filtered out everywhere, and Batch Lookup rejects a search that
-resolves to one). No farmer names, phone numbers, or IDs appear in this view;
-only aggregate `farmers` / `pluckers` counts. Its three modules:
-- **Conservation Passport** (`/dashboard/buyer`) — a four-up KPI row (volume
-  verified, active passports, farmers represented, buffer hectares attributed)
-  over content `Panel`s for sourcing, conservation activity, community impact
-  (aggregate-only), environmental data (`Sparkline` on `SATELLITE.ndvi`),
-  verification records, and the headline batch's full chain.
-- **Batch Lookup** (`/dashboard/buyer/batches`) — search by id, a branded-batch
-  picker, `BatchProvenanceChain`, evidence downloads (GeoJSON / audit cert /
-  passport PDF via the existing `geojson.js` + `passportPdf.js` helpers), and the
-  reused `SectorFocusView` map.
-- **ESG Report Export** (`/dashboard/buyer/reports`) — hectares protected, carbon
-  stored, verification status; a per-block `DataTable` and PDF + CSV export
-  (`src/lib/esgReport.js`, same client-side hand-rolled PDF technique as
-  `passportPdf.js`).
-
-The batch chain is defined once. **`src/lib/batchChain.js`** holds the canonical
-records (Land → Block → Plot → Harvest → Batch → Processing, plus a `channel`
-tag and Field + Satellite verification), `redactBatchRecord(record, level)`
-(`'public'` | `'buyer'` — coordinate precision, harvest/lot-ID detail, reference
-truncation), and `toLegacyBatch(record)`. **`src/lib/mock.js` no longer hand-maintains
-its own `BATCH`** — it projects `BATCH_CHAIN[0]` (and `resolveBatch` looks the id
-up in the chain, branded-only) so the public QR site and the buyer dashboard read
-one source. **`src/components/batch/BatchProvenanceChain.jsx`** is the shared
-renderer for `redactBatchRecord` output — currently styled with the light `.dash`
-tokens for its buyer-dashboard mount; a future dark public-site mount needs a
-tone variant, but the data contract does not change.
-
-**NTZDC Operations vs. Management.** The two NTZDC roles share a visual language
-and the `ntzdc*` data files but differ in scope. **Operations**
-(`org.scope` "Kiptunga Block operations", `scopeLabel` "Operating zone") is the
-single-block console — Operations & QC Hub, Verification Queue, Problem Reports,
-Quality & Rejections, Price Configurator, Farmer Training Alerts, Buffer
-Maintenance. **Management** (`org.scope` "All zones", `scopeLabel` "Coverage",
-`org.code` "NTZDC-NAT") is the org-wide roll-up across every operating zone, its
-data in `ntzdcManagement.js` (a `zones` array plus `zoneTotalPay()` and a
-`managementRollup()` that intake-weights every rate). Its three modules:
-- **Landscape Overview** (`/dashboard/management`) — a six-up KPI row (zones,
-  blocks, farmers & workers, season intake vs last, aggregate reject rate,
-  buffer hectares) over a `BarMeter` "season intake by zone" panel and a
-  sortable "zones at a glance" `DataTable`.
-- **Zone Comparison** (`/dashboard/management/zones`) — the pay-disparity screen.
-  One `DataTable`, rows **pre-sorted by pay gap descending** (widest gap to the
-  top-paying zone first) so regional disparity surfaces without interaction; the
-  Pay column renders a `PayStack` — base / quality-premium / conservation-premium
-  segments (`emerald-900 / 600 / 400`) on one shared scale (the top payer), with
-  the three figures repeated in a mono line beneath because the premium slivers
-  are genuinely small. Pay-gap deltas are `amber-700` (a tracked disparity is a
-  standing concern). `csvName="ForestOS-zone-pay-comparison"`.
-- **Buffer & Conservation Rollup** (`/dashboard/management/buffer`) — the
-  `BufferMaintenanceModule` pattern rolled up: a KPI row (intake-weighted
-  boundary integrity, combined patrols, total buffer ha, zone-mean NDVI with a
-  `MiniSparkline`), `BarMeter` panels for boundary integrity and patrol activity
-  by zone (amber under the 88% integrity floor), and an equal-weighted org-wide
-  NDVI `Sparkline` reading the same Sentinel-2 composite as ESG Satellite
-  Recovery.
-
-**Sidebar** (`DashboardSidebar`, takes a `role` prop). A **dark rich-emerald
-panel** (`bg-emerald-950`, `border-emerald-800/50`) against the parchment
-content — the one dark surface in the light portal. At `lg` it is
-`sticky top-0 h-screen w-64 overflow-y-auto`, so the emerald ground stays
-continuous full-height while the main column scrolls; below `lg` it collapses to
-a full-width top section with a horizontal-scroll module row. Top to bottom:
-`Leaf` (emerald-400) + `ForestOS` wordmark (white) → `/`; the **Role View**
-switcher (native `<select>`, `bg-emerald-900/60`, chevron); the **scope badge**
-in a dark transparent card (`bg-emerald-900/40 border border-emerald-800/50`) —
-label `emerald-400`, value white, the copy driven by `role.scopeLabel` /
-`role.org.scope`; a `MODULES` mono label; the nav list — inactive
-`text-emerald-100/70`, hover `bg-emerald-900/50 text-white`, active
-`border-l-4 border-emerald-400 + bg-emerald-900/60 + text-white`; and a pinned
-"signed in as" card + "back to public site" link.
-
-The Role View control is a real labelled `<select id="role-view" name="role-view">`
-with a one-line "Switches the entire module set for this account." helper, so the
-mode change is stated before interaction and autofill/SR have a name.
-**Focus rings inside the sidebar are white** (`.dash aside :focus-visible`) — the
-parchment-side `emerald-700` outline is invisible on `emerald-950` and fails
-WCAG 2.4.11.
-
-**Shell.** `B2BDashboard` root is `flex min-h-screen flex-col bg-paper lg:flex-row`
-(faithful to a `flex min-h-screen` brief but column-stacked on mobile so the
-sidebar is not a 256px squeeze). `bg-paper` is `#f7f5f0`. The module column is
-`max-w-6xl` centred.
-
-**Card framing.** Every white `Panel`, `StatTile`, and the Sector Focus /
-activity-stream containers carry a `border border-emerald-900/10` hairline (a
-barely-there green frame) plus `--shadow-card`. `warn`-tone tiles swap it for
-`border-amber-700/25`.
-
-**Console top strip.** A slim `border-b` bar above the module area:
-`<role label> / <scope>` left, `AS OF <date>` right, both mono uppercase
-`ink-faint`.
-
-**Portal display face.** The dashboard subtree overrides `--font-display` to
-**Newsreader** (an editorial "of record" serif — Production Type, `opsz 6..72`),
-scoped to `.dash` so the public landing site keeps its cinematic Instrument
-Serif. `.dash .font-display` sets `font-optical-sizing: auto`, `letter-spacing:
--0.017em`, `font-weight: 420`. Everywhere this section says "Instrument Serif
-figure/headline", read it as Newsreader inside the portal. The mono/sans roles
-(JetBrains Mono, Archivo) are unchanged.
-
-**KPI tiles** (`StatTile`). `card` fill, `border-emerald-900/10`, `--shadow-card`,
-`rounded-lg`. Mono uppercase 11px `ink-faint` label (with a leading **amber** dot
-only when `tone="warn"`); a crisp Instrument Serif figure (`text-[2rem]`, tabular)
-in `ink` or, for `tone="positive"`, `emerald-700`; and a **right slot that always
-carries something** — a `trend` `MiniSparkline` (84×26, emerald stroke +
-`emerald-500/16 → transparent` area fill; amber only on a `warn` tile) or, when
-there is no series, a `share` (0–1) progress mark — so a tile is never a lone
-figure in an empty box. Footer: an optional `DeltaPill` (Lucide `ArrowUp` /
-`ArrowDown` + `sr-only` direction word + label, emerald tint up / amber tint
-down) and/or a plain `ink-muted` unit caption.
-
-**Charts.** `BarMeter` — one bar, one value; tracks `line-strong`; fills
-`emerald-600` (default), `river-500` (coverage / verification), `ink-faint/60`
-(`muted`), `amber-500` only for a warning. `BulletBar` — target-vs-actual on one
-row: the fill is the actual, an `ink` tick is the target, the bar turns amber
-when behind. Use it whenever two quantities are being compared (ESG deployed vs
-target, the price stack) instead of two `BarMeter` lists. `Sparkline` /
-`MiniSparkline` draw a soft gradient area under the line via an inline
-`<linearGradient>` keyed by React `useId`.
-
-**Per-role hero visualisations.** Each role's primary module leads with one
-authored chart before the KPI-and-table body:
-- **Brand** — the Sector Focus 3D map (EUDR / Satellite).
-- **Creator** — `CreatorDropTimeline`: an SVG release calendar, each drop a node
-  on a date axis with a sell-through ring and a `TODAY` marker. Campaign Drops
-  also carries `CampaignSellThrough` (one segmented bar across every launched
-  edition series, units sold vs. total run, upcoming inventory noted as a
-  footnote) and a royalty/units/AOV/trees KPI row. Audience QR Scans carries
-  `CreatorMessageBoard` — a prototype note composer (280-char cap, emerald
-  "Publish to audience" CTA) above a `divide-y` list of published notes, each
-  stamped with date, id, and accrued scan reach.
-- **NTZDC** — `NtzdcCentreBoard`: one tile per collection centre with a half-
-  circle intake gauge against target, moisture against the accepted band, and
-  last-pickup time — a board, not a table.
-- **ESG** — the `BulletBar` deployed-vs-target chart on Fund Allocation.
-
-**`DataTable`** now takes `sortable` (headers become buttons that cycle asc →
-desc, with `aria-sort`) and `csvName` (adds a Download CSV action). Where a
-module previously rendered a table *and* the same numbers as a `BarMeter` list,
-the bar is folded into a table cell instead.
-
-**NTZDC pipeline modules.** Two Operations modules track work through a named
-pipeline and reuse the shared primitives rather than adding chrome:
-
-- **Verification Queue** (`/dashboard/ops/verification`) — a KPI row (pending
-  review, verified this week, avg time to verify, flagged/rejected) over a
-  `divide-y` list of conservation claims, each a full-width `<button>` row
-  showing claim type, `VC-` id, plot/block, reported date and a `StatusPill` for
-  the pipeline stage (Reported → Field verified → Evidence attached → Satellite
-  cross-check → Verified, or Rejected). Selecting a claim swaps the whole module
-  for `VerificationClaimDetail` (local `useState`, a mono "← Back to queue"
-  control, no route change) — a `PipelineStepper`, the original submission as a
-  `dl`, an editable officer-observations `textarea`, a dashed photo/GPS evidence
-  well, an NDVI cross-check that reads the same `SATELLITE.ndvi` composite as ESG
-  Satellite Recovery (baseline-vs-current `BarMeter` pair + `Sparkline` + the
-  `ESG.recovery` sector mean), and an Approve / Request more evidence / Reject
-  decision row with an `aria-live` prototype confirmation.
-- **Problem Reports** (`/dashboard/ops/problems`) — a KPI row (open, avg response
-  time, resolved this month, overdue) over a sortable `DataTable` with
-  `csvName="ForestOS-problem-reports"`: farmer id, centre, problem type,
-  severity and status as `StatusPill`s (severity forced to `warn` at High /
-  Critical; an `overdue` mono tag trails an unclosed status), assigned officer.
-
-The verification stage keywords (`verified`, `outcome recorded`) were added to
-`StatusPill`'s `STATUS_TONE` map so both modules resolve pipeline pills without
-per-call tone props; the pill classes are unchanged and still match the
-`CATEGORY_TONE` tags on Impact Audit Logs.
-
-**The QR / audience scatter panels** render on `paper-sunk` with
-`rgba(23,37,28,0.07)` grid lines, carry a `role="img"` summary label, and print
-the same city figures as a plain sorted list beneath — the bubble field is
-decoration over a real list, not the only representation.
-
-**The Sector Focus View** (`components/dashboard/sector/`). The EUDR and
-Satellite modules replace a flat schematic with a real 3D map scoped to the
-account's one covenant block (`SECTOR` in `dashboardData.js` — South West Mau /
-Kiptunga Block). It reuses the public site's Cesium/Resium stack (`lib/cesium`
-bootstrap, Esri World Imagery, the same dark scene grade) behind a `React.lazy`
-boundary, so Cesium only downloads when one of those two modules opens. Pieces:
-
-- **`SectorFocusMap`** — the Cesium `Viewer`, framed by `SECTOR.flight` (high
-  tilt → resting 3/4 view; jumps under reduced motion). The WebGL canvas is
-  `tabindex="-1"` + `aria-hidden` — it captures arrow keys and would trap
-  keyboard users; the plot rail below the map (a row of focusable status-dotted
-  plot-ID buttons) is the keyboard / screen-reader path to every plot's
-  inspector. Three toggleable layers:
-  `audit` (per-plot polygons, slightly extruded, coloured `#3ba552` cleared /
-  `#e8a85c` watch / `#df5a26` flagged, selected plot extruded taller with a bone
-  outline), `ndvi` (a 9×6 translucent graded field on the fixed NDVI ramp
-  `#a9641d` bare → `#c9a24a` → `#4a9e3f` → `#1f7d38` canopy — these four are the
-  only sanctioned NDVI-map colours and never leave the satellite scene),
-  `pins` (amber `PinBuilder` billboards for the collection centres). Clicking a
-  polygon or pin flies the camera and selects.
-- **`SectorLayerToggle`** — top-right dark-glass toggle group. Dark chrome is
-  correct **only here**, floating over the satellite scene.
-- **`PlotInspector`** — a right-edge slide-over HUD card (dark glass, Framer
-  Motion slide / fade under reduced motion): plot ID + coordinates, EUDR status
-  badge, baseline-vs-current canopy bars, NDVI, and `GeoJSON` + `Audit
-  Certificate` download CTAs (`plotToAuditCert` / `downloadCert`).
-- **`AuditActivityStream`** — a light `Panel`-styled feed below the map,
-  headed **"Audit Activity"** (never "Live") with a static `SIMULATED FEED` pill
-  (no pulsing dot — the public-site "no fabricated liveness" rule holds here).
-  It adds one paced entry every ~15s from `AUDIT_ACTIVITY`; reduced motion
-  renders the whole log at once. Plot IDs are click-through to the inspector.
-
-**What does not change.** The mono/serif register rule, the "never a bare
-decorative eyebrow" status-line rule, `rounded` vocabulary, and reduced-motion
-expectations all hold inside the portal. The "no third accent hue" rule holds in
-spirit: the portal's `emerald-*` ramp is a saturated cut of the same forest
-green, not a new hue — green, amber (warnings), `river-500` (data), and the
-bone/ink neutrals are still the whole set. What the portal *does* change from the
-dark site is the **role assignment**: green takes over action + emphasis, and
-amber retreats to warnings only.
+The B2B/operations dashboard previously lived here at `/dashboard/*`. It has
+been extracted to the sibling `forestos-ops` app — this repo now covers only
+the public consumer trace surface (home, `/batch/:id`, the tenant passport,
+the QR experience). See `forestos-ops/DESIGN.md` for its design language.
+The `.dash`/`dash-root` scoping rules in `src/index.css` are now dead (no
+component here adds those classes) and can be trimmed — but the individual
+light-surface tokens they used are not all dead: `HowItWorksModal` reads
+`ink-muted` for a caption on its `bg-bone` card. `BatchProvenanceChain.jsx`
+(the shared redacted-chain renderer, `.dash`-styled) was deleted from this
+repo as orphaned dead code during the split — the real one now lives in
+`forestos-ops`. Check usage before removing any individual token.
 
 ## Do's and Don'ts
 
@@ -504,7 +241,7 @@ amber retreats to warnings only.
 ### Don't:
 - **Don't** introduce a decorative kicker/eyebrow — a mono label above a heading purely for label effect, with no data payload of its own. A mono line above a heading is valid only when it carries a real, specific value (a count, a span, an ID, a status), and it renders in sage, never amber. `SectionIntro`'s `eyebrow` prop is for exactly this kind of readout.
 - **Don't** add hard-offset/neobrutalist shadows or sharp corners. On the dark public site the system has exactly three soft glow/ambient shadow exceptions (hotspot dot, hotspot popover, macro-footer portal card) and no structural drop-shadow elevation elsewhere; inside the `.dash` ESG portal, `--shadow-card` is the one sanctioned ambient lift on panels and KPI tiles.
-- **Don't** carry the light `.dash` tokens (`paper`, `card`, `ink`, `line`, …) or the light console treatment outside `/dashboard/*`, and don't bring the forest ground into the portal. The two surfaces are deliberately opposite grounds of the same palette.
+- **Don't** reintroduce the `.dash`/`dash-root` light-console *treatment* (the paper canvas, the emerald sidebar, the portal's role-switching shell) into this repo — that surface now lives entirely in `forestos-ops`. The individual light-on-`bone` tokens it left behind in `src/index.css` (`ink-muted` etc.) are still fair game for a light card or modal on the public site — check for existing usage (e.g. `HowItWorksModal`) before pruning any of them.
 - **Don't** use dark surfaces in the portal outside the two sanctioned places: the **rich-emerald sidebar** (`bg-emerald-950`), and dark-glass chrome floating **over the Sector Focus satellite viewport** (layer toggle, legends, plot inspector). Every other surface is light `card` / `paper`.
 - **Don't** let the Sector Focus map's data-viz reds/greens (`#df5a26` flagged, `#3ba552` cleared, the NDVI ramp) leak into UI chrome — they are map encodings on a dark satellite scene, not additions to the forest/amber/river accent system. `STATUS_CSS` (`sectorMapStyle.js`) holds the darker CSS mirrors used for the inspector badge and legend so the HTML chrome stays legible.
 - **Don't** set a large KPI figure in amber or `river-500` on the light portal — as text on white they fail contrast. Figures are `ink` or `emerald-700`; amber survives only as a warning fill/border/dot/icon, and `amber-700` is its text cut.
