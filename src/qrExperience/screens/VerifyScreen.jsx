@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ShieldCheck, ArrowRight } from 'lucide-react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
-export default function VerifyScreen({ copy, brand, batch, onContinue }) {
+export default function VerifyScreen({ copy, communityName, batch, onContinue }) {
   const reduced = usePrefersReducedMotion()
   const enter = (delay) =>
     reduced
@@ -35,8 +35,8 @@ export default function VerifyScreen({ copy, brand, batch, onContinue }) {
         >
           <dl className="grid grid-cols-2 gap-y-4">
             <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">Majani Passport</dt>
-              <dd className="mt-1 text-[15px] text-bone">{brand.product}</dd>
+              <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">{communityName}</dt>
+              <dd className="mt-1 text-[15px] text-bone">{batch.product}</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">Batch</dt>
