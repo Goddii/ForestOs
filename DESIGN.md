@@ -36,6 +36,25 @@ colors:
   ink: "#17251c"
   ink-muted: "#4f5c52"
   ink-faint: "#5b6960"
+  # Investor console (/investor/*) — its own light-neutral canvas, distinct
+  # from the public site's paper/paper-sunk (cooler, less warm-cream) and
+  # from the dead .dash portal. Reuses card/line/line-strong/ink/ink-muted/
+  # ink-faint above (same roles, shared values).
+  canvas: "#eef1ee"
+  canvas-sunk: "#e4e9e3"
+  forest-accent: "#176b45"
+  forest-accent-dark: "#0b3d2a"
+  forest-accent-soft: "#e8f2ec"
+  warning: "#9a6a13"
+  warning-soft: "#faf1e0"
+  danger: "#b54848"
+  danger-soft: "#f8e9e9"
+  risk-low: "#1c8a5a"
+  risk-low-soft: "#e1f2e9"
+  risk-medium: "#ce8e4e"
+  risk-medium-soft: "#faecdd"
+  risk-high: "#c0362c"
+  risk-high-soft: "#f8e1df"
 typography:
   display:
     fontFamily: "'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif"
@@ -118,7 +137,7 @@ Dark-ground: one deep forest-green scale carries almost every background, sage a
 
 ### Neutral
 - **Forest ground** (`forest-950` `#08140e` → `forest-600` `#2c5a3c`): the entire background system. `forest-950` is the body base and deepest wash; `forest-900`/`forest-850` are section and card grounds; `forest-700`/`600` appear only as scrollbar and border-adjacent chrome.
-- **Slate** (`slate-deep` `#161c1a`, `slate-700` `#232b28`): cool structural neutrals used **only** in the macro home's corporate-gateway footer — its gradient fades forest → slate, and the "premium portal" card fills with `slate-deep/55` glass. Not a general background; never used above that section. (Originally read as dusk before the handoff into the B2B/ESG portal's light console — see "The ESG Portal (B2B dashboard) — moved" — but that CTA now lives in the separate `forestos-ops` app; the footer's own tone still stands on its own.)
+- **Slate** (`slate-deep` `#161c1a`, `slate-700` `#232b28`): cool structural neutrals used **only** in the macro home's corporate-gateway footer — its gradient fades forest → slate, and the "premium portal" card fills with `slate-deep/55` glass. Not a general background; never used above that section. (Originally tuned as dusk before a handoff into a since-removed B2B portal CTA; the footer's own tone stands on its own now. Unrelated to the investor console's `canvas` — see "The investor console (`/investor/*`)".)
 - **Bone** (`#f3eee3`, `bone-300` `#ddd6c6`, `bone-500` `#c3bba6`): primary text (`bone`), secondary body copy (`bone-300`), and the most muted disclaimers/footnotes (`bone-500`).
 - **Sage** (`sage-500` `#8fa98a`, `sage-300` `#b7c9ae`, `sage-200` `#cdd9c4`): mono labels and secondary copy sitting directly on the forest ground — dividers between metadata fields, inactive toggle state, section metadata lines under an H2. `sage-300` when the label sits over a bright video frame rather than an opaque ground.
 
@@ -141,6 +160,18 @@ Dark-ground: one deep forest-green scale carries almost every background, sage a
 
 ### Named Rules
 **The Instrument Register Rule.** Any value that is measured, timestamped, or identifies a record (IDs, coordinates, KES/kg, hectares, dates, plot refs) renders in JetBrains Mono, uppercase-tracked when it's a label. Any value that is narrated (headlines, body copy, captions) renders in Archivo or Instrument Serif. Never mix the two roles on the same string.
+
+### Investor console (`/investor/*`) type ramp
+
+A separate, tighter, all-sans scale — no Instrument Serif below the page
+`<h1>` (see "The investor console" Named Rule). All Archivo unless noted.
+
+- **Page H1** (400, `text-5xl`–`text-6xl`, Instrument Serif — the one serif use): the project name only.
+- **Section heading** (700, `text-2xl`–`text-[1.75rem]`, `tracking-tight`): every `SectionHeading` `<h2>`.
+- **Card title** (600–700, `text-xl`, or `text-[13px]` for a dense list-row title): evidence/report/governance card headings.
+- **Body** (400, `text-[14px]`, line-height relaxed): descriptive copy under a heading, capped `max-w-[62ch]`.
+- **Data figure** (700–800, `text-2xl`–`text-5xl`, `tabular-nums`): every `StatCard`/`MetricCard` headline number.
+- **Micro label** (500–600, `text-[9px]`–`text-[13px]`, uppercase, tracked `0.1em`–`0.22em`, JetBrains Mono): metadata lines, badge text, nav items, table headers, axis labels — the console's own dense-data register, distinct from the public site's label scale but built on the same mono/uppercase/tracked idea.
 
 ## Layout
 
@@ -216,36 +247,89 @@ The macro home's `PartnerShowcase` renders, inside the tea-pour video bleed: (1)
 
 The public batch view adds `BrandBeatSection` after Impact (see the video-bleed note): a `SectionIntro` head, then the brand identity (name + product +, when present, the artist quote), a "what this pack holds open" covenant readout with a `#proof` anchor back to the globe, a per-pack conservation-contribution figure row (distinct from the picker premium in `ImpactSection`), and `Cop32Milestone compact` with a one-line standings tie-in. A batch whose brand has no rich profile (e.g. the reference Rift Valley batch `802`) renders the lighter variant automatically — identity + covenant readout only, no plate, no contribution row, no milestone. `toLegacyBatch` carries `brandId`/`brand`/`product` and a `block` subset so the public batch object can drive all of this. The Nyashinski demo lives at `/batch/921`.
 
-## The ESG Portal (B2B dashboard) — moved
+## The investor console (`/investor/*`)
 
-The B2B/operations dashboard previously lived here at `/dashboard/*`. It has
-been extracted to the sibling `forestos-ops` app — this repo now covers only
-the public consumer trace surface (home, `/batch/:id`, the tenant passport,
-the QR experience). See `forestos-ops/DESIGN.md` for its design language.
-The `.dash`/`dash-root` scoping rules in `src/index.css` are now dead (no
-component here adds those classes) and can be trimmed — but the individual
-light-surface tokens they used are not all dead: `HowItWorksModal` reads
-`ink-muted` for a caption on its `bg-bone` card. `BatchProvenanceChain.jsx`
-(the shared redacted-chain renderer, `.dash`-styled) was deleted from this
-repo as orphaned dead code during the split — the real one now lives in
-`forestos-ops`. Check usage before removing any individual token.
+A second, deliberately distinct visual system lives in this repo alongside
+the public cinematic site: the ESG Capital / Conservation Investment
+console for institutional investors, ESG fund managers, and conservation
+finance partners (`src/routes/InvestorView.jsx`, components under
+`src/components/investor/`). It is not the old `.dash` B2B portal this
+section used to describe — that portal, and its separate `forestos-ops`
+extraction, are both dead; `.dash`/`dash-root` remain unused legacy
+scoping in `src/index.css`. The investor console is a fresh, independent
+surface, built and then redesigned entirely within this repo.
+
+**Creative North Star: "The Institutional Filing Cabinet"** — a dense,
+credible SaaS finance dashboard in the register of Watershed, Persefoni,
+and Addepar: clean data-viz-led panels, confident whitespace, restrained
+semantic color, dense but legible tables and audit trails. This was chosen
+explicitly as the category standard, played straight, over three more
+conceptually distinctive rolled directions (an evidentiary-dossier
+regulatory-filing register, a satellite/GIS instrument console, and an
+abstract calibrated-rail/spectrogram register) — see
+`.impeccable/surfaces/src-routes-investorview-jsx.md` for the full
+direction contract and roll history. Deliberately part of the ForestOS
+family (the leaf mark, the `forest-accent` green, Archivo/JetBrains Mono
+carried over) rather than an unrelated sub-brand, but does not share the
+public site's dark cinematic register, its Instrument Serif body voice, or
+its amber accent — this is its own room.
+
+**Key characteristics:**
+- Light, cool canvas (`canvas` `#eef1ee`) — not the public site's warmer
+  `paper`, not the dark `forest-950` ground. The one dark surface is the
+  persistent left nav rail (`forest-950`), which gives the light canvas
+  its contrast, and the Leaflet map, kept deliberately as a dark
+  scientific-instrument "window" rather than flattened light.
+- Sans-serif (Archivo) for every UI control, data point, badge, table
+  cell, and section heading; Instrument Serif is reserved *only* for the
+  page-level `<h1>` (the project name) — never section headings, never
+  drawer/detail titles, never repeated chrome. This is a deliberate,
+  tighter restriction than the public site's own serif/mono split.
+- Every number is `font-sans font-bold tabular-nums`; real data-viz (line
+  charts, trend sparklines, horizontal budget bars) does the work that a
+  decorative stat card would otherwise fake.
+- `forest-accent` (`#176b45`) is the one semantic accent for
+  verified/active/positive state; `warning`/`danger` (and the existing
+  `risk-low/medium/high` triad) cover watch and flagged states. No
+  colored `border-left` on cards, list rows, or nav items — active/status
+  state is carried by fill and weight, never a side stripe.
+- Every card is `rounded-2xl border border-line bg-card shadow-card` —
+  one card language reused identically for every entity type (evidence
+  record, risk, governance role, report), so the console reads as one
+  consistent filing system rather than a decorated dashboard.
+- Demo data is disclosed everywhere (a persistent "Demo environment"
+  badge at every breakpoint, "Demo data" badges per record) — this is a
+  product-truth requirement (see `PRODUCT.md`), not a style choice, and
+  must survive any future visual pass.
+
+### Investor console components (`src/components/investor/ui/`)
+
+Five reusable primitives carry the whole console; extend these rather than
+writing a one-off card or button.
+
+- **`Badge`**: `verified` / `live` / `warning` / `danger` / `neutral` tone pills — `rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase`, background+text pair per tone (never bare colored text for status).
+- **`ActionButton`**: `ghost` (1px border, hover fill), `primary` (filled `forest-accent` pill), or `text` variant; renders a `<Link>` when given `to`. The only sanctioned button shape on this surface.
+- **`ContentCard`**: `rounded-2xl border border-line bg-card shadow-card`; `interactive` adds `cursor-pointer hover:-translate-y-0.5 hover:border-forest-accent/40`. The one card wrapper — no ad-hoc bordered `div`s.
+- **`StatCard`**: the one number-display primitive (`font-sans font-bold tabular-nums`, sizes `sm`–`xl`), optionally wrapping a `CountUp` and/or a `Sparkline` as `children`.
+- **`Sparkline`**: a minimal inline SVG trend line (72×24, `currentColor` stroke) for a KPI tile's own real trend series — supplements the headline number, never stands in for it; always paired with an `aria-label` reading the series as text.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep the mono/serif split absolute: measured or identifying values in JetBrains Mono, narrated copy in Archivo/Instrument Serif.
+- **Do** keep the mono/serif split absolute on the public site: measured or identifying values in JetBrains Mono, narrated copy in Archivo/Instrument Serif.
 - **Do** use the video-bleed + wash + glass-card pattern (see Named Rules) when a section needs to reprise the cinematic-descent feeling at a smaller scale — it is an established, repeated system pattern, not a hero-only device.
 - **Do** honor `prefers-reduced-motion` for every animated primitive (video autoplay, scroll-scrub, reveal, hotspot ping, popover transition) by falling back to a static, legible state — every component in the build already does this and new components must match.
-- **Do** keep amber to CTAs, active states, and provenance/money numerals; everything else stays on the forest/bone/sage neutral axis.
+- **Do** keep amber to CTAs, active states, and provenance/money numerals on the public site; everything else stays on the forest/bone/sage neutral axis.
+- **Do**, on the investor console, keep serif to the page-level `<h1>` only — every section heading, card title, drawer title, and data point is sans-serif, bold where it needs weight.
+- **Do**, on the investor console, carry status/severity in fill and weight (a filled `Badge` pill, `font-bold`) rather than a colored side stripe — no `border-left`/`border-right` above 1px on any card, list row, or nav item.
+- **Do**, on the investor console, back every headline number with real data-viz (a line chart, a trend `Sparkline`, a horizontal budget bar) rather than a bare stat card whenever a real series exists.
 
 ### Don't:
-- **Don't** introduce a decorative kicker/eyebrow — a mono label above a heading purely for label effect, with no data payload of its own. A mono line above a heading is valid only when it carries a real, specific value (a count, a span, an ID, a status), and it renders in sage, never amber. `SectionIntro`'s `eyebrow` prop is for exactly this kind of readout.
-- **Don't** add hard-offset/neobrutalist shadows or sharp corners. On the dark public site the system has exactly three soft glow/ambient shadow exceptions (hotspot dot, hotspot popover, macro-footer portal card) and no structural drop-shadow elevation elsewhere; inside the `.dash` ESG portal, `--shadow-card` is the one sanctioned ambient lift on panels and KPI tiles.
-- **Don't** reintroduce the `.dash`/`dash-root` light-console *treatment* (the paper canvas, the emerald sidebar, the portal's role-switching shell) into this repo — that surface now lives entirely in `forestos-ops`. The individual light-on-`bone` tokens it left behind in `src/index.css` (`ink-muted` etc.) are still fair game for a light card or modal on the public site — check for existing usage (e.g. `HowItWorksModal`) before pruning any of them.
-- **Don't** use dark surfaces in the portal outside the two sanctioned places: the **rich-emerald sidebar** (`bg-emerald-950`), and dark-glass chrome floating **over the Sector Focus satellite viewport** (layer toggle, legends, plot inspector). Every other surface is light `card` / `paper`.
-- **Don't** let the Sector Focus map's data-viz reds/greens (`#df5a26` flagged, `#3ba552` cleared, the NDVI ramp) leak into UI chrome — they are map encodings on a dark satellite scene, not additions to the forest/amber/river accent system. `STATUS_CSS` (`sectorMapStyle.js`) holds the darker CSS mirrors used for the inspector badge and legend so the HTML chrome stays legible.
-- **Don't** set a large KPI figure in amber or `river-500` on the light portal — as text on white they fail contrast. Figures are `ink` or `emerald-700`; amber survives only as a warning fill/border/dot/icon, and `amber-700` is its text cut.
-- **Don't** put amber/orange on anything in the portal that is not a semantic warning. Buttons, headers, standard progress bars, positive deltas, and neutral data marks are all green now; orange means Watch / Flagged / alert / regression.
-- **Don't** widen `river-500` past verification data. It is the cool data accent (coordinates, "0% deforestation", HUD/impact metric lines) — never put it on a button, a heading, or narrative copy, and never add a third accent hue.
-- **Don't** spread `slate-deep`/`slate-700` beyond the macro corporate-gateway footer. They exist only as the one-way forest → dashboard palette bridge; every other ground is the forest scale.
-- **Don't** use glyph icon fonts, Unicode arrows, or system display fonts; all icons and directional glyphs are Lucide SVG components (`ArrowRight`, `ArrowDown`, `ArrowUpRight`), and both display and label type are the two loaded webfonts.
+- **Don't** introduce a decorative kicker/eyebrow — a mono label above a heading purely for label effect, with no data payload of its own. A mono line above a heading is valid only when it carries a real, specific value (a count, a span, an ID, a status), and it renders in sage (public site) or `ink-faint` (investor console), never amber. `SectionIntro`'s `eyebrow` prop, and the investor console's `SectionHeading`, are for exactly this kind of readout — never a bare category label with no value.
+- **Don't** add hard-offset/neobrutalist shadows or sharp corners anywhere in this repo. On the dark public site the system has exactly three soft glow/ambient shadow exceptions (hotspot dot, hotspot popover, macro-footer portal card) and no structural drop-shadow elevation elsewhere; on the investor console, `--shadow-card` is the one sanctioned ambient lift on every card.
+- **Don't** widen `river-500` past the public site's verification data. It is the cool data accent (coordinates, "0% deforestation", HUD/impact metric lines) — never put it on a button, a heading, or narrative copy, and never add a third accent hue to the public site.
+- **Don't** spread `slate-deep`/`slate-700` beyond the macro corporate-gateway footer. They exist only as the one-way forest → dashboard palette bridge; every other public-site ground is the forest scale.
+- **Don't** use glyph icon fonts, Unicode arrows, or system display fonts anywhere in this repo; all icons and directional glyphs are Lucide SVG components (`ArrowRight`, `ArrowDown`, `ArrowUpRight`), and type is always a loaded webfont, never a system default.
+- **Don't** reintroduce the dead `.dash`/`dash-root` B2B-portal treatment (paper canvas, emerald sidebar, role-switching shell, `sectorMapStyle.js`'s satellite-viewport chrome) — that entire surface and its components were deleted from this repo. The investor console at `/investor/*` is a separate, independently-designed system; it does not reuse `.dash`'s markup or its `bg-bone` light-portal styling, only a handful of overlapping token *values* (`card`, `line`, `ink`, etc. — see "The investor console").
+- **Don't** put amber/orange on the investor console for anything that is not a semantic warning (`Badge tone="warning"`). Buttons, active nav/tab states, and positive deltas are `forest-accent` green; amber/orange means Watch / Flagged / pending.
+- **Don't** blur the demo-data boundary on the investor console for visual cleanliness — the "Demo environment" badge and per-record "Demo data" badges are a product-truth requirement (see `PRODUCT.md`), not decoration, and must stay visible at every breakpoint.

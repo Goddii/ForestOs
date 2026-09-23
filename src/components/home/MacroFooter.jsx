@@ -78,8 +78,17 @@ export default function MacroFooter() {
         </div>
 
         <div className="mt-8 flex flex-col gap-4 border-t border-bone/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-sage-500">
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-500">
             ForestOS · Prototype · Nairobi
+            <span aria-hidden="true" className="text-bone/20">
+              ·
+            </span>
+            <Link
+              to="/prototypes"
+              className="text-sage-300 underline decoration-sage-500/40 underline-offset-2 transition-colors duration-200 hover:text-bone"
+            >
+              All prototypes
+            </Link>
           </p>
           <p className="max-w-[60ch] text-[12px] leading-relaxed text-bone-300">
             No ForestOS backend exists yet — belt figures, sponsor names,
