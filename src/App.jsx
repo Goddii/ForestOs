@@ -12,8 +12,28 @@ const Home = lazy(() => import('./routes/Home'))
 const BatchView = lazy(() => import('./routes/BatchView'))
 const TenantPassportView = lazy(() => import('./routes/TenantPassportView'))
 const QrExperienceView = lazy(() => import('./routes/QrExperienceView'))
-const Act1PreviewView = lazy(() => import('./routes/Act1PreviewView'))
+// Premium cultural-campaign build for the Nyashinski × Majani Guardian
+// Edition collaboration (Sept 2026) — fully isolated in `src/majaniNyashinski/`
+// + this one route file. Does not touch `/qr-experience` or the real
+// Figma-approved `/passport/majani/:batchId` tenant passport.
+const MajaniNyashinski = lazy(() => import('./routes/MajaniNyashinski'))
+// "The Sound of the Shield" — a second isolated cultural-campaign prototype,
+// ported as-is from Figma (Nyashinski × Nyayo Tea Zones QR-scan landing).
+// Own folder (`src/soundOfTheShield/`), own route file; does not touch any
+// other prototype or route.
+const SoundOfTheShield = lazy(() => import('./routes/SoundOfTheShield'))
+// "The Living Anthem" — a third isolated cultural-campaign prototype, a
+// seven-chapter QR story ported from Figma. Own folder (`src/livingAnthem/`),
+// own route file; does not touch any other route.
+const LivingAnthem = lazy(() => import('./routes/LivingAnthem'))
+// A plain link list to every prototype/comparison/demo build in this repo,
+// for quickly switching between them in a demo — links out only, changes
+// nothing about the routes it lists.
+const PrototypeIndex = lazy(() => import('./routes/PrototypeIndex'))
 const LaunchEdition = lazy(() => import('./routes/LaunchEdition'))
+// Conservation Capital — the ESG / impact-investor experience (Sept 2026).
+// See docs/ESG_INVESTOR_EXPERIENCE.md for the full architecture.
+const InvestorView = lazy(() => import('./routes/InvestorView'))
 const EudrCompliance = lazy(() => import('./routes/solutions/EudrCompliance'))
 const ConservationPassports = lazy(() => import('./routes/solutions/ConservationPassports'))
 const FairPayTelemetry = lazy(() => import('./routes/solutions/FairPayTelemetry'))
@@ -40,11 +60,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/batch/:batchId" element={<BatchView />} />
-        <Route path="/batch/:batchId/act1-v2" element={<Act1PreviewView />} />
         <Route path="/passport/:tenantSlug/:batchId" element={<TenantPassportView />} />
         <Route path="/qr-experience" element={<QrExperienceView />} />
         <Route path="/qr-experience/:experienceId" element={<QrExperienceView />} />
+        <Route path="/majani/nyashinski" element={<MajaniNyashinski />} />
+        <Route path="/sound-of-the-shield" element={<SoundOfTheShield />} />
+        <Route path="/living-anthem" element={<LivingAnthem />} />
+        <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/launch" element={<LaunchEdition />} />
+        <Route path="/investor/*" element={<InvestorView />} />
         <Route path="/solutions/eudr-compliance" element={<EudrCompliance />} />
         <Route path="/solutions/conservation-passports" element={<ConservationPassports />} />
         <Route path="/solutions/fair-pay-telemetry" element={<FairPayTelemetry />} />

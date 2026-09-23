@@ -69,9 +69,15 @@ export const BRANDS = {
 }
 
 // Road to COP32 — the shared milestone the league is racing toward.
+// Host city and year confirmed by the user (Sept 2026); no specific day is
+// published/confirmed. `dateLabel` (month/year) is what every display string
+// uses. `date` is kept only as a countdown-timer anchor for `Cop32Milestone`
+// (home page + batch brand beat) — the 1st of the confirmed month, not a
+// claimed exact conference date; nothing renders it directly as a day.
 export const COP32 = {
-  label: 'Belém, Brazil',
-  date: '2026-11-09',
+  label: 'Addis Ababa, Ethiopia',
+  dateLabel: 'November 2027',
+  date: '2027-11-01',
   packsGoal: 5_000_000,
   packsNow: 2_340_910,
   treesAtGoal: 50_000,
