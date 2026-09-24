@@ -5,7 +5,14 @@
 export const IS_DEMO_ENVIRONMENT = true
 
 export { INVESTOR_PROJECT } from './project'
-export { CAPITAL_POSITION, USE_OF_FUNDS, CAPITAL_TIMELINE, DEPLOYMENT_TREND } from './capital'
+export {
+  CAPITAL_POSITION,
+  USE_OF_FUNDS,
+  CAPITAL_TIMELINE,
+  DEPLOYMENT_TREND,
+  PROGRAMME_FUNDING,
+} from './capital'
+export { EXPENDITURES } from './expenditures'
 export { CORE_OUTCOMES, CONSERVATION_PERFORMANCE, LANDSCAPE_SUMMARY } from './outcomes'
 export { RECENT_ACTIVITY } from './activity'
 export { IMPACT_METRICS, getImpactMetricsByPillar } from './impact'

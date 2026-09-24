@@ -1,7 +1,19 @@
 // DEMO DATA — illustrative only. Feeds OverviewPage's "Field Intelligence"
 // section (design-review brief §13) — a snapshot of recent operational
 // activity framed as a live feed, not an actual live feed. Each item links
-// to the page that explains it.
+// to the page that explains it. The capital item is computed from the
+// expenditure ledger so it can't drift from the Capital page.
+import { DEPLOYMENT_TREND } from './capital'
+import { EXPENDITURES } from './expenditures'
+import { quarterOf } from '../../lib/investor/capitalLedger'
+import { formatCurrencyShort } from '../../lib/investor/format'
+
+const CURRENT_QUARTER = DEPLOYMENT_TREND.at(-1)
+const PREVIOUS_TOTAL = DEPLOYMENT_TREND.at(-2)?.value ?? 0
+const DEPLOYED_THIS_QUARTER = CURRENT_QUARTER.value - PREVIOUS_TOTAL
+const LARGEST_THIS_QUARTER = EXPENDITURES.filter((row) => quarterOf(row.date) === CURRENT_QUARTER.period).reduce(
+  (largest, row) => (row.amount > largest.amount ? row : largest),
+)
 
 /**
  * @typedef {Object} ActivityItem
@@ -19,8 +31,8 @@ export const RECENT_ACTIVITY = [
     id: 'act-001',
     when: '09:42',
     category: 'Field verification',
-    headline: '18 records verified this week',
-    detail: 'Sector 4 field audit closed 214 plot checks, 16 returned for follow-up.',
+    headline: '214 plots audited in Sector 4',
+    detail: '198 passed on first visit; 16 returned for a follow-up visit.',
     to: '/investor/evidence',
   },
   {
@@ -43,8 +55,8 @@ export const RECENT_ACTIVITY = [
     id: 'act-004',
     when: '18 Sept',
     category: 'Capital',
-    headline: 'KSh 7.4M deployed this period',
-    detail: 'Q3 farmer incentive tranche disbursed to 1,842 verified participants.',
+    headline: `${formatCurrencyShort(DEPLOYED_THIS_QUARTER)} deployed in ${CURRENT_QUARTER.period}`,
+    detail: `Largest payment: ${LARGEST_THIS_QUARTER.description} (${formatCurrencyShort(LARGEST_THIS_QUARTER.amount)}).`,
     to: '/investor/capital',
   },
   {

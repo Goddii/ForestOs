@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import SectionHeading from '../SectionHeading'
 import OverviewHero from '../OverviewHero'
+import CapitalOutcomes from '../CapitalOutcomes'
 import MetricCard from '../MetricCard'
 import LandscapeSummary from '../LandscapeSummary'
 import UseOfFundsBars from '../UseOfFundsBars'
@@ -30,6 +31,22 @@ export default function OverviewPage() {
   return (
     <div className="mx-auto max-w-6xl space-y-16">
       <OverviewHero />
+
+      <section>
+        <SectionHeading
+          eyebrow="Capital → outcomes"
+          title="What your capital has produced"
+          description="Each outcome for the whole programme, the share attributed to this fund, what the fund has deployed per unit, and the evidence behind it."
+          action={
+            <ActionButton to="/investor/capital" variant="text">
+              Capital accountability
+            </ActionButton>
+          }
+        />
+        <ContentCard>
+          <CapitalOutcomes />
+        </ContentCard>
+      </section>
 
       <section>
         <SectionHeading

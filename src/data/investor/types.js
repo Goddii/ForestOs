@@ -41,12 +41,41 @@
 
 /**
  * @typedef {Object} CapitalAllocation
+ * @property {string} id
  * @property {string} category
- * @property {number} budget
- * @property {number} committed
- * @property {number} deployed
- * @property {number} remaining
+ * @property {number} budget - KSh, planned share of the commitment
+ * @property {number} allocated - KSh, formally assigned to work so far
+ * @property {number} deployed - KSh, derived: sum of this category's expenditures
+ * @property {number} verified - KSh, derived: sum of its verified expenditures
+ * @property {number} pendingVerification - KSh, derived: deployed - verified
+ * @property {number} remaining - KSh, derived: budget - deployed
  * @property {number} percentage - share of total budget, 0-100
+ * @property {string[]} outputs - what the category's spend has produced
+ * @property {string[]} outcomeIds - CORE_OUTCOMES ids it contributes to
+ * @property {Expenditure[]} expenditures - derived: its ledger rows
+ */
+
+/**
+ * One disbursement in the expenditure ledger — the proposed backend
+ * contract. Deployed and verified capital are computed from these rows.
+ *
+ * @typedef {Object} Expenditure
+ * @property {string} id
+ * @property {string} date - ISO date, YYYY-MM-DD
+ * @property {string} categoryId - CapitalAllocation id
+ * @property {string} description - the activity the money paid for
+ * @property {number} amount - KSh
+ * @property {'verified' | 'pending_verification'} status
+ * @property {string[]} evidenceIds - EvidenceRecord ids for that activity
+ */
+
+/**
+ * Every funder of the programme, so impact can be reported gross (whole
+ * programme) and attributed (this fund's share).
+ *
+ * @typedef {Object} ProgrammeFunding
+ * @property {Array<{ label: string, type: string, amount: number, isInvestor: boolean }>} sources
+ * @property {string} attributionMethod
  */
 
 /**
