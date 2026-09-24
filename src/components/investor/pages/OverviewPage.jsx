@@ -36,11 +36,11 @@ export default function OverviewPage() {
           description="Outputs from the activities your payments paid for, counted only once verified. Open any figure for the activities and evidence behind it."
           action={
             <ActionButton to={path('progress')} variant="text">
-              Full progress
+              Targets and full progress
             </ActionButton>
           }
         />
-        <ContentCard>
+        <ContentCard className="overflow-hidden">
           <FundedOutputs />
         </ContentCard>
       </section>
