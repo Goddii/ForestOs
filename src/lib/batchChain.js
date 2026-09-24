@@ -24,6 +24,19 @@ export const REDACTION = {
 const NON_AUCTION = new Set(['direct_sold', 'branded'])
 export const isNonAuction = (channel) => NON_AUCTION.has(channel)
 
+// What each public claim rests on (audit gap #3). Data only: the public
+// pages render exactly as before. `status: 'method_pending'` means the
+// figure is illustrative and has no agreed allocation method yet; a public
+// projection must not present it as verified until that changes. The
+// per-batch carbon figure was removed: no methodology, baseline or verifier
+// exists for it.
+export const PUBLIC_CLAIM_BASIS = {
+  hectaresPreserved: { method: 'Covenant area allocated to the batch — allocation rule not yet agreed', source: 'Demo data', status: 'method_pending' },
+  protectedPerCup: { method: 'Covenant area divided by cups per batch — allocation rule not yet agreed', source: 'Demo data', status: 'method_pending' },
+  premiumKesPerKg: { method: 'Conservation premium per kg — commercial split not yet agreed with NTZDC', source: 'Demo data', status: 'method_pending' },
+  eudrStatus: { method: 'Requires a due-diligence statement against the 2020 forest baseline', source: 'Demo data', status: 'method_pending' },
+}
+
 const RECORDS = [
   {
     id: '802', // short retail code carried on the pack / QR
@@ -38,7 +51,6 @@ const RECORDS = [
     premiumKesPerKg: 14,
     protectedPerCup: '10 m²',
     hectaresPreserved: 3.2,
-    carbonTonnesCo2: 141,
     settlementDays: 4,
     land: {
       name: 'Mau Forest Complex',
@@ -101,7 +113,6 @@ const RECORDS = [
     premiumKesPerKg: 13.6,
     protectedPerCup: '9 m²',
     hectaresPreserved: 2.6,
-    carbonTonnesCo2: 118,
     settlementDays: 5,
     land: {
       name: 'Mau Forest Complex',
@@ -168,7 +179,6 @@ const RECORDS = [
     premiumKesPerKg: 15,
     protectedPerCup: '11 m²',
     hectaresPreserved: 3.0,
-    carbonTonnesCo2: 128,
     settlementDays: 4,
     land: {
       name: 'Mau Forest Complex',
@@ -305,7 +315,6 @@ const RECORDS = [
     premiumKesPerKg: 12.4,
     protectedPerCup: '8 m²',
     hectaresPreserved: 1.7,
-    carbonTonnesCo2: 74,
     settlementDays: 6,
     land: {
       name: 'Aberdare Range',
@@ -368,7 +377,6 @@ const RECORDS = [
     premiumKesPerKg: 12.0,
     protectedPerCup: '8 m²',
     hectaresPreserved: 2.1,
-    carbonTonnesCo2: 92,
     settlementDays: 5,
     land: {
       name: 'Mount Kenya Forest',
@@ -432,7 +440,6 @@ const RECORDS = [
     premiumKesPerKg: 0,
     protectedPerCup: null,
     hectaresPreserved: null,
-    carbonTonnesCo2: null,
     settlementDays: null,
     land: { name: 'Mixed origin', region: 'Rift Valley', waterTowers: [] },
     block: { id: 'MIX', name: 'Pooled', bufferZone: '—', region: 'Multiple blocks', covenantHa: 0, patrolsThisMonth: 0, seedlingsPlanted: 0 },

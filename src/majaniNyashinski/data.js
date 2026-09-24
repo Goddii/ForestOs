@@ -65,7 +65,6 @@ export const experienceData = {
 
   conservation: {
     hectaresPreserved: batch.hectaresPreserved,
-    carbonTonnesCo2: batch.carbonTonnesCo2,
     covenantHa: batch.block.covenantHa,
     patrolsThisMonth: batch.block.patrolsThisMonth,
     seedlingsPlanted: batch.block.seedlingsPlanted,

@@ -27,3 +27,15 @@ public/cesium
 *.sln
 *.sw?
 .stix
+
+# Claude Code / agent tooling — local machine state and generated skill
+# output, never part of the shipped app
+.agents/
+.claude/
+skills-lock.json
+brag-output/
+graphify-out/
+
+# Internal reference docs — kept local, not pushed
+PRODUCT.md
+docs/

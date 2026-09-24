@@ -36,6 +36,7 @@ export const PARTNERS_MENU_COLUMNS = [
     label: 'ESG & Corporate',
     note: "Deploy conservation capital where it's verified, not just promised.",
     links: [
+      { to: '/funder', label: 'Funder workspace', note: 'Funding, progress and evidence — demo data' },
       { to: '/solutions/capital-deployment', label: 'Capital Deployment', note: 'Fund a block, sector by sector' },
       { to: '/solutions/impact-verification', label: 'Impact Verification', note: 'Satellite-backed, not self-reported' },
       { to: '/solutions/transparent-reporting', label: 'Transparent Reporting', note: 'Audit-ready, exportable' },

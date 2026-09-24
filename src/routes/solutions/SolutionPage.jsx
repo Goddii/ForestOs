@@ -33,6 +33,7 @@ export default function SolutionPage({ content }) {
           image={content.heroImage}
           imageAlt={content.heroImageAlt}
           stats={content.heroStats}
+          cta={content.finalCta.primary}
         />
         <SolutionImpactStats eyebrow={content.impact.eyebrow} stats={content.impact.stats} />
         <SolutionProblem problem={content.problem} solution={content.solution} />

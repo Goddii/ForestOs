@@ -8,7 +8,7 @@ import CountUp from '../../ui/CountUp'
 const SIZE_CLASSES = {
   sm: 'text-2xl',
   md: 'text-3xl sm:text-4xl',
-  lg: 'text-[2.75rem]',
+  lg: 'text-display',
   xl: 'text-4xl sm:text-5xl',
 }
 
@@ -64,7 +64,7 @@ export default function StatCard({
         )}
         {unit && <span className="ml-1 text-base font-semibold text-ink-muted">{unit}</span>}
       </p>
-      <p className="mt-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+      <p className="mt-1.5 font-mono text-label font-semibold uppercase tracking-label-wide text-ink-faint">
         {label}
       </p>
       {children}

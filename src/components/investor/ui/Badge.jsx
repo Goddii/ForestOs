@@ -21,7 +21,7 @@ const TONE_STYLES = {
 export default function Badge({ tone = 'neutral', icon: Icon, children, className = '' }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] ${TONE_STYLES[tone]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-sans text-label font-semibold uppercase tracking-label ${TONE_STYLES[tone]} ${className}`}
     >
       {Icon && <Icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2.25} aria-hidden="true" />}
       {children}

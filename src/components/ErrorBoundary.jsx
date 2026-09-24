@@ -1,6 +1,9 @@
 import { Component } from 'react'
 
-/** Keeps a failure in the 3D globe from taking down the rest of the page. */
+/**
+ * Keeps a failure in a 3D surface (the Cesium globe, the R3F video terrain)
+ * from taking down the rest of the page.
+ */
 export default class ErrorBoundary extends Component {
   state = { failed: false }
 

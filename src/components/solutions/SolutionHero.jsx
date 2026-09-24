@@ -9,7 +9,15 @@ import { parseStatValue } from '../../lib/parseStatValue'
  * register as the macro home's hero, scaled down to a single static frame
  * since this page is read, not scrolled through cinematically.
  */
-export default function SolutionHero({ segment, eyebrow, title, subtitle, image, imageAlt, stats }) {
+const DEFAULT_CTA = { label: 'Request a Forest Edition', to: '/launch' }
+
+/**
+ * `cta` defaults to the site-wide "Request a Forest Edition" (consumer
+ * product-edition flow) — pages for a role with a live portal (the
+ * `/investor` Conservation Capital console) override it to send that role
+ * straight in instead, via `content.finalCta.primary` in the page's data file.
+ */
+export default function SolutionHero({ segment, eyebrow, title, subtitle, image, imageAlt, stats, cta = DEFAULT_CTA }) {
   return (
     <section className="relative overflow-hidden bg-forest-950">
       <img
@@ -36,10 +44,10 @@ export default function SolutionHero({ segment, eyebrow, title, subtitle, image,
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
-            to="/launch"
+            to={cta.to}
             className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-amber-400 transition-colors duration-200 hover:border-amber-400 hover:bg-amber-400/10"
           >
-            Request a Forest Edition
+            {cta.label}
             <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
           </Link>
         </div>

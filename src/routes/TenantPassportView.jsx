@@ -13,6 +13,7 @@ import { BatchContext } from '../lib/batchContext'
 import { TenantContext } from '../lib/tenantContext'
 import { resolveBatch } from '../lib/mock'
 import { resolveTenant } from '../lib/tenants'
+import { useThemeFonts } from '../hooks/useThemeFonts'
 
 /**
  * The tenant-owned consumer experience — "the community owns the experience,
@@ -46,6 +47,8 @@ export default function TenantPassportView() {
   const setWrapperRef = useCallback((el, i) => {
     wrapperRefs.current[i] = el
   }, [])
+
+  useThemeFonts(tenant?.theme)
 
   useEffect(() => {
     if (!tenant) return undefined

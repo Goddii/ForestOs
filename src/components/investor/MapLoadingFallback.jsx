@@ -11,7 +11,7 @@ export default function MapLoadingFallback({ className = '' }) {
     <div
       className={`grid min-h-[22rem] place-items-center rounded-2xl border border-line bg-forest-950 ${className}`}
     >
-      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">
+      <span className="font-mono text-label uppercase tracking-label-wide text-sage-500">
         Loading landscape data…
       </span>
     </div>

@@ -19,3 +19,16 @@ export function formatCurrencyShort(value, currency = 'KSh') {
 export function formatNumber(value) {
   return value.toLocaleString('en-US')
 }
+
+/**
+ * Millions to two decimals ("3.55M", "0.98M") for tables and ledgers where
+ * figures must add up; formatCurrencyShort's one decimal is for headlines.
+ *
+ * @param {number} value
+ * @param {string} [currency] - prefixed with a space when given
+ * @returns {string}
+ */
+export function formatMillions(value, currency) {
+  const figure = `${(value / 1_000_000).toFixed(2)}M`
+  return currency ? `${currency} ${figure}` : figure
+}

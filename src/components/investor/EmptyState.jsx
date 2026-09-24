@@ -10,7 +10,7 @@ export default function EmptyState({ message, icon: Icon = Inbox }) {
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-line-strong px-6 py-14 text-center">
       <Icon className="h-6 w-6 text-ink-faint" strokeWidth={1.5} aria-hidden="true" />
-      <p className="max-w-[38ch] text-[13px] leading-relaxed text-ink-muted">{message}</p>
+      <p className="max-w-[38ch] text-compact leading-relaxed text-ink-muted">{message}</p>
     </div>
   )
 }

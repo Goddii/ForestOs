@@ -9,13 +9,13 @@ function ScenarioCard({ scenario, tone }) {
         tone === 'with' ? 'border-forest-accent/30 bg-forest-accent-soft' : 'border-line bg-card'
       }`}
     >
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+      <p className="font-mono text-label font-semibold uppercase tracking-label-wide text-ink-faint">
         {scenario.sublabel}
       </p>
       <h3 className="mt-1 text-xl font-bold text-ink">{scenario.label}</h3>
       <ul className="mt-4 space-y-2.5">
         {scenario.points.map((point) => (
-          <li key={point} className="flex items-start gap-2.5 text-[13px] leading-relaxed text-ink-muted">
+          <li key={point} className="flex items-start gap-2.5 text-compact leading-relaxed text-ink-muted">
             <Icon
               className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${tone === 'with' ? 'text-forest-accent' : 'text-ink-faint'}`}
               strokeWidth={2}
@@ -42,7 +42,7 @@ export default function AdditionalityPanel() {
         <ScenarioCard scenario={ADDITIONALITY_SCENARIOS.without} tone="without" />
         <ScenarioCard scenario={ADDITIONALITY_SCENARIOS.with} tone="with" />
       </div>
-      <p className="mt-4 max-w-[68ch] text-[12px] leading-relaxed text-ink-muted">
+      <p className="mt-4 max-w-[68ch] text-xs leading-relaxed text-ink-muted">
         {ADDITIONALITY_SCENARIOS.note}
       </p>
     </div>

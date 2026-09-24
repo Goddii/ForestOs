@@ -11,15 +11,15 @@ export default function LandscapeSummary() {
   return (
     <dl className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-1 sm:divide-y sm:divide-line">
       <div className="sm:pb-5">
-        <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-          Landscape condition
+        <dt className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
+          Landscape condition (context)
         </dt>
         <dd className="mt-1 text-2xl font-bold tabular-nums text-ink">
           {s.conditionIndicator} <span className="text-base text-ink-muted">{s.conditionLabel}</span>
         </dd>
       </div>
       <div className="sm:py-5">
-        <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+        <dt className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
           Active conservation
         </dt>
         <dd className="mt-1 text-2xl font-bold tabular-nums text-ink">
@@ -27,7 +27,7 @@ export default function LandscapeSummary() {
         </dd>
       </div>
       <div className="sm:py-5">
-        <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+        <dt className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
           Field verification
         </dt>
         <dd className="mt-1 text-2xl font-bold tabular-nums text-ink">
@@ -36,20 +36,20 @@ export default function LandscapeSummary() {
         </dd>
       </div>
       <div className="sm:py-5">
-        <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+        <dt className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
           Evidence coverage
         </dt>
         <dd className="mt-1 text-2xl font-bold tabular-nums text-ink">{s.evidenceCoveragePct}%</dd>
       </div>
       <div className="col-span-2 sm:col-span-1 sm:pt-5">
-        <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+        <dt className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
           Last verified
         </dt>
-        <dd className="mt-1 font-mono text-[13px] text-ink-muted">{s.lastVerified}</dd>
+        <dd className="mt-1 font-mono text-compact text-ink-muted">{s.lastVerified}</dd>
       </div>
       <div className="col-span-2 sm:col-span-1 sm:pt-5">
-        <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">Source</dt>
-        <dd className="mt-1 text-[13px] text-ink-muted">{s.sources.join(' · ')}</dd>
+        <dt className="font-mono text-label uppercase tracking-label-wide text-ink-faint">Source</dt>
+        <dd className="mt-1 text-compact text-ink-muted">{s.sources.join(' · ')}</dd>
       </div>
     </dl>
   )

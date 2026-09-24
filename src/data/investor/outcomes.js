@@ -6,8 +6,10 @@
 // two conservation-zone `areaHa` values in landscape.js (5,180 + 3,240) so
 // the map, the drawer and this summary never disagree with each other.
 export const LANDSCAPE_SUMMARY = {
+  // Landscape context only: a vegetation trend across the whole monitored
+  // area, NOT an outcome the programme claims to have caused.
   conditionIndicator: 67,
-  conditionLabel: 'Improving',
+  conditionLabel: 'up since 2024 · context, not attributed',
   activeConservationHa: 8_420,
   fieldVerificationRecords: 312,
   lastVerified: '2026-09-18',
@@ -83,6 +85,7 @@ export const CONSERVATION_PERFORMANCE = [
     id: 'landscape-condition',
     label: 'Landscape condition indicator',
     unit: 'index (0–100)',
+    scaleMax: 100,
     methodology: 'Composite NDVI trend, unweighted, not yet peer-reviewed',
     series: [
       { year: '2024', value: 58 },
@@ -116,6 +119,7 @@ export const CONSERVATION_PERFORMANCE = [
     id: 'conservation-compliance',
     label: 'Conservation compliance',
     unit: '%',
+    scaleMax: 100,
     methodology: 'Field audit pass rate, structured checklist',
     series: [
       { year: '2024', value: 71 },

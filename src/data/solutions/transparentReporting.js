@@ -156,8 +156,8 @@ export const transparentReporting = {
 
   finalCta: {
     title: 'See a report that traces back to the record.',
-    body: 'Request a Forest Edition and we’ll walk a real reporting export with you, headline figure to source plot.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Request a demo and we’ll walk a real reporting export with you, headline figure to source plot — or open the Conservation Capital console yourself.',
+    primary: { label: 'Open the funder workspace', to: '/funder' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

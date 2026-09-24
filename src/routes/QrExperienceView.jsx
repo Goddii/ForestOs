@@ -12,6 +12,7 @@ import ParticipateScreen from '../qrExperience/screens/ParticipateScreen'
 import EarnScreen from '../qrExperience/screens/EarnScreen'
 import PassportScreen from '../qrExperience/screens/PassportScreen'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { useThemeFonts } from '../hooks/useThemeFonts'
 
 const SCREEN_TRANSITION = {
   initial: { opacity: 0 },
@@ -48,6 +49,7 @@ export default function QrExperienceView() {
   const experience = useMemo(() => resolveExperience(experienceId), [experienceId])
   const batch = useMemo(() => experience.getBatch(), [experience])
   const reduced = usePrefersReducedMotion()
+  useThemeFonts(experience.theme)
 
   // Arriving via "Scan another" means a code was already scanned — go straight
   // to Verify instead of replaying the simulated scan.

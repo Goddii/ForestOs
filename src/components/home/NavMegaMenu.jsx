@@ -58,8 +58,6 @@ export default function NavMegaMenu({ label, columns, panelWidthClass = 'w-[min(
         {open && (
           <motion.div
             id={panelId}
-            role="menu"
-            aria-label={label}
             initial={reduced ? false : { opacity: 0, y: 8, filter: 'blur(6px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={reduced ? undefined : { opacity: 0, y: 8, filter: 'blur(6px)' }}

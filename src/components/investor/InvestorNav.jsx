@@ -1,18 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { Leaf } from 'lucide-react'
-import { INVESTOR_PROJECT } from '../../data/investor'
+import { useWorkspace, useWorkspacePath } from './FunderWorkspaceContext'
+import { NAV_ITEMS } from './navItems'
 
-const ITEMS = [
-  { to: '/investor', label: 'Overview', end: true },
-  { to: '/investor/capital', label: 'Capital' },
-  { to: '/investor/landscape', label: 'Landscape' },
-  { to: '/investor/impact', label: 'Impact' },
-  { to: '/investor/evidence', label: 'Evidence' },
-  { to: '/investor/risks', label: 'Risks' },
-  { to: '/investor/governance', label: 'Governance' },
-  { to: '/investor/reports', label: 'Reports' },
-  { to: '/investor/project', label: 'Project' },
-]
 
 /**
  * The nav sidebar (visual-system brief §4) — the one surface that stays
@@ -22,6 +12,8 @@ const ITEMS = [
  * (never a shrunk desktop nav — brief §29).
  */
 export default function InvestorNav() {
+  const { programme, org } = useWorkspace()
+  const path = useWorkspacePath()
   return (
     <nav
       aria-label="Investor console navigation"
@@ -29,24 +21,24 @@ export default function InvestorNav() {
     >
       <div className="hidden items-center gap-2 lg:flex">
         <Leaf className="h-4 w-4 text-forest-accent" strokeWidth={2} aria-hidden="true" />
-        <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-bone">
+        <span className="font-mono text-label uppercase tracking-label-wide text-bone">
           ForestOS
         </span>
       </div>
       <p className="mt-1 hidden font-display text-lg leading-tight text-bone lg:block">
-        Conservation Capital
+        Funder workspace
       </p>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block" />
 
       <ul className="flex gap-1 lg:flex-1 lg:flex-col lg:gap-0.5">
-        {ITEMS.map(({ to, label, end }) => (
-          <li key={to} className="shrink-0">
+        {NAV_ITEMS.map(({ sub, label, end }) => (
+          <li key={sub || 'overview'} className="shrink-0">
             <NavLink
-              to={to}
+              to={path(sub)}
               end={end}
               className={({ isActive }) =>
-                `block cursor-pointer whitespace-nowrap rounded-lg px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
+                `block cursor-pointer whitespace-nowrap rounded-lg px-3 py-2 font-mono text-label uppercase tracking-label transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
                   isActive
                     ? 'bg-forest-accent font-semibold text-bone'
                     : 'text-sage-300 hover:bg-bone/5 hover:text-bone'
@@ -60,15 +52,14 @@ export default function InvestorNav() {
       </ul>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-sage-500">Project</p>
-        <p className="mt-1.5 text-[13px] text-bone">{INVESTOR_PROJECT.name}</p>
-        <p className="text-[12px] text-sage-500">
-          {INVESTOR_PROJECT.location.split(', ').pop()}, {INVESTOR_PROJECT.region}
-        </p>
+        <p className="font-mono text-label uppercase tracking-label-wide text-sage-500">Programme</p>
+        <p className="mt-1.5 text-compact text-bone">{programme.name}</p>
+        <p className="mt-3 font-mono text-label uppercase tracking-label-wide text-sage-500">Funder</p>
+        <p className="mt-1.5 text-compact text-bone">{org.name}</p>
       </div>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-amber-400">
+        <p className="font-mono text-label uppercase tracking-label-wide text-amber-400">
           Demo environment
         </p>
       </div>

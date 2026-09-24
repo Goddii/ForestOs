@@ -11,7 +11,8 @@ export const INVESTOR_PROJECT = {
   reportingPeriod: 'Q3 2026',
   problem:
     'The tea-zone buffer belt bordering the forest reserve has historically been the point of highest encroachment pressure — farm expansion, fuelwood collection and grazing steadily reduce the buffer between smallholder plots and the reserve. The buffer, once lost, is the hardest zone to restore.',
-  implementer: 'ForestOS field programme, delivered with the Nyayo Tea Zone Development Corporation',
+  // NTZDC implements; ForestOS is the monitoring and reporting technology partner.
+  implementer: 'Nyayo Tea Zones Development Corporation, with ForestOS as the monitoring and reporting technology partner',
   beneficiaries:
     '1,842 smallholder tea farmers within the buffer belt, whose participation is incentive-linked to verified conservation compliance on their own plots.',
   sustainabilityModel:
