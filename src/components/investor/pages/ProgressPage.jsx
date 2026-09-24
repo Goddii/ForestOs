@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
 import SectionHeading from '../SectionHeading'
@@ -10,24 +10,35 @@ import { formatNumber } from '../../../lib/investor/format'
 import { progressPct } from '../../../lib/programme/indicators'
 import { useWorkspace } from '../FunderWorkspaceContext'
 
-function ProgressBar({ value, target }) {
-  const pct = progressPct(value, target)
-  if (pct === null) return null
+const REVIEW_STRIPES = {
+  backgroundImage:
+    'repeating-linear-gradient(135deg, var(--color-amber-500) 0 3px, color-mix(in srgb, var(--color-amber-500) 30%, white) 3px 6px)',
+}
+
+const shareOf = (value, target) => `${Math.min(100, (value / target) * 100)}%`
+
+/** Bullet bar: funded-by-you, then other verified, then in review (never counted). */
+function OutputBar({ target, verified, inReview, fundedVerified }) {
+  if (!target) return <div className="h-3.5 rounded bg-canvas-sunk" aria-hidden="true" />
+  const others = Math.max(0, verified - fundedVerified)
   return (
-    <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-canvas-sunk" aria-hidden="true">
-      <div className="h-full rounded-full bg-forest-accent" style={{ width: `${pct}%` }} />
+    <div className="flex h-3.5 gap-0.5 overflow-hidden rounded bg-canvas-sunk" aria-hidden="true">
+      {fundedVerified > 0 && <div className="h-full bg-forest-accent-dark" style={{ width: shareOf(fundedVerified, target) }} />}
+      {others > 0 && <div className="h-full bg-forest-accent" style={{ width: shareOf(others, target) }} />}
+      {inReview > 0 && <div className="h-full" style={{ ...REVIEW_STRIPES, width: shareOf(inReview, target) }} />}
     </div>
   )
 }
 
 function IndicatorRow({ row, isOpen, onToggle }) {
   const { indicator, target, verified, reported, fundedVerified } = row
-  const inReview = reported - verified
+  const inReview = Math.max(0, reported - verified)
   const pct = progressPct(verified, target)
+  const { unit } = indicator
   return (
-    <>
-      <tr id={indicator.id} className="scroll-mt-24 align-top">
-        <td className="py-4 pl-5 pr-4">
+    <li id={indicator.id} className="scroll-mt-24">
+      <div className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 px-5 py-3.5 hover:bg-canvas/50 md:grid-cols-[minmax(0,15rem)_4rem_minmax(0,1fr)_9rem]">
+        <div>
           <button
             type="button"
             onClick={onToggle}
@@ -41,25 +52,38 @@ function IndicatorRow({ row, isOpen, onToggle }) {
             />
             {indicator.label}
           </button>
-        </td>
-        <td className="px-4 py-4 text-right font-mono text-xs tabular-nums text-ink-muted">
-          {target === null ? 'None set' : `${formatNumber(target)} ${indicator.unit}`}
-        </td>
-        <td className="px-4 py-4 text-right">
-          <span className="font-mono text-compact font-semibold tabular-nums text-ink">{formatNumber(verified)}</span>
-          {pct !== null && <span className="ml-1 font-mono text-label tabular-nums text-ink-faint">{pct}%</span>}
-          <ProgressBar value={verified} target={target} />
-        </td>
-        <td className="px-4 py-4 text-right font-mono text-xs tabular-nums text-ink-muted">
-          {inReview > 0 ? formatNumber(inReview) : '0'}
-        </td>
-        <td className="py-4 pl-4 pr-5 text-right font-mono text-compact font-semibold tabular-nums text-forest-accent">
-          {formatNumber(fundedVerified)}
-        </td>
-      </tr>
+          <p className="ml-5.5 font-mono text-label tabular-nums text-ink-faint">
+            {target === null ? 'No target set' : `Target ${formatNumber(target)} ${unit}`}
+          </p>
+        </div>
+        <p className={`text-right font-mono text-lg font-semibold tabular-nums ${pct ? 'text-ink' : 'text-ink-faint'}`}>
+          {pct === null ? '–' : `${pct}%`}
+        </p>
+        <div className="col-span-2 md:col-span-1">
+          <OutputBar target={target} verified={verified} inReview={inReview} fundedVerified={fundedVerified} />
+          <p className="mt-1 flex justify-between font-mono text-label tabular-nums text-ink-muted">
+            <span>{formatNumber(verified)}{target ? ` of ${formatNumber(target)}` : ''} verified</span>
+            {inReview > 0 && <span>+{formatNumber(inReview)} in review</span>}
+          </p>
+        </div>
+        <div className="col-span-2 text-xs text-ink-muted md:col-span-1 md:text-right">
+          {fundedVerified > 0 ? (
+            <>
+              <span className="font-mono text-compact font-semibold tabular-nums text-forest-accent-dark">
+                {formatNumber(fundedVerified)} {unit}
+              </span>{' '}
+              <span className="md:block">funded by you</span>
+            </>
+          ) : (
+            <span className="text-ink-faint">Not in your funding</span>
+          )}
+          {verified === 0 && inReview > 0 && (
+            <span className="mt-1 block text-label font-medium text-amber-700">Awaiting first verification</span>
+          )}
+        </div>
+      </div>
       {isOpen && (
-        <tr>
-          <td colSpan={5} className="px-5 pb-6">
+        <div className="px-5 pb-6">
             <div className="rounded-xl border border-line bg-canvas-sunk p-5">
               <dl className="grid grid-cols-1 gap-x-8 gap-y-2 text-xs sm:grid-cols-[10rem_1fr]">
                 <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Method</dt>
@@ -76,10 +100,9 @@ function IndicatorRow({ row, isOpen, onToggle }) {
                 />
               </div>
             </div>
-          </td>
-        </tr>
+        </div>
       )}
-    </>
+    </li>
   )
 }
 
@@ -108,41 +131,38 @@ export default function ProgressPage() {
           title="Outputs against targets"
           description="Every figure is summed from field activity records. Only verified work counts toward a target; work still in review is shown separately, and rejected claims are listed but never counted."
         />
-        <ContentCard className="overflow-x-auto">
-          <table className="w-full min-w-[44rem] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-line font-mono text-label uppercase tracking-label text-ink-faint">
-                <th scope="col" className="py-3 pl-5 pr-4 font-semibold">Indicator</th>
-                <th scope="col" className="px-4 py-3 text-right font-semibold">Target</th>
-                <th scope="col" className="px-4 py-3 text-right font-semibold">Verified, programme</th>
-                <th scope="col" className="px-4 py-3 text-right font-semibold">In review</th>
-                <th scope="col" className="py-3 pl-4 pr-5 text-right font-semibold">Verified, funded by you</th>
-              </tr>
-            </thead>
-            <tbody>
-              {COMPONENTS.map((component) => {
-                const rows = progress.filter((row) => row.indicator.componentId === component.id)
-                if (rows.length === 0) return null
-                return (
-                  <Fragment key={component.id}>
-                    <tr className="border-t border-line bg-canvas-sunk/60">
-                      <th scope="rowgroup" colSpan={5} className="px-5 py-2 text-left text-xs font-semibold text-ink-muted">
-                        {component.code} · {component.title}
-                      </th>
-                    </tr>
-                    {rows.map((row) => (
-                      <IndicatorRow
-                        key={row.indicator.id}
-                        row={row}
-                        isOpen={openId === row.indicator.id}
-                        onToggle={() => setOpenId(openId === row.indicator.id ? null : row.indicator.id)}
-                      />
-                    ))}
-                  </Fragment>
-                )
-              })}
-            </tbody>
-          </table>
+        <ul className="mb-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-ink-muted" aria-label="Bar key">
+          <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm bg-forest-accent-dark" />Verified, funded by you</li>
+          <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm bg-forest-accent" />Verified, other funders</li>
+          <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm" style={REVIEW_STRIPES} />In review, not counted</li>
+          <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm bg-canvas-sunk" />Remaining to target</li>
+        </ul>
+        <ContentCard className="overflow-hidden">
+          {COMPONENTS.map((component) => {
+            const rows = progress.filter((row) => row.indicator.componentId === component.id)
+            if (rows.length === 0) return null
+            const avg = Math.round(
+              rows.reduce((sum, r) => sum + (r.target ? Math.min(1, r.verified / r.target) : 0), 0) / rows.length * 100,
+            )
+            return (
+              <section key={component.id} className="border-t border-line first:border-t-0" aria-label={component.title}>
+                <header className="flex items-baseline justify-between gap-4 bg-canvas-sunk/60 px-5 py-2">
+                  <h3 className="text-xs font-semibold text-ink-muted">{component.code} · {component.title}</h3>
+                  <span className="shrink-0 font-mono text-label tabular-nums text-ink-faint">{avg}% avg</span>
+                </header>
+                <ul className="divide-y divide-line/60">
+                  {rows.map((row) => (
+                    <IndicatorRow
+                      key={row.indicator.id}
+                      row={row}
+                      isOpen={openId === row.indicator.id}
+                      onToggle={() => setOpenId(openId === row.indicator.id ? null : row.indicator.id)}
+                    />
+                  ))}
+                </ul>
+              </section>
+            )
+          })}
         </ContentCard>
         <p className="mt-3 text-xs text-ink-faint">Targets are illustrative (demo data) until the programme's results framework is confirmed with NTZDC.</p>
       </section>
