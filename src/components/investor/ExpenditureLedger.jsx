@@ -1,6 +1,6 @@
 import { useWorkspace } from './FunderWorkspaceContext'
 import { ALL_PAYMENTS, LEDGER_ID, sumAmounts } from '../../lib/investor/capitalLedger'
-import { formatCurrencyShort } from '../../lib/investor/format'
+import { formatMillions } from '../../lib/investor/format'
 import ExpenditureList from './ExpenditureList'
 
 const STATUS_OPTIONS = [
@@ -23,42 +23,44 @@ const STATUS_OPTIONS = [
 export default function ExpenditureLedger({ filter, onFilterChange }) {
   const { capital } = useWorkspace()
   const { useOfFunds: USE_OF_FUNDS, position: CAPITAL_POSITION } = capital
-  const rows = capital.expenditures.toSorted((a, b) => b.date.localeCompare(a.date)).filter(
-    (row) =>
-      (filter.status === 'all' || row.status === filter.status) &&
-      (filter.categoryId === 'all' || row.categoryId === filter.categoryId),
-  )
+  const inCategory = capital.expenditures
+    .toSorted((a, b) => b.date.localeCompare(a.date))
+    .filter((row) => filter.categoryId === 'all' || row.categoryId === filter.categoryId)
+  const matchesStatus = (status) => (row) => status === 'all' || row.status === status
+  const rows = inCategory.filter(matchesStatus(filter.status))
   const isFiltered = filter.status !== 'all' || filter.categoryId !== 'all'
 
   return (
     <div id={LEDGER_ID} className="scroll-mt-24">
-      <div className="flex flex-wrap items-center gap-3 border-b border-line pb-4">
-        <div role="group" aria-label="Verification status" className="flex flex-wrap gap-1.5">
-          {STATUS_OPTIONS.map((option) => (
-            <button
-              key={option.value}
-              type="button"
-              aria-pressed={filter.status === option.value}
-              onClick={() => onFilterChange({ ...filter, status: option.value })}
-              className={`rounded-full border px-3 py-1 font-mono text-label font-semibold uppercase tracking-label transition-colors duration-200 ${
-                filter.status === option.value
-                  ? 'border-forest-accent bg-forest-accent-soft text-forest-accent-dark'
-                  : 'border-line text-ink-muted hover:border-forest-accent/40'
-              }`}
-            >
-              {option.label}
-            </button>
-          ))}
+      <div className="flex flex-wrap items-center gap-3 border-b border-line px-4 py-3 sm:px-5">
+        <div role="group" aria-label="Verification status" className="inline-flex gap-0.5 rounded-lg border border-line bg-canvas p-0.5">
+          {STATUS_OPTIONS.map((option) => {
+            const isOn = filter.status === option.value
+            return (
+              <button
+                key={option.value}
+                type="button"
+                aria-pressed={isOn}
+                onClick={() => onFilterChange({ ...filter, status: option.value })}
+                className={`cursor-pointer rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-accent/50 ${
+                  isOn ? 'bg-card text-ink shadow-sm' : 'text-ink-muted hover:text-ink'
+                }`}
+              >
+                {option.label}
+                <span className="ml-1.5 tabular-nums text-ink-faint">{inCategory.filter(matchesStatus(option.value)).length}</span>
+              </button>
+            )
+          })}
         </div>
 
-        <label className="flex items-center gap-2 font-mono text-label uppercase tracking-label text-ink-faint">
-          Allocation
+        <label className="flex items-center gap-2 text-xs text-ink-muted">
+          <span className="sr-only">Category</span>
           <select
             value={filter.categoryId}
             onChange={(event) => onFilterChange({ ...filter, categoryId: event.target.value })}
-            className="rounded-md border border-line bg-card px-2 py-1 font-sans text-xs normal-case tracking-normal text-ink"
+            className="rounded-lg border border-line bg-card px-2.5 py-1.5 font-sans text-xs text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-accent/50"
           >
-            <option value="all">All allocations</option>
+            <option value="all">All categories</option>
             {USE_OF_FUNDS.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.category}
@@ -71,21 +73,19 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
           <button
             type="button"
             onClick={() => onFilterChange(ALL_PAYMENTS)}
-            className="font-mono text-label font-semibold uppercase tracking-label text-forest-accent hover:text-forest-accent-dark"
+            className="cursor-pointer text-xs font-semibold text-forest-accent hover:text-forest-accent-dark"
           >
             Clear filters
           </button>
         )}
 
-        <p className="ml-auto font-mono text-label tabular-nums text-ink-muted" aria-live="polite">
+        <p className="ml-auto text-xs tabular-nums text-ink-muted" aria-live="polite">
           {rows.length} payment{rows.length === 1 ? '' : 's'} ·{' '}
-          {formatCurrencyShort(sumAmounts(rows), CAPITAL_POSITION.currency)}
+          <span className="font-semibold text-ink">{formatMillions(sumAmounts(rows), CAPITAL_POSITION.currency)}</span>
         </p>
       </div>
 
-      <div className="pt-4">
-        <ExpenditureList rows={rows} showCategory emptyMessage="No payments match these filters." />
-      </div>
+      <ExpenditureList rows={rows} showCategory emptyMessage="No payments match these filters." />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { formatCurrencyShort } from '../../lib/investor/format'
+import { formatMillions } from '../../lib/investor/format'
 import { sumAmounts } from '../../lib/investor/capitalLedger'
 import { shareOf, trancheSegments } from '../../lib/investor/chartScale'
 import { useWorkspace } from './FunderWorkspaceContext'
@@ -75,7 +75,7 @@ export default function CapitalFlow({ onShowPayments }) {
               </span>
               <span className="col-start-2 row-start-1 text-right sm:col-start-3">
                 <span className="block font-sans text-lg font-bold tabular-nums text-ink">
-                  {formatCurrencyShort(position[step.key], position.currency)}
+                  {formatMillions(position[step.key], position.currency)}
                 </span>
                 <span className="block text-xs tabular-nums text-ink-faint">
                   {Math.round(shareOf(position[step.key], position.committed) * 100)}% of committed
@@ -136,13 +136,13 @@ function StageBreakdown({ step, capital, onShowPayments }) {
         id: tranche.id,
         label: tranche.milestone,
         value: tranche.receivedKes
-          ? formatCurrencyShort(tranche.receivedKes, position.currency)
-          : `${formatCurrencyShort(tranche.plannedKes, position.currency)} planned, not yet received`,
+          ? formatMillions(tranche.receivedKes, position.currency)
+          : `${formatMillions(tranche.plannedKes, position.currency)} planned, not yet received`,
       }))
     : useOfFunds.map((category) => ({
         id: category.id,
         label: category.category,
-        value: formatCurrencyShort(category[step.breakdownKey], position.currency),
+        value: formatMillions(category[step.breakdownKey], position.currency),
       }))
 
   return (
@@ -161,7 +161,7 @@ function StageBreakdown({ step, capital, onShowPayments }) {
         <div className="mt-4 space-y-2 border-t border-line pt-4">
           {step.key === 'deployed' && pendingRows.length > 0 && (
             <p className="text-sm text-ink-muted">
-              {formatCurrencyShort(sumAmounts(pendingRows), position.currency)} across {pendingRows.length} payments
+              {formatMillions(sumAmounts(pendingRows), position.currency)} across {pendingRows.length} payments
               is awaiting verification.{' '}
               <ActionButton
                 variant="text"

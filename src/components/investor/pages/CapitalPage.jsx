@@ -10,7 +10,7 @@ import Badge from '../ui/Badge'
 import { INVESTOR_PROJECT } from '../../../data/investor'
 import { FUNDING_TYPE_LABELS } from '../../../data/funder/workspace'
 import { ALL_PAYMENTS, LEDGER_ID } from '../../../lib/investor/capitalLedger'
-import { formatCurrencyShort } from '../../../lib/investor/format'
+import { formatCurrencyShort, formatMillions } from '../../../lib/investor/format'
 import { usePrefersReducedMotion } from '../../../hooks/usePrefersReducedMotion'
 import { useWorkspace } from '../FunderWorkspaceContext'
 
@@ -87,7 +87,7 @@ export default function CapitalPage() {
         <SectionHeading
           title="What each category paid for, produced and contributes to"
         />
-        <ContentCard>
+        <ContentCard className="overflow-hidden">
           <UseOfFundsBars onShowPayments={showPayments} />
         </ContentCard>
       </section>
@@ -95,9 +95,9 @@ export default function CapitalPage() {
       <section>
         <SectionHeading
           title="Every payment, the activity it funded, and its evidence"
-          description={`${capital.expenditures.length} payments totalling ${formatCurrencyShort(position.deployed, position.currency)}, of which ${formatCurrencyShort(position.verified, position.currency)} paid for work that has been verified.`}
+          description={`${capital.expenditures.length} payments totalling ${formatMillions(position.deployed, position.currency)}, of which ${formatMillions(position.verified, position.currency)} paid for work that has been verified.`}
         />
-        <ContentCard className="p-5">
+        <ContentCard className="overflow-hidden">
           <ExpenditureLedger filter={ledgerFilter} onFilterChange={setLedgerFilter} />
         </ContentCard>
       </section>
