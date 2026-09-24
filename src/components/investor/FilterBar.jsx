@@ -28,7 +28,7 @@ export default function FilterBar({ search, onSearchChange, searchPlaceholder = 
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder={searchPlaceholder}
           aria-label={searchPlaceholder}
-          className="w-full rounded-full border border-line bg-card py-2 pl-9 pr-3 text-[13px] text-ink shadow-sm outline-none transition-all duration-200 ease-in-out placeholder:text-ink-faint hover:border-line-strong focus:border-forest-accent/50 focus:ring-2 focus:ring-emerald-500/30"
+          className="w-full rounded-full border border-line bg-card py-2 pl-9 pr-3 text-compact text-ink shadow-sm outline-none transition-all duration-200 ease-in-out placeholder:text-ink-faint hover:border-line-strong focus:border-forest-accent/50 focus:ring-2 focus:ring-emerald-500/30"
         />
       </div>
       {filters.map((filter) => (
@@ -38,7 +38,7 @@ export default function FilterBar({ search, onSearchChange, searchPlaceholder = 
           value={filter.value}
           onChange={(event) => filter.onChange(event.target.value)}
           aria-label={filter.label}
-          className="cursor-pointer rounded-full border border-line bg-card px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-muted shadow-sm outline-none transition-all duration-200 ease-in-out hover:border-line-strong focus:border-forest-accent/50 focus:ring-2 focus:ring-emerald-500/30"
+          className="cursor-pointer rounded-full border border-line bg-card px-3.5 py-2 font-mono text-label uppercase tracking-label text-ink-muted shadow-sm outline-none transition-all duration-200 ease-in-out hover:border-line-strong focus:border-forest-accent/50 focus:ring-2 focus:ring-emerald-500/30"
         >
           <option value="">{filter.label}</option>
           {filter.options.map((option) => (

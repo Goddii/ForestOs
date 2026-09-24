@@ -17,17 +17,16 @@ export default function ProjectPage() {
   const { programme, terms } = useWorkspace()
   const path = useWorkspacePath()
   return (
-    <div className="mx-auto max-w-6xl space-y-14">
+    <div className="mx-auto max-w-6xl space-y-12">
       <SectionHeading
-        eyebrow="Programme showcase"
         title={programme.name}
         description={`${programme.location} · ${programme.startDate} to ${programme.endDate}`}
       />
 
       <section>
-        <SectionHeading eyebrow="Why this landscape matters" title="The buffer belt" />
-        <p className="max-w-[68ch] text-[14px] leading-relaxed text-ink-muted">{INVESTOR_PROJECT.problem}</p>
-        <p className="mt-4 max-w-[68ch] text-[13px] leading-relaxed text-ink-muted">
+        <SectionHeading title="The buffer belt" />
+        <p className="max-w-[68ch] text-sm leading-relaxed text-ink-muted">{INVESTOR_PROJECT.problem}</p>
+        <p className="mt-4 max-w-[68ch] text-compact leading-relaxed text-ink-muted">
           Implemented by {INVESTOR_PROJECT.implementer}. {INVESTOR_PROJECT.beneficiaries}
         </p>
         <ActionButton to={path('organisation')} variant="text" className="mt-2">
@@ -36,13 +35,12 @@ export default function ProjectPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Conservation model" title="How capital becomes impact" />
+        <SectionHeading title="How capital becomes impact" />
         <ImpactFlowDiagram />
       </section>
 
       <section>
         <SectionHeading
-          eyebrow="Programme stories"
           title="On the ground"
           description={`Share-ready stories for ${terms.storyAudience}. Each figure is pulled live from the record, with its evidence and a caption you can copy.`}
         />

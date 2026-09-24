@@ -20,14 +20,14 @@ export default function CapitalTimeline() {
               className={`absolute -top-[5px] left-0 h-2 w-2 rounded-full ${isReceived ? 'bg-forest-accent' : isLate ? 'bg-warning' : 'bg-line-strong'}`}
               aria-hidden="true"
             />
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+            <p className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
               {isReceived ? `Received ${tranche.receivedDate}` : `Planned ${tranche.plannedDate}`}
             </p>
-            <p className={`mt-1 text-[15px] font-semibold leading-tight ${isReceived ? 'text-ink' : 'text-ink-muted'}`}>
+            <p className={`mt-1 text-base font-semibold leading-tight ${isReceived ? 'text-ink' : 'text-ink-muted'}`}>
               {formatCurrencyShort(isReceived ? tranche.receivedKes : tranche.plannedKes)}
             </p>
-            <p className="mt-1 text-[12px] leading-snug text-ink-muted">{tranche.milestone}</p>
-            {isLate && <p className="mt-1 text-[12px] font-medium text-warning">Past its planned date, not yet received</p>}
+            <p className="mt-1 text-xs leading-snug text-ink-muted">{tranche.milestone}</p>
+            {isLate && <p className="mt-1 text-xs font-medium text-warning">Past its planned date, not yet received</p>}
           </li>
         )
       })}

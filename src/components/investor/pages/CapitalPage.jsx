@@ -19,21 +19,21 @@ function AgreementSummary({ agreement, org }) {
     <ContentCard className="p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-[17px] font-semibold text-ink">{agreement.label}</p>
-          <p className="mt-0.5 text-[13px] text-ink-muted">
+          <p className="text-lg font-semibold text-ink">{agreement.label}</p>
+          <p className="mt-0.5 text-compact text-ink-muted">
             {org.name} · {FUNDING_TYPE_LABELS[agreement.type]} · signed {agreement.signedDate}
           </p>
         </div>
         <p className="font-sans text-2xl font-bold tabular-nums text-ink">{formatCurrencyShort(agreement.amountKes)}</p>
       </div>
       <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-[12rem_1fr]">
-        <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Period</dt>
-        <dd className="text-[13px] text-ink-muted">
+        <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Period</dt>
+        <dd className="text-compact text-ink-muted">
           {agreement.period.start} to {agreement.period.end}
         </dd>
-        <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Terms</dt>
+        <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Terms</dt>
         <dd>
-          <ul className="list-disc space-y-1 pl-4 text-[13px] text-ink-muted">
+          <ul className="list-disc space-y-1 pl-4 text-compact text-ink-muted">
             {agreement.restrictions.map((term) => (
               <li key={term}>{term}</li>
             ))}
@@ -69,15 +69,14 @@ export default function CapitalPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-14">
+    <div className="mx-auto max-w-5xl space-y-12">
       <section>
-        <SectionHeading eyebrow="Agreement" title="What was agreed" />
+        <SectionHeading title="What was agreed" />
         <AgreementSummary agreement={agreement} org={org} />
       </section>
 
       <section>
         <SectionHeading
-          eyebrow="Accountability"
           title={`Where ${terms.yours} is`}
           description="Every bar is measured against the full commitment: what has arrived (outlined sections are tranches still to come), what has been assigned to work, what has been spent, and what was spent on work that has since been verified. Work can be assigned against the whole commitment, so it can run ahead of the money received."
         />
@@ -86,7 +85,6 @@ export default function CapitalPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Use of funds"
           title="What each category paid for, produced and contributes to"
         />
         <ContentCard>
@@ -96,7 +94,6 @@ export default function CapitalPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Expenditure ledger"
           title="Every payment, the activity it funded, and its evidence"
           description={`${capital.expenditures.length} payments totalling ${formatCurrencyShort(position.deployed, position.currency)}, of which ${formatCurrencyShort(position.verified, position.currency)} paid for work that has been verified.`}
         />
@@ -106,14 +103,13 @@ export default function CapitalPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Tranches" title="When the money arrives" />
+        <SectionHeading title="When the money arrives" />
         <CapitalTimeline />
       </section>
 
       {terms.showsAttribution && (
         <section>
           <SectionHeading
-            eyebrow="Long-term model"
             title="How this stops being a subsidy"
             description={INVESTOR_PROJECT.sustainabilityModel}
           />

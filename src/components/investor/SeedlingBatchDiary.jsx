@@ -37,13 +37,13 @@ export default function SeedlingBatchDiary() {
           <article key={batch.id}>
             <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line pb-3">
               <div>
-                <h3 className="text-[16px] font-semibold text-ink">{batch.label}</h3>
-                <p className="mt-0.5 text-[12px] text-ink-muted">
+                <h3 className="text-base font-semibold text-ink">{batch.label}</h3>
+                <p className="mt-0.5 text-xs text-ink-muted">
                   <span className="font-semibold tabular-nums text-ink">{formatNumber(batch.quantity)}</span> seedlings ·{' '}
                   <span className="italic">{batch.species.join(', ')}</span> · {ZONE_LABELS[batch.zoneId]}
                 </p>
               </div>
-              <p className="font-mono text-[11px] tabular-nums text-ink-muted">
+              <p className="font-mono text-label tabular-nums text-ink-muted">
                 {isYours ? `Funded by ${terms.yours}` : 'Funded by another programme funder'} ·{' '}
                 {payments.length} payment{payments.length === 1 ? '' : 's'} · {formatCurrencyShort(sumAmounts(payments))}
               </p>
@@ -58,16 +58,16 @@ export default function SeedlingBatchDiary() {
                     {asset ? (
                       <MediaFigure asset={asset} />
                     ) : (
-                      <div className="grid aspect-[3/2] place-items-center rounded-lg border border-dashed border-line bg-canvas-sunk px-3 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+                      <div className="grid aspect-[3/2] place-items-center rounded-lg border border-dashed border-line bg-canvas-sunk px-3 text-center font-mono text-label uppercase tracking-label text-ink-faint">
                         Photo set not yet captured
                       </div>
                     )}
-                    <p className="mt-2 text-[13px] font-semibold text-ink">{stage.stage}</p>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">{stage.date}</p>
+                    <p className="mt-2 text-compact font-semibold text-ink">{stage.stage}</p>
+                    <p className="font-mono text-label uppercase tracking-label text-ink-faint">{stage.date}</p>
                     <Badge tone={status.tone} icon={status.icon} className="mt-1.5 self-start">
                       {status.label}
                     </Badge>
-                    <p className="mt-1.5 text-[12px] leading-snug text-ink-muted">{stage.note}</p>
+                    <p className="mt-1.5 text-xs leading-snug text-ink-muted">{stage.note}</p>
                     {stage.evidenceId && (
                       <ActionButton variant="text" onClick={() => openEvidence(stage.evidenceId)} className="self-start">
                         Evidence

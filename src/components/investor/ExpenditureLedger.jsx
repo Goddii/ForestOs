@@ -40,7 +40,7 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
               type="button"
               aria-pressed={filter.status === option.value}
               onClick={() => onFilterChange({ ...filter, status: option.value })}
-              className={`rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 ${
+              className={`rounded-full border px-3 py-1 font-mono text-label font-semibold uppercase tracking-label transition-colors duration-200 ${
                 filter.status === option.value
                   ? 'border-forest-accent bg-forest-accent-soft text-forest-accent-dark'
                   : 'border-line text-ink-muted hover:border-forest-accent/40'
@@ -51,12 +51,12 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
           ))}
         </div>
 
-        <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+        <label className="flex items-center gap-2 font-mono text-label uppercase tracking-label text-ink-faint">
           Allocation
           <select
             value={filter.categoryId}
             onChange={(event) => onFilterChange({ ...filter, categoryId: event.target.value })}
-            className="rounded-md border border-line bg-card px-2 py-1 font-sans text-[12px] normal-case tracking-normal text-ink"
+            className="rounded-md border border-line bg-card px-2 py-1 font-sans text-xs normal-case tracking-normal text-ink"
           >
             <option value="all">All allocations</option>
             {USE_OF_FUNDS.map((category) => (
@@ -71,13 +71,13 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
           <button
             type="button"
             onClick={() => onFilterChange(ALL_PAYMENTS)}
-            className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-forest-accent hover:text-forest-accent-dark"
+            className="font-mono text-label font-semibold uppercase tracking-label text-forest-accent hover:text-forest-accent-dark"
           >
             Clear filters
           </button>
         )}
 
-        <p className="ml-auto font-mono text-[11px] tabular-nums text-ink-muted" aria-live="polite">
+        <p className="ml-auto font-mono text-label tabular-nums text-ink-muted" aria-live="polite">
           {rows.length} payment{rows.length === 1 ? '' : 's'} ·{' '}
           {formatCurrencyShort(sumAmounts(rows), CAPITAL_POSITION.currency)}
         </p>

@@ -14,7 +14,7 @@ export default function FundedOutputs() {
   const rows = progress.filter((row) => row.fundedReported > 0)
 
   if (rows.length === 0) {
-    return <p className="px-5 py-6 text-[13px] text-ink-muted">No activities funded by this agreement have been reported yet.</p>
+    return <p className="px-5 py-6 text-compact text-ink-muted">No activities funded by this agreement have been reported yet.</p>
   }
 
   return (
@@ -27,12 +27,12 @@ export default function FundedOutputs() {
               to={`${path('progress')}#${indicator.id}`}
               className="block px-5 py-5 transition-colors duration-200 hover:bg-canvas-sunk"
             >
-              <p className="text-[13px] font-semibold text-ink">{indicator.label}</p>
+              <p className="text-compact font-semibold text-ink">{indicator.label}</p>
               <p className="mt-1.5 font-sans text-3xl font-bold tabular-nums text-ink">
                 {formatNumber(fundedVerified)}
                 <span className="ml-1.5 text-sm font-medium text-ink-muted">{indicator.unit} verified</span>
               </p>
-              <p className="mt-1 text-[12px] text-ink-muted">
+              <p className="mt-1 text-xs text-ink-muted">
                 {pending > 0 ? `${formatNumber(pending)} ${indicator.unit} more reported, awaiting verification` : 'Nothing awaiting verification'}
               </p>
             </Link>

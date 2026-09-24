@@ -57,7 +57,6 @@ export default function EvidencePage() {
   return (
     <div className="mx-auto max-w-6xl space-y-6">
       <SectionHeading
-        eyebrow="Evidence centre"
         title="Every conservation claim, traced to its record"
         description="Satellite, GIS, field audit, GPS, photo, farmer record, conservation activity, payment and verification-document evidence — filter, search, and open any record for its full trail."
       />

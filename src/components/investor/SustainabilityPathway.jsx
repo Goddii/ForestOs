@@ -26,14 +26,14 @@ const STATE_STYLE = {
 export default function SustainabilityPathway() {
   return (
     <div>
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+      <p className="font-mono text-label uppercase tracking-label-wide text-ink-faint">
         Sustainability pathway · Target operating model
       </p>
       <ol className="mt-4 flex flex-wrap items-center gap-2">
         {STAGES.map((stage, index) => (
           <li key={stage.label} className="flex items-center gap-2">
             <span
-              className={`rounded-full border px-3.5 py-2 text-[12px] font-medium leading-tight shadow-sm ${STATE_STYLE[stage.state]}`}
+              className={`rounded-full border px-3.5 py-2 text-xs font-medium leading-tight shadow-sm ${STATE_STYLE[stage.state]}`}
             >
               {stage.label}
             </span>
@@ -43,7 +43,7 @@ export default function SustainabilityPathway() {
           </li>
         ))}
       </ol>
-      <p className="mt-4 max-w-[62ch] text-[12px] leading-relaxed text-ink-muted">
+      <p className="mt-4 max-w-[62ch] text-xs leading-relaxed text-ink-muted">
         The goal is a system where conservation increasingly supports itself through verified
         economic value, not a recurring subsidy. Capital funds the bridge — the outcomes and value
         stages above have not yet been reached on this project; the impact and capital pages track

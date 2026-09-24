@@ -31,7 +31,7 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
   const { openEvidence } = useEvidenceDrawer()
   const { allocationIds } = useWorkspace()
 
-  if (rows.length === 0) return <p className="text-[13px] text-ink-muted">{emptyMessage}</p>
+  if (rows.length === 0) return <p className="text-compact text-ink-muted">{emptyMessage}</p>
 
   return (
     <ul className="divide-y divide-line">
@@ -44,14 +44,14 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
           <li key={activity.id} className="py-4 first:pt-0 last:pb-0">
             <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
               <div className="min-w-0">
-                <p className="text-[14px] font-medium text-ink">{activity.summary}</p>
-                <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+                <p className="text-sm font-medium text-ink">{activity.summary}</p>
+                <p className="mt-0.5 font-mono text-label uppercase tracking-label text-ink-faint">
                   {activity.date} · {segment?.label ?? activity.segmentId}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {value !== undefined && (
-                  <span className={`font-mono text-[12px] font-semibold tabular-nums ${state === 'rejected' ? 'text-ink-faint line-through' : 'text-ink'}`}>
+                  <span className={`font-mono text-xs font-semibold tabular-nums ${state === 'rejected' ? 'text-ink-faint line-through' : 'text-ink'}`}>
                     {formatNumber(value)} {unit}
                   </span>
                 )}
@@ -64,7 +64,7 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
               </div>
             </div>
 
-            <p className="mt-2 text-[12px] leading-relaxed text-ink-muted">
+            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
               {decision ? (
                 <>
                   {decision.state === 'verified' ? 'Verified' : decision.state === 'rejected' ? 'Rejected' : 'Returned'} {decision.at} by{' '}
@@ -91,7 +91,7 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
                 ))}
               </div>
             ) : (
-              <p className="mt-1.5 text-[12px] text-ink-faint">No evidence submitted yet.</p>
+              <p className="mt-1.5 text-xs text-ink-faint">No evidence submitted yet.</p>
             )}
           </li>
         )

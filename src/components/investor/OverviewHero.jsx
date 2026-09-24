@@ -33,7 +33,7 @@ export default function OverviewHero() {
 
   return (
     <section>
-      <h1 className="font-display text-4xl leading-[1.02] text-ink sm:text-[2.75rem]">{programme.name}</h1>
+      <h1 className="font-display text-4xl leading-[1.02] text-ink sm:text-display">{programme.name}</h1>
       <div className="mt-2 flex flex-wrap items-center gap-2">
         <p className="text-sm text-ink-muted">
           Implemented by Nyayo Tea Zones Development Corporation · viewing as{' '}
@@ -118,7 +118,7 @@ function ContributionBar({ position, tranches }) {
         <span className="absolute inset-y-0 left-0 rounded-[4px] bg-forest-accent" style={{ width: `${shareOf(deployed, committed) * 100}%` }} />
         <span className="absolute inset-y-0 left-0 rounded-[4px] bg-forest-accent-dark" style={{ width: `${shareOf(verified, committed) * 100}%` }} />
       </div>
-      <div className="mt-1.5 flex justify-between text-[11px] tabular-nums text-ink-faint">
+      <div className="mt-1.5 flex justify-between text-label tabular-nums text-ink-faint">
         <span>0</span>
         <span>{formatCurrencyShort(committed, currency)} committed</span>
       </div>

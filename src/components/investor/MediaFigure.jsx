@@ -29,13 +29,13 @@ export default function MediaFigure({ asset, aspect = 'aspect-[3/2]', showCaptio
           />
         </picture>
         {asset.isIllustrative && (
-          <span className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-white">
+          <span className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-mono text-label uppercase tracking-label text-white">
             Illustrative
           </span>
         )}
       </div>
-      <figcaption className="mt-1.5 text-[11px] leading-snug text-ink-faint">
-        {showCaption && <span className="block text-[12px] text-ink-muted">{asset.caption}</span>}
+      <figcaption className="mt-1.5 text-label leading-snug text-ink-faint">
+        {showCaption && <span className="block text-xs text-ink-muted">{asset.caption}</span>}
         Photo:{' '}
         <a href={asset.credit.url} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-2 hover:text-ink-muted">
           {asset.credit.author}

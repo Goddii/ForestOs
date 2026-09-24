@@ -106,6 +106,19 @@
   --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Liberation Mono', monospace;
 
+  /* Funder console type roles (Sept 2026 typeset pass) — replaces ~200
+     one-off px sizes. label: mono all-caps data/table labels (11px floor,
+     never smaller); compact: dense list/card body; display: page titles and
+     headline figures. xs/sm/base/lg come from Tailwind's own scale. */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1rem;
+  --text-compact: 0.8125rem;
+  --text-compact--line-height: 1.25rem;
+  --text-display: 2.75rem;
+  --text-display--line-height: 1.02;
+  --tracking-label: 0.12em;
+  --tracking-label-wide: 0.18em;
+
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 

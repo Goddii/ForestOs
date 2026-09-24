@@ -21,7 +21,7 @@ function BufferSegments() {
     <ContentCard className="overflow-x-auto">
       <table className="w-full min-w-[44rem] border-collapse text-left">
         <thead>
-          <tr className="border-b border-line font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+          <tr className="border-b border-line font-mono text-label uppercase tracking-label text-ink-faint">
             <th scope="col" className="py-3 pl-5 pr-4 font-semibold">Segment</th>
             <th scope="col" className="px-4 py-3 font-semibold">Tenure</th>
             <th scope="col" className="px-4 py-3 font-semibold">Land use</th>
@@ -40,18 +40,18 @@ function BufferSegments() {
             )
             return (
               <tr key={segment.id}>
-                <td className="py-3 pl-5 pr-4 text-[13px] font-medium text-ink">{segment.label}</td>
-                <td className="px-4 py-3 text-[12px] text-ink-muted">{TENURE_LABELS[segment.tenure]}</td>
-                <td className="px-4 py-3 text-[12px] text-ink-muted">{LAND_USE_LABELS[segment.landUse]}</td>
-                <td className="px-4 py-3 text-right font-mono text-[12px] tabular-nums text-ink">{km(segment.lengthKm)} km</td>
-                <td className="px-4 py-3 text-right font-mono text-[12px] tabular-nums text-ink-muted">{Math.round(segment.areaHa)} ha</td>
-                <td className="py-3 pl-4 pr-5 text-right font-mono text-[12px] tabular-nums text-forest-accent">{funded.length}</td>
+                <td className="py-3 pl-5 pr-4 text-compact font-medium text-ink">{segment.label}</td>
+                <td className="px-4 py-3 text-xs text-ink-muted">{TENURE_LABELS[segment.tenure]}</td>
+                <td className="px-4 py-3 text-xs text-ink-muted">{LAND_USE_LABELS[segment.landUse]}</td>
+                <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink">{km(segment.lengthKm)} km</td>
+                <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink-muted">{Math.round(segment.areaHa)} ha</td>
+                <td className="py-3 pl-4 pr-5 text-right font-mono text-xs tabular-nums text-forest-accent">{funded.length}</td>
               </tr>
             )
           })}
         </tbody>
       </table>
-      <p className="border-t border-line px-5 py-3 text-[12px] text-ink-faint">
+      <p className="border-t border-line px-5 py-3 text-xs text-ink-faint">
         {Object.entries(totals)
           .map(([tenure, length]) => `${km(length)} km ${TENURE_LABELS[tenure].toLowerCase()}`)
           .join('; ')}
@@ -74,10 +74,9 @@ export default function LandscapePage() {
   const conservationEvidence = ['ev-002', 'ev-001', 'ev-003', 'ev-007'].map(getEvidenceById).filter(Boolean)
 
   return (
-    <div className="mx-auto max-w-6xl space-y-14">
+    <div className="mx-auto max-w-6xl space-y-12">
       <section>
         <SectionHeading
-          eyebrow="Canopy"
           title="Before and after, zone by zone"
           description="Dated satellite imagery of each conservation zone, earliest archive capture against the latest."
           action={
@@ -92,7 +91,6 @@ export default function LandscapePage() {
       {conservationMetric && (
         <section>
           <SectionHeading
-            eyebrow="How do we know?"
             title={`${conservationMetric.value.toLocaleString('en-US')} ha under active conservation`}
           />
           <div className="rounded-2xl border border-line bg-card p-6 shadow-card">
@@ -103,7 +101,6 @@ export default function LandscapePage() {
 
       <section>
         <SectionHeading
-          eyebrow="Buffer belt"
           title="The buffer, segment by segment"
           description="NTZDC reports its buffer in kilometres of forest boundary as well as hectares. Each segment is either NTZDC buffer inside the gazetted reserve or community land beside it."
         />
@@ -112,7 +109,6 @@ export default function LandscapePage() {
 
       <section>
         <SectionHeading
-          eyebrow="Restoration"
           title="Seedling batches, nursery to survival check"
           description="Each batch's whole life on one timeline — dated photos at every stage, tied to the payments that funded it."
         />

@@ -19,10 +19,9 @@ export default function RisksPage() {
     .map((activity) => ({ activity }))
 
   return (
-    <div className="mx-auto max-w-5xl space-y-14">
+    <div className="mx-auto max-w-5xl space-y-12">
       <section>
         <SectionHeading
-          eyebrow="Verification"
           title="Funded work not yet verified"
           description="Activities your payments paid for that are still in review, were returned for correction, or were rejected. Rejected work is never counted toward a target."
         />
@@ -33,7 +32,6 @@ export default function RisksPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Follow-up"
           title="Survival checks"
           description="Planting counts as an output. Survival is checked on a schedule afterwards, and an overdue check is shown here, not hidden."
         />
@@ -44,7 +42,6 @@ export default function RisksPage() {
 
       <section>
       <SectionHeading
-        eyebrow="Risk & controls"
         title="Risk register"
         description="Environmental, social, operational, financial and data risk, each with its own owner, mitigation and last review — not a single aggregate score."
       />

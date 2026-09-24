@@ -28,8 +28,8 @@ function evidenceForZone(zone) {
 function Section({ eyebrow, children }) {
   return (
     <div className="border-t border-line pt-4 first:border-t-0 first:pt-0">
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-faint">{eyebrow}</p>
-      <div className="mt-2 text-[13px] leading-relaxed text-ink-muted">{children}</div>
+      <p className="font-mono text-label font-semibold uppercase tracking-label-wide text-ink-faint">{eyebrow}</p>
+      <div className="mt-2 text-compact leading-relaxed text-ink-muted">{children}</div>
     </div>
   )
 }
@@ -39,7 +39,7 @@ function EvidenceRecordBody({ record }) {
   return (
     <>
       <div className="pr-10">
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-forest-accent">
+        <p className="font-mono text-label uppercase tracking-label-wide text-forest-accent">
           Evidence record
         </p>
         <h3 className="mt-1 font-sans text-xl font-bold leading-tight text-ink">{record.title}</h3>
@@ -55,7 +55,7 @@ function EvidenceRecordBody({ record }) {
         </Section>
         <Section eyebrow="Location">
           <p>{record.location}</p>
-          <p className="mt-0.5 font-mono text-[11px] text-ink-faint">
+          <p className="mt-0.5 font-mono text-label text-ink-faint">
             {record.date} · {record.programme}
           </p>
         </Section>
@@ -72,7 +72,7 @@ function EvidenceRecordBody({ record }) {
           </Section>
         )}
         <Section eyebrow="Field evidence">
-          <dl className="grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[11px]">
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-label">
             <dt className="text-ink-faint">Source</dt>
             <dd className="text-ink-muted">{record.detail.source}</dd>
             <dt className="text-ink-faint">Field records</dt>
@@ -82,14 +82,14 @@ function EvidenceRecordBody({ record }) {
           </dl>
         </Section>
         <Section eyebrow="Verification">
-          <p className="font-mono text-[11px] text-ink-muted">
+          <p className="font-mono text-label text-ink-muted">
             Last verified {record.detail.lastVerification}
           </p>
         </Section>
         <Section eyebrow="Audit trail">
           <ol className="space-y-2 border-l border-line pl-4">
             {record.detail.auditTrail.map((entry, index) => (
-              <li key={index} className="relative text-[12px] leading-snug text-ink-muted">
+              <li key={index} className="relative text-xs leading-snug text-ink-muted">
                 <span className="absolute -left-[1.09rem] top-1.5 h-1.5 w-1.5 rounded-full bg-forest-accent" />
                 {entry}
               </li>
@@ -107,7 +107,7 @@ function ZoneBody({ zone, onOpenEvidence }) {
   return (
     <>
       <div className="pr-10">
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-forest-accent">
+        <p className="font-mono text-label uppercase tracking-label-wide text-forest-accent">
           Conservation zone
         </p>
         <h3 className="mt-1 font-sans text-xl font-bold leading-tight text-ink">{zone.label}</h3>
@@ -119,30 +119,30 @@ function ZoneBody({ zone, onOpenEvidence }) {
 
       <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4">
         <div>
-          <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">Area</dt>
+          <dt className="font-mono text-label uppercase tracking-label text-ink-faint">Area</dt>
           <dd className="mt-0.5 text-xl font-bold tabular-nums text-ink">
             {areaHa.toLocaleString('en-US')} ha
           </dd>
         </div>
         <div>
-          <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">Status</dt>
+          <dt className="font-mono text-label uppercase tracking-label text-ink-faint">Status</dt>
           <dd className="mt-0.5 text-xl font-bold text-ink">{status}</dd>
         </div>
         <div>
-          <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+          <dt className="font-mono text-label uppercase tracking-label text-ink-faint">
             Field activities
           </dt>
           <dd className="mt-0.5 text-xl font-bold tabular-nums text-ink">{fieldActivities}</dd>
         </div>
         <div>
-          <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+          <dt className="font-mono text-label uppercase tracking-label text-ink-faint">
             Verification records
           </dt>
           <dd className="mt-0.5 text-xl font-bold tabular-nums text-ink">{verificationRecords}</dd>
         </div>
       </dl>
 
-      <p className="mt-4 font-mono text-[11px] text-ink-muted">
+      <p className="mt-4 font-mono text-label text-ink-muted">
         Last observation {lastObservation}
       </p>
 

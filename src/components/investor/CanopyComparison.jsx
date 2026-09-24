@@ -28,7 +28,7 @@ function ImageryPanel({ releaseId, tile, label, date }) {
             />
           )),
         )}
-        <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white">
+        <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2.5 py-0.5 font-mono text-label uppercase tracking-label text-white">
           {label} · {date}
         </span>
       </div>
@@ -50,12 +50,12 @@ export default function CanopyComparison() {
     <div className="space-y-10">
       {CANOPY_COMPARISONS.map((comparison) => (
         <article key={comparison.zoneId}>
-          <h3 className="text-[16px] font-semibold text-ink">{ZONE_LABELS[comparison.zoneId]}</h3>
+          <h3 className="text-base font-semibold text-ink">{ZONE_LABELS[comparison.zoneId]}</h3>
           <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <ImageryPanel releaseId={comparison.baseline.releaseId} tile={comparison.tile} label="Baseline" date={comparison.baseline.date} />
             <ImageryPanel releaseId={comparison.latest.releaseId} tile={comparison.tile} label="Latest" date={comparison.latest.date} />
           </div>
-          <p className="mt-2 text-[11px] leading-relaxed text-ink-faint">
+          <p className="mt-2 text-label leading-relaxed text-ink-faint">
             Real archive imagery of this landscape — Esri World Imagery Wayback; dates are archive releases, and the
             underlying capture can be earlier. Landscape context only: change between the two is not attributed to the
             programme.

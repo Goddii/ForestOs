@@ -12,7 +12,7 @@ const OUTCOMES_BY_ID = Object.fromEntries(CORE_OUTCOMES.map((outcome) => [outcom
 function ChainStep({ label, children }) {
   return (
     <div>
-      <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{label}</p>
+      <p className="mb-2 font-mono text-label font-semibold uppercase tracking-label text-ink-faint">{label}</p>
       {children}
     </div>
   )
@@ -53,14 +53,14 @@ export default function UseOfFundsBars({ onShowPayments }) {
               className="w-full px-5 py-4 text-left transition-colors duration-200 ease-in-out hover:bg-canvas-sunk"
             >
               <div className="flex items-baseline justify-between gap-3">
-                <span className="flex items-center gap-1.5 text-[14px] font-semibold text-ink">
+                <span className="flex items-center gap-1.5 text-sm font-semibold text-ink">
                   {category.category}
                   <ChevronDown
                     className={`h-3.5 w-3.5 text-ink-faint transition-transform duration-200 ease-in-out ${isOpen ? 'rotate-180' : ''}`}
                     strokeWidth={2}
                   />
                 </span>
-                <span className="shrink-0 font-mono text-[11px] font-semibold tabular-nums text-ink">
+                <span className="shrink-0 font-mono text-label font-semibold tabular-nums text-ink">
                   {formatCurrencyShort(category.budget, CAPITAL_POSITION.currency)}
                   <span className="ml-1 font-normal text-ink-faint">{category.percentage}%</span>
                 </span>
@@ -68,7 +68,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
               <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-canvas-sunk">
                 <div className="h-full rounded-full bg-forest-accent" style={{ width: `${deployedPct}%` }} />
               </div>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="mt-1 font-mono text-label uppercase tracking-label text-ink-faint">
                 {formatCurrencyShort(category.deployed, CAPITAL_POSITION.currency)} deployed ·{' '}
                 {formatCurrencyShort(category.verified, CAPITAL_POSITION.currency)} verified ·{' '}
                 {formatCurrencyShort(category.remaining, CAPITAL_POSITION.currency)} remaining
@@ -78,7 +78,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
             {isOpen && (
               <div className="mx-5 mb-4 space-y-5 rounded-lg border border-line bg-canvas-sunk p-4">
                 <ChainStep label="Paid for">
-                  <p className="text-[12px] text-ink-muted">
+                  <p className="text-xs text-ink-muted">
                     {category.expenditures.length} payment{category.expenditures.length === 1 ? '' : 's'} ·{' '}
                     {formatCurrencyShort(category.verified, CAPITAL_POSITION.currency)} of{' '}
                     {formatCurrencyShort(category.deployed, CAPITAL_POSITION.currency)} verified{' '}
@@ -92,7 +92,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
                 </ChainStep>
 
                 <ChainStep label="Produced">
-                  <ul className="list-disc space-y-1 pl-4 text-[12px] text-ink-muted">
+                  <ul className="list-disc space-y-1 pl-4 text-xs text-ink-muted">
                     {category.outputs.map((output) => (
                       <li key={output}>{output}</li>
                     ))}
@@ -103,7 +103,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
                   {outcomes.length > 0 ? (
                     <ul className="space-y-1">
                       {outcomes.map((outcome) => (
-                        <li key={outcome.id} className="flex flex-wrap items-center justify-between gap-2 text-[12px]">
+                        <li key={outcome.id} className="flex flex-wrap items-center justify-between gap-2 text-xs">
                           <span className="text-ink-muted">
                             <span className="font-semibold tabular-nums text-ink">
                               {formatNumber(outcome.value)}
@@ -118,7 +118,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
                       ))}
                     </ul>
                   ) : (
-                    <p className="text-[12px] text-ink-muted">
+                    <p className="text-xs text-ink-muted">
                       Measured through the programme's output indicators (
                       {getComponent(category.componentId)?.title ?? 'programme management'}), not a
                       single outcome figure.

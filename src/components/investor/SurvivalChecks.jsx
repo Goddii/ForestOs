@@ -13,7 +13,7 @@ export default function SurvivalChecks() {
   const { survivalChecks } = useWorkspace()
   const rows = survivalChecks.filter((check) => check.isFunded).toSorted((a, b) => a.dueDate.localeCompare(b.dueDate))
 
-  if (rows.length === 0) return <p className="px-5 py-6 text-[13px] text-ink-muted">No plantings funded by this agreement need survival checks yet.</p>
+  if (rows.length === 0) return <p className="px-5 py-6 text-compact text-ink-muted">No plantings funded by this agreement need survival checks yet.</p>
 
   return (
     <ul className="divide-y divide-line">
@@ -22,17 +22,17 @@ export default function SurvivalChecks() {
         return (
           <li key={check.id} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
             <div className="min-w-0">
-              <p className="text-[14px] font-medium text-ink">
+              <p className="text-sm font-medium text-ink">
                 {check.monthsAfter}-month check · {check.activitySummary}
               </p>
-              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="mt-0.5 font-mono text-label uppercase tracking-label text-ink-faint">
                 Due {check.dueDate}
                 {check.observedDate && ` · counted ${check.observedDate}`}
               </p>
             </div>
             <div className="flex items-center gap-3">
               {check.status === 'observed' && (
-                <span className="font-mono text-[12px] tabular-nums text-ink">
+                <span className="font-mono text-xs tabular-nums text-ink">
                   {formatNumber(check.surviving)} of {formatNumber(check.planted)} ({Math.round((check.surviving / check.planted) * 100)}%)
                 </span>
               )}

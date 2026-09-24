@@ -34,7 +34,7 @@ export default function InvestorNav() {
     >
       <div className="hidden items-center gap-2 lg:flex">
         <Leaf className="h-4 w-4 text-forest-accent" strokeWidth={2} aria-hidden="true" />
-        <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-bone">
+        <span className="font-mono text-label uppercase tracking-label-wide text-bone">
           ForestOS
         </span>
       </div>
@@ -51,7 +51,7 @@ export default function InvestorNav() {
               to={path(sub)}
               end={end}
               className={({ isActive }) =>
-                `block cursor-pointer whitespace-nowrap rounded-lg px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
+                `block cursor-pointer whitespace-nowrap rounded-lg px-3 py-2 font-mono text-label uppercase tracking-label transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
                   isActive
                     ? 'bg-forest-accent font-semibold text-bone'
                     : 'text-sage-300 hover:bg-bone/5 hover:text-bone'
@@ -65,14 +65,14 @@ export default function InvestorNav() {
       </ul>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-sage-500">Programme</p>
-        <p className="mt-1.5 text-[13px] text-bone">{programme.name}</p>
-        <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-sage-500">Funder</p>
-        <p className="mt-1.5 text-[13px] text-bone">{org.name}</p>
+        <p className="font-mono text-label uppercase tracking-label-wide text-sage-500">Programme</p>
+        <p className="mt-1.5 text-compact text-bone">{programme.name}</p>
+        <p className="mt-3 font-mono text-label uppercase tracking-label-wide text-sage-500">Funder</p>
+        <p className="mt-1.5 text-compact text-bone">{org.name}</p>
       </div>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-amber-400">
+        <p className="font-mono text-label uppercase tracking-label-wide text-amber-400">
           Demo environment
         </p>
       </div>

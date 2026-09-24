@@ -34,12 +34,12 @@ export default function ImpactFlowDiagram() {
       {STAGES.map((stage, index) => (
         <li key={stage.label}>
           <div className="flex items-start gap-4 py-4">
-            <span className="mt-1 font-mono text-[11px] text-ink-faint tnum">
+            <span className="mt-1 font-mono text-label text-ink-faint tnum">
               {String(index + 1).padStart(2, '0')}
             </span>
             <div>
               <p className="text-xl font-bold text-ink">{stage.label}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-ink-muted">{stage.detail}</p>
+              <p className="mt-1 text-compact leading-relaxed text-ink-muted">{stage.detail}</p>
             </div>
           </div>
           {index < STAGES.length - 1 && (

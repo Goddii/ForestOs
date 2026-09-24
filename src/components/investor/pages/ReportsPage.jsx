@@ -12,7 +12,6 @@ export default function ReportsPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-8">
       <SectionHeading
-        eyebrow="Reporting centre"
         title="Reports issued to you"
         description="Each report is reviewed by NTZDC's implementation unit and approved by the technical committee before it is issued. Its figures are frozen at issue, so a report reads the same later even as live data changes."
       />

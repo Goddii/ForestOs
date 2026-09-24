@@ -86,7 +86,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
           {ticks.map((tick) => (
             <span
               key={tick}
-              className="absolute right-full mr-2 -translate-y-1/2 font-mono text-[10px] tabular-nums text-ink-faint"
+              className="absolute right-full mr-2 -translate-y-1/2 font-mono text-label tabular-nums text-ink-faint"
               style={{ top: toTop(toY(tick)) }}
             >
               {formatTick(tick)}
@@ -161,7 +161,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
           {labelled.map((p) => (
             <span
               key={p.year}
-              className="pointer-events-none absolute -translate-x-1/2 -translate-y-[140%] font-mono text-[11px] font-semibold tabular-nums text-ink-muted"
+              className="pointer-events-none absolute -translate-x-1/2 -translate-y-[140%] font-mono text-label font-semibold tabular-nums text-ink-muted"
               style={{ left: toLeft(p.x), top: toTop(p.y) }}
             >
               {formatNumber(p.value)}
@@ -170,7 +170,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
 
           {hovered && (
             <div
-              className="pointer-events-none absolute -translate-x-1/2 -translate-y-[130%] whitespace-nowrap rounded-md border border-line-strong bg-card px-2 py-1 font-mono text-[11px] font-semibold tabular-nums text-ink shadow-[0_6px_20px_-6px_rgba(20,32,25,0.25)]"
+              className="pointer-events-none absolute -translate-x-1/2 -translate-y-[130%] whitespace-nowrap rounded-md border border-line-strong bg-card px-2 py-1 font-mono text-label font-semibold tabular-nums text-ink shadow-[0_6px_20px_-6px_rgba(20,32,25,0.25)]"
               style={{ left: toLeft(hovered.x), top: toTop(hovered.y) }}
             >
               {hovered.year}: {formatNumber(hovered.value)} {unit}
@@ -179,7 +179,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
           )}
         </div>
 
-        <div className="mt-1.5 flex justify-between font-mono text-[10px] tabular-nums text-ink-faint">
+        <div className="mt-1.5 flex justify-between font-mono text-label tabular-nums text-ink-faint">
           {series.map((point) => (
             <span key={point.year}>
               {point.year}

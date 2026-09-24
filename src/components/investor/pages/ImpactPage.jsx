@@ -23,10 +23,9 @@ export default function ImpactPage() {
   const metrics = getImpactMetricsByPillar(activeTab)
 
   return (
-    <div className="mx-auto max-w-6xl space-y-14">
+    <div className="mx-auto max-w-6xl space-y-12">
       <section>
         <SectionHeading
-          eyebrow="Outcomes"
           title="What has changed, and how we know"
           description="Outcomes measured on the ground, such as whether planted seedlings survived. Planting is an output; survival is the outcome. A figure appears only once a count or audit has been done."
         />
@@ -35,7 +34,6 @@ export default function ImpactPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Landscape context"
           title="Change over time"
           description="Programme-wide indicators. Years before funding began are baseline, not programme results, and landscape trends are context that the programme does not claim to have caused."
         />
@@ -47,7 +45,7 @@ export default function ImpactPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Impact explorer" title="Environment, community, economic, governance" />
+        <SectionHeading title="Environment, community, economic, governance" />
         <div
           role="tablist"
           aria-label="Impact pillar"
@@ -60,7 +58,7 @@ export default function ImpactPage() {
               role="tab"
               aria-selected={activeTab === tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`cursor-pointer rounded-lg px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 ${
+              className={`cursor-pointer rounded-lg px-4 py-2 font-mono text-label uppercase tracking-label transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 ${
                 activeTab === tab.key
                   ? 'bg-forest-accent font-semibold text-white shadow-sm'
                   : 'font-medium text-ink-faint hover:bg-canvas-sunk hover:text-ink'
@@ -78,7 +76,7 @@ export default function ImpactPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Additionality" title="What changes because of this capital?" />
+        <SectionHeading title="What changes because of this capital?" />
         <AdditionalityPanel />
       </section>
     </div>

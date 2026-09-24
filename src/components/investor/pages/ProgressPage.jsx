@@ -32,7 +32,7 @@ function IndicatorRow({ row, isOpen, onToggle }) {
             type="button"
             onClick={onToggle}
             aria-expanded={isOpen}
-            className="flex items-start gap-1.5 text-left text-[14px] font-semibold text-ink hover:text-forest-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+            className="flex items-start gap-1.5 text-left text-sm font-semibold text-ink hover:text-forest-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
           >
             <ChevronDown
               className={`mt-0.5 h-4 w-4 shrink-0 text-ink-faint transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -42,18 +42,18 @@ function IndicatorRow({ row, isOpen, onToggle }) {
             {indicator.label}
           </button>
         </td>
-        <td className="px-4 py-4 text-right font-mono text-[12px] tabular-nums text-ink-muted">
+        <td className="px-4 py-4 text-right font-mono text-xs tabular-nums text-ink-muted">
           {target === null ? 'None set' : `${formatNumber(target)} ${indicator.unit}`}
         </td>
         <td className="px-4 py-4 text-right">
-          <span className="font-mono text-[13px] font-semibold tabular-nums text-ink">{formatNumber(verified)}</span>
-          {pct !== null && <span className="ml-1 font-mono text-[11px] tabular-nums text-ink-faint">{pct}%</span>}
+          <span className="font-mono text-compact font-semibold tabular-nums text-ink">{formatNumber(verified)}</span>
+          {pct !== null && <span className="ml-1 font-mono text-label tabular-nums text-ink-faint">{pct}%</span>}
           <ProgressBar value={verified} target={target} />
         </td>
-        <td className="px-4 py-4 text-right font-mono text-[12px] tabular-nums text-ink-muted">
+        <td className="px-4 py-4 text-right font-mono text-xs tabular-nums text-ink-muted">
           {inReview > 0 ? formatNumber(inReview) : '0'}
         </td>
-        <td className="py-4 pl-4 pr-5 text-right font-mono text-[13px] font-semibold tabular-nums text-forest-accent">
+        <td className="py-4 pl-4 pr-5 text-right font-mono text-compact font-semibold tabular-nums text-forest-accent">
           {formatNumber(fundedVerified)}
         </td>
       </tr>
@@ -61,12 +61,12 @@ function IndicatorRow({ row, isOpen, onToggle }) {
         <tr>
           <td colSpan={5} className="px-5 pb-6">
             <div className="rounded-xl border border-line bg-canvas-sunk p-5">
-              <dl className="grid grid-cols-1 gap-x-8 gap-y-2 text-[12px] sm:grid-cols-[10rem_1fr]">
-                <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Method</dt>
+              <dl className="grid grid-cols-1 gap-x-8 gap-y-2 text-xs sm:grid-cols-[10rem_1fr]">
+                <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Method</dt>
                 <dd className="text-ink-muted">{indicator.method}</dd>
-                <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Verified through</dt>
+                <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Verified through</dt>
                 <dd className="text-ink-muted">{indicator.meansOfVerification.join('; ')}</dd>
-                <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Target date</dt>
+                <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Target date</dt>
                 <dd className="text-ink-muted">{indicator.targetDate}</dd>
               </dl>
               <div className="mt-5 border-t border-line pt-5">
@@ -102,17 +102,16 @@ export default function ProgressPage() {
   }, [hash])
 
   return (
-    <div className="mx-auto max-w-6xl space-y-14">
+    <div className="mx-auto max-w-6xl space-y-12">
       <section>
         <SectionHeading
-          eyebrow="Results framework"
           title="Outputs against targets"
           description="Every figure is summed from field activity records. Only verified work counts toward a target; work still in review is shown separately, and rejected claims are listed but never counted."
         />
         <ContentCard className="overflow-x-auto">
           <table className="w-full min-w-[44rem] border-collapse text-left">
             <thead>
-              <tr className="border-b border-line font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+              <tr className="border-b border-line font-mono text-label uppercase tracking-label text-ink-faint">
                 <th scope="col" className="py-3 pl-5 pr-4 font-semibold">Indicator</th>
                 <th scope="col" className="px-4 py-3 text-right font-semibold">Target</th>
                 <th scope="col" className="px-4 py-3 text-right font-semibold">Verified, programme</th>
@@ -127,7 +126,7 @@ export default function ProgressPage() {
                 return (
                   <Fragment key={component.id}>
                     <tr className="border-t border-line bg-canvas-sunk/60">
-                      <th scope="rowgroup" colSpan={5} className="px-5 py-2 text-left text-[12px] font-semibold text-ink-muted">
+                      <th scope="rowgroup" colSpan={5} className="px-5 py-2 text-left text-xs font-semibold text-ink-muted">
                         {component.code} · {component.title}
                       </th>
                     </tr>
@@ -145,13 +144,12 @@ export default function ProgressPage() {
             </tbody>
           </table>
         </ContentCard>
-        <p className="mt-3 text-[12px] text-ink-faint">Targets are illustrative (demo data) until the programme's results framework is confirmed with NTZDC.</p>
+        <p className="mt-3 text-xs text-ink-faint">Targets are illustrative (demo data) until the programme's results framework is confirmed with NTZDC.</p>
       </section>
 
       {terms.showsAttribution && (
         <section>
           <SectionHeading
-            eyebrow="Attribution"
             title="Programme-wide outcomes, attributed pro-rata"
             description="For outcomes that every funder contributes to, a share proportional to committed capital. This is an allocation convention, not direct attribution, and the method is stated below."
           />

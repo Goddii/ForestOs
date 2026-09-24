@@ -33,7 +33,7 @@ export default function ImpactMetricCard({ metric }) {
   return (
     <div className="rounded-2xl border border-line bg-card p-5 shadow-card">
       <div className="flex items-start justify-between gap-3">
-        <p className="text-[13px] font-semibold text-ink">{metric.label}</p>
+        <p className="text-compact font-semibold text-ink">{metric.label}</p>
         {isConfigured && <MetricTrend trend={metric.trend} />}
       </div>
 
@@ -42,8 +42,8 @@ export default function ImpactMetricCard({ metric }) {
           <p className="mt-2 text-2xl font-bold tabular-nums text-ink">
             {formatValue(metric.current, metric.unit)}
           </p>
-          <p className="mt-0.5 text-[11px] text-ink-faint">{VALUE_TYPE[metric.confidence] ?? 'Reported'}, programme-wide</p>
-          <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">
+          <p className="mt-0.5 text-label text-ink-faint">{VALUE_TYPE[metric.confidence] ?? 'Reported'}, programme-wide</p>
+          <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-label uppercase tracking-label text-ink-faint">
             <div>
               <dt className="inline">Baseline </dt>
               <dd className="inline font-sans font-medium tabular-nums text-ink-muted">{formatValue(metric.baseline, metric.unit)}</dd>
@@ -60,11 +60,11 @@ export default function ImpactMetricCard({ metric }) {
         <p className="mt-2 text-2xl font-bold text-ink-faint">—</p>
       )}
 
-      <p className="mt-3 text-[12px] leading-relaxed text-ink-muted">{metric.evidenceSummary}</p>
+      <p className="mt-3 text-xs leading-relaxed text-ink-muted">{metric.evidenceSummary}</p>
       <div className="mt-3 flex items-center justify-between gap-2 border-t border-line pt-3">
         <ConfidenceIndicator status={metric.confidence} />
       </div>
-      <p className="mt-2 font-mono text-[10px] italic leading-relaxed text-ink-faint">
+      <p className="mt-2 font-mono text-label italic leading-relaxed text-ink-faint">
         {metric.methodology}
       </p>
     </div>

@@ -41,7 +41,7 @@ export default function ActionButton({
   children,
 }) {
   const padding = variant === 'text' ? 'px-0 py-0' : 'px-3.5 py-1.5'
-  const classes = `inline-flex items-center gap-1.5 rounded-full font-sans text-[10px] font-semibold uppercase tracking-[0.1em] transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-line disabled:hover:bg-transparent disabled:hover:text-ink-muted ${padding} ${VARIANTS[variant]} ${className}`
+  const classes = `inline-flex items-center gap-1.5 rounded-full font-sans text-label font-semibold uppercase tracking-label transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-line disabled:hover:bg-transparent disabled:hover:text-ink-muted ${padding} ${VARIANTS[variant]} ${className}`
 
   const content = (
     <>

@@ -29,7 +29,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
   const activitiesById = new Map(activities.map((activity) => [activity.id, activity]))
 
   if (rows.length === 0) {
-    return <p className="text-[12px] text-ink-muted">{emptyMessage}</p>
+    return <p className="text-xs text-ink-muted">{emptyMessage}</p>
   }
 
   return (
@@ -40,13 +40,13 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
         return (
           <li key={row.id} className="py-3 first:pt-0 last:pb-0">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <p className="min-w-0 text-[13px] font-medium text-ink">{row.description}</p>
-              <p className="shrink-0 font-mono text-[12px] font-semibold tabular-nums text-ink">
+              <p className="min-w-0 text-compact font-medium text-ink">{row.description}</p>
+              <p className="shrink-0 font-mono text-xs font-semibold tabular-nums text-ink">
                 {formatCurrencyShort(row.amount, CAPITAL_POSITION.currency)}
               </p>
             </div>
             <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+              <span className="font-mono text-label uppercase tracking-label text-ink-faint">
                 {row.date}
                 {showCategory && ` · ${CATEGORY_LABELS[row.categoryId]}`}
               </span>
@@ -55,7 +55,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
             {paidFor.length > 0 && (
               <ul className="mt-1.5 space-y-1">
                 {paidFor.map((activity) => (
-                  <li key={activity.id} className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-ink-muted">
+                  <li key={activity.id} className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-muted">
                     <span className="text-ink-faint">Paid for</span>
                     <span className="text-ink">{activity.summary}</span>
                     <VerificationStateBadge state={currentState(activity.verification)} />
@@ -66,7 +66,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
             {evidence.length > 0 ? (
               <ul className="mt-1.5 space-y-0.5">
                 {evidence.map((record) => (
-                  <li key={record.id} className="flex flex-wrap items-center gap-x-2 text-[12px] text-ink-muted">
+                  <li key={record.id} className="flex flex-wrap items-center gap-x-2 text-xs text-ink-muted">
                     <ActionButton variant="text" onClick={() => openEvidence(record.id)}>
                       {record.title}
                     </ActionButton>
@@ -75,7 +75,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
                 ))}
               </ul>
             ) : (
-              <p className="mt-1.5 text-[12px] text-ink-faint">No supporting evidence submitted yet.</p>
+              <p className="mt-1.5 text-xs text-ink-faint">No supporting evidence submitted yet.</p>
             )}
           </li>
         )

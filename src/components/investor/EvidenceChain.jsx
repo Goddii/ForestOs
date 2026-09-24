@@ -17,12 +17,12 @@ export default function EvidenceChain({ records, lastVerified, className = '' })
 
   return (
     <div className={className}>
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+      <p className="font-mono text-label font-semibold uppercase tracking-label-wide text-ink-faint">
         How do we know?
       </p>
       <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3">
         {items.map((item) => (
-          <li key={item.key} className="flex items-center gap-1.5 text-[12px] font-medium">
+          <li key={item.key} className="flex items-center gap-1.5 text-xs font-medium">
             {item.present ? (
               <Check className="h-3.5 w-3.5 shrink-0 text-forest-accent" strokeWidth={2.5} aria-hidden="true" />
             ) : (
@@ -37,7 +37,7 @@ export default function EvidenceChain({ records, lastVerified, className = '' })
         ))}
       </ul>
       {lastVerified && (
-        <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
+        <p className="mt-2 font-mono text-label uppercase tracking-label text-ink-faint">
           Last verified {lastVerified}
         </p>
       )}

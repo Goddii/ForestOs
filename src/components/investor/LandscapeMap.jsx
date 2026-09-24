@@ -184,7 +184,7 @@ export default function LandscapeMap({ className = '' }) {
             key={key}
             type="button"
             onClick={() => toggleControl(key)}
-            className={`cursor-pointer rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] backdrop-blur-sm transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
+            className={`cursor-pointer rounded-full border px-3 py-1 font-mono text-label font-semibold uppercase tracking-label backdrop-blur-sm transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
               activeControls.has(key)
                 ? 'border-emerald-400/60 bg-forest-accent/25 text-bone shadow-[0_0_0_1px_rgba(16,185,129,0.15)]'
                 : 'border-bone/15 bg-forest-950/60 text-sage-300 hover:border-bone/30 hover:bg-forest-950/80 hover:text-bone'
@@ -197,12 +197,12 @@ export default function LandscapeMap({ className = '' }) {
 
       <div className="absolute bottom-3 left-3 z-[1000] rounded-lg border border-bone/15 bg-forest-950/80 p-2.5 backdrop-blur-sm">
         <ul className="space-y-1">
-          <li className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-sage-300">
+          <li className="flex items-center gap-1.5 font-mono text-label uppercase tracking-label text-sage-300">
             <span className="h-0.5 w-3 shrink-0 bg-bone" />
             Buffer belt (dashed: community land)
           </li>
           {Object.entries(LANDSCAPE_LAYER_META).map(([key, meta]) => (
-            <li key={key} className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-sage-300">
+            <li key={key} className="flex items-center gap-1.5 font-mono text-label uppercase tracking-label text-sage-300">
               <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: meta.color }} />
               {meta.label}
             </li>

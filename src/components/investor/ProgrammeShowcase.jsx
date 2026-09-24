@@ -72,14 +72,14 @@ function VideoSlot({ posterMediaId }) {
           />
         )}
         <div className="absolute inset-0 grid place-items-center text-center">
-          <p className="flex flex-col items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink">
+          <p className="flex flex-col items-center gap-1.5 font-mono text-label uppercase tracking-label text-ink">
             <Video className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
             Field video pending upload
           </p>
         </div>
       </div>
       {poster && (
-        <figcaption className="mt-1.5 text-[11px] text-ink-faint">
+        <figcaption className="mt-1.5 text-label text-ink-faint">
           Poster photo:{' '}
           <a href={poster.credit.url} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-2 hover:text-ink-muted">
             {poster.credit.author}
@@ -108,7 +108,7 @@ function CopyCaption({ text }) {
       <ActionButton variant="ghost" icon={state === 'copied' ? Check : Copy} iconPosition="left" onClick={copy}>
         {state === 'copied' ? 'Caption copied' : 'Copy caption'}
       </ActionButton>
-      <span aria-live="polite" className="text-[11px] text-ink-faint">
+      <span aria-live="polite" className="text-label text-ink-faint">
         {state === 'failed' && 'Copy blocked by the browser — select the text instead.'}
       </span>
     </span>
@@ -138,18 +138,18 @@ export default function ProgrammeShowcase() {
         return (
           <article key={story.id} className="flex flex-col">
             <MediaFigure asset={photo} />
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-forest-accent">{story.programme}</p>
-            <h3 className="mt-1 text-[18px] font-semibold leading-snug text-ink">{story.title}</h3>
-            <p className="mt-2 text-[28px] font-bold leading-none tabular-nums text-ink">
+            <p className="mt-4 font-mono text-label uppercase tracking-label-wide text-forest-accent">{story.programme}</p>
+            <h3 className="mt-1 text-lg font-semibold leading-snug text-ink">{story.title}</h3>
+            <p className="mt-2 text-3xl font-bold leading-none tabular-nums text-ink">
               {stat.gross}
-              <span className="ml-2 text-[13px] font-medium text-ink-muted">{stat.label}, whole programme</span>
+              <span className="ml-2 text-compact font-medium text-ink-muted">{stat.label}, whole programme</span>
             </p>
             {stat.yours && (
-              <p className="mt-1 text-[13px] tabular-nums text-ink-muted">
+              <p className="mt-1 text-compact tabular-nums text-ink-muted">
                 <span className="font-semibold text-ink">{stat.yours}</span> {stat.yoursLabel}
               </p>
             )}
-            <p className="mt-3 text-[13px] leading-relaxed text-ink-muted">{story.summary}</p>
+            <p className="mt-3 text-compact leading-relaxed text-ink-muted">{story.summary}</p>
 
             <div className="mt-4">
               <VideoSlot posterMediaId={story.video.posterMediaId} />
@@ -164,7 +164,7 @@ export default function ProgrammeShowcase() {
               ))}
             </div>
             {photo.showsPeople && (
-              <p className="mt-2 text-[11px] text-warning">
+              <p className="mt-2 text-label text-warning">
                 Shows identifiable people — replace with a consented field photo before public use.
               </p>
             )}

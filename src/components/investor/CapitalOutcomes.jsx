@@ -39,13 +39,13 @@ export default function CapitalOutcomes() {
   return (
     <div>
       <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b border-line px-5 py-4">
-        <p className="text-[14px] text-ink">
+        <p className="text-sm text-ink">
           <span className="font-semibold tabular-nums">{formatCurrencyShort(committed, currency)}</span> of a{' '}
           {formatCurrencyShort(programmeTotal, currency)} programme ·{' '}
           <span className="font-semibold tabular-nums">{sharePct}%</span> attributed to this fund
         </p>
         {coFunders.length > 0 && (
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+          <p className="font-mono text-label uppercase tracking-label text-ink-faint">
             {coFunders
               .map((source) => `${source.label} — ${source.type}, ${formatCurrencyShort(source.amount, currency)}`)
               .join(' · ')}
@@ -62,25 +62,25 @@ export default function CapitalOutcomes() {
           return (
             <li key={id} className="grid grid-cols-2 gap-x-6 gap-y-3 px-5 py-4 sm:grid-cols-[1.4fr_1fr_1fr_auto] sm:items-center">
               <div className="col-span-2 sm:col-span-1">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">{outcome.label}</p>
+                <p className="font-mono text-label uppercase tracking-label text-ink-faint">{outcome.label}</p>
                 <p className="mt-1 text-xl font-bold tabular-nums text-ink">
                   {formatNumber(outcome.value)}
                   {outcome.unit && <span className="ml-1 text-sm font-medium text-ink-muted">{outcome.unit}</span>}
                 </p>
-                <p className="text-[11px] text-ink-faint">Whole programme</p>
+                <p className="text-label text-ink-faint">Whole programme</p>
               </div>
               <div>
                 <p className="text-lg font-semibold tabular-nums text-ink">
                   {formatNumber(Math.round(attributed))}
                   {outcome.unit && <span className="ml-1 text-sm font-medium text-ink-muted">{outcome.unit}</span>}
                 </p>
-                <p className="text-[11px] text-ink-faint">Attributed to this fund</p>
+                <p className="text-label text-ink-faint">Attributed to this fund</p>
               </div>
               <div>
                 <p className="text-lg font-semibold tabular-nums text-ink">
                   {cost === null ? '—' : `${currency} ${formatNumber(Math.round(cost))}`}
                 </p>
-                <p className="text-[11px] text-ink-faint">Deployed per {perUnit}</p>
+                <p className="text-label text-ink-faint">Deployed per {perUnit}</p>
               </div>
               <div className="col-span-2 flex flex-wrap items-center gap-2 sm:col-span-1 sm:flex-col sm:items-end">
                 <ConfidenceIndicator status={outcome.confidence} />
@@ -93,7 +93,7 @@ export default function CapitalOutcomes() {
         })}
       </ul>
 
-      <p className="border-t border-line px-5 py-3 text-[11px] leading-relaxed text-ink-faint">
+      <p className="border-t border-line px-5 py-3 text-label leading-relaxed text-ink-faint">
         Attribution: {PROGRAMME_FUNDING.attributionMethod.toLowerCase()}. “Deployed per unit” divides this fund’s{' '}
         {formatCurrencyShort(deployed, currency)} deployed by its attributed outcome — an average across all spend, not a
         marginal cost. Sources: {LANDSCAPE_SUMMARY.sources.join(', ')} · last verified {LANDSCAPE_SUMMARY.lastVerified} ·

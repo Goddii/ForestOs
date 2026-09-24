@@ -27,16 +27,16 @@ export default function InvestorHeader() {
   return (
     <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line bg-card px-6 py-4 shadow-[0_1px_0_0_rgba(20,32,25,0.03)] sm:px-8">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <p className="font-sans text-[15px] font-bold leading-tight text-ink">{org.name}</p>
+        <p className="font-sans text-base font-bold leading-tight text-ink">{org.name}</p>
         <span className="text-line-strong">·</span>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">Data as of {asOf}</p>
+        <p className="font-mono text-label uppercase tracking-label-wide text-ink-faint">Data as of {asOf}</p>
         <Badge tone="warning">Demo environment</Badge>
-        <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+        <label className="flex items-center gap-2 font-mono text-label uppercase tracking-label text-ink-faint">
           View as
           <select
             value={org.slug}
             onChange={(event) => switchFunder(event.target.value)}
-            className="rounded-md border border-line bg-card px-2 py-1 font-sans text-[12px] normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+            className="rounded-md border border-line bg-card px-2 py-1 font-sans text-xs normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
           >
             {FUNDER_ORGANISATIONS.map((funder) => (
               <option key={funder.slug} value={funder.slug}>

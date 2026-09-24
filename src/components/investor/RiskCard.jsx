@@ -36,17 +36,17 @@ export default function RiskCard({ risk }) {
     <li className="px-5 py-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-forest-accent">
+          <p className="font-mono text-label font-semibold uppercase tracking-label text-forest-accent">
             {risk.affectedArea}
           </p>
-          <p className="mt-1 max-w-[52ch] text-[15px] font-medium leading-snug text-ink">{risk.description}</p>
+          <p className="mt-1 max-w-[52ch] text-base font-medium leading-snug text-ink">{risk.description}</p>
         </div>
         <Badge tone={severity.tone} icon={severity.icon} className="shrink-0">
           {severity.label}
         </Badge>
       </div>
 
-      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[11px] sm:grid-cols-3">
+      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-label sm:grid-cols-3">
         <div>
           <dt className="text-ink-faint">Status</dt>
           <dd className="mt-0.5 font-sans font-medium text-ink-muted">{STATUS_LABEL[risk.status]}</dd>
@@ -61,7 +61,7 @@ export default function RiskCard({ risk }) {
         </div>
       </dl>
 
-      <p className="mt-3 text-[12px] leading-relaxed text-ink-muted">
+      <p className="mt-3 text-xs leading-relaxed text-ink-muted">
         <span className="text-ink-faint">Mitigation — </span>
         {risk.mitigation}
       </p>

@@ -21,7 +21,7 @@ export default function RiskRegister() {
         if (risks.length === 0) return null
         return (
           <section key={category}>
-            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+            <h3 className="font-mono text-label font-semibold uppercase tracking-label-wide text-ink-faint">
               {RISK_CATEGORY_LABELS[category]}
               <span className="ml-2 text-ink-faint/60">{risks.length}</span>
             </h3>
