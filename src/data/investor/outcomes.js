@@ -85,6 +85,7 @@ export const CONSERVATION_PERFORMANCE = [
     id: 'landscape-condition',
     label: 'Landscape condition indicator',
     unit: 'index (0–100)',
+    scaleMax: 100,
     methodology: 'Composite NDVI trend, unweighted, not yet peer-reviewed',
     series: [
       { year: '2024', value: 58 },
@@ -118,6 +119,7 @@ export const CONSERVATION_PERFORMANCE = [
     id: 'conservation-compliance',
     label: 'Conservation compliance',
     unit: '%',
+    scaleMax: 100,
     methodology: 'Field audit pass rate, structured checklist',
     series: [
       { year: '2024', value: 71 },

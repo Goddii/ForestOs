@@ -39,7 +39,7 @@ export default function ImpactPage() {
           title="Change over time"
           description="Programme-wide indicators. Years before funding began are baseline, not programme results, and landscape trends are context that the programme does not claim to have caused."
         />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {CONSERVATION_PERFORMANCE.map((chart) => (
             <PerformanceChart key={chart.id} {...chart} baselineBefore={PROGRAMME.startDate.slice(0, 4)} />
           ))}

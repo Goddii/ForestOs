@@ -79,7 +79,7 @@ export default function CapitalPage() {
         <SectionHeading
           eyebrow="Accountability"
           title={`Where ${terms.yours} is`}
-          description="Committed money narrows at each stage: what has actually arrived, what has been assigned to work, what has been spent, and what was spent on work that has since been verified."
+          description="Every bar is measured against the full commitment: what has arrived (outlined sections are tranches still to come), what has been assigned to work, what has been spent, and what was spent on work that has since been verified. Work can be assigned against the whole commitment, so it can run ahead of the money received."
         />
         <CapitalFlow onShowPayments={showPayments} />
       </section>
