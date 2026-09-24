@@ -3,7 +3,9 @@ import SectionHeading from '../SectionHeading'
 import ImpactMetricCard from '../ImpactMetricCard'
 import PerformanceChart from '../PerformanceChart'
 import AdditionalityPanel from '../AdditionalityPanel'
+import OutcomesPanel from '../OutcomesPanel'
 import { getImpactMetricsByPillar, CONSERVATION_PERFORMANCE } from '../../../data/investor'
+import { PROGRAMME } from '../../../data/funder/programme'
 
 const TABS = [
   { key: 'environmental', label: 'Environment' },
@@ -24,13 +26,22 @@ export default function ImpactPage() {
     <div className="mx-auto max-w-6xl space-y-14">
       <section>
         <SectionHeading
-          eyebrow="Conservation performance"
+          eyebrow="Outcomes"
+          title="What has changed, and how we know"
+          description="Outcomes measured on the ground, such as whether planted seedlings survived. Planting is an output; survival is the outcome. A figure appears only once a count or audit has been done."
+        />
+        <OutcomesPanel />
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Landscape context"
           title="Change over time"
-          description="Neutral indicators, not scientific findings — each chart names its own methodology rather than implying a calculated percentage change."
+          description="Programme-wide indicators. Years before funding began are baseline, not programme results, and landscape trends are context that the programme does not claim to have caused."
         />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {CONSERVATION_PERFORMANCE.map((chart) => (
-            <PerformanceChart key={chart.id} {...chart} />
+            <PerformanceChart key={chart.id} {...chart} baselineBefore={PROGRAMME.startDate.slice(0, 4)} />
           ))}
         </div>
       </section>

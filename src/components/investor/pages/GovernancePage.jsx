@@ -1,12 +1,47 @@
 import SectionHeading from '../SectionHeading'
 import GovernancePanel from '../GovernancePanel'
+import ContentCard from '../ui/ContentCard'
+import { useWorkspace } from '../FunderWorkspaceContext'
+
+function DisclosureTerms() {
+  const { policy, org } = useWorkspace()
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <ContentCard className="p-5">
+        <h3 className="text-[15px] font-semibold text-ink">What {org.name} can see</h3>
+        <ul className="mt-3 list-disc space-y-1.5 pl-4 text-[13px] leading-relaxed text-ink-muted">
+          {policy.visible.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </ContentCard>
+      <ContentCard className="p-5">
+        <h3 className="text-[15px] font-semibold text-ink">What stays with NTZDC</h3>
+        <ul className="mt-3 list-disc space-y-1.5 pl-4 text-[13px] leading-relaxed text-ink-muted">
+          {policy.withheld.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </ContentCard>
+    </div>
+  )
+}
 
 /**
  * Project governance (build brief §18).
  */
 export default function GovernancePage() {
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
+    <div className="mx-auto max-w-5xl space-y-14">
+      <section>
+        <SectionHeading
+          eyebrow="Disclosure"
+          title="What this workspace shows, and what it withholds"
+          description="Field records hold personal data about farmers and staff. This workspace applies the disclosure terms below before anything reaches you."
+        />
+        <DisclosureTerms />
+      </section>
+
       <SectionHeading
         eyebrow="Governance"
         title="Who is accountable for what"

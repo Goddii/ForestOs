@@ -1,10 +1,11 @@
-import { USE_OF_FUNDS, CAPITAL_POSITION, getEvidenceById } from '../../data/investor'
+import { getEvidenceById } from '../../data/investor'
+import { useWorkspace } from './FunderWorkspaceContext'
 import { formatCurrencyShort } from '../../lib/investor/format'
 import { useEvidenceDrawer } from './EvidenceDrawerContext'
 import ConfidenceIndicator from './ConfidenceIndicator'
 import ActionButton from './ui/ActionButton'
-
-const CATEGORY_LABELS = Object.fromEntries(USE_OF_FUNDS.map((c) => [c.id, c.category]))
+import VerificationStateBadge from './VerificationStateBadge'
+import { currentState } from '../../lib/programme/verificationState'
 
 /**
  * Rows from the expenditure ledger — what each payment funded, when, how
@@ -22,6 +23,10 @@ const CATEGORY_LABELS = Object.fromEntries(USE_OF_FUNDS.map((c) => [c.id, c.cate
  */
 export default function ExpenditureList({ rows, showCategory = false, emptyMessage = 'No expenditure recorded yet.' }) {
   const { openEvidence } = useEvidenceDrawer()
+  const { capital, activities } = useWorkspace()
+  const CAPITAL_POSITION = capital.position
+  const CATEGORY_LABELS = Object.fromEntries(capital.useOfFunds.map((c) => [c.id, c.category]))
+  const activitiesById = new Map(activities.map((activity) => [activity.id, activity]))
 
   if (rows.length === 0) {
     return <p className="text-[12px] text-ink-muted">{emptyMessage}</p>
@@ -31,6 +36,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
     <ul className="divide-y divide-line">
       {rows.map((row) => {
         const evidence = row.evidenceIds.map(getEvidenceById).filter(Boolean)
+        const paidFor = (row.activityIds ?? []).map((id) => activitiesById.get(id)).filter(Boolean)
         return (
           <li key={row.id} className="py-3 first:pt-0 last:pb-0">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -46,6 +52,17 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
               </span>
               <ConfidenceIndicator status={row.status} />
             </div>
+            {paidFor.length > 0 && (
+              <ul className="mt-1.5 space-y-1">
+                {paidFor.map((activity) => (
+                  <li key={activity.id} className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-ink-muted">
+                    <span className="text-ink-faint">Paid for</span>
+                    <span className="text-ink">{activity.summary}</span>
+                    <VerificationStateBadge state={currentState(activity.verification)} />
+                  </li>
+                ))}
+              </ul>
+            )}
             {evidence.length > 0 ? (
               <ul className="mt-1.5 space-y-0.5">
                 {evidence.map((record) => (

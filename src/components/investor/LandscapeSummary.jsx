@@ -12,7 +12,7 @@ export default function LandscapeSummary() {
     <dl className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-1 sm:divide-y sm:divide-line">
       <div className="sm:pb-5">
         <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-          Landscape condition
+          Landscape condition (context)
         </dt>
         <dd className="mt-1 text-2xl font-bold tabular-nums text-ink">
           {s.conditionIndicator} <span className="text-base text-ink-muted">{s.conditionLabel}</span>

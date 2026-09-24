@@ -1,4 +1,5 @@
 import { GOVERNANCE_MEMBERS, GOVERNANCE_PROCESS } from '../../data/investor'
+import { useWorkspace } from './FunderWorkspaceContext'
 import ContentCard from './ui/ContentCard'
 
 const FUNCTION_LABEL = {
@@ -26,6 +27,9 @@ const PROCESS_ROWS = [
  * clickable affordance on a non-clickable card is worse than none.
  */
 export default function GovernancePanel() {
+  const { org } = useWorkspace()
+  // The generic funder row names whoever is looking at this workspace.
+  const members = GOVERNANCE_MEMBERS.map((member) => (member.function === 'funder' ? { ...member, name: org.name } : member))
   return (
     <div className="space-y-10">
       <section>
@@ -33,7 +37,7 @@ export default function GovernancePanel() {
           Roles & responsibilities
         </h3>
         <ul className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {GOVERNANCE_MEMBERS.map((member) => (
+          {members.map((member) => (
             <ContentCard as="li" key={member.name} className="p-5">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-forest-accent">
                 {FUNCTION_LABEL[member.function]}

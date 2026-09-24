@@ -55,7 +55,7 @@ const GROUPS = [
     label: 'Other ForestOS demo builds',
     items: [
       {
-        href: '/investor',
+        href: '/funder',
         title: 'Conservation Capital (ESG investor console)',
         tag: 'Demo',
         note: 'Institutional investor dashboard — capital, evidence, risk, governance. No real backend yet.',

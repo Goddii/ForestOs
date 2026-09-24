@@ -4,6 +4,14 @@
  * verified capital, so every figure in the console traces back to ledger rows.
  */
 
+/** DOM id of the Capital page's expenditure ledger, the scroll target for its filters. */
+export const LEDGER_ID = 'expenditure-ledger'
+
+/** @typedef {{ status: 'all' | 'verified' | 'pending_verification', categoryId: string }} LedgerFilter */
+
+/** @type {LedgerFilter} */
+export const ALL_PAYMENTS = { status: 'all', categoryId: 'all' }
+
 /**
  * @param {Array<{ amount: number }>} rows
  * @returns {number}

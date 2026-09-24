@@ -62,11 +62,12 @@
  * @typedef {Object} Expenditure
  * @property {string} id
  * @property {string} date - ISO date, YYYY-MM-DD
- * @property {string} categoryId - CapitalAllocation id
+ * @property {string} categoryId - funding-agreement allocation id (src/data/funder/agreements.js)
  * @property {string} description - the activity the money paid for
  * @property {number} amount - KSh
  * @property {'verified' | 'pending_verification'} status
  * @property {string[]} evidenceIds - EvidenceRecord ids for that activity
+ * @property {string[]} activityIds - ActivityRecord ids it paid for (src/data/funder/activities.js)
  */
 
 /**
@@ -187,6 +188,64 @@
  * @property {string} lastObservation
  * @property {number} fieldActivities
  * @property {number} verificationRecords
+ */
+
+/**
+ * A photo in the field-media store. `src` has no extension — `.webp` and
+ * `.jpg` both exist. `isIllustrative` marks stock imagery standing in for a
+ * real programme capture; `showsPeople` marks images that need consented
+ * replacements before public marketing use.
+ *
+ * @typedef {Object} MediaAsset
+ * @property {string} id
+ * @property {string} src
+ * @property {number} width
+ * @property {number} height
+ * @property {string} alt
+ * @property {string} caption
+ * @property {boolean} isIllustrative
+ * @property {boolean} [showsPeople]
+ * @property {{ author: string, license: string, url: string }} credit
+ */
+
+/**
+ * One seedling batch's diary, nursery to survival checks.
+ *
+ * @typedef {Object} SeedlingBatch
+ * @property {string} id
+ * @property {string} label
+ * @property {string} zoneId - conservation-area feature id in landscape.js
+ * @property {string[]} species
+ * @property {number} quantity - seedlings in the batch
+ * @property {string[]} expenditureIds - ledger rows that paid for it
+ * @property {Array<{ stage: string, date: string, status: 'done' | 'in_review' | 'scheduled' | 'overdue', mediaId: string | null, note: string, evidenceId: string | null }>} stages
+ */
+
+/**
+ * A share-ready programme story. The headline stat is resolved from the data
+ * layer (`statSource`), never stored as text.
+ *
+ * @typedef {Object} ProgrammeStory
+ * @property {string} id
+ * @property {string} programme
+ * @property {string} title
+ * @property {string} summary
+ * @property {string} mediaId
+ * @property {{ posterMediaId: string, status: 'pending' | 'available', src?: string }} video
+ * @property {{ kind: 'batches' } | { kind: 'outcome', outcomeId: string }} statSource
+ * @property {string[]} evidenceIds
+ */
+
+/**
+ * Before/after satellite imagery for one conservation zone, from Esri's World
+ * Imagery Wayback archive (real, dated captures). Landscape context only —
+ * the change shown is not attributed to the programme.
+ *
+ * @typedef {Object} CanopyComparison
+ * @property {string} zoneId
+ * @property {{ z: number, x: number, y: number }} tile - centre tile; a 3×3 block is shown
+ * @property {{ releaseId: string, date: string }} baseline
+ * @property {{ releaseId: string, date: string }} latest
  */
 
 export {}

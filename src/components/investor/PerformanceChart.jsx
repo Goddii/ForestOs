@@ -19,9 +19,12 @@ const PAD_Y = 14
  *   unit: string,
  *   methodology: string,
  *   series: Array<{ year: string, value: number }>,
+ *   baselineBefore?: string,
  * }} props
+ * `baselineBefore` (a year) marks every earlier point as baseline — data from
+ * before the funding began, which is not a programme result.
  */
-export default function PerformanceChart({ label, unit, methodology, series }) {
+export default function PerformanceChart({ label, unit, methodology, series, baselineBefore }) {
   const gradientId = useId()
   const [hoverIndex, setHoverIndex] = useState(null)
 
@@ -31,8 +34,10 @@ export default function PerformanceChart({ label, unit, methodology, series }) {
   const range = max - min || 1
   const stepX = (WIDTH - PAD_X * 2) / (series.length - 1)
 
+  const isBaseline = (point) => Boolean(baselineBefore) && point.year < baselineBefore
   const points = series.map((point, index) => ({
     ...point,
+    baseline: isBaseline(point),
     x: PAD_X + index * stepX,
     y: HEIGHT - PAD_Y - ((point.value - min) / range) * (HEIGHT - PAD_Y * 2),
   }))
@@ -89,7 +94,7 @@ export default function PerformanceChart({ label, unit, methodology, series }) {
                 cy={p.y}
                 r={index === hoverIndex ? 3.5 : 2.5}
                 fill={index === points.length - 1 ? 'var(--color-forest-accent)' : 'var(--color-card)'}
-                stroke="var(--color-forest-accent)"
+                stroke={p.baseline ? 'var(--color-ink-faint)' : 'var(--color-forest-accent)'}
                 strokeWidth="2"
               />
               <circle
@@ -103,7 +108,7 @@ export default function PerformanceChart({ label, unit, methodology, series }) {
                 onBlur={() => setHoverIndex(null)}
                 tabIndex={0}
                 role="button"
-                aria-label={`${p.year}: ${p.value}${unit}`}
+                aria-label={`${p.year}${p.baseline ? ' (baseline, before funding)' : ''}: ${p.value}${unit}`}
               />
             </g>
           ))}
@@ -122,7 +127,10 @@ export default function PerformanceChart({ label, unit, methodology, series }) {
 
       <div className="mt-2 flex justify-between font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
         {series.map((point) => (
-          <span key={point.year}>{point.year}</span>
+          <span key={point.year}>
+            {point.year}
+            {isBaseline(point) && <span className="ml-1 normal-case tracking-normal">baseline</span>}
+          </span>
         ))}
       </div>
 

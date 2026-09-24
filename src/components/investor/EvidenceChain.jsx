@@ -2,18 +2,18 @@ import { Check, X } from 'lucide-react'
 import { getEvidenceChain } from '../../lib/investor/evidenceChain'
 
 /**
- * "How do we know?" — a signature ForestOS component (design-review brief
- * §14): for an important claim, show which evidence types actually back it
- * instead of a single confidence label standing alone.
+ * "How do we know?" — for an important claim, which evidence types are
+ * actually on file behind it. Computed from the linked records themselves,
+ * so a type that isn't on file shows unticked whatever the claim's label.
  *
  * @param {{
- *   status: import('../../data/investor/types').ConfidenceStatus,
+ *   records: import('../../data/investor/types').EvidenceRecord[],
  *   lastVerified?: string,
  *   className?: string,
  * }} props
  */
-export default function EvidenceChain({ status, lastVerified, className = '' }) {
-  const items = getEvidenceChain(status)
+export default function EvidenceChain({ records, lastVerified, className = '' }) {
+  const items = getEvidenceChain(records)
 
   return (
     <div className={className}>
@@ -28,7 +28,11 @@ export default function EvidenceChain({ status, lastVerified, className = '' }) 
             ) : (
               <X className="h-3.5 w-3.5 shrink-0 text-ink-faint/50" strokeWidth={2} aria-hidden="true" />
             )}
-            <span className={item.present ? 'text-ink-muted' : 'text-ink-faint/70'}>{item.label}</span>
+            <span className={item.present ? 'text-ink-muted' : 'text-ink-faint/70'}>
+              {item.label}
+              {item.count > 1 && <span className="ml-1 tabular-nums text-ink-faint">×{item.count}</span>}
+              {!item.present && <span className="sr-only"> (not on file)</span>}
+            </span>
           </li>
         ))}
       </ul>

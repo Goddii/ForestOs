@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { LANDSCAPE_CENTER, LANDSCAPE_LAYERS, LANDSCAPE_LAYER_META } from '../../data/investor'
 import { useEvidenceDrawer } from './EvidenceDrawerContext'
+import { BUFFER_SEGMENTS, TENURE_LABELS } from '../../data/funder/geography'
 
 // CartoDB's dark_all basemap now requires a registered API key (it didn't
 // when this was first wired up), so the dark ground uses standard,
@@ -24,6 +25,7 @@ const SATELLITE_TILES = {
 // "Boundaries" so the control row stays at five, not eight.
 const CONTROLS = [
   { key: 'satellite', label: 'Satellite' },
+  { key: 'buffer_segment', label: 'Buffer belt' },
   { key: 'conservation_area', label: 'Conservation' },
   { key: 'field_activity', label: 'Field activity' },
   { key: 'verification_point', label: 'Verification' },
@@ -50,7 +52,7 @@ export default function LandscapeMap({ className = '' }) {
   const { openEvidence, openZone } = useEvidenceDrawer()
   const [mapReady, setMapReady] = useState(false)
   const [activeControls, setActiveControls] = useState(
-    () => new Set(['conservation_area', 'field_activity', 'verification_point', 'boundaries']),
+    () => new Set(['buffer_segment', 'conservation_area', 'field_activity', 'verification_point', 'boundaries']),
   )
 
   // Map creation is async (Leaflet is dynamically imported) — `mapReady`
@@ -110,6 +112,20 @@ export default function LandscapeMap({ className = '' }) {
           marker.addTo(overlays[groupKey])
         }
       }
+      // Buffer belt centre lines: solid for NTZDC buffer inside the reserve,
+      // dashed for community land beside it.
+      overlays.buffer_segment = L.layerGroup()
+      for (const segment of BUFFER_SEGMENTS) {
+        L.polyline(segment.geometry, {
+          color: 'var(--color-bone)',
+          weight: 4,
+          opacity: 0.9,
+          dashArray: segment.tenure === 'community_land' ? '6 6' : undefined,
+        })
+          .bindTooltip(`${segment.label} · ${segment.lengthKm.toFixed(1)} km · ${TENURE_LABELS[segment.tenure]}`, { sticky: true })
+          .addTo(overlays.buffer_segment)
+      }
+
       overlayLayersRef.current = overlays
       setMapReady(true)
     })
@@ -181,6 +197,10 @@ export default function LandscapeMap({ className = '' }) {
 
       <div className="absolute bottom-3 left-3 z-[1000] rounded-lg border border-bone/15 bg-forest-950/80 p-2.5 backdrop-blur-sm">
         <ul className="space-y-1">
+          <li className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-sage-300">
+            <span className="h-0.5 w-3 shrink-0 bg-bone" />
+            Buffer belt (dashed: community land)
+          </li>
           {Object.entries(LANDSCAPE_LAYER_META).map(([key, meta]) => (
             <li key={key} className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-sage-300">
               <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: meta.color }} />

@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { X } from 'lucide-react'
-import { getEvidenceById, LANDSCAPE_LAYERS } from '../../data/investor'
+import { getEvidenceById, getMediaForEvidence, LANDSCAPE_LAYERS } from '../../data/investor'
+import { ACTIVITY_RECORDS } from '../../data/funder/activities'
+import MediaFigure from './MediaFigure'
 import { useEvidenceDrawer } from './EvidenceDrawerContext'
 import ConfidenceIndicator from './ConfidenceIndicator'
 import EvidenceChain from './EvidenceChain'
@@ -14,6 +16,15 @@ function getZoneById(id) {
   return LANDSCAPE_LAYERS.find((feature) => feature.id === id) ?? null
 }
 
+/** The zone's own record plus the evidence of every activity recorded inside it. */
+function evidenceForZone(zone) {
+  const ids = new Set([
+    ...(zone.evidenceId ? [zone.evidenceId] : []),
+    ...ACTIVITY_RECORDS.filter((activity) => activity.landscapeFeatureId === zone.id).flatMap((activity) => activity.evidenceIds),
+  ])
+  return [...ids].map(getEvidenceById).filter(Boolean)
+}
+
 function Section({ eyebrow, children }) {
   return (
     <div className="border-t border-line pt-4 first:border-t-0 first:pt-0">
@@ -24,6 +35,7 @@ function Section({ eyebrow, children }) {
 }
 
 function EvidenceRecordBody({ record }) {
+  const photos = getMediaForEvidence(record.id)
   return (
     <>
       <div className="pr-10">
@@ -50,6 +62,15 @@ function EvidenceRecordBody({ record }) {
         <Section eyebrow="Observation">
           <p>{record.detail.observation}</p>
         </Section>
+        {photos.length > 0 && (
+          <Section eyebrow="Photos">
+            <div className="grid grid-cols-2 gap-3">
+              {photos.map((asset) => (
+                <MediaFigure key={asset.id} asset={asset} showCaption />
+              ))}
+            </div>
+          </Section>
+        )}
         <Section eyebrow="Field evidence">
           <dl className="grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[11px]">
             <dt className="text-ink-faint">Source</dt>
@@ -126,7 +147,7 @@ function ZoneBody({ zone, onOpenEvidence }) {
       </p>
 
       <EvidenceChain
-        status={zone.confidence}
+        records={evidenceForZone(zone)}
         lastVerified={lastObservation}
         className="mt-6 border-t border-line pt-4"
       />

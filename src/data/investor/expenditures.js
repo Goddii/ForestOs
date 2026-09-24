@@ -2,16 +2,16 @@
 // (`Expenditure`) for the shape; this is the proposed hand-off contract for
 // the backend's disbursement ledger.
 //
-// The expenditure ledger is the single source of truth for deployed and
-// verified capital: `USE_OF_FUNDS` per-category `deployed`/`verified` and
-// `CAPITAL_POSITION.deployed`/`.verified` are all *computed* from these rows
-// (src/lib/investor/capitalLedger.js), so the accountability chain, use of
-// funds and the overview can never disagree with each other.
+// The whole programme's expenditure ledger — the single source of truth for
+// spent and verified money. `categoryId` is a funding-agreement allocation id
+// (src/data/funder/agreements.js), so each funder's capital position, use of
+// funds and ledger are *computed* from its own rows (lib/programme/funding.js)
+// and can never disagree with each other.
 //
-// Every row points at the evidence records for the activity it paid for —
-// the Capital → Activity → Evidence link a fund manager follows. A row is
-// `verified` only once that evidence has been reviewed; `pending_verification`
-// rows are deployed capital still waiting on it.
+// Every row links to the activity records it paid for (`activityIds`) and to
+// their evidence — Funding → Allocation → Payment → Activity → Evidence. A row
+// is `verified` only once that activity's evidence has been reviewed;
+// `pending_verification` rows are spent money still waiting on it.
 
 /** @type {import('./types').Expenditure[]} */
 export const EXPENDITURES = [
@@ -24,6 +24,7 @@ export const EXPENDITURES = [
     amount: 3_120_000,
     status: 'verified',
     evidenceIds: ['ev-007'],
+    activityIds: ['act-b-03'],
   },
   {
     id: 'exp-co-2',
@@ -33,6 +34,7 @@ export const EXPENDITURES = [
     amount: 2_740_000,
     status: 'verified',
     evidenceIds: ['ev-007'],
+    activityIds: ['act-b-03', 'act-b-04'],
   },
   {
     id: 'exp-co-3',
@@ -42,6 +44,7 @@ export const EXPENDITURES = [
     amount: 2_380_000,
     status: 'verified',
     evidenceIds: ['ev-003'],
+    activityIds: ['act-b-05'],
   },
   {
     id: 'exp-co-4',
@@ -51,6 +54,7 @@ export const EXPENDITURES = [
     amount: 520_000,
     status: 'pending_verification',
     evidenceIds: ['ev-010'],
+    activityIds: ['act-b-08'],
   },
 
   // Farmer & community incentives
@@ -62,6 +66,7 @@ export const EXPENDITURES = [
     amount: 1_100_000,
     status: 'verified',
     evidenceIds: ['ev-004'],
+    activityIds: ['act-b-02'],
   },
   {
     id: 'exp-fi-2',
@@ -71,6 +76,7 @@ export const EXPENDITURES = [
     amount: 2_100_000,
     status: 'verified',
     evidenceIds: ['ev-006'],
+    activityIds: ['act-b-01'],
   },
   {
     id: 'exp-fi-3',
@@ -80,6 +86,7 @@ export const EXPENDITURES = [
     amount: 4_200_000,
     status: 'verified',
     evidenceIds: ['ev-008'],
+    activityIds: [],
   },
 
   // Restoration
@@ -91,6 +98,7 @@ export const EXPENDITURES = [
     amount: 2_300_000,
     status: 'verified',
     evidenceIds: ['ev-005'],
+    activityIds: ['act-b-06'],
   },
   {
     id: 'exp-re-2',
@@ -100,6 +108,7 @@ export const EXPENDITURES = [
     amount: 1_160_000,
     status: 'verified',
     evidenceIds: ['ev-005'],
+    activityIds: ['act-b-06'],
   },
   {
     id: 'exp-re-3',
@@ -109,6 +118,7 @@ export const EXPENDITURES = [
     amount: 640_000,
     status: 'pending_verification',
     evidenceIds: [],
+    activityIds: ['act-b-07'],
   },
 
   // Monitoring & verification
@@ -120,6 +130,7 @@ export const EXPENDITURES = [
     amount: 1_850_000,
     status: 'verified',
     evidenceIds: ['ev-002'],
+    activityIds: ['act-b-09'],
   },
   {
     id: 'exp-mv-2',
@@ -129,6 +140,7 @@ export const EXPENDITURES = [
     amount: 2_400_000,
     status: 'verified',
     evidenceIds: ['ev-009'],
+    activityIds: [],
   },
   {
     id: 'exp-mv-3',
@@ -138,6 +150,7 @@ export const EXPENDITURES = [
     amount: 1_700_000,
     status: 'verified',
     evidenceIds: ['ev-003'],
+    activityIds: ['act-b-05'],
   },
 
   // Technology & data
@@ -149,6 +162,7 @@ export const EXPENDITURES = [
     amount: 1_600_000,
     status: 'verified',
     evidenceIds: ['ev-004'],
+    activityIds: [],
   },
   {
     id: 'exp-te-2',
@@ -158,6 +172,7 @@ export const EXPENDITURES = [
     amount: 1_600_000,
     status: 'verified',
     evidenceIds: ['ev-001'],
+    activityIds: [],
   },
   {
     id: 'exp-te-3',
@@ -167,6 +182,7 @@ export const EXPENDITURES = [
     amount: 440_000,
     status: 'verified',
     evidenceIds: ['ev-001'],
+    activityIds: [],
   },
 
   // Programme management — coordination, not a field activity. Verified
@@ -180,6 +196,7 @@ export const EXPENDITURES = [
     amount: 520_000,
     status: 'verified',
     evidenceIds: ['ev-009'],
+    activityIds: [],
   },
   {
     id: 'exp-pm-2',
@@ -189,6 +206,7 @@ export const EXPENDITURES = [
     amount: 590_000,
     status: 'verified',
     evidenceIds: ['ev-009'],
+    activityIds: [],
   },
   {
     id: 'exp-pm-3',
@@ -198,5 +216,78 @@ export const EXPENDITURES = [
     amount: 440_000,
     status: 'pending_verification',
     evidenceIds: [],
+    activityIds: [],
+  },
+
+  // ── Funder A (placeholder — ABSA) allocations ───────────────────────────────
+  {
+    id: 'exp-a-1',
+    date: '2026-04-10',
+    categoryId: 'alc-a-tea',
+    description: 'Tea infilling, SEG-02 gaps: clonal plants and planting labour',
+    amount: 2_450_000,
+    status: 'verified',
+    evidenceIds: ['ev-012', 'ev-013'],
+    activityIds: ['act-a-01'],
+  },
+  {
+    id: 'exp-a-2',
+    date: '2026-04-22',
+    categoryId: 'alc-a-fuelwood',
+    description: 'Fuelwood establishment, Nessuit spur',
+    amount: 1_900_000,
+    status: 'verified',
+    evidenceIds: ['ev-014'],
+    activityIds: ['act-a-02'],
+  },
+  {
+    id: 'exp-a-3',
+    date: '2026-06-05',
+    categoryId: 'alc-a-indigenous',
+    description: 'Indigenous planting, Kilombe ridge ESA strip',
+    amount: 1_450_000,
+    status: 'verified',
+    evidenceIds: ['ev-016', 'ev-017'],
+    activityIds: ['act-a-04'],
+  },
+  {
+    id: 'exp-a-4',
+    date: '2026-07-18',
+    categoryId: 'alc-a-tea',
+    description: 'Tea infilling, SEG-01 second round',
+    amount: 1_100_000,
+    status: 'pending_verification',
+    evidenceIds: ['ev-015'],
+    activityIds: ['act-a-03'],
+  },
+  {
+    id: 'exp-a-5',
+    date: '2026-07-25',
+    categoryId: 'alc-a-monitoring',
+    description: '3-month survival counts, April plantings',
+    amount: 320_000,
+    status: 'verified',
+    evidenceIds: ['ev-019'],
+    activityIds: [],
+  },
+  {
+    id: 'exp-a-6',
+    date: '2026-08-12',
+    categoryId: 'alc-a-apiary',
+    description: 'Apiary kits and training, three household groups',
+    amount: 980_000,
+    status: 'pending_verification',
+    evidenceIds: ['ev-018'],
+    activityIds: ['act-a-05'],
+  },
+  {
+    id: 'exp-a-7',
+    date: '2026-08-28',
+    categoryId: 'alc-a-fuelwood',
+    description: 'Fuelwood establishment, Block C community edge',
+    amount: 600_000,
+    status: 'pending_verification',
+    evidenceIds: [],
+    activityIds: ['act-a-06'],
   },
 ]

@@ -31,9 +31,12 @@ const LivingAnthem = lazy(() => import('./routes/LivingAnthem'))
 // nothing about the routes it lists.
 const PrototypeIndex = lazy(() => import('./routes/PrototypeIndex'))
 const LaunchEdition = lazy(() => import('./routes/LaunchEdition'))
-// Conservation Capital — the ESG / impact-investor experience (Sept 2026).
-// See docs/ESG_INVESTOR_EXPERIENCE.md for the full architecture.
-const InvestorView = lazy(() => import('./routes/InvestorView'))
+// Funder workspace — the funder-agnostic ESG console (Sept 2026). Each
+// funding organisation gets `/funder/:orgSlug`; the old `/investor` URLs
+// redirect into the investment-type workspace. See
+// docs/IMPLEMENTATION_PLAN_ESG_AND_FACTORY.md.
+const FunderView = lazy(() => import('./routes/FunderView'))
+const InvestorRedirect = lazy(() => import('./routes/FunderView').then((m) => ({ default: m.InvestorRedirect })))
 const EudrCompliance = lazy(() => import('./routes/solutions/EudrCompliance'))
 const ConservationPassports = lazy(() => import('./routes/solutions/ConservationPassports'))
 const FairPayTelemetry = lazy(() => import('./routes/solutions/FairPayTelemetry'))
@@ -68,7 +71,9 @@ export default function App() {
         <Route path="/living-anthem" element={<LivingAnthem />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/launch" element={<LaunchEdition />} />
-        <Route path="/investor/*" element={<InvestorView />} />
+        <Route path="/funder" element={<Navigate to="/funder/funder-a" replace />} />
+        <Route path="/funder/:orgSlug/*" element={<FunderView />} />
+        <Route path="/investor/*" element={<InvestorRedirect />} />
         <Route path="/solutions/eudr-compliance" element={<EudrCompliance />} />
         <Route path="/solutions/conservation-passports" element={<ConservationPassports />} />
         <Route path="/solutions/fair-pay-telemetry" element={<FairPayTelemetry />} />

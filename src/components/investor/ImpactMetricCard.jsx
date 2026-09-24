@@ -2,6 +2,15 @@ import MetricTrend from './MetricTrend'
 import ConfidenceIndicator from './ConfidenceIndicator'
 import { formatNumber } from '../../lib/investor/format'
 
+// What kind of number this is, from how it was established — never shown bare.
+const VALUE_TYPE = {
+  verified: 'Verified',
+  field_verified: 'Verified in the field',
+  satellite_verified: 'Remote-sensing observation',
+  pending_verification: 'Reported, awaiting verification',
+  incomplete: 'Not measured',
+}
+
 function formatValue(value, unit) {
   if (value === null || value === undefined) return '—'
   if (unit === 'KSh') return `KSh ${formatNumber(value)}`
@@ -33,6 +42,7 @@ export default function ImpactMetricCard({ metric }) {
           <p className="mt-2 text-2xl font-bold tabular-nums text-ink">
             {formatValue(metric.current, metric.unit)}
           </p>
+          <p className="mt-0.5 text-[11px] text-ink-faint">{VALUE_TYPE[metric.confidence] ?? 'Reported'}, programme-wide</p>
           <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">
             <div>
               <dt className="inline">Baseline </dt>

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { USE_OF_FUNDS, CAPITAL_POSITION, CORE_OUTCOMES } from '../../data/investor'
+import { CORE_OUTCOMES } from '../../data/investor'
+import { getComponent } from '../../data/funder/programme'
+import { useWorkspace } from './FunderWorkspaceContext'
 import { formatCurrencyShort, formatNumber } from '../../lib/investor/format'
 import { useEvidenceDrawer } from './EvidenceDrawerContext'
-import ExpenditureList from './ExpenditureList'
 import ActionButton from './ui/ActionButton'
 
 const OUTCOMES_BY_ID = Object.fromEntries(CORE_OUTCOMES.map((outcome) => [outcome.id, outcome]))
@@ -22,14 +23,19 @@ function ChainStep({ label, children }) {
  * own single-hue progress bar (deployed fill vs. remaining track) —
  * deliberately not a stacked multi-color chart, so it never needs a
  * categorical palette the design system wasn't built for. Clicking a
- * category opens its results chain, all read from the data layer: the
- * payments it made (and the evidence/location of each funded activity) →
- * what they produced → the outcomes they contribute to. Meant to sit inside
- * a `ContentCard`, so it carries no outer border of its own.
+ * category opens its results chain, all read from the data layer: what it
+ * paid for (a pointer that filters the page's single expenditure ledger via
+ * `onShowPayments`, never a second payment list) → what that produced → the
+ * outcomes it contributes to. Meant to sit inside a `ContentCard`, so it
+ * carries no outer border of its own.
+ *
+ * @param {{ onShowPayments: (filter: import('../../lib/investor/capitalLedger').LedgerFilter) => void }} props
  */
-export default function UseOfFundsBars() {
+export default function UseOfFundsBars({ onShowPayments }) {
   const [expanded, setExpanded] = useState(null)
   const { openEvidence } = useEvidenceDrawer()
+  const { capital } = useWorkspace()
+  const { useOfFunds: USE_OF_FUNDS, position: CAPITAL_POSITION } = capital
 
   return (
     <ul className="divide-y divide-line">
@@ -72,7 +78,17 @@ export default function UseOfFundsBars() {
             {isOpen && (
               <div className="mx-5 mb-4 space-y-5 rounded-lg border border-line bg-canvas-sunk p-4">
                 <ChainStep label="Paid for">
-                  <ExpenditureList rows={category.expenditures} />
+                  <p className="text-[12px] text-ink-muted">
+                    {category.expenditures.length} payment{category.expenditures.length === 1 ? '' : 's'} ·{' '}
+                    {formatCurrencyShort(category.verified, CAPITAL_POSITION.currency)} of{' '}
+                    {formatCurrencyShort(category.deployed, CAPITAL_POSITION.currency)} verified{' '}
+                    <ActionButton
+                      variant="text"
+                      onClick={() => onShowPayments({ status: 'all', categoryId: category.id })}
+                    >
+                      Show in the ledger
+                    </ActionButton>
+                  </p>
                 </ChainStep>
 
                 <ChainStep label="Produced">
@@ -103,7 +119,9 @@ export default function UseOfFundsBars() {
                     </ul>
                   ) : (
                     <p className="text-[12px] text-ink-muted">
-                      Coordination and administrative costs — enables every outcome, not tied to one.
+                      Measured through the programme's output indicators (
+                      {getComponent(category.componentId)?.title ?? 'programme management'}), not a
+                      single outcome figure.
                     </p>
                   )}
                 </ChainStep>

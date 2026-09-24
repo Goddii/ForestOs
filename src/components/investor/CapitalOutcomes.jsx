@@ -1,4 +1,5 @@
-import { CAPITAL_POSITION, CORE_OUTCOMES, LANDSCAPE_SUMMARY, PROGRAMME_FUNDING } from '../../data/investor'
+import { CORE_OUTCOMES, LANDSCAPE_SUMMARY } from '../../data/investor'
+import { useWorkspace } from './FunderWorkspaceContext'
 import { attributedValue, costPerAttributedUnit, fundShare } from '../../lib/investor/attribution'
 import { formatCurrencyShort, formatNumber } from '../../lib/investor/format'
 import { useEvidenceDrawer } from './EvidenceDrawerContext'
@@ -27,6 +28,8 @@ const OUTCOMES_BY_ID = Object.fromEntries(CORE_OUTCOMES.map((outcome) => [outcom
  */
 export default function CapitalOutcomes() {
   const { openEvidence } = useEvidenceDrawer()
+  const { programmeFunding: PROGRAMME_FUNDING, capital } = useWorkspace()
+  const CAPITAL_POSITION = capital.position
   const share = fundShare(PROGRAMME_FUNDING)
   const sharePct = Math.round(share * 1000) / 10
   const programmeTotal = PROGRAMME_FUNDING.sources.reduce((sum, source) => sum + source.amount, 0)

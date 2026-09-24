@@ -1,5 +1,6 @@
 import { AlertTriangle, AlertOctagon, Info } from 'lucide-react'
 import { useEvidenceDrawer } from './EvidenceDrawerContext'
+import { useWorkspacePath } from './FunderWorkspaceContext'
 import Badge from './ui/Badge'
 import ActionButton from './ui/ActionButton'
 
@@ -28,6 +29,7 @@ const STATUS_LABEL = {
  */
 export default function RiskCard({ risk }) {
   const { openEvidence } = useEvidenceDrawer()
+  const path = useWorkspacePath()
   const severity = SEVERITY_CONFIG[risk.severity]
 
   return (
@@ -71,7 +73,7 @@ export default function RiskCard({ risk }) {
           </ActionButton>
         )}
         {risk.zoneId && (
-          <ActionButton variant="ghost" to="/investor/landscape">
+          <ActionButton variant="ghost" to={path()}>
             View on map
           </ActionButton>
         )}

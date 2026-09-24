@@ -3,30 +3,30 @@ import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import SectionHeading from '../SectionHeading'
 import OverviewHero from '../OverviewHero'
-import CapitalOutcomes from '../CapitalOutcomes'
-import MetricCard from '../MetricCard'
+import FundedOutputs from '../FundedOutputs'
+import { useWorkspace, useWorkspacePath } from '../FunderWorkspaceContext'
 import LandscapeSummary from '../LandscapeSummary'
-import UseOfFundsBars from '../UseOfFundsBars'
-import ReportCard from '../ReportCard'
 import MapLoadingFallback from '../MapLoadingFallback'
 import ContentCard from '../ui/ContentCard'
 import ActionButton from '../ui/ActionButton'
-import { CORE_OUTCOMES, REPORTS, RECENT_ACTIVITY } from '../../../data/investor'
+import { getRecentActivity } from '../../../data/investor'
 import { getAttentionItems } from '../../../lib/investor/attention'
 
 const LandscapeMap = lazy(() => import('../LandscapeMap'))
 
 /**
- * The overview (design-review brief §1/§5/§29) — structured to read as the
- * product's own flow, CAPITAL → LANDSCAPE → ACTIVITY → EVIDENCE → OUTCOME →
- * REPORTING, rather than as a stack of interchangeable dashboard cards: a
- * composed project+capital hero that bridges straight into the landscape,
- * the map paired with its summary, what's happening now, what needs
- * attention, the outcome panel, use of funds, then reporting status.
+ * The overview (design-review brief §1/§5/§29) — the executive read, in the
+ * product's own flow: the project and its capital, what that capital has
+ * produced (with evidence), the landscape it sits in, what's happening now
+ * and what needs attention. Every section here has its single home on this
+ * page; detail that has a home elsewhere (use of funds → Capital, reports →
+ * Reports, per-pillar metrics → Impact) is linked, not repeated.
  */
 export default function OverviewPage() {
-  const attentionItems = getAttentionItems()
-  const latestReports = REPORTS.slice(0, 2)
+  const workspace = useWorkspace()
+  const path = useWorkspacePath()
+  const attentionItems = getAttentionItems(workspace)
+  const recentActivity = getRecentActivity(workspace)
 
   return (
     <div className="mx-auto max-w-6xl space-y-16">
@@ -34,17 +34,17 @@ export default function OverviewPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Capital → outcomes"
-          title="What your capital has produced"
-          description="Each outcome for the whole programme, the share attributed to this fund, what the fund has deployed per unit, and the evidence behind it."
+          eyebrow="Outputs"
+          title={workspace.terms.producedTitle}
+          description="Outputs from the activities your payments paid for, counted only once verified. Open any figure for the activities and evidence behind it."
           action={
-            <ActionButton to="/investor/capital" variant="text">
-              Capital accountability
+            <ActionButton to={path('progress')} variant="text">
+              Full progress
             </ActionButton>
           }
         />
         <ContentCard>
-          <CapitalOutcomes />
+          <FundedOutputs />
         </ContentCard>
       </section>
 
@@ -69,7 +69,7 @@ export default function OverviewPage() {
           <SectionHeading eyebrow="Field intelligence" title="What is happening now" />
           <ContentCard>
             <ul className="divide-y divide-line">
-              {RECENT_ACTIVITY.map((item) => (
+              {recentActivity.map((item) => (
                 <li key={item.id}>
                   <Link to={item.to} className="group flex items-center gap-4 px-5 py-4 transition-colors duration-200 ease-in-out hover:bg-canvas-sunk">
                     <p className="w-14 shrink-0 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
@@ -99,8 +99,8 @@ export default function OverviewPage() {
             eyebrow="Requires attention"
             title="Attention"
             action={
-              <ActionButton to="/investor/risks" variant="text">
-                Full register
+              <ActionButton to={path('issues')} variant="text">
+                All issues
               </ActionButton>
             }
           />
@@ -134,44 +134,6 @@ export default function OverviewPage() {
         </section>
       </div>
 
-      <section>
-        <SectionHeading
-          eyebrow="Outcomes"
-          title="What conservation outcomes are being produced"
-          description="Every figure below is drillable — click a number to see the evidence behind it."
-        />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {CORE_OUTCOMES.map((metric) => (
-            <MetricCard key={metric.id} metric={metric} />
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Use of funds" title="Where the capital is going" />
-        <ContentCard className="p-2">
-          <UseOfFundsBars />
-        </ContentCard>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Reporting"
-          title="Reporting status"
-          action={
-            <ActionButton to="/investor/reports" variant="text">
-              Reporting centre
-            </ActionButton>
-          }
-        />
-        <ContentCard>
-          <ul className="divide-y divide-line">
-            {latestReports.map((report) => (
-              <ReportCard key={report.id} report={report} />
-            ))}
-          </ul>
-        </ContentCard>
-      </section>
     </div>
   )
 }

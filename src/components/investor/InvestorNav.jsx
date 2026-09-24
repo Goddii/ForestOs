@@ -1,17 +1,20 @@
 import { NavLink } from 'react-router-dom'
 import { Leaf } from 'lucide-react'
-import { INVESTOR_PROJECT } from '../../data/investor'
+import { useWorkspace, useWorkspacePath } from './FunderWorkspaceContext'
 
+// The funder workspace IA (audit §10): strategic first, then each page is
+// the single home for its kind of record.
 const ITEMS = [
-  { to: '/investor', label: 'Overview', end: true },
-  { to: '/investor/capital', label: 'Capital' },
-  { to: '/investor/landscape', label: 'Landscape' },
-  { to: '/investor/impact', label: 'Impact' },
-  { to: '/investor/evidence', label: 'Evidence' },
-  { to: '/investor/risks', label: 'Risks' },
-  { to: '/investor/governance', label: 'Governance' },
-  { to: '/investor/reports', label: 'Reports' },
-  { to: '/investor/project', label: 'Project' },
+  { sub: '', label: 'Overview', end: true },
+  { sub: 'programme', label: 'Programme' },
+  { sub: 'funding', label: 'Funding' },
+  { sub: 'landscape', label: 'Landscape' },
+  { sub: 'progress', label: 'Progress' },
+  { sub: 'evidence', label: 'Evidence' },
+  { sub: 'outcomes', label: 'Outcomes' },
+  { sub: 'issues', label: 'Issues & risks' },
+  { sub: 'reports', label: 'Reports' },
+  { sub: 'organisation', label: 'Organisation' },
 ]
 
 /**
@@ -22,6 +25,8 @@ const ITEMS = [
  * (never a shrunk desktop nav — brief §29).
  */
 export default function InvestorNav() {
+  const { programme, org } = useWorkspace()
+  const path = useWorkspacePath()
   return (
     <nav
       aria-label="Investor console navigation"
@@ -34,16 +39,16 @@ export default function InvestorNav() {
         </span>
       </div>
       <p className="mt-1 hidden font-display text-lg leading-tight text-bone lg:block">
-        Conservation Capital
+        Funder workspace
       </p>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block" />
 
       <ul className="flex gap-1 lg:flex-1 lg:flex-col lg:gap-0.5">
-        {ITEMS.map(({ to, label, end }) => (
-          <li key={to} className="shrink-0">
+        {ITEMS.map(({ sub, label, end }) => (
+          <li key={sub || 'overview'} className="shrink-0">
             <NavLink
-              to={to}
+              to={path(sub)}
               end={end}
               className={({ isActive }) =>
                 `block cursor-pointer whitespace-nowrap rounded-lg px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 ${
@@ -60,11 +65,10 @@ export default function InvestorNav() {
       </ul>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-sage-500">Project</p>
-        <p className="mt-1.5 text-[13px] text-bone">{INVESTOR_PROJECT.name}</p>
-        <p className="text-[12px] text-sage-500">
-          {INVESTOR_PROJECT.location.split(', ').pop()}, {INVESTOR_PROJECT.region}
-        </p>
+        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-sage-500">Programme</p>
+        <p className="mt-1.5 text-[13px] text-bone">{programme.name}</p>
+        <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-sage-500">Funder</p>
+        <p className="mt-1.5 text-[13px] text-bone">{org.name}</p>
       </div>
 
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block">

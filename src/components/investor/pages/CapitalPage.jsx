@@ -1,41 +1,96 @@
+import { useState } from 'react'
 import SectionHeading from '../SectionHeading'
 import CapitalFlow from '../CapitalFlow'
 import CapitalTimeline from '../CapitalTimeline'
 import UseOfFundsBars from '../UseOfFundsBars'
 import SustainabilityPathway from '../SustainabilityPathway'
+import ExpenditureLedger from '../ExpenditureLedger'
 import ContentCard from '../ui/ContentCard'
-import CapitalOutcomes from '../CapitalOutcomes'
-import ExpenditureList from '../ExpenditureList'
-import { INVESTOR_PROJECT, EXPENDITURES, CAPITAL_POSITION } from '../../../data/investor'
+import Badge from '../ui/Badge'
+import { INVESTOR_PROJECT } from '../../../data/investor'
+import { FUNDING_TYPE_LABELS } from '../../../data/funder/workspace'
+import { ALL_PAYMENTS, LEDGER_ID } from '../../../lib/investor/capitalLedger'
 import { formatCurrencyShort } from '../../../lib/investor/format'
+import { usePrefersReducedMotion } from '../../../hooks/usePrefersReducedMotion'
+import { useWorkspace } from '../FunderWorkspaceContext'
 
-const LEDGER_NEWEST_FIRST = EXPENDITURES.toSorted((a, b) => b.date.localeCompare(a.date))
+function AgreementSummary({ agreement, org }) {
+  return (
+    <ContentCard className="p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-[17px] font-semibold text-ink">{agreement.label}</p>
+          <p className="mt-0.5 text-[13px] text-ink-muted">
+            {org.name} · {FUNDING_TYPE_LABELS[agreement.type]} · signed {agreement.signedDate}
+          </p>
+        </div>
+        <p className="font-sans text-2xl font-bold tabular-nums text-ink">{formatCurrencyShort(agreement.amountKes)}</p>
+      </div>
+      <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-[12rem_1fr]">
+        <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Period</dt>
+        <dd className="text-[13px] text-ink-muted">
+          {agreement.period.start} to {agreement.period.end}
+        </dd>
+        <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Terms</dt>
+        <dd>
+          <ul className="list-disc space-y-1 pl-4 text-[13px] text-ink-muted">
+            {agreement.restrictions.map((term) => (
+              <li key={term}>{term}</li>
+            ))}
+          </ul>
+        </dd>
+      </dl>
+      {agreement.isIllustrative && (
+        <Badge tone="warning" className="mt-5">
+          Illustrative terms, to be replaced by the signed agreement
+        </Badge>
+      )}
+    </ContentCard>
+  )
+}
 
 /**
- * Capital page (build brief §23): the full accountability chain, the
- * deployment timeline, use of funds, and the long-term sustainability
- * pathway — how capital is expected to stop being a recurring subsidy.
+ * Capital page (build brief §23) — the home of everything capital: the
+ * accountability chain, use of funds, the one expenditure ledger both of
+ * them point into, the deployment timeline and the long-term sustainability
+ * pathway. The chain and the categories never list payments themselves;
+ * they set the ledger's filter and scroll to it, so no payment is shown
+ * twice. "What your capital has produced" lives on the Overview.
  */
 export default function CapitalPage() {
+  const [ledgerFilter, setLedgerFilter] = useState(ALL_PAYMENTS)
+  const reduced = usePrefersReducedMotion()
+  const { agreement, org, capital, terms } = useWorkspace()
+  const { position } = capital
+
+  const showPayments = (filter) => {
+    setLedgerFilter(filter)
+    document.getElementById(LEDGER_ID)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+  }
+
   return (
     <div className="mx-auto max-w-5xl space-y-14">
       <section>
-        <SectionHeading
-          eyebrow="Accountability"
-          title="Capital accountability chain"
-          description="Committed capital narrows at each stage to the portion actually deployed, and further to the portion with verified evidence behind it."
-        />
-        <CapitalFlow />
+        <SectionHeading eyebrow="Agreement" title="What was agreed" />
+        <AgreementSummary agreement={agreement} org={org} />
       </section>
 
       <section>
         <SectionHeading
-          eyebrow="Capital → outcomes"
-          title="What your capital has produced"
-          description="Gross programme outcomes, this fund's attributed share, and deployed capital per unit — each with its evidence."
+          eyebrow="Accountability"
+          title={`Where ${terms.yours} is`}
+          description="Committed money narrows at each stage: what has actually arrived, what has been assigned to work, what has been spent, and what was spent on work that has since been verified."
+        />
+        <CapitalFlow onShowPayments={showPayments} />
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Use of funds"
+          title="What each category paid for, produced and contributes to"
         />
         <ContentCard>
-          <CapitalOutcomes />
+          <UseOfFundsBars onShowPayments={showPayments} />
         </ContentCard>
       </section>
 
@@ -43,36 +98,28 @@ export default function CapitalPage() {
         <SectionHeading
           eyebrow="Expenditure ledger"
           title="Every payment, the activity it funded, and its evidence"
-          description={`${EXPENDITURES.length} payments totalling ${formatCurrencyShort(CAPITAL_POSITION.deployed, CAPITAL_POSITION.currency)} deployed, of which ${formatCurrencyShort(CAPITAL_POSITION.verified, CAPITAL_POSITION.currency)} is verified.`}
+          description={`${capital.expenditures.length} payments totalling ${formatCurrencyShort(position.deployed, position.currency)}, of which ${formatCurrencyShort(position.verified, position.currency)} paid for work that has been verified.`}
         />
         <ContentCard className="p-5">
-          <ExpenditureList rows={LEDGER_NEWEST_FIRST} showCategory />
+          <ExpenditureLedger filter={ledgerFilter} onFilterChange={setLedgerFilter} />
         </ContentCard>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Timeline" title="Deployment timeline" />
+        <SectionHeading eyebrow="Tranches" title="When the money arrives" />
         <CapitalTimeline />
       </section>
 
-      <section>
-        <SectionHeading
-          eyebrow="Use of funds"
-          title="Budget, deployment and remaining balance by category"
-        />
-        <ContentCard>
-          <UseOfFundsBars />
-        </ContentCard>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Long-term model"
-          title="How this stops being a subsidy"
-          description={INVESTOR_PROJECT.sustainabilityModel}
-        />
-        <SustainabilityPathway />
-      </section>
+      {terms.showsAttribution && (
+        <section>
+          <SectionHeading
+            eyebrow="Long-term model"
+            title="How this stops being a subsidy"
+            description={INVESTOR_PROJECT.sustainabilityModel}
+          />
+          <SustainabilityPathway />
+        </section>
+      )}
     </div>
   )
 }

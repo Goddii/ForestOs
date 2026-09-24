@@ -1,32 +1,33 @@
-import { CAPITAL_TIMELINE } from '../../data/investor'
-
-const STATE_STYLE = {
-  complete: { dot: 'bg-risk-low', text: 'text-ink' },
-  active: { dot: 'bg-forest-accent', text: 'text-ink' },
-  upcoming: { dot: 'bg-line-strong', text: 'text-ink-faint' },
-}
+import { useWorkspace } from './FunderWorkspaceContext'
+import { formatCurrencyShort } from '../../lib/investor/format'
 
 /**
- * Capital deployment timeline (build brief §7). Every step is explicitly
- * demo data — see the header comment in src/data/investor/capital.js —
- * never presented as a real historical record.
+ * The funding agreement's tranches: planned amount and milestone, and
+ * whether the money has actually arrived. Received is a fact with a date;
+ * a planned tranche never reads as received.
  */
 export default function CapitalTimeline() {
+  const { capital, asOf } = useWorkspace()
+
   return (
-    <ol className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4">
-      {CAPITAL_TIMELINE.map((step) => {
-        const style = STATE_STYLE[step.state]
+    <ol className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3">
+      {capital.tranches.map((tranche) => {
+        const isReceived = Boolean(tranche.receivedDate)
+        const isLate = !isReceived && tranche.plannedDate < asOf
         return (
-          <li key={step.period} className="relative border-t-2 border-line pt-4">
+          <li key={tranche.id} className="relative border-t-2 border-line pt-4">
             <span
-              className={`absolute -top-[5px] left-0 h-2 w-2 rounded-full ${style.dot}`}
+              className={`absolute -top-[5px] left-0 h-2 w-2 rounded-full ${isReceived ? 'bg-forest-accent' : isLate ? 'bg-warning' : 'bg-line-strong'}`}
               aria-hidden="true"
             />
             <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-              {step.period}
+              {isReceived ? `Received ${tranche.receivedDate}` : `Planned ${tranche.plannedDate}`}
             </p>
-            <p className={`mt-1 text-[15px] font-semibold leading-tight ${style.text}`}>{step.label}</p>
-            <p className="mt-1 text-[12px] leading-snug text-ink-muted">{step.detail}</p>
+            <p className={`mt-1 text-[15px] font-semibold leading-tight ${isReceived ? 'text-ink' : 'text-ink-muted'}`}>
+              {formatCurrencyShort(isReceived ? tranche.receivedKes : tranche.plannedKes)}
+            </p>
+            <p className="mt-1 text-[12px] leading-snug text-ink-muted">{tranche.milestone}</p>
+            {isLate && <p className="mt-1 text-[12px] font-medium text-warning">Past its planned date, not yet received</p>}
           </li>
         )
       })}
