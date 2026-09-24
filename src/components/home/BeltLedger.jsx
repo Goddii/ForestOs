@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import CountUp from '../ui/CountUp'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { useInViewport } from '../../hooks/useInViewport'
@@ -17,6 +17,10 @@ const SWIPE_DISTANCE = 90
 const SWIPE_VELOCITY = 500
 // How long the stack holds on a card before auto-advancing.
 const AUTOPLAY_MS = 4500
+// Intrinsic size of every block photo — the cards crop them with
+// object-cover, so these only reserve aspect ratio and help the decoder.
+const PHOTO_WIDTH = 1000
+const PHOTO_HEIGHT = 563
 
 // Real photos of each block, sourced from Wikimedia Commons under
 // CC BY-SA (credited in-card, bottom-right of each photo, per the
@@ -118,6 +122,11 @@ function BlockCard({ block, index, direction, reduced, onSwipe, onDragStart, onD
           <img
             src={photo.jpg}
             alt=""
+            width={PHOTO_WIDTH}
+            height={PHOTO_HEIGHT}
+            loading="lazy"
+            fetchPriority="low"
+            decoding="async"
             draggable={false}
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -166,6 +175,9 @@ export default function BeltLedger() {
   const [sectionRef, inView] = useInViewport({ rootMargin: '0px' })
   const [[index, direction], setState] = useState([0, 0])
   const [paused, setPaused] = useState(false)
+  // Explicit stop control (WCAG 2.2.2) — hover/focus pausing alone leaves
+  // touch visitors no way to halt the auto-advance.
+  const [isStopped, setIsStopped] = useState(false)
 
   const go = (way) => {
     setState(([current]) => {
@@ -175,7 +187,7 @@ export default function BeltLedger() {
   }
 
   const jumpTo = (target) => {
-    setState(([current]) => (target === current ? [current, direction] : [target, target > current ? 1 : -1]))
+    setState(([current, dir]) => (target === current ? [current, dir] : [target, target > current ? 1 : -1]))
   }
 
   // Auto-advances one card at a time — paused on hover, mid-drag, out of
@@ -186,10 +198,10 @@ export default function BeltLedger() {
   // so a manual interaction always buys a full interval before the next
   // auto-advance rather than fighting the timer.
   useEffect(() => {
-    if (reduced || !inView || paused) return
+    if (reduced || !inView || paused || isStopped) return
     const id = setInterval(() => go('next'), AUTOPLAY_MS)
     return () => clearInterval(id)
-  }, [reduced, inView, paused, index])
+  }, [reduced, inView, paused, isStopped, index])
 
   const active = SORTED_BLOCKS[index]
 
@@ -211,10 +223,10 @@ export default function BeltLedger() {
             className="h-28 w-44 rounded-2xl object-cover shadow-[0_16px_40px_-12px_rgba(0,0,0,0.6)] sm:h-32 sm:w-52"
           />
 
-          <p className="mt-6 max-w-[20ch] font-display text-3xl leading-[1.1] sm:text-4xl">
+          <h2 className="mt-6 max-w-[20ch] font-display text-3xl leading-[1.1] tracking-normal sm:text-4xl">
             <span className="text-bone-500">Five forest blocks hold the edge.</span>{' '}
             <span className="text-bone">Every hectare is on this ledger.</span>
-          </p>
+          </h2>
 
           <p className="mt-4 max-w-[42ch] text-[14px] leading-relaxed text-sage-300">
             Mau, the Aberdares, Mt. Kenya, Cherangany and Mt. Elgon each carry their own
@@ -257,6 +269,11 @@ export default function BeltLedger() {
                     <img
                       src={upcomingPhoto.jpg}
                       alt=""
+                      width={PHOTO_WIDTH}
+                      height={PHOTO_HEIGHT}
+                      loading="lazy"
+                      fetchPriority="low"
+                      decoding="async"
                       className="absolute inset-0 h-full w-full object-cover"
                     />
                   </picture>
@@ -289,19 +306,40 @@ export default function BeltLedger() {
               <ChevronLeft className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
             </button>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              {!reduced && (
+                <button
+                  type="button"
+                  onClick={() => setIsStopped((stopped) => !stopped)}
+                  aria-label={isStopped ? 'Resume auto-advance' : 'Pause auto-advance'}
+                  aria-pressed={isStopped}
+                  className="mr-1 grid h-6 w-6 place-items-center rounded-full text-bone-300 transition-colors duration-200 hover:text-bone"
+                >
+                  {isStopped ? (
+                    <Play className="h-3 w-3" strokeWidth={2.25} aria-hidden="true" />
+                  ) : (
+                    <Pause className="h-3 w-3" strokeWidth={2.25} aria-hidden="true" />
+                  )}
+                </button>
+              )}
               {SORTED_BLOCKS.map((block, i) => (
+                // The button is the 24px hit target (WCAG 2.5.8); the bar
+                // inside it is the visual dot.
                 <button
                   key={block.id}
                   type="button"
                   onClick={() => jumpTo(i)}
                   aria-label={`Show ${block.name}`}
-                  aria-current={i === index}
-                  className={
-                    'h-1.5 rounded-full transition-all duration-300 ' +
-                    (i === index ? 'w-6 bg-river-500' : 'w-1.5 bg-bone/20 hover:bg-bone/35')
-                  }
-                />
+                  aria-current={i === index ? 'true' : undefined}
+                  className="group grid h-6 min-w-6 place-items-center px-[9px]"
+                >
+                  <span
+                    className={
+                      'block h-1.5 rounded-full transition-[width,background-color] duration-300 ' +
+                      (i === index ? 'w-6 bg-river-500' : 'w-1.5 bg-bone/20 group-hover:bg-bone/35')
+                    }
+                  />
+                </button>
               ))}
             </div>
 

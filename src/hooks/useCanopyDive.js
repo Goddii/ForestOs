@@ -12,6 +12,9 @@ const EGRESS_FRACTION = 0.3
 const EGRESS_RISE = -50
 // Scrub catch-up in seconds — smooths coarse webm keyframe seeks.
 const SCRUB = 0.5
+// One frame of the 25fps footage — a scrub target closer than this to where
+// the playhead already is would decode the same frame again, so it's skipped.
+const FRAME_SECONDS = 1 / 25
 // Idle loop: plays this opening slice, at real native playback (not a
 // manually-scrubbed currentTime — see the hook doc below for why that
 // matters), before the visitor scrolls, so the canopy feels alive rather
@@ -125,6 +128,46 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
       window.addEventListener('scroll', stopIdle, { once: true, passive: true })
     }
 
+    // Scrub seeks are coalesced: at most one seek is in flight, and while it
+    // decodes only the latest requested time is remembered and applied on
+    // `seeked`. Assigning `currentTime` on every scrub tick (~60/s) instead
+    // queues seeks faster than the decoder can finish them, which stalls the
+    // dive and eventually trips Chromium's PIPELINE_ERROR_DECODE, freezing
+    // the hero for good. (The hero files are encoded with a keyframe every
+    // 10 frames so each seek stays cheap — see BackgroundVideo.)
+    let pendingSeek = null
+    let lastTarget = 0
+    const seekTo = (time) => {
+      lastTarget = time
+      if (video.seeking) {
+        pendingSeek = time
+        return
+      }
+      if (Math.abs(video.currentTime - time) < FRAME_SECONDS) return
+      video.currentTime = time
+    }
+    const onSeeked = () => {
+      if (pendingSeek === null) return
+      const time = pendingSeek
+      pendingSeek = null
+      seekTo(time)
+    }
+    video.addEventListener('seeked', onSeeked)
+
+    // A MediaError leaves the element dead (no more `seeked`, frozen frame).
+    // Reload it once and return to where the scrub last asked to be, rather
+    // than leaving the hero frozen for the rest of the visit.
+    let hasRecovered = false
+    const onVideoError = () => {
+      if (hasRecovered) return
+      hasRecovered = true
+      pendingSeek = null
+      const resumeAt = lastTarget
+      video.addEventListener('loadedmetadata', () => seekTo(resumeAt), { once: true })
+      video.load()
+    }
+    video.addEventListener('error', onVideoError)
+
     let ctx
     let cancelled = false
     let removeMetaListener = () => {}
@@ -160,7 +203,7 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
             t: duration,
             onUpdate: () => {
               if (video.readyState < 1) return
-              video.currentTime = Math.min(playhead.t, duration - 0.05)
+              seekTo(Math.min(playhead.t, duration - 0.05))
             },
           },
           0,
@@ -252,6 +295,8 @@ export function useCanopyDive(heroRef, videoRef, { enabled = true } = {}) {
     return () => {
       cancelled = true
       removeMetaListener()
+      video.removeEventListener('seeked', onSeeked)
+      video.removeEventListener('error', onVideoError)
       window.removeEventListener('scroll', stopIdle)
       if (idleActive) video.removeEventListener('timeupdate', onIdleTimeUpdate)
       clearTimeout(cutTimer)

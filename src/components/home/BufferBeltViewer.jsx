@@ -2,10 +2,22 @@ import { Suspense, lazy } from 'react'
 import { PARTNERS } from '../../lib/platformData'
 import { useInViewport } from '../../hooks/useInViewport'
 import DeferredMount from '../util/DeferredMount'
+import ErrorBoundary from '../ErrorBoundary'
 
 const VideoTerrainScene = lazy(() => import('../../scenes/videoTerrain/VideoTerrainScene'))
 
 const lead = PARTNERS[0]
+
+// Same convention as GlobeSection's fallback: if the scene can't start, say
+// so where it would have been, rather than leave the "move your cursor" copy
+// pointing at an empty frame.
+const terrainFallback = (
+  <div className="absolute inset-0 grid place-items-center p-8 text-center">
+    <p className="max-w-sm text-sm text-bone-300">
+      The 3D view could not start here. The belt’s record stands on its own.
+    </p>
+  </div>
+)
 
 /**
  * The buffer belt itself, full-bleed — same Video-Bleed Section Rule every
@@ -44,9 +56,15 @@ export default function BufferBeltViewer() {
       className="relative z-10 h-[85svh] scroll-mt-20 overflow-hidden bg-forest-950"
     >
       <DeferredMount placeholder={null} minScrollY={2400}>
-        <Suspense fallback={null}>
-          <VideoTerrainScene src="/media/field1.mp4" active={inView} />
-        </Suspense>
+        {/* A WebGL/R3F failure must cost only the terrain, not the page —
+            without this an error in the Canvas unmounts the whole Home tree.
+            The section's copy and dark ground still render around it, with a
+            short note in the terrain's place. */}
+        <ErrorBoundary fallback={terrainFallback}>
+          <Suspense fallback={null}>
+            <VideoTerrainScene src="/media/field1.mp4" active={inView} />
+          </Suspense>
+        </ErrorBoundary>
       </DeferredMount>
 
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-forest-950 to-transparent" />

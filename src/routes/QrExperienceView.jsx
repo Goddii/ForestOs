@@ -12,6 +12,7 @@ import ParticipateScreen from '../qrExperience/screens/ParticipateScreen'
 import EarnScreen from '../qrExperience/screens/EarnScreen'
 import PassportScreen from '../qrExperience/screens/PassportScreen'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { useThemeFonts } from '../hooks/useThemeFonts'
 
 const SCREEN_TRANSITION = {
   initial: { opacity: 0 },
@@ -42,6 +43,8 @@ export default function QrExperienceView() {
   const batch = useMemo(() => experience.getBatch(), [experience])
   const { stage, passport, advance, completeParticipation, scanAnother } = useExperienceFlow(batch.id)
   const reduced = usePrefersReducedMotion()
+
+  useThemeFonts(experience.theme)
 
   useEffect(() => {
     document.title = `${experience.communityName} — ${STAGES.includes(stage) ? stage : 'scan'}`

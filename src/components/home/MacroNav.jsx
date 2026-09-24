@@ -9,6 +9,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 const SOLID_AFTER = 120 // px scrolled before the bar takes a background
 const EASE = [0.16, 1, 0.3, 1]
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])'
 
 const MOBILE_LINKS = [
   { href: '#proof', label: '3D Proof Map' },
@@ -29,6 +30,8 @@ export default function MacroNav() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const reduced = usePrefersReducedMotion()
   const closeButtonRef = useRef(null)
+  const menuButtonRef = useRef(null)
+  const menuRef = useRef(null)
 
   useEffect(() => {
     let last = window.scrollY
@@ -66,12 +69,41 @@ export default function MacroNav() {
     }
   }, [mobileOpen])
 
-  // Escape closes the mobile menu too, matching the mega-menu's own pattern.
+  // Closing via Escape or the close button hands focus back to the trigger;
+  // following a link doesn't, so focus lands where the link went instead.
+  // Only touches a state setter and refs, so it's safe to call from the
+  // effect below without listing it as a dependency.
+  const closeMenu = () => {
+    setMobileOpen(false)
+    requestAnimationFrame(() => menuButtonRef.current?.focus())
+  }
+
+  // Escape closes the mobile menu too, matching the mega-menu's own pattern,
+  // and Tab cycles within the drawer — it's `aria-modal`, so focus must not
+  // wander to the page hidden behind it.
   useEffect(() => {
     if (!mobileOpen) return
-    const onKey = (e) => e.key === 'Escape' && setMobileOpen(false)
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        closeMenu()
+        return
+      }
+      if (e.key !== 'Tab' || !menuRef.current) return
+      const focusables = menuRef.current.querySelectorAll(FOCUSABLE_SELECTOR)
+      if (focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mobileOpen])
 
   // Move focus into the drawer on open, so a keyboard/screen-reader user
@@ -125,6 +157,7 @@ export default function MacroNav() {
           </nav>
 
           <button
+            ref={menuButtonRef}
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
@@ -140,6 +173,7 @@ export default function MacroNav() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            ref={menuRef}
             id="macro-mobile-menu"
             role="dialog"
             aria-label="Menu"
@@ -158,7 +192,7 @@ export default function MacroNav() {
               <button
                 ref={closeButtonRef}
                 type="button"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMenu}
                 aria-label="Close menu"
                 className="grid h-10 w-10 place-items-center rounded-full text-bone"
               >
