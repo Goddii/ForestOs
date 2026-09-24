@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { chartDomainMax, niceCeiling, shareOf } from './chartScale'
+import { chartDomainMax, niceCeiling, shareOf, trancheSegments } from './chartScale'
 
 describe('niceCeiling', () => {
   test('rounds up to the next 1, 2, 2.5 or 5 step of the magnitude', () => {
@@ -34,5 +34,20 @@ describe('shareOf', () => {
     expect(shareOf(9_000_000, 18_000_000)).toBe(0.5)
     expect(shareOf(20, 10)).toBe(1)
     expect(shareOf(5, 0)).toBe(0)
+  })
+})
+
+describe('trancheSegments', () => {
+  test('lays planned tranches end to end as fractions of the commitment', () => {
+    const tranches = [
+      { id: 'a', plannedKes: 9 },
+      { id: 'b', plannedKes: 5.4 },
+      { id: 'c', plannedKes: 3.6 },
+    ]
+    const segments = trancheSegments(tranches, 18)
+    expect(segments.map((segment) => segment.id)).toEqual(['a', 'b', 'c'])
+    expect(segments[1].left).toBeCloseTo(0.5)
+    expect(segments[1].width).toBeCloseTo(0.3)
+    expect(segments[2].left).toBeCloseTo(0.8)
   })
 })

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { formatCurrencyShort } from '../../lib/investor/format'
 import { sumAmounts } from '../../lib/investor/capitalLedger'
-import { shareOf } from '../../lib/investor/chartScale'
+import { shareOf, trancheSegments } from '../../lib/investor/chartScale'
 import { useWorkspace } from './FunderWorkspaceContext'
 import ActionButton from './ui/ActionButton'
 
@@ -107,12 +107,7 @@ const BAR_TONE = {
  */
 function StageBar({ step, position, tranches }) {
   const fill = shareOf(position[step.key], position.committed)
-  const plannedBefore = (index) => tranches.slice(0, index).reduce((sum, tranche) => sum + tranche.plannedKes, 0)
-  const segments = tranches.map((tranche, index) => ({
-    id: tranche.id,
-    left: shareOf(plannedBefore(index), position.committed),
-    width: shareOf(tranche.plannedKes, position.committed),
-  }))
+  const segments = trancheSegments(tranches, position.committed)
 
   return (
     <span className="relative block h-3 overflow-hidden rounded-[4px] bg-canvas-sunk" aria-hidden="true">

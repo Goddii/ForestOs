@@ -46,3 +46,20 @@ export function shareOf(part, total) {
   if (!(total > 0)) return 0
   return Math.min(1, Math.max(0, part / total))
 }
+
+/**
+ * Planned tranches laid end to end along a bar that represents the full
+ * commitment: each segment's `left` and `width` as fractions of it.
+ *
+ * @param {Array<{ id: string, plannedKes: number }>} tranches
+ * @param {number} committed
+ * @returns {Array<{ id: string, left: number, width: number }>}
+ */
+export function trancheSegments(tranches, committed) {
+  const plannedBefore = (index) => tranches.slice(0, index).reduce((sum, tranche) => sum + tranche.plannedKes, 0)
+  return tranches.map((tranche, index) => ({
+    id: tranche.id,
+    left: shareOf(plannedBefore(index), committed),
+    width: shareOf(tranche.plannedKes, committed),
+  }))
+}

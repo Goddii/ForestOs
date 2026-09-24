@@ -9,7 +9,11 @@ import { currentState } from '../programme/verificationState'
  * page that is its home.
  *
  * @param {import('../../data/funder/workspace').FunderWorkspace} workspace
- * @returns {Array<{ id: string, label: string, detail: string, to: string }>}
+ * Each item carries a `kind` (overdue / correction / risk) and a short
+ * `summary` without the kind prefix, for compact lists that show the kind as
+ * a tag instead.
+ *
+ * @returns {Array<{ id: string, kind: 'overdue' | 'correction' | 'risk', label: string, summary: string, detail: string, to: string }>}
  */
 export function getAttentionItems(workspace) {
   const issues = `${workspace.basePath}/issues`
@@ -18,6 +22,8 @@ export function getAttentionItems(workspace) {
     .filter((activity) => currentState(activity.verification) === 'correction_required')
     .map((activity) => ({
       id: `fix-${activity.id}`,
+      kind: 'correction',
+      summary: activity.summary,
       label: `Returned for correction: ${activity.summary}`,
       detail: 'Verification · awaiting resubmission',
       to: issues,
@@ -27,6 +33,8 @@ export function getAttentionItems(workspace) {
     .filter((check) => check.isFunded && check.status === 'overdue')
     .map((check) => ({
       id: `overdue-${check.id}`,
+      kind: 'overdue',
+      summary: `${check.monthsAfter}-month survival check: ${check.activitySummary}`,
       label: `${check.monthsAfter}-month survival check overdue: ${check.activitySummary}`,
       detail: `Due ${check.dueDate}`,
       to: issues,
@@ -36,10 +44,12 @@ export function getAttentionItems(workspace) {
     .slice(0, 2)
     .map((risk) => ({
       id: risk.id,
+      kind: 'risk',
+      summary: risk.description,
       label: risk.description,
       detail: `${risk.severity.toUpperCase()} risk · ${risk.owner}`,
       to: issues,
     }))
 
-  return [...corrections, ...overdue, ...risks]
+  return [...overdue, ...corrections, ...risks]
 }
