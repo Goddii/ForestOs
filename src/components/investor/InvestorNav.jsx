@@ -1,21 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { Leaf } from 'lucide-react'
 import { useWorkspace, useWorkspacePath } from './FunderWorkspaceContext'
+import { NAV_ITEMS } from './navItems'
 
-// The funder workspace IA (audit §10): strategic first, then each page is
-// the single home for its kind of record.
-const ITEMS = [
-  { sub: '', label: 'Overview', end: true },
-  { sub: 'programme', label: 'Programme' },
-  { sub: 'funding', label: 'Funding' },
-  { sub: 'landscape', label: 'Landscape' },
-  { sub: 'progress', label: 'Progress' },
-  { sub: 'evidence', label: 'Evidence' },
-  { sub: 'outcomes', label: 'Outcomes' },
-  { sub: 'issues', label: 'Issues & risks' },
-  { sub: 'reports', label: 'Reports' },
-  { sub: 'organisation', label: 'Organisation' },
-]
 
 /**
  * The nav sidebar (visual-system brief §4) — the one surface that stays
@@ -45,7 +32,7 @@ export default function InvestorNav() {
       <div className="hidden border-t border-bone/10 pt-5 lg:mt-6 lg:block" />
 
       <ul className="flex gap-1 lg:flex-1 lg:flex-col lg:gap-0.5">
-        {ITEMS.map(({ sub, label, end }) => (
+        {NAV_ITEMS.map(({ sub, label, end }) => (
           <li key={sub || 'overview'} className="shrink-0">
             <NavLink
               to={path(sub)}

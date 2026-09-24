@@ -18,10 +18,13 @@ export default function ProjectPage() {
   const path = useWorkspacePath()
   return (
     <div className="mx-auto max-w-6xl space-y-12">
-      <SectionHeading
-        title={programme.name}
-        description={`${programme.location} · ${programme.startDate} to ${programme.endDate}`}
-      />
+      {/* Page title, set like the overview's so the two read as one programme, not as a section heading */}
+      <header>
+        <h1 className="font-display text-4xl leading-[1.02] text-ink sm:text-display">{programme.name}</h1>
+        <p className="mt-2 text-sm text-ink-muted">
+          {programme.location} · {programme.startDate} to {programme.endDate}
+        </p>
+      </header>
 
       <section>
         <SectionHeading title="The buffer belt" />
