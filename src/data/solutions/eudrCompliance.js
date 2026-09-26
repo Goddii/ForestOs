@@ -172,8 +172,8 @@ export const eudrCompliance = {
 
   finalCta: {
     title: 'See a plot-level record before you commit to one.',
-    body: 'Open the offtaker portal to see a real batch’s plot geolocation and deforestation-free check, and what an EUDR audit export actually contains.',
-    primary: { label: 'Open the offtaker portal', to: '/offtaker' },
+    body: 'Open the buyer demo dashboard to see a real batch’s plot geolocation and deforestation-free check, and what an EUDR audit export actually contains.',
+    primary: { label: 'See the demo dashboard', to: '/offtaker' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }
