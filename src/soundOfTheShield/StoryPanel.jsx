@@ -42,7 +42,7 @@ export default function StoryPanel() {
           data-name="tab-story"
         >
           <p
-            className={`[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[13px] whitespace-nowrap ${
+            className={`[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[13px] whitespace-nowrap ${
               activeTab === 'story' ? 'text-white' : 'text-[#8e9f95]'
             }`}
           >
@@ -63,7 +63,7 @@ export default function StoryPanel() {
           data-name="tab-ledger"
         >
           <p
-            className={`[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[13px] whitespace-nowrap ${
+            className={`[word-break:break-word] font-['Inter'] font-medium leading-[normal] not-italic relative shrink-0 text-[13px] whitespace-nowrap ${
               activeTab === 'ledger' ? 'text-white' : 'text-[#8e9f95]'
             }`}
           >
@@ -88,15 +88,15 @@ export default function StoryPanel() {
             </div>
           </div>
           <div className="content-stretch flex flex-col gap-[14px] items-start p-[20px] relative shrink-0 w-full" data-node-id="2:55" data-name="card-body-content">
-            <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[18px] text-white w-full">
+            <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[18px] text-white w-full">
               Protecting Mt. Kenya&apos;s Buffer Zone
             </p>
-            <p className="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[1.5] not-italic relative shrink-0 text-[#8e9f95] text-[13px] w-full">
+            <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.5] not-italic relative shrink-0 text-[#8e9f95] text-[13px] w-full">
               Nyayo Tea Zones acts as a continuous, dense green belt shielding vulnerable indigenous forests from
               agricultural encroachment. For every harvest batch tracked, the physical protection perimeter of Mt.
               Kenya and the Aberdares is dynamically logged.
             </p>
-            <p className="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[1.5] not-italic relative shrink-0 text-[#8e9f95] text-[13px] w-full">
+            <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.5] not-italic relative shrink-0 text-[#8e9f95] text-[13px] w-full">
               By scanning this batch, you activate Nyashinski&apos;s sonic soundscape—recorded directly within these
               canopy buffers—bridging local Kenyan tea preservation with global COP32 ecological transparency
               covenants.
@@ -108,7 +108,7 @@ export default function StoryPanel() {
                     <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChartNetwork} />
                   </div>
                 </div>
-                <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[11px] whitespace-nowrap">
+                <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[11px] whitespace-nowrap">
                   BLOCKID #COP-8902-X
                 </p>
               </div>
@@ -140,13 +140,13 @@ export default function StoryPanel() {
                   <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgShieldCheck} />
                 </div>
                 <div className="content-stretch flex flex-[1_0_0] flex-col gap-[2px] items-start min-w-px relative">
-                  <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[13px] text-white w-full">
+                  <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[13px] text-white w-full">
                     {entry.event}
                   </p>
-                  <p className="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] w-full">
+                  <p className="[word-break:break-word] font-['Inter'] font-normal leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] w-full">
                     {entry.timestamp}
                   </p>
-                  <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[10px] tracking-[0.0055px] uppercase w-full">
+                  <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[10px] tracking-[0.0055px] uppercase w-full">
                     BLOCKID #{entry.id}
                   </p>
                 </div>

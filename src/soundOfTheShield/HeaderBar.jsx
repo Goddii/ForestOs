@@ -16,7 +16,7 @@ export default function HeaderBar() {
         <div className="relative shrink-0 size-[6px]" data-node-id="2:9" data-name="active-dot">
           <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgActiveDot} />
         </div>
-        <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[11px] text-white tracking-[0.0055px] whitespace-nowrap">
+        <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[11px] text-white tracking-[0.0055px] whitespace-nowrap">
           NYAYO × NYASHINSKI
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function HeaderBar() {
             <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgShieldCheck} />
           </div>
         </div>
-        <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[11px] tracking-[0.0055px] whitespace-nowrap">
+        <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[11px] tracking-[0.0055px] whitespace-nowrap">
           COP32 VERIFIED
         </p>
       </div>

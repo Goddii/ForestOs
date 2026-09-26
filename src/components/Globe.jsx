@@ -30,7 +30,7 @@ function ringToHierarchy(flat) {
  * Also trims the default double-click behaviour. Camera motion is owned by
  * CameraBridge / the enclosing section, not here.
  */
-function ViewerSetup({ macroMode }) {
+function ViewerSetup({ macroMode, isInteractive }) {
   const { viewer } = useCesium()
   useEffect(() => {
     if (!viewer) return
@@ -54,12 +54,14 @@ function ViewerSetup({ macroMode }) {
     scene.fog.enabled = true
     scene.globe.enableLighting = false
     scene.screenSpaceCameraController.minimumZoomDistance = macroMode ? 20000 : 4000
+    // Off when embedded in a touch scroller, so a swipe over the map scrolls the page.
+    scene.screenSpaceCameraController.enableInputs = isInteractive
 
     viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(
       ScreenSpaceEventType.LEFT_DOUBLE_CLICK,
     )
     /* eslint-enable react/immutability */
-  }, [viewer, macroMode])
+  }, [viewer, macroMode, isInteractive])
   return null
 }
 
@@ -152,6 +154,7 @@ export default function Globe({
   era,
   activeId = null,
   reducedMotion = false,
+  isInteractive = true,
   onCameraReady,
   onFeaturePick,
 }) {
@@ -176,7 +179,7 @@ export default function Globe({
       infoBox={false}
       selectionIndicator={false}
     >
-      <ViewerSetup macroMode={macroMode} />
+      <ViewerSetup macroMode={macroMode} isInteractive={isInteractive} />
       <CameraBridge
         reducedMotion={reducedMotion}
         flight={macroMode ? BELT_FLIGHT : PROOF_FLIGHT}

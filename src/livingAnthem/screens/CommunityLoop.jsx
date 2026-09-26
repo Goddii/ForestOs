@@ -3,6 +3,7 @@ import { imgPassDivider, imgUserAvatar } from '../assets'
 import { BottomAction, ChapterIndicator, FOCUS_RING, Reveal, Screen, SectionTitle, STAGGER, StatusBar, useLoopsEnabled } from '../chrome'
 import { Burst, PRESS, SwapLabel, TiltCard, useBurst } from '../fx'
 import { BorderBeam, DecryptedText, StarBorder } from '../fxLibrary'
+import WhatsAppCommunityLink from '../../components/community/WhatsAppCommunityLink'
 import { DEMO_FAN_ID, STARTING_AUDIO_BADGES } from '../data'
 
 const pad = (count) => String(count).padStart(2, '0')
@@ -124,6 +125,7 @@ export default function CommunityLoop({ seedsSown, hasJoined, onJoin }) {
               </span>
             </motion.button>
           </StarBorder>
+          <WhatsAppCommunityLink groupName="Anthem Collective" memberCount="12.8K" fontClass="font-['Geist']" />
         </div>
       </Reveal>
 

@@ -22,10 +22,10 @@ export default function BatchHud() {
         data-node-id="2:17"
         data-name="section-intro"
       >
-        <p className="font-['Inter:Bold'] font-bold relative shrink-0 text-[#00ff9d] text-[11px] tracking-[0.0165px] uppercase w-full">
+        <p className="font-['Inter'] font-bold relative shrink-0 text-[#00ff9d] text-[11px] tracking-[0.0165px] uppercase w-full">
           FOREST_OS CLIMATE TELEMETRY
         </p>
-        <p className="font-['Inter:Extra_Bold'] font-extrabold relative shrink-0 text-[28px] text-white tracking-[-0.0084px] w-full">
+        <p className="font-['Inter'] font-extrabold relative shrink-0 text-[28px] text-white tracking-[-0.0084px] w-full">
           Sound of the Shield
         </p>
       </div>
@@ -86,10 +86,10 @@ export default function BatchHud() {
           animate={{ rotate: [0, -360] }}
           transition={{ duration: 4, ease: 'linear', repeat: Infinity }}
         >
-          <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] min-w-full not-italic relative shrink-0 text-[#00ff9d] text-[11px] text-center tracking-[0.0088px] uppercase w-[min-content]">
+          <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] min-w-full not-italic relative shrink-0 text-[#00ff9d] text-[11px] text-center tracking-[0.0088px] uppercase w-[min-content]">
             BATCH NYA-2026-8042
           </p>
-          <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] min-w-full not-italic relative shrink-0 text-[15px] text-center text-white tracking-[-0.003px] w-[min-content]">
+          <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] min-w-full not-italic relative shrink-0 text-[15px] text-center text-white tracking-[-0.003px] w-[min-content]">
             Aberdare Buffer Zone
           </p>
           <div className="content-stretch flex gap-[4px] items-center relative shrink-0" data-node-id="2:28" data-name="harvest-row">
@@ -98,7 +98,7 @@ export default function BatchHud() {
                 <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgClock} />
               </div>
             </div>
-            <p className="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] whitespace-nowrap">
+            <p className="[word-break:break-word] font-['Inter'] font-medium leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] whitespace-nowrap">
               Harvested 06:15 AM
             </p>
           </div>
@@ -117,14 +117,14 @@ export default function BatchHud() {
                 <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgTrees} />
               </div>
             </div>
-            <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] tracking-[0.0022px] whitespace-nowrap">
+            <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] tracking-[0.0022px] whitespace-nowrap">
               SHIELDED ZONE
             </p>
           </div>
-          <p className="[word-break:break-word] font-['Inter:Extra_Bold'] font-extrabold leading-[normal] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">
+          <p className="[word-break:break-word] font-['Inter'] font-extrabold leading-[normal] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">
             4.2 m²
           </p>
-          <p className="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] min-w-full not-italic relative shrink-0 text-[#8e9f95] text-[11px] w-[min-content]">
+          <p className="[word-break:break-word] font-['Inter'] font-normal leading-[normal] min-w-full not-italic relative shrink-0 text-[#8e9f95] text-[11px] w-[min-content]">
             Indigenous forest protected under project covenant.
           </p>
         </div>
@@ -139,14 +139,14 @@ export default function BatchHud() {
                 <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgLeaf} />
               </div>
             </div>
-            <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] tracking-[0.0022px] whitespace-nowrap">
+            <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[11px] tracking-[0.0022px] whitespace-nowrap">
               CO₂ SEQUESTERED
             </p>
           </div>
-          <p className="[word-break:break-word] font-['Inter:Extra_Bold'] font-extrabold leading-[normal] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">
+          <p className="[word-break:break-word] font-['Inter'] font-extrabold leading-[normal] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">
             1.8 kg
           </p>
-          <p className="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] min-w-full not-italic relative shrink-0 text-[#8e9f95] text-[11px] w-[min-content]">
+          <p className="[word-break:break-word] font-['Inter'] font-normal leading-[normal] min-w-full not-italic relative shrink-0 text-[#8e9f95] text-[11px] w-[min-content]">
             Real-time offset synced with ForestOS chain.
           </p>
         </div>

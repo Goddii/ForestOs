@@ -1,9 +1,36 @@
+import { Suspense, lazy, useRef } from 'react'
+import { useInView } from 'framer-motion'
+import ErrorBoundary from '../../components/ErrorBoundary'
 import { imgMapLayer } from '../assets'
 import { DecryptedText } from '../fxLibrary'
-import { BottomAction, ChapterIndicator, Reveal, Screen, SectionTitle, STAGGER, StatusBar } from '../chrome'
+import { BottomAction, ChapterIndicator, FOCUS_RING, Reveal, Screen, SectionTitle, STAGGER, StatusBar } from '../chrome'
+
+// Cesium is heavy — split it off and only fetch it as the chapter nears view.
+const CanopyGlobeHud = lazy(() => import('../../components/globe/CanopyGlobeHud'))
+
+const ANTHEM_GLOBE_THEME = {
+  edgeFade: 'radial-gradient(130% 90% at 50% 45%, transparent 55%, rgba(4,13,7,0.85) 100%)',
+  figure: "font-['Syne'] font-extrabold",
+  label: "font-['Geist'] font-bold text-[#8a9f96]",
+  toggle: `font-['Geist'] font-bold ${FOCUS_RING}`,
+  toggleActive: 'bg-[#00ff87] text-[#040d07]',
+  toggleIdle: 'text-[#8a9f96] hover:text-white',
+}
+const MOUNT_MARGIN = '0px 0px 300px 0px'
+
+const aerialStill = (
+  <img
+    alt="Aerial view of the Mau Forest Complex at sunrise"
+    className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[16px] size-full"
+    src={imgMapLayer}
+  />
+)
 
 /** CH. 03 — Figma "discover-landscape" (node 3:65): the Mau Complex. */
 export default function DiscoverLandscape({ onNext }) {
+  const mapRef = useRef(null)
+  const isNearView = useInView(mapRef, { once: true, margin: MOUNT_MARGIN })
+
   return (
     <Screen name="discover-landscape">
       <Reveal delay={STAGGER.top} className="flex flex-col items-start relative shrink-0 w-full" data-name="top-content">
@@ -13,13 +40,17 @@ export default function DiscoverLandscape({ onNext }) {
       </Reveal>
 
       <Reveal delay={STAGGER.middle} className="flex flex-col gap-[20px] items-start px-[24px] relative shrink-0 w-full" data-name="landscape-panel">
-        <div className="border border-[rgba(255,255,255,0.08)] border-solid flex h-[220px] items-start overflow-clip relative rounded-[16px] shrink-0 w-full group" data-name="map-layer">
-          <img
-            alt="Aerial view of the Mau Forest Complex at sunrise"
-            className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[16px] size-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-            src={imgMapLayer}
-          />
-          <div className="absolute flex flex-col inset-[-1px] items-start justify-between p-[16px]" data-name="topo-lines">
+        <div ref={mapRef} className="border border-[rgba(255,255,255,0.08)] border-solid flex h-[300px] items-start overflow-clip relative rounded-[16px] shrink-0 w-full bg-[#0a1812]" data-name="map-layer">
+          {isNearView ? (
+            <ErrorBoundary fallback={aerialStill}>
+              <Suspense fallback={aerialStill}>
+                <CanopyGlobeHud theme={ANTHEM_GLOBE_THEME} fallback={aerialStill} />
+              </Suspense>
+            </ErrorBoundary>
+          ) : (
+            aerialStill
+          )}
+          <div className="pointer-events-none absolute z-20 flex flex-col inset-x-0 top-0 items-start p-[16px]" data-name="topo-lines">
             <div className="flex font-['Geist'] font-normal items-start justify-between leading-[normal] text-[#00ff87] text-[10px] w-full whitespace-nowrap">
               <p className="opacity-80"><DecryptedText text="0.0763° S" /></p>
               <p className="opacity-80"><DecryptedText text="35.7483° E" /></p>

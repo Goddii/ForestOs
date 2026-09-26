@@ -58,12 +58,12 @@ export default function SplashHero() {
             y: { duration: 4, times: [0, 0.15, 1], ease: [[0.25, 0.1, 0.25, 1], 'linear'], repeat: Infinity },
           }}
         >
-          <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[10px] tracking-[0.012px] uppercase whitespace-nowrap">
+          <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[10px] tracking-[0.012px] uppercase whitespace-nowrap">
             A NYASHINSKI × NYAYO TEA ZONES EXPERIENCE
           </p>
         </motion.div>
         <motion.p
-          className="[word-break:break-word] font-['Inter:Black'] font-black leading-[normal] min-w-full not-italic relative shrink-0 text-[30px] text-center text-white tracking-[-0.012px] w-[min-content]"
+          className="[word-break:break-word] font-['Inter'] font-black leading-[normal] min-w-full not-italic relative shrink-0 text-[30px] text-center text-white tracking-[-0.012px] w-[min-content]"
           data-node-id="6:12"
           data-name="splash-title"
           initial={{ opacity: 0, y: 30 }}
@@ -76,7 +76,7 @@ export default function SplashHero() {
           THE SOUND OF THE SHIELD
         </motion.p>
         <motion.p
-          className="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[1.55] min-w-full not-italic relative shrink-0 text-[13px] text-[rgba(255,255,255,0.7)] text-center w-[min-content]"
+          className="[word-break:break-word] font-['Inter'] font-normal leading-[1.55] min-w-full not-italic relative shrink-0 text-[13px] text-[rgba(255,255,255,0.7)] text-center w-[min-content]"
           data-node-id="6:13"
           data-name="splash-subtitle"
           initial={{ opacity: 0, y: 20 }}
@@ -100,7 +100,7 @@ export default function SplashHero() {
           y: { duration: 4, times: [0, 0.2, 0.4, 0.6, 0.8, 1], ease: 'easeInOut', repeat: Infinity },
         }}
       >
-        <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[9px] text-[rgba(255,255,255,0.4)] tracking-[0.0108px] uppercase whitespace-nowrap">
+        <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[9px] text-[rgba(255,255,255,0.4)] tracking-[0.0108px] uppercase whitespace-nowrap">
           SCROLL
         </p>
         <div
