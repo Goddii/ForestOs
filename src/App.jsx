@@ -41,6 +41,14 @@ const InvestorRedirect = lazy(() => import('./routes/FunderView').then((m) => ({
 // workspace (Sept 2026). Each buying organisation gets `/offtaker/:orgSlug`;
 // it reads the same batch chain and programme records as every other surface.
 const OfftakerView = lazy(() => import('./routes/OfftakerView'))
+// Brand Portal — premium tea brands (cafés, hotel groups, luxury hotels)
+// turning verified Nyayo Tea Zone origin into products, campaigns and QR
+// experiences (Sept 2026). Each brand gets `/brand/:orgSlug`; it reads the
+// same batch chain and conservation records as the other portals.
+const BrandView = lazy(() => import('./routes/BrandView'))
+// "Request a demo" — the public site's one entry point to the demo
+// dashboards. Information pages link here with `?for=<audience>`.
+const RequestDemo = lazy(() => import('./routes/RequestDemo'))
 const EudrCompliance = lazy(() => import('./routes/solutions/EudrCompliance'))
 const ConservationPassports = lazy(() => import('./routes/solutions/ConservationPassports'))
 const FairPayTelemetry = lazy(() => import('./routes/solutions/FairPayTelemetry'))
@@ -80,6 +88,9 @@ export default function App() {
         <Route path="/investor/*" element={<InvestorRedirect />} />
         <Route path="/offtaker" element={<Navigate to="/offtaker/rift-valley-tea" replace />} />
         <Route path="/offtaker/:orgSlug/*" element={<OfftakerView />} />
+        <Route path="/demo" element={<RequestDemo />} />
+        <Route path="/brand" element={<Navigate to="/brand/kilele-coffee-house" replace />} />
+        <Route path="/brand/:orgSlug/*" element={<BrandView />} />
         <Route path="/solutions/eudr-compliance" element={<EudrCompliance />} />
         <Route path="/solutions/conservation-passports" element={<ConservationPassports />} />
         <Route path="/solutions/fair-pay-telemetry" element={<FairPayTelemetry />} />

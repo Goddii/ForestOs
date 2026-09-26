@@ -156,8 +156,8 @@ export const fairPayTelemetry = {
 
   finalCta: {
     title: 'See the settlement behind a real premium claim.',
-    body: 'Request a Forest Edition and we’ll walk a real batch’s premium — rate, benchmark, and settlement — end to end.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Request a demo and we’ll walk a real batch’s premium with you: rate, benchmark and settlement, end to end.',
+    primary: { label: 'Request a demo', to: '/demo?for=brand' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

@@ -155,8 +155,8 @@ export const evidenceExport = {
 
   finalCta: {
     title: 'See a real evidence export before your next audit.',
-    body: 'Open the buyer demo dashboard to export a real batch’s traceability, quality and compliance records yourself, plot to pack.',
-    primary: { label: 'See the demo dashboard', to: '/offtaker' },
+    body: 'Request a demo and we’ll open the buyer dashboard with you to export a real batch’s traceability, quality and compliance records, plot to pack.',
+    primary: { label: 'Request a demo', to: '/demo?for=offtaker' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

@@ -67,6 +67,12 @@ const GROUPS = [
         note: 'Buyer workspace — supply, available lots, batch traceability journeys, quality, compliance, verified origin and exports. Switch buyer and role in the header.',
       },
       {
+        href: '/brand',
+        title: 'Brand Portal (cafés and hotels)',
+        tag: 'Demo',
+        note: 'Brand workspace: products on verified lots, conservation story, campaigns, QR experience studio, claim checks against the records, impact and scan analytics. Switch brand and role in the header.',
+      },
+      {
         href: '/launch',
         title: 'Forest Edition launch/request page',
         tag: 'Live route',
