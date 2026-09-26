@@ -5,6 +5,7 @@ import CommunityCard from '../soundOfTheShield/CommunityCard'
 import HeaderBar from '../soundOfTheShield/HeaderBar'
 import Leaderboard from '../soundOfTheShield/Leaderboard'
 import PageBackground from '../soundOfTheShield/PageBackground'
+import ShieldCanopyMap from '../soundOfTheShield/ShieldCanopyMap'
 import SpotifyPlayer from '../soundOfTheShield/SpotifyPlayer'
 import SplashHero from '../soundOfTheShield/SplashHero'
 import StoryPanel from '../soundOfTheShield/StoryPanel'
@@ -86,6 +87,7 @@ export default function SoundOfTheShield() {
         <HeaderBar />
         <div className="content-stretch flex flex-col gap-[28px] items-start pb-[24px] pt-[24px] px-[16px] relative shrink-0 w-full">
           <BatchHud />
+          <ShieldCanopyMap />
           <Leaderboard />
           <StoryPanel />
           <CommunityCard />

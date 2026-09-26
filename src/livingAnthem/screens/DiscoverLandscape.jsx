@@ -3,10 +3,19 @@ import { useInView } from 'framer-motion'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import { imgMapLayer } from '../assets'
 import { DecryptedText } from '../fxLibrary'
-import { BottomAction, ChapterIndicator, Reveal, Screen, SectionTitle, STAGGER, StatusBar } from '../chrome'
+import { BottomAction, ChapterIndicator, FOCUS_RING, Reveal, Screen, SectionTitle, STAGGER, StatusBar } from '../chrome'
 
 // Cesium is heavy — split it off and only fetch it as the chapter nears view.
-const LiveCanopyGlobe = lazy(() => import('../LiveCanopyGlobe'))
+const CanopyGlobeHud = lazy(() => import('../../components/globe/CanopyGlobeHud'))
+
+const ANTHEM_GLOBE_THEME = {
+  edgeFade: 'radial-gradient(130% 90% at 50% 45%, transparent 55%, rgba(4,13,7,0.85) 100%)',
+  figure: "font-['Syne'] font-extrabold",
+  label: "font-['Geist'] font-bold text-[#8a9f96]",
+  toggle: `font-['Geist'] font-bold ${FOCUS_RING}`,
+  toggleActive: 'bg-[#00ff87] text-[#040d07]',
+  toggleIdle: 'text-[#8a9f96] hover:text-white',
+}
 const MOUNT_MARGIN = '0px 0px 300px 0px'
 
 const aerialStill = (
@@ -35,7 +44,7 @@ export default function DiscoverLandscape({ onNext }) {
           {isNearView ? (
             <ErrorBoundary fallback={aerialStill}>
               <Suspense fallback={aerialStill}>
-                <LiveCanopyGlobe fallback={aerialStill} />
+                <CanopyGlobeHud theme={ANTHEM_GLOBE_THEME} fallback={aerialStill} />
               </Suspense>
             </ErrorBoundary>
           ) : (
