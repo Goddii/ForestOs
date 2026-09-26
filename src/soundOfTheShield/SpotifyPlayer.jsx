@@ -44,10 +44,10 @@ export default function SpotifyPlayer() {
             </div>
           </div>
           <div className="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col gap-[2px] items-start leading-[normal] min-w-px not-italic relative whitespace-nowrap" data-node-id="2:70" data-name="track-details">
-            <p className="font-['Inter:Bold'] font-bold overflow-hidden relative shrink-0 text-[12px] text-ellipsis text-white w-full">
+            <p className="font-['Inter'] font-bold overflow-hidden relative shrink-0 text-[12px] text-ellipsis text-white w-full">
               Sound of the Shield
             </p>
-            <p className="font-['Inter:Regular'] font-normal overflow-hidden relative shrink-0 text-[#8e9f95] text-[11px] text-ellipsis w-full">
+            <p className="font-['Inter'] font-normal overflow-hidden relative shrink-0 text-[#8e9f95] text-[11px] text-ellipsis w-full">
               Nyashinski • Voiceover &amp; Ambient
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function SpotifyPlayer() {
             data-name="progress-fill"
           />
         </div>
-        <div className="[word-break:break-word] content-stretch flex font-['Inter:Regular'] font-normal items-start justify-between leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[9px] w-full whitespace-nowrap" data-node-id="2:82" data-name="progress-times">
+        <div className="[word-break:break-word] content-stretch flex font-['Inter'] font-normal items-start justify-between leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[9px] w-full whitespace-nowrap" data-node-id="2:82" data-name="progress-times">
           <p className="relative shrink-0">{formatTime(elapsedSeconds)}</p>
           <p className="relative shrink-0">{formatTime(TOTAL_SECONDS)}</p>
         </div>

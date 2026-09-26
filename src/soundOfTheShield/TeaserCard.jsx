@@ -21,21 +21,21 @@ export default function TeaserCard() {
         </div>
         <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-node-id="6:107" data-name="teaser-top-row">
           <div className="bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] border-solid content-stretch flex items-start px-[10px] py-[5px] relative rounded-[100px] shrink-0" data-node-id="6:108" data-name="coming-soon-badge">
-            <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[10px] tracking-[0.01px] uppercase whitespace-nowrap">
+            <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[#8e9f95] text-[10px] tracking-[0.01px] uppercase whitespace-nowrap">
               Coming Soon
             </p>
           </div>
           <div className="bg-[rgba(29,185,84,0.1)] border border-[rgba(29,185,84,0.2)] border-solid content-stretch flex items-start px-[10px] py-[5px] relative rounded-[100px] shrink-0" data-node-id="6:110" data-name="teaser-countdown-badge">
-            <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[#1db954] text-[10px] whitespace-nowrap">
+            <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[#1db954] text-[10px] whitespace-nowrap">
               DEC 2026
             </p>
           </div>
         </div>
         <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start not-italic relative shrink-0 w-full" data-node-id="6:112" data-name="teaser-body">
-          <p className="font-['Inter:Extra_Bold'] font-extrabold leading-[1.25] relative shrink-0 text-[18px] text-white w-full">
+          <p className="font-['Inter'] font-extrabold leading-[1.25] relative shrink-0 text-[18px] text-white w-full">
             Nyashinski Live at Aberdare
           </p>
-          <p className="font-['Inter:Medium'] font-medium leading-[1.45] relative shrink-0 text-[#8e9f95] text-[13px] w-full">
+          <p className="font-['Inter'] font-medium leading-[1.45] relative shrink-0 text-[#8e9f95] text-[13px] w-full">
             The Shield Concert 🎤🌲 December 2026
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function TeaserCard() {
             data-name="teaser-cta-btn"
           >
             {accessRequested && <Check className="size-[13px] text-[#00ff9d]" strokeWidth={2.5} aria-hidden="true" />}
-            <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[13px] whitespace-nowrap">
+            <p className="[word-break:break-word] font-['Inter'] font-bold leading-[normal] not-italic relative shrink-0 text-[#00ff9d] text-[13px] whitespace-nowrap">
               {accessRequested ? "You're on the list" : 'Get Early Access'}
             </p>
           </button>
@@ -72,7 +72,7 @@ export default function TeaserCard() {
               <Bell className="size-[12px] text-[#8e9f95]" strokeWidth={2} aria-hidden="true" />
             )}
             <p
-              className={`[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[12px] whitespace-nowrap ${
+              className={`[word-break:break-word] font-['Inter'] font-medium leading-[normal] not-italic relative shrink-0 text-[12px] whitespace-nowrap ${
                 notifyOn ? 'text-[#00ff9d]' : 'text-[#8e9f95]'
               }`}
             >
