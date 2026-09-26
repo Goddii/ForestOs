@@ -155,8 +155,8 @@ export const evidenceExport = {
 
   finalCta: {
     title: 'See a real evidence export before your next audit.',
-    body: 'Request a Forest Edition and we’ll walk a real batch’s evidence bundle with you, plot to pack.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Open the offtaker portal to export a real batch’s traceability, quality and compliance records yourself, plot to pack.',
+    primary: { label: 'Open the offtaker portal', to: '/offtaker' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }
