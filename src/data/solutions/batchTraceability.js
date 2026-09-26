@@ -153,8 +153,8 @@ export const batchTraceability = {
 
   finalCta: {
     title: 'Trace a real shipment before your next order.',
-    body: 'Request a Forest Edition and we’ll walk a real batch’s chain of custody with you, plot to pack.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Open the buyer demo dashboard and follow a batch’s chain of custody yourself, plot to pack, with who verified each stage.',
+    primary: { label: 'See the demo dashboard', to: '/offtaker' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

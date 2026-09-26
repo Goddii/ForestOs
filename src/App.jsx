@@ -37,6 +37,10 @@ const LaunchEdition = lazy(() => import('./routes/LaunchEdition'))
 // docs/IMPLEMENTATION_PLAN_ESG_AND_FACTORY.md.
 const FunderView = lazy(() => import('./routes/FunderView'))
 const InvestorRedirect = lazy(() => import('./routes/FunderView').then((m) => ({ default: m.InvestorRedirect })))
+// Offtaker Portal — tea buyers' sourcing, traceability and compliance
+// workspace (Sept 2026). Each buying organisation gets `/offtaker/:orgSlug`;
+// it reads the same batch chain and programme records as every other surface.
+const OfftakerView = lazy(() => import('./routes/OfftakerView'))
 const EudrCompliance = lazy(() => import('./routes/solutions/EudrCompliance'))
 const ConservationPassports = lazy(() => import('./routes/solutions/ConservationPassports'))
 const FairPayTelemetry = lazy(() => import('./routes/solutions/FairPayTelemetry'))
@@ -74,6 +78,8 @@ export default function App() {
         <Route path="/funder" element={<Navigate to="/funder/funder-a" replace />} />
         <Route path="/funder/:orgSlug/*" element={<FunderView />} />
         <Route path="/investor/*" element={<InvestorRedirect />} />
+        <Route path="/offtaker" element={<Navigate to="/offtaker/rift-valley-tea" replace />} />
+        <Route path="/offtaker/:orgSlug/*" element={<OfftakerView />} />
         <Route path="/solutions/eudr-compliance" element={<EudrCompliance />} />
         <Route path="/solutions/conservation-passports" element={<ConservationPassports />} />
         <Route path="/solutions/fair-pay-telemetry" element={<FairPayTelemetry />} />

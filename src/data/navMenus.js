@@ -44,7 +44,9 @@ export const PARTNERS_MENU_COLUMNS = [
   },
   {
     label: 'Buyers',
+    note: 'Source Nyayo Tea Zone tea with every batch traced to its plot.',
     links: [
+      { to: '/offtaker', label: 'Offtaker portal', note: 'Supply, traceability and compliance — demo data' },
       { to: '/solutions/batch-traceability', label: 'Batch Traceability', note: 'Every pack, followed to source' },
       { to: '/solutions/evidence-export', label: 'Evidence Export', note: 'For your own due-diligence file' },
       { to: '/solutions/passport-access', label: 'Passport Access', note: 'The proof your customers see' },
