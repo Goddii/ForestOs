@@ -20,8 +20,8 @@ export const PROGRAMME_ID_PREFIX = {
   report: 'RPT',
 }
 
-/** @typedef {'implementer'|'funder'|'government'|'technology'|'verifier'} OrganisationType */
-export const ORGANISATION_TYPES = ['implementer', 'funder', 'government', 'technology', 'verifier']
+/** @typedef {'implementer'|'funder'|'offtaker'|'government'|'technology'|'verifier'} OrganisationType */
+export const ORGANISATION_TYPES = ['implementer', 'funder', 'offtaker', 'government', 'technology', 'verifier']
 
 /**
  * How the money is given — drives the workspace's language, never its structure.

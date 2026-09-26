@@ -37,6 +37,36 @@ export const PUBLIC_CLAIM_BASIS = {
   eudrStatus: { method: 'Requires a due-diligence statement against the 2020 forest baseline', source: 'Demo data', status: 'method_pending' },
 }
 
+/** EUDR verification block for a lot that passed both checks. */
+function verified(timestamp, reference, fieldDate, satelliteDate) {
+  return {
+    standard: 'EUDR — Deforestation-Free',
+    status: 'Verified',
+    timestamp,
+    reference,
+    field: { status: 'Verified', date: fieldDate, by: 'NTZDC field officer' },
+    satellite: { status: 'Verified', date: satelliteDate, source: 'Sentinel-2 L2A', baseline: '2020-12-31' },
+  }
+}
+
+/** A sealed lot not yet allocated to any buyer: no brand, product or retail premium yet. */
+function unsoldLot(record) {
+  return {
+    sectorPlotId: null,
+    channel: 'direct_sold',
+    brand: null,
+    brandId: null,
+    product: null,
+    season: '2026 main crop',
+    volumeKg: record.batch.madeTeaKg,
+    premiumKesPerKg: null,
+    protectedPerCup: null,
+    hectaresPreserved: null,
+    settlementDays: null,
+    ...record,
+  }
+}
+
 const RECORDS = [
   {
     id: '802', // short retail code carried on the pack / QR
@@ -426,6 +456,85 @@ const RECORDS = [
     },
     community: { farmersRepresented: 26, womenPluckersPct: 59, paidMobileMoneyPct: 100, settledSameWeekPct: 90 },
   },
+  // ── Unsold lots (Sept 2026) ────────────────────────────────────────────────
+  // Sealed and verified at the factory but not yet allocated to a buyer, so
+  // they carry no brand, no product and no retail pack. The Offtaker Portal
+  // lists them as available tea; the public QR resolver ignores them (no pack,
+  // so nothing to scan — see `lib/mock.js`). `id` is the factory's short lot
+  // code until a brand prints its own.
+  unsoldLot({
+    id: '611',
+    traceId: 'TL-2026-00611',
+    block: { id: 'KPT', name: 'Kiptunga Block', bufferZone: 'Mau Forest', region: 'Kiptunga Block, South West Mau', covenantHa: 3180, patrolsThisMonth: 11, seedlingsPlanted: 4200 },
+    land: { name: 'Mau Forest Complex', region: 'South West Mau', waterTowers: ['Mara', 'Sondu', 'Njoro'] },
+    plot: { id: 'MAU-KPT-0611', centre: 'Kiptunga Collection Centre', lat: -0.419, lon: 35.611, areaHa: 3.9, canopyBaseline2020Pct: 65, canopyNowPct: 69, ndvi: 0.69, farmers: 35 },
+    harvest: { window: '2026-09-02 – 2026-09-08', month: 'September 2026', greenLeafKg: 7700, pluckers: 1110 },
+    batch: { sealedAt: '2026-09-11', madeTeaKg: 1720, grade: 'BP1' },
+    processing: { facility: 'Kiptunga Tea Factory', lotId: 'KTF-2026-0611', processedAt: '2026-09-10', method: 'CTC · 14 h withering' },
+    verification: verified('2026-09-14 10:21 EAT', '0x61a7c03e9b24f158', '2026-09-04', '2026-09-14'),
+    community: { farmersRepresented: 35, womenPluckersPct: 60, paidMobileMoneyPct: 100, settledSameWeekPct: 93 },
+  }),
+  unsoldLot({
+    id: '624',
+    traceId: 'TL-2026-00624',
+    block: { id: 'NES', name: 'Nessuit Block', bufferZone: 'Mau Forest', region: 'Nessuit Block, South West Mau', covenantHa: 2440, patrolsThisMonth: 8, seedlingsPlanted: 3100 },
+    land: { name: 'Mau Forest Complex', region: 'South West Mau', waterTowers: ['Sondu', 'Yala'] },
+    plot: { id: 'MAU-NES-0624', centre: 'Nessuit Collection Centre', lat: -0.527, lon: 35.696, areaHa: 3.2, canopyBaseline2020Pct: 60, canopyNowPct: 63, ndvi: 0.63, farmers: 27 },
+    harvest: { window: '2026-09-05 – 2026-09-11', month: 'September 2026', greenLeafKg: 6600, pluckers: 860 },
+    batch: { sealedAt: '2026-09-14', madeTeaKg: 1480, grade: 'PF1' },
+    processing: { facility: 'Nessuit Tea Factory', lotId: 'NTF-2026-0624', processedAt: '2026-09-13', method: 'CTC · 16 h withering' },
+    verification: verified('2026-09-17 09:05 EAT', '0x24f9d1b07ce35a82', '2026-09-07', '2026-09-17'),
+    community: { farmersRepresented: 27, womenPluckersPct: 58, paidMobileMoneyPct: 100, settledSameWeekPct: 89 },
+  }),
+  unsoldLot({
+    // Satellite cross-check still outstanding: the field check is done, the
+    // Sentinel-2 pass over this plot was cloud-covered. Shown as pending, not
+    // verified, everywhere it appears.
+    id: '630',
+    traceId: 'TL-2026-00630',
+    block: { id: 'MAR', name: 'Mariashoni Block', bufferZone: 'Mau Forest', region: 'Mariashoni Block, South West Mau', covenantHa: 2870, patrolsThisMonth: 12, seedlingsPlanted: 3800 },
+    land: { name: 'Mau Forest Complex', region: 'South West Mau', waterTowers: ['Mara', 'Sondu', 'Ewaso Ng’iro'] },
+    plot: { id: 'MAU-MAR-0630', centre: 'Mariashoni Collection Centre', lat: -0.556, lon: 35.541, areaHa: 3.5, canopyBaseline2020Pct: 63, canopyNowPct: 68, ndvi: 0.68, farmers: 31 },
+    harvest: { window: '2026-09-08 – 2026-09-14', month: 'September 2026', greenLeafKg: 6200, pluckers: 930 },
+    batch: { sealedAt: '2026-09-17', madeTeaKg: 1390, grade: 'BP1' },
+    processing: { facility: 'Mariashoni Tea Factory', lotId: 'MTF-2026-0630', processedAt: '2026-09-16', method: 'CTC · 14 h withering' },
+    verification: {
+      standard: 'EUDR — Deforestation-Free',
+      status: 'Pending',
+      timestamp: '—',
+      reference: '—',
+      field: { status: 'Verified', date: '2026-09-10', by: 'NTZDC field officer' },
+      satellite: { status: 'Pending', date: '—', source: 'Sentinel-2 L2A', baseline: '2020-12-31' },
+    },
+    community: { farmersRepresented: 31, womenPluckersPct: 62, paidMobileMoneyPct: 100, settledSameWeekPct: 90 },
+  }),
+  unsoldLot({
+    id: '637',
+    traceId: 'TL-2026-00637',
+    block: { id: 'KAN', name: 'Kangaita Block', bufferZone: 'Mount Kenya Forest', region: 'Kangaita Block, Mount Kenya East', covenantHa: 2960, patrolsThisMonth: 10, seedlingsPlanted: 2600 },
+    land: { name: 'Mount Kenya Forest', region: 'Central Highlands', waterTowers: ['Tana', 'Ewaso Ng’iro'] },
+    plot: { id: 'MTK-KAN-0637', centre: 'Kangaita Collection Centre', lat: -0.486, lon: 37.284, areaHa: 2.9, canopyBaseline2020Pct: 62, canopyNowPct: 67, ndvi: 0.67, farmers: 24 },
+    harvest: { window: '2026-09-09 – 2026-09-15', month: 'September 2026', greenLeafKg: 5200, pluckers: 690 },
+    batch: { sealedAt: '2026-09-18', madeTeaKg: 1150, grade: 'PD' },
+    processing: { facility: 'Kangaita Tea Factory', lotId: 'KGT-2026-0637', processedAt: '2026-09-17', method: 'CTC · 15 h withering' },
+    verification: verified('2026-09-21 13:40 EAT', '0x7e02b9d4a61c38f5', '2026-09-11', '2026-09-21'),
+    community: { farmersRepresented: 24, womenPluckersPct: 57, paidMobileMoneyPct: 100, settledSameWeekPct: 88 },
+  }),
+  unsoldLot({
+    // A lot whose centre → factory delivery reconciliation was flagged (see
+    // `data/supply/deliveries.js`) — kept visible so the buyer sees the
+    // exception rather than a portal that only ever shows clean records.
+    id: '645',
+    traceId: 'TL-2026-00645',
+    block: { id: 'TIN', name: 'Tinet Block', bufferZone: 'Mau Forest', region: 'Tinet Block, South West Mau', covenantHa: 1960, patrolsThisMonth: 7, seedlingsPlanted: 2300 },
+    land: { name: 'Mau Forest Complex', region: 'South West Mau', waterTowers: ['Sondu', 'Mara'] },
+    plot: { id: 'MAU-TIN-0645', centre: 'Tinet Collection Centre', lat: -0.648, lon: 35.502, areaHa: 2.6, canopyBaseline2020Pct: 58, canopyNowPct: 62, ndvi: 0.62, farmers: 22 },
+    harvest: { window: '2026-09-10 – 2026-09-16', month: 'September 2026', greenLeafKg: 4400, pluckers: 610 },
+    batch: { sealedAt: '2026-09-19', madeTeaKg: 960, grade: 'PF1' },
+    processing: { facility: 'Kiptunga Tea Factory', lotId: 'KTF-2026-0645', processedAt: '2026-09-18', method: 'CTC · 14 h withering' },
+    verification: verified('2026-09-22 16:12 EAT', '0x5c38e1f0b92d47a6', '2026-09-12', '2026-09-22'),
+    community: { farmersRepresented: 22, womenPluckersPct: 64, paidMobileMoneyPct: 100, settledSameWeekPct: 86 },
+  }),
   {
     // Auction-pool volume — deliberately NOT branded. Batch Lookup rejects it.
     id: 'AUC-4471',

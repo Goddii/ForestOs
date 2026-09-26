@@ -319,6 +319,18 @@
     background-color: var(--color-canvas);
   }
 
+  /* ── Offtaker Portal (`/offtaker/*`) ──
+     Same component family as the funder console (dark nav rail, white
+     cards, forest-accent green) on a plain white page, per the buyer-portal
+     brief: a procurement tool, read in long table-heavy sessions. */
+  .offtaker {
+    color-scheme: light;
+  }
+  html.offtaker-root,
+  html.offtaker-root body {
+    background-color: var(--color-card);
+  }
+
   /* Second tenant — a club's supporter experience. Its only job in the
      prototype is to prove the front end is genuinely swappable: the same seven
      screens, the same verification record underneath, an identity that is not
@@ -359,6 +371,13 @@
    — standard OpenStreetMap tiles, no API key, darkened to match the
    console's dark ground via the classic CSS-invert trick rather than a
    dark-tile provider that turned out to require a registered key. */
+/* Offtaker Portal supply map (src/components/offtaker/SupplyMap.jsx): a
+   calm, desaturated light basemap so the green centre markers carry the
+   colour on the portal's white canvas. */
+.offtaker-map-tiles {
+  filter: grayscale(1) contrast(0.92) brightness(1.04);
+}
+
 .investor-map-dark-tiles {
   filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.92) saturate(0.65);
 }

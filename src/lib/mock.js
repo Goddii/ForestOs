@@ -4,10 +4,11 @@
 import { BATCH_CHAIN, findBatchRecord, isNonAuction, toLegacyBatch } from './batchChain'
 
 // The public QR page only ever renders a branded / direct-sold retail batch —
-// never an auction lot — so its resolver ignores auction records.
+// never an auction lot or an unsold factory lot — so its resolver ignores both.
 function findPublicBatch(batchId) {
   const record = findBatchRecord(batchId)
-  return record && isNonAuction(record.channel) ? record : null
+  // An unsold lot has no brand and no retail pack, so there is no QR to scan.
+  return record && isNonAuction(record.channel) && record.brand ? record : null
 }
 
 // The reference batch, projected from the shared canonical chain

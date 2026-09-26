@@ -313,6 +313,48 @@ writing a one-off card or button.
 - **`StatCard`**: the one number-display primitive (`font-sans font-bold tabular-nums`, sizes `sm`–`xl`), optionally wrapping a `CountUp` and/or a `Sparkline` as `children`.
 - **`Sparkline`**: a minimal inline SVG trend line (72×24, `currentColor` stroke) for a KPI tile's own real trend series — supplements the headline number, never stands in for it; always paired with an `aria-label` reading the series as text.
 
+## The Offtaker Portal (`/offtaker/*`)
+
+The tea-buyer workspace (`src/routes/OfftakerView.jsx`, components under
+`src/components/offtaker/`). It answers one question for buyers, processors,
+exporters and procurement teams: **can I source this tea with confidence?**
+The Overview opens by answering it directly, as four checks (traceability,
+quality, compliance, origin), each with a status and the reason for it.
+
+- **Same family as the investor console, on a white page.** It reuses the
+  dark `forest-950` nav rail, the `investor/ui` primitives (`Badge`,
+  `ActionButton`, `ContentCard`, `StatCard`), `SectionHeading`, `FilterBar`,
+  `EmptyState`, `VerificationStateBadge`, `PerformanceChart` and the shared
+  `EvidenceDrawer`. The page ground is `card` white (`html.offtaker-root`),
+  not `canvas`. Serif appears only in the Overview `<h1>` (the buyer's name).
+  Every other page has a visible sans `<h1>` via `PageHeader`.
+- **No data model of its own.** Batches are the canonical chain
+  (`lib/batchChain.js`, which now also holds unsold lots). Organisations
+  come from the shared registry. Conservation comes from the funder
+  programme's own records. Supply-side records (`data/supply/`: centres,
+  intake, delivery reconciliation, quality, forecasts, documents) are keyed
+  to batch trace ids. `data/offtaker/workspace.js` is the single boundary
+  where organisation and role scoping is applied, before any component
+  renders.
+- **Status is always icon + label + fill.** `StatusBadges.jsx` covers journey
+  stages (verified / pending / flagged / not recorded / open), documents
+  (valid / expiring / expired / pending / withdrawn) and claims (verified /
+  reported / method pending / no evidence linked).
+- **The traceability journey** (`TraceJourney`) is the signature component:
+  six numbered stages joined by a connector. The connector is solid green
+  only after a verified stage, so a break in the chain is visible at a
+  glance. `JourneyStrip` is its compact form for cards and table rows.
+- **Honesty rules.** No quality thresholds are invented; measured values
+  are shown with their method. Forecasts are labelled as estimates. A flagged
+  exception stays on the record after sign-off. A buyer with no
+  conservation connection sees "0 kg" and an empty state, not a proxy
+  claim. Restricted data renders as a `RestrictedNote` naming the missing
+  permission, never as a blank. Another buyer's batch returns the same "not
+  available" page as a non-existent one.
+- **The map** (`SupplyMap`) is a light, desaturated OSM basemap
+  (`.offtaker-map-tiles`), the white-canvas counterpart of the console's dark
+  `LandscapeMap`.
+
 ## Do's and Don'ts
 
 ### Do:

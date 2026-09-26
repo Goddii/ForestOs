@@ -61,6 +61,12 @@ const GROUPS = [
         note: 'Institutional investor dashboard — capital, evidence, risk, governance. No real backend yet.',
       },
       {
+        href: '/offtaker',
+        title: 'Offtaker Portal (tea buyers)',
+        tag: 'Demo',
+        note: 'Buyer workspace — supply, available lots, batch traceability journeys, quality, compliance, verified origin and exports. Switch buyer and role in the header.',
+      },
+      {
         href: '/launch',
         title: 'Forest Edition launch/request page',
         tag: 'Live route',
