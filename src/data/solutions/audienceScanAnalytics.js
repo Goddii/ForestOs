@@ -154,8 +154,8 @@ export const audienceScanAnalytics = {
 
   finalCta: {
     title: 'Walk the funnel behind a real drop.',
-    body: 'Request a Forest Edition and we’ll show you the live passport structure your own audience would move through.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Request a demo and we’ll walk the passport structure your own audience would move through, from scan to sign-up.',
+    primary: { label: 'Request a demo', to: '/demo?for=creator' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

@@ -20,9 +20,9 @@ export const RECORD_MENU_COLUMNS = [
 ]
 
 // One column per partner segment, each naming what ForestOS offers that
-// segment — not proof content. Every offering below now has a live page;
-// once a company is actually onboarded, real dashboard access (not these
-// demo solution pages) is what they get scoped to their own data.
+// segment — not proof content. Information pages only: the demo dashboards
+// (brand, offtaker, funder) are reached from each page's "Request a demo"
+// button via /demo, not linked from this menu.
 export const PARTNERS_MENU_COLUMNS = [
   {
     label: 'Brands & Offtakers',
@@ -36,7 +36,6 @@ export const PARTNERS_MENU_COLUMNS = [
     label: 'ESG & Corporate',
     note: "Deploy conservation capital where it's verified, not just promised.",
     links: [
-      { to: '/funder', label: 'Funder workspace', note: 'Funding, progress and evidence — demo data' },
       { to: '/solutions/capital-deployment', label: 'Capital Deployment', note: 'Fund a block, sector by sector' },
       { to: '/solutions/impact-verification', label: 'Impact Verification', note: 'Satellite-backed, not self-reported' },
       { to: '/solutions/transparent-reporting', label: 'Transparent Reporting', note: 'Audit-ready, exportable' },
@@ -46,7 +45,6 @@ export const PARTNERS_MENU_COLUMNS = [
     label: 'Buyers',
     note: 'Source Nyayo Tea Zone tea with every batch traced to its plot.',
     links: [
-      { to: '/offtaker', label: 'Offtaker portal', note: 'Supply, traceability and compliance — demo data' },
       { to: '/solutions/batch-traceability', label: 'Batch Traceability', note: 'Every pack, followed to source' },
       { to: '/solutions/evidence-export', label: 'Evidence Export', note: 'For your own due-diligence file' },
       { to: '/solutions/passport-access', label: 'Passport Access', note: 'The proof your customers see' },

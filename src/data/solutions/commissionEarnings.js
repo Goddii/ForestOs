@@ -157,8 +157,8 @@ export const commissionEarnings = {
 
   finalCta: {
     title: 'See a real conservation contribution, pack to payout.',
-    body: 'Request a Forest Edition and we’ll walk the live per-pack rate and settlement record with you.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Request a demo and we’ll walk the live per-pack rate and settlement record with you.',
+    primary: { label: 'Request a demo', to: '/demo?for=creator' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

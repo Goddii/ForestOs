@@ -155,8 +155,8 @@ export const passportAccess = {
 
   finalCta: {
     title: 'See a real passport before you launch your own.',
-    body: 'Request a Forest Edition and we’ll walk the live Majani × Nyashinski passport with you, stage by stage.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Request a demo and we’ll walk the live Majani × Nyashinski passport with you, then show how a brand publishes its own from the brand dashboard.',
+    primary: { label: 'Request a demo', to: '/demo?for=brand' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

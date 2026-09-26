@@ -157,8 +157,8 @@ export const impactVerification = {
 
   finalCta: {
     title: 'See the verification record behind a real block.',
-    body: 'Request a demo and we’ll walk a real forest block’s NDVI history with you, baseline to present — or open the Conservation Capital console yourself.',
-    primary: { label: 'Open the funder workspace', to: '/funder' },
+    body: 'Request a demo and we’ll walk a real forest block’s NDVI history with you in the funder workspace, baseline to present.',
+    primary: { label: 'Request a demo', to: '/demo?for=funder' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

@@ -331,6 +331,19 @@
     background-color: var(--color-card);
   }
 
+  /* ── Brand Portal (`/brand/*`) ──
+     The Offtaker Portal's white-first construction (dark rail, white cards,
+     forest-accent green). Brand colours appear only inside brand-owned
+     previews (pack renders, the experience preview), never on portal chrome,
+     so ForestOS's verified layer always looks like ForestOS. */
+  .brand-portal {
+    color-scheme: light;
+  }
+  html.brand-root,
+  html.brand-root body {
+    background-color: var(--color-card);
+  }
+
   /* Second tenant — a club's supporter experience. Its only job in the
      prototype is to prove the front end is genuinely swappable: the same seven
      screens, the same verification record underneath, an identity that is not

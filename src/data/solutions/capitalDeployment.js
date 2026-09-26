@@ -156,8 +156,8 @@ export const capitalDeployment = {
 
   finalCta: {
     title: 'See a sponsored block before you commit capital.',
-    body: 'Request a Forest Edition and we’ll walk a real forest block’s covenant, network, and verification record with you.',
-    primary: { label: 'Request a Forest Edition', to: '/launch' },
+    body: 'Request a demo and we’ll walk a real forest block’s covenant, network and verification record with you in the funder workspace.',
+    primary: { label: 'Request a demo', to: '/demo?for=funder' },
     secondary: { label: 'See a sample batch record', to: '/batch/921' },
   },
 }

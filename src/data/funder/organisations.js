@@ -98,6 +98,35 @@ export const ORGANISATIONS = [
     type: 'offtaker',
     isPlaceholder: true,
   },
+  // Brands — hospitality and café brands building premium tea products on
+  // ForestOS-verified origin (the Brand Portal). Fictional on purpose, in the
+  // same spirit as the offtakers above: mock conservation and scan records
+  // under a real company's name would be a false claim about that company.
+  // Each sources its tea as a private label packed by Rift Valley Tea Co.
+  {
+    id: 'org-brand-kilele',
+    slug: 'kilele-coffee-house',
+    name: 'Kilele Coffee House',
+    note: 'Demo café chain',
+    type: 'brand',
+    isPlaceholder: true,
+  },
+  {
+    id: 'org-brand-maracrest',
+    slug: 'mara-crest-hotels',
+    name: 'Mara Crest Hotels & Lodges',
+    note: 'Demo Kenyan hotel and safari lodge group',
+    type: 'brand',
+    isPlaceholder: true,
+  },
+  {
+    id: 'org-brand-halden',
+    slug: 'halden-grand',
+    name: 'The Halden Grand, Nairobi',
+    note: 'Demo international luxury hotel',
+    type: 'brand',
+    isPlaceholder: true,
+  },
 ]
 
 export function getOrganisation(id) {
@@ -111,3 +140,5 @@ export function getOrganisationBySlug(slug) {
 export const FUNDER_ORGANISATIONS = ORGANISATIONS.filter((org) => org.type === 'funder')
 
 export const OFFTAKER_ORGANISATIONS = ORGANISATIONS.filter((org) => org.type === 'offtaker')
+
+export const BRAND_ORGANISATIONS = ORGANISATIONS.filter((org) => org.type === 'brand')

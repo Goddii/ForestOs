@@ -225,6 +225,7 @@ A small mono, uppercase, tracked line pairs with load-bearing record data — ba
   Below `sm:`, the hamburger opens a full-screen `role="dialog"` drawer (body-scroll locked, `overscroll-contain`, Escape closes, focus moves to its close button on open) listing every link flat — no nested accordion, there isn't enough content to need one. (The nav previously also carried an amber "Offtaker & Brand Login" pill to `/dashboard`; removed when the B2B/ESG portal moved to the separate `forestos-ops` app. That app is NTZDC-internal only now, not a partner-facing destination, so this nav doesn't link to it at all.)
 
 ### Solution / offering pages ("Partners")
+- **Demo dashboards sit behind "Request a demo".** The Partners menu lists information pages only. Every offering page's main button (hero and final CTA) is "Request a demo" → `/demo?for=<brand|offtaker|funder|creator>` (`src/routes/RequestDemo.jsx`); the page lists every dashboard in `src/data/demoDashboards.js`, the visitor's own first. No details are asked for yet; a request form will be added in front of it later. A new portal is added there, not to the menu.
 
 Every item in the "Partners" nav dropdown is a full solution page — the osapiens-depth template (hero → belt-totals stat strip → problem/solution framing → capability deep-dive → testimonial → FAQ → cross-suite promo → final CTA), built once as a shared, content-driven template rather than per-page bespoke markup. All 12 pages across the four partner segments (Brands & Offtakers, ESG & Corporate, Buyers, Creators & Artists) are now live; "Co-Branded Editions" (Creators) deliberately keeps pointing at the real `/launch` configurator instead of getting a duplicate templated page, since a working lead-gen form beats a generic description of one.
 
@@ -354,6 +355,52 @@ quality, compliance, origin), each with a status and the reason for it.
 - **The map** (`SupplyMap`) is a light, desaturated OSM basemap
   (`.offtaker-map-tiles`), the white-canvas counterpart of the console's dark
   `LandscapeMap`.
+
+## The Brand Portal (`/brand/*`)
+The workspace for hospitality and café brands (`src/routes/BrandView.jsx`,
+components under `src/components/brand/`). It answers one question: **how do
+I turn verified Nyayo Tea Zone origin and conservation into a premium product
+experience?** Twelve sections in four groups: Product (Brand overview,
+Products, Tea sources, Conservation story), Engage (Campaigns, QR
+experiences, Content & claims), Measure (Impact, Analytics), Workspace
+(Assets, Team, Settings).
+- **A sibling of the Offtaker Portal, not a new world.** Same dark rail,
+  white `card` page (`html.brand-root`), `PageHeader`, `DataTable`, `Badge`,
+  `ActionButton`, `SectionHeading` and the shared `EvidenceDrawer`. Serif only
+  on the Overview `<h1>` (the brand's name).
+- **Brand colour lives only in brand-owned previews.** The brand kit
+  (monogram, primary, accent) colours `PackRender`, `BrandMark` and the
+  studio's `ExperiencePreview`; portal chrome and every verified block stay
+  ForestOS green, so verified data always looks like ForestOS.
+- **Brand content vs ForestOS verified data is visible everywhere.**
+  `SourceTag` marks each block "Brand content" (pencil, outline) or
+  "ForestOS verified" (lock, green fill). Verified blocks have no edit
+  controls for any role.
+- **Claims are computed, not stored.** A brand claim records only the words
+  and what it asserts; `lib/brand/claims.js` returns the verdict (approved /
+  use approved wording / verification pending / cannot be claimed yet), the
+  reason, the evidence and the wording the records support, from the
+  activities in the buffer segments linked to the product's lots.
+- **Signature components.** `ProvenanceChain` (Product → Tea source → Nyayo
+  Tea Zone → Verified conservation → Consumer experience; the spine is solid
+  green only after a verified node) and the QR studio (form left; phone
+  preview, publish checklist from `lib/brand/publish.js` and a real SVG QR
+  code right).
+- **QR experiences publish, never restyle.** One template for now; every
+  experience opens the public batch #921 record as a placeholder
+  (`?exp=<shortCode>`). The public QR surfaces are untouched.
+- **Custom design requests.** Beside the templates, a dashed "Custom
+  experience, designed by ForestOS" card opens a routed brief
+  (`experiences/request`); requests then show on the QR experiences page
+  with a five-stage tracker (Received → Scoping → In design → Your review →
+  Delivered). The design team designs the brand layer only.
+- **Charts** follow the dataviz rules: single forest-accent hue, zero
+  baseline, 1-2-5 round ticks, crosshair + arrow-key tooltip, a table view;
+  location pooled under a 10-scan floor.
+- **Shared records.** Brands buy through a packer (Rift Valley Tea Co.); every
+  brand lot is on that packer's commitments and stays the packer's in the
+  Offtaker Portal (`data/brand/workspace.test.js` enforces it). Demo brands
+  are fictional, like the offtakers.
 
 ## Do's and Don'ts
 
