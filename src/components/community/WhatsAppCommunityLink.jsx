@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const WHATSAPP_GREEN = '#25D366'
 // Simulated invite: never navigates. Swap for a real chat.whatsapp.com link when the group exists.
@@ -37,7 +38,7 @@ export default function WhatsAppCommunityLink({ groupName, memberCount, fontClas
         {hasJoined ? 'Open WhatsApp community' : 'Join the WhatsApp community'}
       </button>
 
-      {isOpen && (
+      {isOpen && createPortal(
         <div
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-[16px]"
           onClick={() => setIsOpen(false)}
@@ -70,7 +71,8 @@ export default function WhatsAppCommunityLink({ groupName, memberCount, fontClas
             </button>
             <p className="text-[10px] text-[#667781]">Demo preview — no message is sent.</p>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   )
