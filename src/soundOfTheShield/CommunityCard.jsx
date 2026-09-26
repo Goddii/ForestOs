@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { imgLeaf1 } from './assets'
+import WhatsAppCommunityLink from '../components/community/WhatsAppCommunityLink'
 
 const STATS = [
   { key: 'members', value: '24.5K', label: 'Members', tint: 'green' },
@@ -64,6 +65,7 @@ export default function CommunityCard() {
         <p className="[word-break:break-word] font-['Inter'] font-normal leading-[normal] not-italic relative shrink-0 text-[10px] text-[rgba(255,255,255,0.27)] text-center w-full">
           {joined ? "You're in — check your email for next steps" : 'Free to join • No commitment required'}
         </p>
+        <WhatsAppCommunityLink groupName="Shield Community" memberCount="24.5K" />
       </div>
     </div>
   )
