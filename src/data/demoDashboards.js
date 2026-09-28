@@ -18,7 +18,7 @@ export const DEMO_DASHBOARDS = [
     name: 'Brand Portal',
     forWhom: 'Brands, cafés and hotels',
     summary: 'Build tea products on verified lots, check every claim against the records, customise and publish QR experiences, and see scans and impact.',
-    audiences: ['brand', 'creator'],
+    audiences: ['brand'],
   },
   {
     id: 'offtaker',
@@ -35,6 +35,14 @@ export const DEMO_DASHBOARDS = [
     forWhom: 'ESG funders and investors',
     summary: 'Where committed capital went, what was done on the ground, the evidence behind each output, risks and reports.',
     audiences: ['funder'],
+  },
+  {
+    id: 'creator',
+    to: '/creator',
+    name: 'Creative Partner Portal',
+    forWhom: 'Artists, creators and cultural partners',
+    summary: 'Turn the verified conservation story into campaign experiences: pick a template, add your music and links, publish behind a QR code and see how your community responds.',
+    audiences: ['creator'],
   },
 ]
 

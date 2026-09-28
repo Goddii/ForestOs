@@ -73,6 +73,12 @@ const GROUPS = [
         note: 'Brand workspace: products on verified lots, conservation story, campaigns, QR experience studio, claim checks against the records, impact and scan analytics. Switch brand and role in the header.',
       },
       {
+        href: '/creator',
+        title: 'Creative Partner Portal (artists and creators)',
+        tag: 'Demo',
+        note: 'Creator workspace: campaigns, an Experience Studio built on the QR prototypes above as templates, the verified conservation story (locked), community links, QR codes and scan analytics.',
+      },
+      {
         href: '/launch',
         title: 'Forest Edition launch/request page',
         tag: 'Live route',

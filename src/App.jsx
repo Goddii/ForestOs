@@ -46,6 +46,11 @@ const OfftakerView = lazy(() => import('./routes/OfftakerView'))
 // experiences (Sept 2026). Each brand gets `/brand/:orgSlug`; it reads the
 // same batch chain and conservation records as the other portals.
 const BrandView = lazy(() => import('./routes/BrandView'))
+// Creative Partner Portal — artists and cultural partners turning the
+// verified conservation story into campaign QR experiences (Sept 2026). The
+// existing QR prototypes are its templates; each creator gets
+// `/creator/:creatorSlug`.
+const CreatorView = lazy(() => import('./routes/CreatorView'))
 // "Request a demo" — the public site's one entry point to the demo
 // dashboards. Information pages link here with `?for=<audience>`.
 const RequestDemo = lazy(() => import('./routes/RequestDemo'))
@@ -91,6 +96,8 @@ export default function App() {
         <Route path="/demo" element={<RequestDemo />} />
         <Route path="/brand" element={<Navigate to="/brand/kilele-coffee-house" replace />} />
         <Route path="/brand/:orgSlug/*" element={<BrandView />} />
+        <Route path="/creator" element={<Navigate to="/creator/nyashinski" replace />} />
+        <Route path="/creator/:creatorSlug/*" element={<CreatorView />} />
         <Route path="/solutions/eudr-compliance" element={<EudrCompliance />} />
         <Route path="/solutions/conservation-passports" element={<ConservationPassports />} />
         <Route path="/solutions/fair-pay-telemetry" element={<FairPayTelemetry />} />

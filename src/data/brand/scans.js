@@ -94,7 +94,14 @@ const PROFILES = {
   },
 }
 
-function dailySeries(experience, profile) {
+/**
+ * One experience's daily scan records from its publish date to AS_OF, drawn
+ * from its profile's seeded walk. Shared with the Creator Portal.
+ *
+ * @param {{ id: string, publishedAt: string }} experience
+ * @param {{ seed: number, daily: number, ramp: number, busyDays: number[] }} profile
+ */
+export function dailySeries(experience, profile) {
   const random = seeded(profile.seed)
   const start = Date.parse(experience.publishedAt)
   const end = Date.parse(AS_OF)

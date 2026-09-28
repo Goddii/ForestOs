@@ -344,6 +344,26 @@
     background-color: var(--color-card);
   }
 
+  /* ── Creative Partner Portal (`/creator/*`) ──
+     White canvas and forest-accent green like the other portals, but a
+     white rail and the public display serif for campaign titles, so it
+     reads as a creative studio rather than a data console. */
+  .creator-portal {
+    color-scheme: light;
+  }
+  .creator-portal ::selection {
+    background: var(--color-forest-accent);
+    color: var(--color-card);
+  }
+  .creator-portal :focus-visible {
+    outline: 2px solid var(--color-forest-accent);
+    outline-offset: 2px;
+  }
+  html.creator-root,
+  html.creator-root body {
+    background-color: var(--color-card);
+  }
+
   /* Second tenant — a club's supporter experience. Its only job in the
      prototype is to prove the front end is genuinely swappable: the same seven
      screens, the same verification record underneath, an identity that is not
