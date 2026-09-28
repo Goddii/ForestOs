@@ -20,5 +20,11 @@ test('with no audience every dashboard shows in its usual order, none flagged', 
 })
 
 test('every dashboard points at a real portal route', () => {
-  expect(DEMO_DASHBOARDS.map((dashboard) => dashboard.to)).toEqual(['/brand', '/offtaker', '/funder'])
+  expect(DEMO_DASHBOARDS.map((dashboard) => dashboard.to)).toEqual(['/brand', '/offtaker', '/funder', '/creator'])
+})
+
+test('creators are sent to the creative partner portal, not the brand portal', () => {
+  const ordered = dashboardsFor('creator')
+  expect(ordered[0]).toMatchObject({ id: 'creator', recommended: true })
+  expect(ordered.filter((dashboard) => dashboard.recommended)).toHaveLength(1)
 })

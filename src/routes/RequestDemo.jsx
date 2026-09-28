@@ -57,21 +57,12 @@ export default function RequestDemo() {
             Open any of the dashboards below and explore. Every figure in them is demo data.
           </p>
 
-          <ul className="mt-12 grid gap-4 md:grid-cols-3" aria-label="Demo dashboards">
+          <ul className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Demo dashboards">
             {dashboards.map((dashboard) => (
               <DashboardCard key={dashboard.id} dashboard={dashboard} />
             ))}
           </ul>
 
-          {audience === 'creator' && (
-            <p className="mt-6 max-w-[60ch] text-[14px] leading-relaxed text-bone-300">
-              A portal for creators and artists is on its way. Until then, the Brand Portal shows how a partner builds products and QR experiences, and{' '}
-              <Link to="/launch" className="text-amber-400 underline decoration-amber-400/40 underline-offset-4 hover:decoration-amber-400">
-                Co-Branded Editions
-              </Link>{' '}
-              is where a creator starts an edition.
-            </p>
-          )}
         </div>
       </main>
       <MacroFooter />
