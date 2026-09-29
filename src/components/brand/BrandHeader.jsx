@@ -5,6 +5,7 @@ import { BRAND_ROLE_CONFIG } from '../../data/brand/roles'
 import { useBrand, useBrandPath } from './BrandWorkspaceContext'
 import Badge from '../investor/ui/Badge'
 import ActionButton from '../investor/ui/ActionButton'
+import SignOutButton from '../investor/ui/SignOutButton'
 
 const selectClass =
   'max-w-[15rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-compact normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50'
@@ -55,7 +56,7 @@ export default function BrandHeader() {
           </select>
         </label>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 flex-wrap items-center gap-2">
         <ActionButton to={path('experiences')} variant="ghost" icon={QrCode} iconPosition="left">
           QR experiences
         </ActionButton>
@@ -64,6 +65,7 @@ export default function BrandHeader() {
             New product
           </ActionButton>
         )}
+        <SignOutButton />
       </div>
     </header>
   )

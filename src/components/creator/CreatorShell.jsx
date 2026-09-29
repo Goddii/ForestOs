@@ -5,6 +5,7 @@ import { useCreator, useCreatorPath } from './CreatorContext'
 import { CREATOR_NAV } from './navItems'
 import Badge from '../investor/ui/Badge'
 import ActionButton from '../investor/ui/ActionButton'
+import SignOutButton from '../investor/ui/SignOutButton'
 
 /**
  * App shell for `/creator/*`. Deliberately lighter than the funder, buyer and
@@ -67,9 +68,12 @@ export default function CreatorShell({ children }) {
             <Badge tone="warning">Demo environment</Badge>
             <p className="text-compact text-ink-faint">Data as of {asOf}</p>
           </div>
-          <ActionButton to={path('studio')} variant="primary" icon={Wand2} iconPosition="left">
-            Experience Studio
-          </ActionButton>
+          <div className="flex items-center gap-2">
+            <ActionButton to={path('studio')} variant="primary" icon={Wand2} iconPosition="left">
+              Experience Studio
+            </ActionButton>
+            <SignOutButton />
+          </div>
         </header>
         <main className="mx-auto max-w-[84rem] px-4 py-10 sm:px-8 sm:py-12">{children}</main>
       </div>
