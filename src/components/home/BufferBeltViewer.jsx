@@ -67,11 +67,14 @@ export default function BufferBeltViewer() {
         </ErrorBoundary>
       </DeferredMount>
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-forest-950 to-transparent" />
+      {/* Taller top scrim with a held mid stop: the headline and copy sit on
+          bright footage, so the wash has to stay dense through the text block
+          (about the top 45% of the frame) before it releases the terrain. */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[55%] bg-gradient-to-b from-forest-950 via-forest-950/80 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-forest-950 to-transparent" />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 mx-auto max-w-6xl px-6 pt-20 sm:px-8 sm:pt-24">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-sage-500">
+      <div className="pointer-events-none absolute inset-x-0 top-0 mx-auto max-w-6xl px-6 pt-20 [text-shadow:0_1px_14px_rgba(8,20,14,0.85)] sm:px-8 sm:pt-24">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-sage-300">
           {lead.block} · {lead.hectares.toLocaleString()} ha under covenant
         </p>
         <h2 className="mt-3 max-w-[20ch] font-display text-3xl leading-[1.08] text-bone sm:text-5xl">
@@ -83,7 +86,7 @@ export default function BufferBeltViewer() {
         </p>
       </div>
 
-      <p className="pointer-events-none absolute bottom-8 left-6 font-mono text-[10px] uppercase tracking-[0.16em] text-sage-300 sm:bottom-10 sm:left-8">
+      <p className="pointer-events-none absolute bottom-8 left-6 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-300 [text-shadow:0_1px_12px_rgba(8,20,14,0.85)] sm:bottom-10 sm:left-8">
         {lead.sector} · {lead.counties} counties
       </p>
     </section>
