@@ -26,6 +26,10 @@ const SoundOfTheShield = lazy(() => import('./routes/SoundOfTheShield'))
 // seven-chapter QR story ported from Figma. Own folder (`src/livingAnthem/`),
 // own route file; does not touch any other route.
 const LivingAnthem = lazy(() => import('./routes/LivingAnthem'))
+// "Roots & Rhythms" — a fourth isolated QR-scan prototype (Terra Tea × Spotify
+// pack landing), ported from a Figma Make file. Own folder
+// (`src/rootsAndRhythms/`), own route file; does not touch any other route.
+const RootsAndRhythms = lazy(() => import('./routes/RootsAndRhythms'))
 // A plain link list to every prototype/comparison/demo build in this repo,
 // for quickly switching between them in a demo — links out only, changes
 // nothing about the routes it lists.
@@ -86,6 +90,7 @@ export default function App() {
         <Route path="/majani/nyashinski" element={<MajaniNyashinski />} />
         <Route path="/sound-of-the-shield" element={<SoundOfTheShield />} />
         <Route path="/living-anthem" element={<LivingAnthem />} />
+        <Route path="/roots-and-rhythms" element={<RootsAndRhythms />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/launch" element={<LaunchEdition />} />
         <Route path="/funder" element={<Navigate to="/funder/funder-a" replace />} />

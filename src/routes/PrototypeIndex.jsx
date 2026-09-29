@@ -38,6 +38,12 @@ const GROUPS = [
         note: 'Figma-sourced seven-chapter QR story: scan → manifesto → Mau landscape → live telemetry → pledge → music reward → member passport, with Magic UI / React Bits micro-animations.',
       },
       {
+        href: '/roots-and-rhythms',
+        title: 'Roots & Rhythms',
+        tag: 'Prototype',
+        note: 'Figma-sourced Terra Tea × Spotify pack landing: letter-drop headline, glass soundscape player driving a moss-arm visual, live tree counter, moss-fingerprint tree pledge.',
+      },
+      {
         href: '/passport/majani/921',
         title: 'Majani Passport (tenant passport)',
         tag: 'Approved design',
