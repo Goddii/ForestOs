@@ -5,8 +5,8 @@ import { TYPE } from './tokens'
 
 const FOREST_IMAGE = '/media/forests/mau.jpg'
 
-// Source: `PLATFORM.tagline` — "940 Kilometres of Protected Forest Edge. 16 Counties.
-// Five Water Towers." Illustrative demo figures, disclosed under the copy.
+// Source: `PLATFORM.tagline` — "940 Kilometres of Protected Forest Edge. 22 Zones.
+// Nine Water Towers." Illustrative demo figures, disclosed under the copy.
 const BELT_FACT = PLATFORM.tagline
 
 /** Who Nyayo Tea Zones is and the conservation work the tea belt does. */
@@ -41,9 +41,15 @@ export default function NyayoZones() {
         </Reveal>
         <Reveal animation="fade-up" delay={0.12}>
           <p style={TYPE.body}>
-            The belt wraps five great forest blocks, the water towers that feed Kenya&apos;s
+            The belt wraps great forest blocks, the water towers that feed Kenya&apos;s
             major rivers. Conservation is the daily work: covenants on the forest, patrols on
             the edge, and seedlings back in the ground.
+          </p>
+        </Reveal>
+        <Reveal animation="fade-up" delay={0.15}>
+          <p style={TYPE.body}>
+            The leaf is processed at the Corporation&apos;s own two factories: Kipchabo in
+            Nandi County and Gatitu in Kirinyaga County.
           </p>
         </Reveal>
         <Reveal animation="fade-up" delay={0.18}>

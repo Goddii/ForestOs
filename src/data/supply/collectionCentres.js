@@ -6,6 +6,12 @@
 // already used on the public site, not surveyed locations. `segmentIds` /
 // `landscapeFeatureIds` are the join to the buffer programme: a centre with
 // none is honestly shown as "no verified conservation programme linked yet".
+//
+// NTZDC publishes its zones and factories but no centre list, so centre names
+// stay demo placeholders. Each `factory` is one of NTZDC's two real factories
+// (`factories.js`); Mau centres route to Kipchabo as a demo choice.
+
+import { GATITU_FACTORY, KIPCHABO_FACTORY } from './factories'
 
 /** @type {import('../../lib/contracts/offtaker').CollectionCentre[]} */
 export const COLLECTION_CENTRES = [
@@ -15,7 +21,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'KPT',
     beltBlockId: 'mau',
     zone: 'South West Mau',
-    factory: 'Kiptunga Tea Factory',
+    factory: KIPCHABO_FACTORY,
     lat: -0.415,
     lon: 35.618,
     segmentIds: ['seg-01', 'seg-02'],
@@ -27,7 +33,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'NES',
     beltBlockId: 'mau',
     zone: 'South West Mau',
-    factory: 'Nessuit Tea Factory',
+    factory: KIPCHABO_FACTORY,
     lat: -0.523,
     lon: 35.702,
     segmentIds: ['seg-03'],
@@ -39,7 +45,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'MAR',
     beltBlockId: 'mau',
     zone: 'South West Mau',
-    factory: 'Mariashoni Tea Factory',
+    factory: KIPCHABO_FACTORY,
     lat: -0.552,
     lon: 35.548,
     segmentIds: [],
@@ -51,7 +57,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'TIN',
     beltBlockId: 'mau',
     zone: 'South West Mau',
-    factory: 'Kiptunga Tea Factory',
+    factory: KIPCHABO_FACTORY,
     lat: -0.648,
     lon: 35.502,
     segmentIds: ['seg-04', 'seg-05'],
@@ -63,7 +69,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'KAN',
     beltBlockId: 'mt-kenya',
     zone: 'Mount Kenya East',
-    factory: 'Kangaita Tea Factory',
+    factory: GATITU_FACTORY,
     lat: -0.489,
     lon: 37.291,
     segmentIds: [],
@@ -75,7 +81,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'WAN',
     beltBlockId: 'aberdares',
     zone: 'Aberdare Range',
-    factory: 'Wanjohi Tea Factory',
+    factory: GATITU_FACTORY,
     lat: -0.402,
     lon: 36.612,
     segmentIds: [],
@@ -87,7 +93,7 @@ export const COLLECTION_CENTRES = [
     blockId: 'KAP',
     beltBlockId: 'cherangany',
     zone: 'Cherangany Escarpment',
-    factory: 'Kapsara Tea Factory',
+    factory: KIPCHABO_FACTORY,
     lat: 1.042,
     lon: 35.402,
     segmentIds: [],

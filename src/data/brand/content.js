@@ -87,7 +87,7 @@ export const BRAND_CONTENT = [
     brandOrgId: 'org-brand-maracrest',
     type: 'story',
     title: 'In-room card story',
-    body: 'The tea in your room was grown on the Kiptunga buffer of the Mau Forest, one of Kenya’s five water towers. Scan to see the lot it came from and the forest work checked alongside it.',
+    body: 'The tea in your room was grown on the Kiptunga buffer of the Mau Forest, one of Kenya’s nine water towers. Scan to see the lot it came from and the forest work checked alongside it.',
     status: 'approved',
     claimIds: ['clm-mc-01'],
     usedIn: ['exp-mc-guest'],

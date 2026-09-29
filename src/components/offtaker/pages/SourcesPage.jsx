@@ -4,6 +4,7 @@ import SectionHeading from '../../investor/SectionHeading'
 import { getOrganisation } from '../../../data/funder/organisations'
 import { formatCount } from '../../../lib/offtaker/access'
 import { formatKg } from '../../../lib/offtaker/format'
+import { getFactoryProfile } from '../../../data/supply/factories'
 import { useOfftaker } from '../OfftakerWorkspaceContext'
 import PageHeader from '../PageHeader'
 import DataTable from '../DataTable'
@@ -22,7 +23,7 @@ export default function SourcesPage() {
   const factories = [...new Set(ws.batches.map((batch) => batch.record.processing.facility))].map((name) => {
     const batches = ws.batches.filter((batch) => batch.record.processing.facility === name)
     const documents = ws.documents.filter((document) => document.scope === 'factory' && document.scopeRef === name)
-    return { name, batches, documents, centres: [...new Set(batches.map((batch) => batch.centre?.name))] }
+    return { name, profile: getFactoryProfile(name), batches, documents, centres: [...new Set(batches.map((batch) => batch.centre?.name))] }
   })
 
   const centres = ws.centres
@@ -67,7 +68,17 @@ export default function SourcesPage() {
           {factories.map((factory) => (
             <ContentCard key={factory.name} className="p-5">
               <p className="font-semibold text-ink">{factory.name}</p>
-              <p className="mt-1 text-compact text-ink-muted">Fed by {factory.centres.join(', ')}</p>
+              {factory.profile ? (
+                <p className="mt-1 text-compact text-ink-faint">
+                  {factory.profile.county}, {factory.profile.region} · since {factory.profile.commissioned}
+                </p>
+              ) : null}
+              <p className="mt-1 text-compact text-ink-muted">Fed by {factory.centres.join(', ')} (illustrative demo routing)</p>
+              {factory.profile ? (
+                <p className="mt-1 text-compact text-ink-muted">
+                  {factory.profile.capacity}. NTZDC zones it serves: {factory.profile.zonesServed.join(', ')}.
+                </p>
+              ) : null}
               <p className="mt-3 text-sm tabular-nums text-ink">
                 {factory.batches.length} batch{factory.batches.length === 1 ? '' : 'es'}, {formatKg(factory.batches.reduce((s, b) => s + b.madeTeaKg, 0))}
               </p>

@@ -40,7 +40,7 @@ export const capitalDeployment = {
         id: 'counties',
         label: 'Counties Covered',
         value: '16',
-        unit: 'across five water towers',
+        unit: 'across five of the nine water towers',
       },
       {
         id: 'geolocated',

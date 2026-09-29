@@ -2,10 +2,12 @@
 // portal. There is no backend — every figure here is an illustrative placeholder.
 
 export const PLATFORM = {
-  tagline: '940 Kilometres of Protected Forest Edge. 16 Counties. Five Water Towers.',
+  tagline: '940 Kilometres of Protected Forest Edge. 22 Zones. Nine Water Towers.',
   subtext:
-    "Kenya's tea grows in a ring around the country's five great forest blocks — " +
-    'the water towers that feed every major river. ForestOS turns the belt of ' +
+    "Kenya's tea grows in a ring around the country's water towers — the forest " +
+    'blocks that feed every major river, buffered by Nyayo Tea Zones across 22 zones ' +
+    'and 16 counties, with leaf processed at its two factories, Kipchabo and Gatitu. ' +
+    'ForestOS turns the belt of ' +
     'smallholder tea farms along that edge into a living, verifiable buffer that ' +
     'holds the forest boundary and proves it, plot by plot.',
   stats: [

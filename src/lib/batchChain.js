@@ -9,7 +9,7 @@
 // aggregate counts (`farmers`, `pluckers`). There is nothing personal to redact;
 // redaction levels differ only in how much of the operational chain is exposed.
 // Illustrative mock data; there is no ForestOS backend.
-
+import { GATITU_FACTORY, KIPCHABO_FACTORY } from '../data/supply/factories'
 
 export const REDACTION = {
   // The public QR scan page: provenance and verification, coarse operational detail.
@@ -115,8 +115,8 @@ const RECORDS = [
     },
     batch: { sealedAt: '2026-08-26', madeTeaKg: 1840, grade: 'BP1' },
     processing: {
-      facility: 'Kiptunga Tea Factory',
-      lotId: 'KTF-2026-0802',
+      facility: KIPCHABO_FACTORY,
+      lotId: 'KPC-2026-0802',
       processedAt: '2026-08-27',
       method: 'CTC · 14 h withering',
     },
@@ -177,8 +177,8 @@ const RECORDS = [
     },
     batch: { sealedAt: '2026-08-19', madeTeaKg: 1520, grade: 'PF1' },
     processing: {
-      facility: 'Nessuit Tea Factory',
-      lotId: 'NTF-2026-0774',
+      facility: KIPCHABO_FACTORY,
+      lotId: 'KPC-2026-0774',
       processedAt: '2026-08-20',
       method: 'CTC · 16 h withering',
     },
@@ -243,8 +243,8 @@ const RECORDS = [
     },
     batch: { sealedAt: '2026-08-27', madeTeaKg: 1660, grade: 'BP1' },
     processing: {
-      facility: 'Mariashoni Tea Factory',
-      lotId: 'MTF-2026-0921',
+      facility: KIPCHABO_FACTORY,
+      lotId: 'KPC-2026-0921',
       processedAt: '2026-08-28',
       method: 'CTC · 14 h withering',
     },
@@ -317,8 +317,8 @@ const RECORDS = [
     },
     batch: { sealedAt: '2026-08-20', madeTeaKg: 1180, grade: 'PF1' },
     processing: {
-      facility: 'Kapsara Tea Factory',
-      lotId: 'KTF-2026-0733',
+      facility: KIPCHABO_FACTORY,
+      lotId: 'KPC-2026-0733',
       processedAt: '2026-08-21',
       method: 'CTC · 12 h withering',
     },
@@ -379,8 +379,8 @@ const RECORDS = [
     },
     batch: { sealedAt: '2026-08-12', madeTeaKg: 980, grade: 'BP1' },
     processing: {
-      facility: 'Wanjohi Tea Factory',
-      lotId: 'WTF-2026-0618',
+      facility: GATITU_FACTORY,
+      lotId: 'GTT-2026-0618',
       processedAt: '2026-08-13',
       method: 'CTC · 12 h withering',
     },
@@ -441,8 +441,8 @@ const RECORDS = [
     },
     batch: { sealedAt: '2026-07-29', madeTeaKg: 1310, grade: 'PD' },
     processing: {
-      facility: 'Kangaita Tea Factory',
-      lotId: 'KGT-2026-0540',
+      facility: GATITU_FACTORY,
+      lotId: 'GTT-2026-0540',
       processedAt: '2026-07-30',
       method: 'CTC · 15 h withering',
     },
@@ -470,7 +470,7 @@ const RECORDS = [
     plot: { id: 'MAU-KPT-0611', centre: 'Kiptunga Collection Centre', lat: -0.419, lon: 35.611, areaHa: 3.9, canopyBaseline2020Pct: 65, canopyNowPct: 69, ndvi: 0.69, farmers: 35 },
     harvest: { window: '2026-09-02 – 2026-09-08', month: 'September 2026', greenLeafKg: 7700, pluckers: 1110 },
     batch: { sealedAt: '2026-09-11', madeTeaKg: 1720, grade: 'BP1' },
-    processing: { facility: 'Kiptunga Tea Factory', lotId: 'KTF-2026-0611', processedAt: '2026-09-10', method: 'CTC · 14 h withering' },
+    processing: { facility: KIPCHABO_FACTORY, lotId: 'KPC-2026-0611', processedAt: '2026-09-10', method: 'CTC · 14 h withering' },
     verification: verified('2026-09-14 10:21 EAT', '0x61a7c03e9b24f158', '2026-09-04', '2026-09-14'),
     community: { farmersRepresented: 35, womenPluckersPct: 60, paidMobileMoneyPct: 100, settledSameWeekPct: 93 },
   }),
@@ -482,7 +482,7 @@ const RECORDS = [
     plot: { id: 'MAU-NES-0624', centre: 'Nessuit Collection Centre', lat: -0.527, lon: 35.696, areaHa: 3.2, canopyBaseline2020Pct: 60, canopyNowPct: 63, ndvi: 0.63, farmers: 27 },
     harvest: { window: '2026-09-05 – 2026-09-11', month: 'September 2026', greenLeafKg: 6600, pluckers: 860 },
     batch: { sealedAt: '2026-09-14', madeTeaKg: 1480, grade: 'PF1' },
-    processing: { facility: 'Nessuit Tea Factory', lotId: 'NTF-2026-0624', processedAt: '2026-09-13', method: 'CTC · 16 h withering' },
+    processing: { facility: KIPCHABO_FACTORY, lotId: 'KPC-2026-0624', processedAt: '2026-09-13', method: 'CTC · 16 h withering' },
     verification: verified('2026-09-17 09:05 EAT', '0x24f9d1b07ce35a82', '2026-09-07', '2026-09-17'),
     community: { farmersRepresented: 27, womenPluckersPct: 58, paidMobileMoneyPct: 100, settledSameWeekPct: 89 },
   }),
@@ -497,7 +497,7 @@ const RECORDS = [
     plot: { id: 'MAU-MAR-0630', centre: 'Mariashoni Collection Centre', lat: -0.556, lon: 35.541, areaHa: 3.5, canopyBaseline2020Pct: 63, canopyNowPct: 68, ndvi: 0.68, farmers: 31 },
     harvest: { window: '2026-09-08 – 2026-09-14', month: 'September 2026', greenLeafKg: 6200, pluckers: 930 },
     batch: { sealedAt: '2026-09-17', madeTeaKg: 1390, grade: 'BP1' },
-    processing: { facility: 'Mariashoni Tea Factory', lotId: 'MTF-2026-0630', processedAt: '2026-09-16', method: 'CTC · 14 h withering' },
+    processing: { facility: KIPCHABO_FACTORY, lotId: 'KPC-2026-0630', processedAt: '2026-09-16', method: 'CTC · 14 h withering' },
     verification: {
       standard: 'EUDR — Deforestation-Free',
       status: 'Pending',
@@ -516,7 +516,7 @@ const RECORDS = [
     plot: { id: 'MTK-KAN-0637', centre: 'Kangaita Collection Centre', lat: -0.486, lon: 37.284, areaHa: 2.9, canopyBaseline2020Pct: 62, canopyNowPct: 67, ndvi: 0.67, farmers: 24 },
     harvest: { window: '2026-09-09 – 2026-09-15', month: 'September 2026', greenLeafKg: 5200, pluckers: 690 },
     batch: { sealedAt: '2026-09-18', madeTeaKg: 1150, grade: 'PD' },
-    processing: { facility: 'Kangaita Tea Factory', lotId: 'KGT-2026-0637', processedAt: '2026-09-17', method: 'CTC · 15 h withering' },
+    processing: { facility: GATITU_FACTORY, lotId: 'GTT-2026-0637', processedAt: '2026-09-17', method: 'CTC · 15 h withering' },
     verification: verified('2026-09-21 13:40 EAT', '0x7e02b9d4a61c38f5', '2026-09-11', '2026-09-21'),
     community: { farmersRepresented: 24, womenPluckersPct: 57, paidMobileMoneyPct: 100, settledSameWeekPct: 88 },
   }),
@@ -531,7 +531,7 @@ const RECORDS = [
     plot: { id: 'MAU-TIN-0645', centre: 'Tinet Collection Centre', lat: -0.648, lon: 35.502, areaHa: 2.6, canopyBaseline2020Pct: 58, canopyNowPct: 62, ndvi: 0.62, farmers: 22 },
     harvest: { window: '2026-09-10 – 2026-09-16', month: 'September 2026', greenLeafKg: 4400, pluckers: 610 },
     batch: { sealedAt: '2026-09-19', madeTeaKg: 960, grade: 'PF1' },
-    processing: { facility: 'Kiptunga Tea Factory', lotId: 'KTF-2026-0645', processedAt: '2026-09-18', method: 'CTC · 14 h withering' },
+    processing: { facility: KIPCHABO_FACTORY, lotId: 'KPC-2026-0645', processedAt: '2026-09-18', method: 'CTC · 14 h withering' },
     verification: verified('2026-09-22 16:12 EAT', '0x5c38e1f0b92d47a6', '2026-09-12', '2026-09-22'),
     community: { farmersRepresented: 22, womenPluckersPct: 64, paidMobileMoneyPct: 100, settledSameWeekPct: 86 },
   }),
