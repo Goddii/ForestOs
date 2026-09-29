@@ -89,7 +89,7 @@ export default function Home() {
         <PartnerShowcase onExplore={handleExploreBlock} />
       </main>
 
-      <MacroFooter />
+      <MacroFooter bookend />
     </>
   )
 }

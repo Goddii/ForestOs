@@ -2,7 +2,7 @@
 // A "tenant" is a community/brand front end that sits on top of ForestOS's
 // verification, proof and conservation data — the shift the client asked for:
 // the community owns the experience, ForestOS is the trust/data engine
-// underneath it. `PartnerArchetypes` (home page) already names the intended
+// underneath it. The home page footer (`MacroFooter`) already names the intended
 // tenant categories (musicians, football clubs, airlines, hotels, diaspora
 // communities); this module is where one of those becomes a real, addressable
 // front end instead of a roadmap line.
