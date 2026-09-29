@@ -5,6 +5,7 @@ import { OFFTAKER_ROLE_CONFIG } from '../../data/offtaker/roles'
 import { useOfftaker, useOfftakerPath } from './OfftakerWorkspaceContext'
 import Badge from '../investor/ui/Badge'
 import ActionButton from '../investor/ui/ActionButton'
+import SignOutButton from '../investor/ui/SignOutButton'
 
 const selectClass =
   'max-w-[15rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-compact normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50'
@@ -55,13 +56,14 @@ export default function OfftakerHeader() {
           </select>
         </label>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 flex-wrap items-center gap-2">
         <ActionButton to={path('reports')} variant="ghost" icon={Download} iconPosition="left">
           Reports
         </ActionButton>
         <ActionButton to={path('batches')} variant="primary" icon={Search} iconPosition="left">
           Find a batch
         </ActionButton>
+        <SignOutButton />
       </div>
     </header>
   )

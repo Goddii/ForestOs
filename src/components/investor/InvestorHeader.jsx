@@ -4,6 +4,7 @@ import { FUNDER_ORGANISATIONS } from '../../data/funder/organisations'
 import { useWorkspace, useWorkspacePath } from './FunderWorkspaceContext'
 import Badge from './ui/Badge'
 import ActionButton from './ui/ActionButton'
+import SignOutButton from './ui/SignOutButton'
 
 /**
  * The top header: which funder this workspace belongs to, the programme's
@@ -50,13 +51,14 @@ export default function InvestorHeader() {
         </label>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 flex-wrap items-center gap-2">
         <ActionButton to={path('reports')} variant="ghost" icon={Download} iconPosition="left">
           Reports
         </ActionButton>
         <ActionButton to={path('evidence')} variant="primary" icon={FolderSearch} iconPosition="left">
           Evidence centre
         </ActionButton>
+        <SignOutButton />
       </div>
     </header>
   )
