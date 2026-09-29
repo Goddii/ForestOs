@@ -29,7 +29,7 @@ export default function BatchesPage() {
               batch.commitment ? (
                 <span className="font-mono text-label text-ink-muted">{batch.commitment.id}</span>
               ) : (
-                <span className="text-xs text-ink-faint">None</span>
+                <span className="text-compact text-ink-faint">None</span>
               ),
           },
         ]}

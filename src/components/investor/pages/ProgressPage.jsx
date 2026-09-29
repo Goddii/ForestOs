@@ -66,7 +66,7 @@ function IndicatorRow({ row, isOpen, onToggle }) {
             {inReview > 0 && <span>+{formatNumber(inReview)} in review</span>}
           </p>
         </div>
-        <div className="col-span-2 text-xs text-ink-muted md:col-span-1 md:text-right">
+        <div className="col-span-2 text-compact text-ink-muted md:col-span-1 md:text-right">
           {fundedVerified > 0 ? (
             <>
               <span className="font-mono text-compact font-semibold tabular-nums text-forest-accent-dark">
@@ -85,7 +85,7 @@ function IndicatorRow({ row, isOpen, onToggle }) {
       {isOpen && (
         <div className="px-5 pb-6">
             <div className="rounded-xl border border-line bg-canvas-sunk p-5">
-              <dl className="grid grid-cols-1 gap-x-8 gap-y-2 text-xs sm:grid-cols-[10rem_1fr]">
+              <dl className="grid grid-cols-1 gap-x-8 gap-y-2 text-compact sm:grid-cols-[10rem_1fr]">
                 <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Method</dt>
                 <dd className="text-ink-muted">{indicator.method}</dd>
                 <dt className="font-mono text-label font-semibold uppercase tracking-label text-ink-faint">Verified through</dt>
@@ -131,7 +131,7 @@ export default function ProgressPage() {
           title="Outputs against targets"
           description="Every figure is summed from field activity records. Only verified work counts toward a target; work still in review is shown separately, and rejected claims are listed but never counted."
         />
-        <ul className="mb-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-ink-muted" aria-label="Bar key">
+        <ul className="mb-3 flex flex-wrap gap-x-5 gap-y-1 text-compact text-ink-muted" aria-label="Bar key">
           <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm bg-forest-accent-dark" />Verified, funded by you</li>
           <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm bg-forest-accent" />Verified, other funders</li>
           <li className="flex items-center gap-1.5"><span className="h-2.5 w-3.5 rounded-sm" style={REVIEW_STRIPES} />In review, not counted</li>
@@ -147,7 +147,7 @@ export default function ProgressPage() {
             return (
               <section key={component.id} className="border-t border-line first:border-t-0" aria-label={component.title}>
                 <header className="flex items-baseline justify-between gap-4 bg-canvas-sunk/60 px-5 py-2">
-                  <h3 className="text-xs font-semibold text-ink-muted">{component.code} · {component.title}</h3>
+                  <h3 className="text-compact font-semibold text-ink-muted">{component.code} · {component.title}</h3>
                   <span className="shrink-0 font-mono text-label tabular-nums text-ink-faint">{avg}% avg</span>
                 </header>
                 <ul className="divide-y divide-line/60">
@@ -164,7 +164,7 @@ export default function ProgressPage() {
             )
           })}
         </ContentCard>
-        <p className="mt-3 text-xs text-ink-faint">Targets are illustrative (demo data) until the programme's results framework is confirmed with NTZDC.</p>
+        <p className="mt-3 text-compact text-ink-faint">Targets are illustrative (demo data) until the programme's results framework is confirmed with NTZDC.</p>
       </section>
 
       {terms.showsAttribution && (

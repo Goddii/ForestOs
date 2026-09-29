@@ -30,7 +30,7 @@ function Swatch({ colour, label }) {
       <span className="h-10 w-10 rounded-lg border border-line" style={{ backgroundColor: colour }} aria-hidden="true" />
       <span>
         <span className="block text-compact text-ink">{label}</span>
-        <span className="font-mono text-xs uppercase text-ink-faint">{colour}</span>
+        <span className="font-mono text-label uppercase text-ink-faint">{colour}</span>
       </span>
     </div>
   )
@@ -58,25 +58,25 @@ export default function SettingsPage() {
               ['Workspace id', ws.org.id],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="text-xs text-ink-faint">{label}</dt>
+                <dt className="text-compact text-ink-faint">{label}</dt>
                 <dd className="mt-0.5 text-ink">{value}</dd>
               </div>
             ))}
           </dl>
-          {ws.org.isPlaceholder && <p className="mt-5 text-xs text-ink-faint">Demo brand: a fictional placeholder, not a real company.</p>}
+          {ws.org.isPlaceholder && <p className="mt-5 text-compact text-ink-faint">Demo brand: a fictional placeholder, not a real company.</p>}
         </ContentCard>
         <ContentCard className="p-6">
           <SectionHeading title="Brand kit" />
           <div className="flex items-center gap-3">
             <BrandMark kit={ws.kit} size={48} />
-            <span className="text-sm font-bold tracking-[0.2em] text-ink">{ws.kit.wordmark}</span>
+            <span className="text-sm font-bold tracking-label-wide text-ink">{ws.kit.wordmark}</span>
           </div>
           <div className="mt-5 space-y-3">
             <Swatch colour={ws.kit.primary} label="Primary" />
             <Swatch colour={ws.kit.accent} label="Accent" />
             <Swatch colour={ws.kit.ink} label="Text on primary" />
           </div>
-          <p className="mt-4 text-xs text-ink-faint">Used on pack renders and as the default on new QR experiences.</p>
+          <p className="mt-4 text-compact text-ink-faint">Used on pack renders and as the default on new QR experiences.</p>
         </ContentCard>
       </section>
 
@@ -98,7 +98,7 @@ export default function SettingsPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-ink-faint">Set by ForestOS for every brand.</p>
+          <p className="mt-3 text-compact text-ink-faint">Set by ForestOS for every brand.</p>
         </ContentCard>
         <ContentCard className="p-6">
           <SectionHeading title="Privacy of scan data" />
@@ -128,7 +128,7 @@ export default function SettingsPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-ink-faint">Kept for this session only; nothing is emailed in the demo.</p>
+          <p className="mt-3 text-compact text-ink-faint">Kept for this session only; nothing is emailed in the demo.</p>
         </ContentCard>
       </div>
 

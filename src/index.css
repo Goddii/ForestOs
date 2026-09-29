@@ -106,14 +106,19 @@
   --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Liberation Mono', monospace;
 
-  /* Funder console type roles (Sept 2026 typeset pass) — replaces ~200
+  /* Partner console type roles (Sept 2026 typeset pass) — replaces ~200
      one-off px sizes. label: mono all-caps data/table labels (11px floor,
-     never smaller); compact: dense list/card body; display: page titles and
-     headline figures. xs/sm/base/lg come from Tailwind's own scale. */
+     never smaller); compact: dense list/card body and small figures (the
+     portals do not use Tailwind's 12px text-xs; it sat one pixel from
+     compact and carried no separate role); title: portal page h1 (desktop
+     step; mobile stays text-3xl); display: headline figures. sm/base/lg
+     come from Tailwind's own scale. */
   --text-label: 0.6875rem;
   --text-label--line-height: 1rem;
   --text-compact: 0.8125rem;
   --text-compact--line-height: 1.25rem;
+  --text-title: 2.125rem;
+  --text-title--line-height: 1.12;
   --text-display: 2.75rem;
   --text-display--line-height: 1.02;
   --tracking-label: 0.12em;
@@ -212,6 +217,37 @@
   .dash .font-display {
     letter-spacing: -0.015em;
     font-weight: 650;
+  }
+
+  /* Partner consoles (funder, offtaker, brand, creator) read hero titles and
+     the nav-rail portal name as data-product headings, not "of record"
+     editorial: Archivo semibold via the variable font, replacing the public
+     site's Instrument Serif. The `.dash` scope above is applied by no shell,
+     so each console's own root class carries this. Consumer-app artwork
+     drawn inside a console (the creator phone preview) opts back into the
+     serif with `.portal-serif`. */
+  .investor,
+  .offtaker,
+  .brand-portal,
+  .creator-portal {
+    --font-display: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  .investor .font-display,
+  .offtaker .font-display,
+  .brand-portal .font-display,
+  .creator-portal .font-display {
+    letter-spacing: -0.015em;
+    font-weight: 650;
+  }
+
+  .portal-serif {
+    --font-display: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  }
+
+  .portal-serif .font-display {
+    letter-spacing: normal;
+    font-weight: 400;
   }
 
   .dash ::selection {

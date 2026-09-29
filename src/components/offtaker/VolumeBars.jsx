@@ -16,7 +16,7 @@ export default function VolumeBars({ rows, unit = 'kg', max }) {
           <div className="flex items-baseline justify-between gap-3 text-compact">
             <span className="min-w-0 truncate text-ink">
               {row.label}
-              {row.sublabel && <span className="ml-1.5 text-xs text-ink-faint">{row.sublabel}</span>}
+              {row.sublabel && <span className="ml-1.5 text-compact text-ink-faint">{row.sublabel}</span>}
             </span>
             <span className="shrink-0 font-semibold tabular-nums text-ink">
               {row.format ? row.format(row.value) : `${row.value.toLocaleString('en-US')} ${unit}`}

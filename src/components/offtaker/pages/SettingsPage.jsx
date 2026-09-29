@@ -28,13 +28,13 @@ export default function SettingsPage() {
               ['Organisation id', ws.org.id],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="text-xs text-ink-faint">{label}</dt>
+                <dt className="text-compact text-ink-faint">{label}</dt>
                 <dd className="mt-0.5 text-ink">{value}</dd>
               </div>
             ))}
           </dl>
           {ws.org.isPlaceholder && (
-            <p className="mt-5 text-xs text-ink-faint">Demo organisation: a placeholder, not a real customer of NTZDC.</p>
+            <p className="mt-5 text-compact text-ink-faint">Demo organisation: a placeholder, not a real customer of NTZDC.</p>
           )}
         </ContentCard>
         <ContentCard className="p-6">
@@ -76,7 +76,7 @@ export default function SettingsPage() {
                       {role === ws.role && <Badge tone="verified">You</Badge>}
                       {!teamRoles.has(role) && <Badge tone="neutral">Not assigned</Badge>}
                     </span>
-                    <span className="mt-0.5 block text-xs text-ink-muted">{config.description}</span>
+                    <span className="mt-0.5 block text-compact text-ink-muted">{config.description}</span>
                   </th>
                   {Object.keys(PERMISSION_LABELS).map((permission) => (
                     <td key={permission} className="px-4 py-3 text-center">

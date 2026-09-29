@@ -15,9 +15,9 @@ function TemplateCard({ template }) {
   return (
     <article className="grid gap-6 rounded-2xl border border-line bg-card p-6 shadow-card lg:grid-cols-[minmax(0,1fr)_auto]">
       <div className="min-w-0">
-        <h3 className="text-lg font-bold text-ink">{template.name}</h3>
+        <h3 className="text-lg font-semibold text-ink">{template.name}</h3>
         <p className="mt-1 max-w-[65ch] text-compact leading-relaxed text-ink-muted">{template.description}</p>
-        <ol className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-xs text-ink">
+        <ol className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-compact text-ink">
           {template.stages.map((stage, index) => (
             <li key={stage} className="flex items-center gap-1.5">
               <span className="rounded-full border border-line bg-canvas px-2.5 py-1">{stage}</span>
@@ -35,7 +35,7 @@ function TemplateCard({ template }) {
         >
           Preview the live template <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
         </a>
-        <p className="text-xs text-ink-faint">Opens batch #{PLACEHOLDER_BATCH_ID}, the placeholder record</p>
+        <p className="text-compact text-ink-faint">Opens batch #{PLACEHOLDER_BATCH_ID}, the placeholder record</p>
       </div>
     </article>
   )
@@ -52,7 +52,7 @@ function CustomDesignCard() {
           <Palette className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
         </span>
         <div className="min-w-0">
-          <h3 className="text-lg font-bold text-ink">Custom experience, designed by ForestOS</h3>
+          <h3 className="text-lg font-semibold text-ink">Custom experience, designed by ForestOS</h3>
           <p className="mt-1 max-w-[65ch] text-compact leading-relaxed text-ink-muted">
             When no template fits, the ForestOS design team designs one around your brand, campaign and verified lot: music, collectibles, video, maps or languages
             as the story needs. The verified layer underneath stays the same.
@@ -64,7 +64,7 @@ function CustomDesignCard() {
           Request a custom experience
         </ActionButton>
       ) : (
-        <p className="text-xs text-ink-faint">Your role cannot send design requests.</p>
+        <p className="text-compact text-ink-faint">Your role cannot send design requests.</p>
       )}
     </article>
   )
@@ -77,7 +77,7 @@ function RequestProgress({ status }) {
       {DESIGN_REQUEST_STAGES.map((stage, index) => (
         <li key={stage.key} className="flex items-center gap-1.5">
           <span
-            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs ${
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-compact ${
               index < at ? 'bg-forest-accent-soft text-forest-accent-dark' : index === at ? 'bg-forest-accent font-semibold text-white' : 'border border-line text-ink-faint'
             }`}
             aria-current={index === at ? 'step' : undefined}
@@ -111,18 +111,18 @@ function DesignRequests() {
                     {request.products.map((product) => product.name).join(', ')}
                     {request.campaignId && <span className="font-normal text-ink-muted">, {campaignName(request.campaignId)}</span>}
                   </p>
-                  <p className="mt-0.5 font-mono text-xs text-ink-faint">
+                  <p className="mt-0.5 font-mono text-compact text-ink-faint">
                     Sent {request.submittedAt}, launch by {request.launchBy}, contact {memberName(request.contactId)}
                   </p>
                 </div>
               </div>
               <p className="mt-3 max-w-[70ch] text-compact leading-relaxed text-ink">{request.brief}</p>
               {request.features.length > 0 && (
-                <p className="mt-2 text-xs text-ink-muted">Asked for: {request.features.map((key) => DESIGN_REQUEST_FEATURES[key]).join(', ')}</p>
+                <p className="mt-2 text-compact text-ink-muted">Asked for: {request.features.map((key) => DESIGN_REQUEST_FEATURES[key]).join(', ')}</p>
               )}
               <div className="mt-4 border-t border-line pt-4">
                 <RequestProgress status={request.status} />
-                <p className="mt-2 text-xs text-ink-muted">{stage?.detail}</p>
+                <p className="mt-2 text-compact text-ink-muted">{stage?.detail}</p>
               </div>
             </li>
           )
@@ -224,7 +224,7 @@ export default function ExperiencesPage() {
               cell: (row) => (
                 <span>
                   <span className="block font-semibold text-ink">{row.customisation.title}</span>
-                  <span className="text-xs text-ink-faint">{row.template.name}</span>
+                  <span className="text-compact text-ink-faint">{row.template.name}</span>
                 </span>
               ),
             },

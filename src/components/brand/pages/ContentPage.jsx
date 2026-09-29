@@ -44,7 +44,7 @@ function EvidenceChips({ ids }) {
           key={id}
           type="button"
           onClick={() => openEvidence(id)}
-          className="inline-flex items-center gap-1 rounded-full border border-line bg-card px-2.5 py-0.5 text-xs font-medium text-forest-accent hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+          className="inline-flex items-center gap-1 rounded-full border border-line bg-card px-2.5 py-0.5 text-compact font-medium text-forest-accent hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
         >
           <Paperclip className="h-3 w-3" aria-hidden="true" />
           {id}
@@ -65,7 +65,7 @@ function CopyWording({ text }) {
     }
   }
   return (
-    <button type="button" onClick={copy} className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-forest-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50">
+    <button type="button" onClick={copy} className="inline-flex shrink-0 items-center gap-1 text-compact font-semibold text-forest-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50">
       {copied ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
       {copied ? 'Copied' : 'Copy wording'}
     </button>
@@ -77,14 +77,14 @@ function ClaimRow({ statement, productName, assessment }) {
   return (
     <li className="grid overflow-hidden rounded-2xl border border-line bg-card shadow-card md:grid-cols-2">
       <div className="p-5">
-        <p className="flex items-center gap-1.5 text-xs font-semibold text-ink-muted">
+        <p className="flex items-center gap-1.5 text-compact font-semibold text-ink-muted">
           <Pencil className="h-3.5 w-3.5" aria-hidden="true" /> {productName ? `Brand says, ${productName}` : 'Brand says'}
         </p>
         <p className="mt-2 text-base leading-snug text-ink">“{statement}”</p>
       </div>
       <div className="border-t border-line bg-canvas/70 p-5 md:border-l md:border-t-0">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-forest-accent-dark">
+          <p className="flex items-center gap-1.5 text-compact font-semibold text-forest-accent-dark">
             <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" /> ForestOS verified data
           </p>
           <ClaimVerdictBadge status={assessment.status} />
@@ -92,7 +92,7 @@ function ClaimRow({ statement, productName, assessment }) {
         <p className="mt-2 text-compact leading-relaxed text-ink-muted">{assessment.reason}</p>
         {assessment.approvedWording && (
           <div className="mt-3 rounded-lg border border-forest-accent/20 bg-card p-3">
-            <p className="text-xs text-ink-faint">{assessment.status === 'approved' ? 'Recommended wording' : 'What you can say instead'}</p>
+            <p className="text-compact text-ink-faint">{assessment.status === 'approved' ? 'Recommended wording' : 'What you can say instead'}</p>
             <p className="mt-1 text-compact text-ink">{assessment.approvedWording}</p>
             <div className="mt-2">
               <CopyWording text={assessment.approvedWording} />
@@ -191,7 +191,7 @@ function ClaimChecker() {
         <ActionButton type="submit" variant="primary" icon={ArrowRight}>
           Check against the records
         </ActionButton>
-        <p className="text-xs text-ink-faint">A check only; nothing is submitted or saved.</p>
+        <p className="text-compact text-ink-faint">A check only; nothing is submitted or saved.</p>
       </div>
       {result && (
         <ul className="mt-6" aria-live="polite">
@@ -217,7 +217,7 @@ export default function ContentPage() {
 
       <section aria-label="Who controls what" className="grid overflow-hidden rounded-2xl border border-line shadow-card md:grid-cols-2">
         <div className="bg-card p-6">
-          <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
             <Pencil className="h-4 w-4 text-ink-muted" aria-hidden="true" /> Brand content
           </h2>
           <p className="mt-1 text-compact text-ink-muted">You write and change these.</p>
@@ -231,7 +231,7 @@ export default function ContentPage() {
           </ul>
         </div>
         <div className="border-t border-line bg-forest-accent-soft/50 p-6 md:border-l md:border-t-0">
-          <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
             <ShieldCheck className="h-4 w-4 text-forest-accent" aria-hidden="true" /> ForestOS verified data
           </h2>
           <p className="mt-1 text-compact text-ink-muted">Read-only for every brand role.</p>
@@ -279,7 +279,7 @@ export default function ContentPage() {
               cell: (row) => (
                 <span>
                   <span className="block font-semibold text-ink">{row.title}</span>
-                  <span className="line-clamp-2 max-w-[48ch] text-xs text-ink-muted">{row.body}</span>
+                  <span className="line-clamp-2 max-w-[48ch] text-compact text-ink-muted">{row.body}</span>
                 </span>
               ),
             },
@@ -290,11 +290,11 @@ export default function ContentPage() {
               header: 'ForestOS check',
               cell: (row) => {
                 const verdict = worstVerdict(row)
-                return verdict ? <ClaimVerdictBadge status={verdict} /> : <span className="text-xs text-ink-faint">No claims</span>
+                return verdict ? <ClaimVerdictBadge status={verdict} /> : <span className="text-compact text-ink-faint">No claims</span>
               },
             },
             { key: 'author', header: 'Author', cell: (row) => memberName(row.authorId) },
-            { key: 'updated', header: 'Updated', cell: (row) => <span className="font-mono text-xs">{row.updatedAt}</span> },
+            { key: 'updated', header: 'Updated', cell: (row) => <span className="font-mono text-compact">{row.updatedAt}</span> },
           ]}
         />
       </section>

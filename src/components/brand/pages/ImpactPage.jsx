@@ -28,17 +28,17 @@ function MetricCard({ metric, products }) {
   const { openEvidence } = useEvidenceDrawer()
   return (
     <li className="flex flex-col rounded-2xl border border-line bg-card p-6 shadow-card">
-      <p className="text-4xl font-bold leading-none tracking-tight text-ink">{formatValue(metric.value)}</p>
+      <p className="text-4xl font-bold leading-none tracking-tight tabular-nums text-ink">{formatValue(metric.value)}</p>
       <p className="mt-2 text-compact font-semibold text-ink-muted">{metric.label}</p>
       <p className="mt-4 flex-1 border-t border-line pt-4 text-compact leading-relaxed text-ink">{metric.wording}</p>
-      <p className="mt-3 text-xs text-ink-faint">Applies to {products.join(', ')}</p>
+      <p className="mt-3 text-compact text-ink-faint">Applies to {products.join(', ')}</p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {metric.evidenceIds.map((id) => (
           <button
             key={id}
             type="button"
             onClick={() => openEvidence(id)}
-            className="inline-flex items-center gap-1 rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-forest-accent hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+            className="inline-flex items-center gap-1 rounded-full border border-line px-2.5 py-0.5 text-compact font-medium text-forest-accent hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
           >
             <Paperclip className="h-3 w-3" aria-hidden="true" />
             {id}

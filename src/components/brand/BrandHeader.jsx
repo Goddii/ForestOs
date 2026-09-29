@@ -7,7 +7,7 @@ import Badge from '../investor/ui/Badge'
 import ActionButton from '../investor/ui/ActionButton'
 
 const selectClass =
-  'max-w-[15rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-xs normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50'
+  'max-w-[15rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-compact normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50'
 
 /**
  * Who is looking and as what. The brand and role switchers exist only
@@ -25,7 +25,7 @@ export default function BrandHeader() {
   return (
     <header className="flex flex-col gap-4 border-b border-line bg-card px-4 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
-        <p className="text-base font-bold leading-tight text-ink" title={org.name}>
+        <p className="text-base font-semibold leading-tight text-ink" title={org.name}>
           {org.name}
         </p>
         <p className="font-mono text-label uppercase tracking-label-wide text-ink-faint">Data as of {asOf}</p>

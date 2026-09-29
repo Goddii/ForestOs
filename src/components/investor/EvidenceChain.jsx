@@ -22,7 +22,7 @@ export default function EvidenceChain({ records, lastVerified, className = '' })
       </p>
       <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3">
         {items.map((item) => (
-          <li key={item.key} className="flex items-center gap-1.5 text-xs font-medium">
+          <li key={item.key} className="flex items-center gap-1.5 text-compact font-medium">
             {item.present ? (
               <Check className="h-3.5 w-3.5 shrink-0 text-forest-accent" strokeWidth={2.5} aria-hidden="true" />
             ) : (

@@ -35,7 +35,7 @@ export default function OriginPage() {
       <section className="grid gap-4 lg:grid-cols-3">
         <ContentCard className="p-6 lg:col-span-2">
           <p className="font-mono text-label uppercase tracking-label-wide text-ink-faint">Origin</p>
-          <p className="mt-2 text-lg font-bold leading-snug text-ink">
+          <p className="mt-2 text-lg font-semibold leading-snug text-ink">
             Nyayo Tea Zone buffer belt: tea grown on the ~100 m strip that separates farmland from Kenya’s gazetted forests.
           </p>
           <p className="mt-3 text-compact leading-relaxed text-ink-muted">
@@ -59,14 +59,14 @@ export default function OriginPage() {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="font-semibold text-ink">{c.programme.name}</p>
-              <p className="mt-1 text-xs text-ink-muted">
+              <p className="mt-1 text-compact text-ink-muted">
                 Run by NTZDC, {c.programme.startDate} to {c.programme.endDate}
               </p>
             </div>
             <Badge tone="live">Active</Badge>
           </div>
           <p className="mt-3 max-w-[75ch] text-compact leading-relaxed text-ink-muted">{c.programme.goal}</p>
-          <p className="mt-3 text-xs text-ink-faint">
+          <p className="mt-3 text-compact text-ink-faint">
             Your tea is connected to this programme only where its collection centre’s catchment overlaps a buffer segment with verified work.
           </p>
         </ContentCard>
@@ -113,7 +113,7 @@ export default function OriginPage() {
                     key={zone.id}
                     type="button"
                     onClick={() => openZone(zone.id)}
-                    className="rounded-full border border-line px-3 py-1 text-xs text-forest-accent hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+                    className="rounded-full border border-line px-3 py-1 text-compact text-forest-accent hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                   >
                     {zone.label}
                   </button>
@@ -133,7 +133,7 @@ export default function OriginPage() {
               rowKey={(activity) => activity.id}
               minWidth="56rem"
               columns={[
-                { key: 'summary', header: 'Activity', cell: (a) => (<><p className="font-medium text-ink">{a.summary}</p><p className="text-xs text-ink-faint">{a.intervention}</p></>) },
+                { key: 'summary', header: 'Activity', cell: (a) => (<><p className="font-medium text-ink">{a.summary}</p><p className="text-compact text-ink-faint">{a.intervention}</p></>) },
                 { key: 'date', header: 'Date', cell: (a) => <span className="font-mono text-label tabular-nums text-ink-muted">{a.date}</span> },
                 { key: 'state', header: 'Verification', cell: (a) => <VerificationStateBadge state={currentState(a.verification)} /> },
                 {
@@ -141,7 +141,7 @@ export default function OriginPage() {
                   header: 'Verified by',
                   cell: (a) => {
                     const decision = latestDecision(a.verification)
-                    return decision ? <span className="text-xs text-ink-muted">{decision.byRole}</span> : <span className="text-xs text-ink-faint">Not yet</span>
+                    return decision ? <span className="text-compact text-ink-muted">{decision.byRole}</span> : <span className="text-compact text-ink-faint">Not yet</span>
                   },
                 },
                 {
@@ -157,7 +157,7 @@ export default function OriginPage() {
                         ))}
                       </div>
                     ) : (
-                      <span className="text-xs text-ink-faint">None</span>
+                      <span className="text-compact text-ink-faint">None</span>
                     ),
                 },
               ]}

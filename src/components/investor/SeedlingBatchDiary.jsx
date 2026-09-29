@@ -38,7 +38,7 @@ export default function SeedlingBatchDiary() {
             <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line pb-3">
               <div>
                 <h3 className="text-base font-semibold text-ink">{batch.label}</h3>
-                <p className="mt-0.5 text-xs text-ink-muted">
+                <p className="mt-0.5 text-compact text-ink-muted">
                   <span className="font-semibold tabular-nums text-ink">{formatNumber(batch.quantity)}</span> seedlings ·{' '}
                   <span className="italic">{batch.species.join(', ')}</span> · {ZONE_LABELS[batch.zoneId]}
                 </p>
@@ -67,7 +67,7 @@ export default function SeedlingBatchDiary() {
                     <Badge tone={status.tone} icon={status.icon} className="mt-1.5 self-start">
                       {status.label}
                     </Badge>
-                    <p className="mt-1.5 text-xs leading-snug text-ink-muted">{stage.note}</p>
+                    <p className="mt-1.5 text-compact leading-snug text-ink-muted">{stage.note}</p>
                     {stage.evidenceId && (
                       <ActionButton variant="text" onClick={() => openEvidence(stage.evidenceId)} className="self-start">
                         Evidence

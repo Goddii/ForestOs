@@ -23,7 +23,7 @@ export default function BatchCard({ batch }) {
           >
             {batch.traceId}
           </Link>
-          <p className="mt-0.5 text-xs text-ink-muted">
+          <p className="mt-0.5 text-compact text-ink-muted">
             {batch.centre?.name} collection centre, {batch.zone}
           </p>
         </div>
@@ -36,7 +36,7 @@ export default function BatchCard({ batch }) {
         </div>
         <div>
           <dt className="text-label text-ink-faint">Grade</dt>
-          <dd className="text-base font-bold text-ink">{batch.grade}</dd>
+          <dd className="text-base font-semibold text-ink">{batch.grade}</dd>
         </div>
         <div>
           <dt className="text-label text-ink-faint">Sealed</dt>
@@ -53,7 +53,7 @@ export default function BatchCard({ batch }) {
           <StageStatusBadge status="pending" />
         )}
       </div>
-      <p className="mt-2 text-xs text-ink-faint">
+      <p className="mt-2 text-compact text-ink-faint">
         {journey.verifiedCount} of 5 supply stages verified
         {journey.exceptions.length > 0 && `, exception at ${journey.exceptions.join(', ')}`}
       </p>

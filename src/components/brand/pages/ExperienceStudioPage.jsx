@@ -23,7 +23,7 @@ function Section({ title, owner, children }) {
   return (
     <section className="rounded-2xl border border-line bg-card p-6 shadow-card" aria-label={title}>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-lg font-bold text-ink">{title}</h2>
+        <h2 className="text-lg font-semibold text-ink">{title}</h2>
         {owner && <SourceTag kind={owner} />}
       </div>
       <div className="space-y-5">{children}</div>
@@ -35,7 +35,7 @@ function HeroPicker({ photos, value, onChange }) {
   return (
     <fieldset>
       <legend className="text-sm font-semibold text-ink">Hero media</legend>
-      <p className="mt-0.5 text-xs text-ink-muted">ForestOS photography cleared for use beside verified records. Your own uploads live in Assets.</p>
+      <p className="mt-0.5 text-compact text-ink-muted">ForestOS photography cleared for use beside verified records. Your own uploads live in Assets.</p>
       <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {photos.map((photo) => (
           <label key={photo.id} className="group relative cursor-pointer overflow-hidden rounded-lg has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-emerald-500/50">
@@ -58,7 +58,7 @@ function ClaimsInStory({ claims, onUseWording }) {
   if (claims.length === 0) return null
   return (
     <ul className="space-y-2 rounded-xl border border-line bg-canvas p-3.5">
-      <li className="text-xs font-semibold text-ink-muted">Your story repeats {claims.length === 1 ? 'a claim' : `${claims.length} claims`} ForestOS has checked</li>
+      <li className="text-compact font-semibold text-ink-muted">Your story repeats {claims.length === 1 ? 'a claim' : `${claims.length} claims`} ForestOS has checked</li>
       {claims.map((claim) => (
         <li key={claim.id} className="rounded-lg bg-card p-3 text-compact">
           <div className="flex flex-wrap items-start justify-between gap-2">
@@ -66,13 +66,13 @@ function ClaimsInStory({ claims, onUseWording }) {
             <ClaimVerdictBadge status={claim.assessment.status} />
           </div>
           {claim.assessment.status !== 'approved' && (
-            <p className="mt-1.5 text-xs text-ink-muted">{claim.assessment.reason}</p>
+            <p className="mt-1.5 text-compact text-ink-muted">{claim.assessment.reason}</p>
           )}
           {claim.assessment.status !== 'approved' && claim.assessment.approvedWording && (
             <button
               type="button"
               onClick={() => onUseWording(claim)}
-              className="mt-2 text-xs font-semibold text-forest-accent underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+              className="mt-2 text-compact font-semibold text-forest-accent underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
             >
               Replace with: “{claim.assessment.approvedWording}”
             </button>
@@ -95,7 +95,7 @@ function Readiness({ readiness }) {
             <span className={check.ok ? 'text-ink' : 'font-semibold text-ink'}>{check.label}</span>
             <span className="sr-only">{check.ok ? ': passed' : ': not yet'}</span>
             {check.owner === 'forestos' && <Lock className="ml-1.5 inline h-3 w-3 text-ink-faint" aria-label="Checked by ForestOS" />}
-            {!check.ok && <span className="block text-xs text-ink-muted">{check.detail}</span>}
+            {!check.ok && <span className="block text-compact text-ink-muted">{check.detail}</span>}
           </span>
         </li>
       ))}
@@ -117,7 +117,7 @@ function QrPanel({ experience, url }) {
     <div className="flex gap-4">
       <QrCode value={url} label={`QR code for ${experience.customisation.title}`} size={112} className="shrink-0 border border-line" />
       <div className="min-w-0 space-y-2">
-        <p className="break-all font-mono text-xs text-ink-muted">{url}</p>
+        <p className="break-all font-mono text-compact text-ink-muted">{url}</p>
         <div className="flex flex-wrap gap-2">
           <ActionButton onClick={() => downloadQrSvg(url, `${experience.shortCode}-qr.svg`)} icon={Download} iconPosition="left">
             SVG
@@ -126,7 +126,7 @@ function QrPanel({ experience, url }) {
             {copied ? 'Copied' : 'Copy link'}
           </ActionButton>
         </div>
-        <p className="text-xs text-ink-faint" role="status">
+        <p className="text-compact text-ink-faint" role="status">
           {experience.status === 'published' ? 'Live: scanning opens the experience.' : 'Print only after publishing; until then the code opens the placeholder record.'}
         </p>
       </div>
@@ -208,14 +208,14 @@ function Studio({ experienceId }) {
         <div className="min-w-0">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <ExperienceStatusBadge status={experience.status} />
-            {dirty && <span className="text-xs font-semibold text-warning">Unsaved changes</span>}
+            {dirty && <span className="text-compact font-semibold text-warning">Unsaved changes</span>}
             {!dirty && savedNote && (
-              <span className="text-xs text-ink-muted" role="status">
+              <span className="text-compact text-ink-muted" role="status">
                 {savedNote}
               </span>
             )}
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-[2.1rem]">{draft.customisation.title || 'Untitled experience'}</h1>
+          <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-title">{draft.customisation.title || 'Untitled experience'}</h1>
           <p className="mt-2 text-sm text-ink-muted">
             {experience.template.name} template
             {experience.publishedAt && `, published ${experience.publishedAt}`}
@@ -299,7 +299,7 @@ function Studio({ experienceId }) {
                 <legend className="text-sm font-semibold text-ink">Colours</legend>
                 <div className="flex items-center gap-3">
                   {['primary', 'accent'].map((key) => (
-                    <label key={key} className="flex items-center gap-1.5 text-xs capitalize text-ink-muted">
+                    <label key={key} className="flex items-center gap-1.5 text-compact capitalize text-ink-muted">
                       <input
                         type="color"
                         value={draft.customisation.colours[key]}
@@ -309,7 +309,7 @@ function Studio({ experienceId }) {
                       {key}
                     </label>
                   ))}
-                  <button type="button" onClick={() => setCustom({ colours: { primary: ws.kit.primary, accent: ws.kit.accent } })} className="text-xs font-semibold text-forest-accent hover:underline">
+                  <button type="button" onClick={() => setCustom({ colours: { primary: ws.kit.primary, accent: ws.kit.accent } })} className="text-compact font-semibold text-forest-accent hover:underline">
                     Brand kit
                   </button>
                 </div>
@@ -333,7 +333,7 @@ function Studio({ experienceId }) {
               </p>
             ) : (
               <>
-                <p className="-mt-2 text-xs text-ink-muted">Choose which approved statements appear, in the order you tick them. The wording and figures are fixed by ForestOS.</p>
+                <p className="-mt-2 text-compact text-ink-muted">Choose which approved statements appear, in the order you tick them. The wording and figures are fixed by ForestOS.</p>
                 <ul className="space-y-2">
                   {approvedMetrics.map((metric) => {
                     const order = draft.customisation.metricIds.indexOf(metric.id)
@@ -342,14 +342,14 @@ function Studio({ experienceId }) {
                         <label className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-colors ${order >= 0 ? 'border-forest-accent bg-forest-accent-soft/50' : 'border-line hover:border-ink-faint'}`}>
                           <input type="checkbox" checked={order >= 0} onChange={() => toggleMetric(metric.id)} className="mt-0.5 h-4 w-4 accent-[var(--color-forest-accent)]" />
                           <span className="min-w-0 flex-1 text-compact text-ink">{metric.wording}</span>
-                          {order >= 0 && <span className="font-mono text-xs text-forest-accent-dark">#{order + 1}</span>}
+                          {order >= 0 && <span className="font-mono text-compact text-forest-accent-dark">#{order + 1}</span>}
                         </label>
                       </li>
                     )
                   })}
                 </ul>
                 {(product?.evidence.pendingMetrics ?? []).length > 0 && (
-                  <p className="text-xs text-ink-faint">
+                  <p className="text-compact text-ink-faint">
                     In verification, not available yet: {product.evidence.pendingMetrics.map((metric) => metric.label.toLowerCase()).join(', ')}.
                   </p>
                 )}
@@ -396,7 +396,7 @@ function Studio({ experienceId }) {
                 <button
                   type="button"
                   onClick={() => setCustom({ socialLinks: [...draft.customisation.socialLinks, { network: '', href: '' }] })}
-                  className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-forest-accent hover:underline"
+                  className="mt-2 inline-flex items-center gap-1 text-compact font-semibold text-forest-accent hover:underline"
                 >
                   <Plus className="h-3.5 w-3.5" aria-hidden="true" /> Add a social link
                 </button>
@@ -407,15 +407,15 @@ function Studio({ experienceId }) {
 
         <aside className="space-y-6 xl:sticky xl:top-8 xl:self-start" aria-label="Preview and publishing">
           <ExperiencePreview customisation={draft.customisation} kit={ws.kit} heroAsset={heroAsset} lot={lot} metrics={selectedMetrics} />
-          <p className="text-center text-xs leading-relaxed text-ink-faint">
+          <p className="text-center text-compact leading-relaxed text-ink-faint">
             A preview of your brand layer. The live page is the ForestOS batch record, which is a placeholder (batch #921) until brand templates ship.
           </p>
           <div className="rounded-2xl border border-line bg-card p-5 shadow-card">
-            <h2 className="mb-3 text-sm font-bold text-ink">Before you publish</h2>
+            <h2 className="mb-3 text-sm font-semibold text-ink">Before you publish</h2>
             <Readiness readiness={readiness} />
           </div>
           <div className="rounded-2xl border border-line bg-card p-5 shadow-card">
-            <h2 className="mb-3 text-sm font-bold text-ink">QR code</h2>
+            <h2 className="mb-3 text-sm font-semibold text-ink">QR code</h2>
             <QrPanel experience={experience} url={liveUrl} />
           </div>
           {experience.status === 'published' && (
@@ -424,8 +424,8 @@ function Studio({ experienceId }) {
               className="flex items-center justify-between rounded-2xl border border-line bg-card p-5 shadow-card transition-colors hover:border-forest-accent/40"
             >
               <span>
-                <span className="block text-3xl font-bold leading-none tracking-tight text-ink">{experience.scans.scans.toLocaleString('en-US')}</span>
-                <span className="mt-1 block text-xs text-ink-muted">scans since {experience.publishedAt}</span>
+                <span className="block text-3xl font-bold leading-none tracking-tight tabular-nums text-ink">{experience.scans.scans.toLocaleString('en-US')}</span>
+                <span className="mt-1 block text-compact text-ink-muted">scans since {experience.publishedAt}</span>
               </span>
               <span className="inline-flex items-center gap-1 text-compact font-semibold text-forest-accent">
                 Scan analytics <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

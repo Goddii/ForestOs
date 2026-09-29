@@ -56,10 +56,10 @@ export function SectionsPanel({ creative, template, onChange }) {
           const isHidden = creative.hiddenSections.includes(key)
           return (
             <li key={key} className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 ${isHidden ? 'border-dashed border-line text-ink-faint' : 'border-line'}`}>
-              <span className="w-5 text-xs tabular-nums text-ink-faint">{index + 1}</span>
+              <span className="w-5 text-compact tabular-nums text-ink-faint">{index + 1}</span>
               <span className="flex-1 text-compact font-medium text-ink">{section.label}</span>
               {isVerified && (
-                <span className="inline-flex items-center gap-1 text-xs text-forest-accent-dark">
+                <span className="inline-flex items-center gap-1 text-compact text-forest-accent-dark">
                   <Lock className="h-3 w-3" aria-hidden="true" /> Verified
                 </span>
               )}
@@ -104,7 +104,7 @@ export function MediaPanel({ creative, onChange }) {
     <Panel title="Imagery and music">
       <fieldset>
         <legend className="text-sm font-semibold text-ink">Hero image</legend>
-        <p className="mt-0.5 text-xs text-ink-muted">Your campaign art, or photography ForestOS has approved for use.</p>
+        <p className="mt-0.5 text-compact text-ink-muted">Your campaign art, or photography ForestOS has approved for use.</p>
         <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
           {HERO_OPTIONS.map((asset) => {
             const isChosen = creative.heroAssetId === asset.id
@@ -145,7 +145,7 @@ export function LinksPanel({ creative, onChange }) {
     onChange({ ctas: [...creative.ctas, { id: `cta-${serial}`, label: '', href: '', kind: 'website' }] })
   }
   return (
-    <Panel title="Calls to action" aside={<span className="text-xs text-ink-faint">{creative.ctas.length} of {MAX_CTAS}</span>}>
+    <Panel title="Calls to action" aside={<span className="text-compact text-ink-faint">{creative.ctas.length} of {MAX_CTAS}</span>}>
       {creative.ctas.length === 0 && <p className="rounded-xl bg-canvas px-4 py-3 text-compact text-ink-muted">No links yet. Add where scanners should go next: your music, socials, an event or the community.</p>}
       <ul className="grid gap-4">
         {creative.ctas.map((cta) => (
@@ -186,7 +186,7 @@ export function StatementsPanel({ creative, statements, onChange }) {
     onChange({ statementIds: creative.statementIds.includes(id) ? creative.statementIds.filter((entry) => entry !== id) : [...creative.statementIds, id] })
   return (
     <Panel title="Approved statements to quote">
-      <p className="-mt-2 mb-3 text-xs text-ink-muted">ForestOS has approved these word for word. They appear in the verified impact section.</p>
+      <p className="-mt-2 mb-3 text-compact text-ink-muted">ForestOS has approved these word for word. They appear in the verified impact section.</p>
       <div className="grid gap-2">
         {statements.map((statement) => (
           <ChoiceCard key={statement.id} type="checkbox" checked={creative.statementIds.includes(statement.id)} onChange={() => toggle(statement.id)} value={statement.id}>

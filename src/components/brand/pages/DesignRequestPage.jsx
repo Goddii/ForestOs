@@ -85,7 +85,7 @@ export default function DesignRequestPage() {
               {ws.products.map((product) => (
                 <ChoiceCard key={product.id} type="checkbox" name="products" value={product.id} checked={form.productIds.includes(product.id)} onChange={() => toggle('productIds', product.id)}>
                   <span className="text-compact font-semibold text-ink">{product.name}</span>
-                  <span className="block text-xs text-ink-muted">{product.lots.length > 0 ? `Lot #${product.lots[0].code}, ${product.lots[0].block}` : 'No lot connected yet'}</span>
+                  <span className="block text-compact text-ink-muted">{product.lots.length > 0 ? `Lot #${product.lots[0].code}, ${product.lots[0].block}` : 'No lot connected yet'}</span>
                 </ChoiceCard>
               ))}
             </div>
@@ -156,24 +156,24 @@ export default function DesignRequestPage() {
 
         <aside className="space-y-6 xl:sticky xl:top-8 xl:self-start" aria-label="How custom design works">
           <div className="rounded-2xl border border-line bg-card p-5 shadow-card">
-            <h2 className="text-sm font-bold text-ink">What happens next</h2>
+            <h2 className="text-sm font-semibold text-ink">What happens next</h2>
             <ol className="mt-3 space-y-3">
               {DESIGN_REQUEST_STAGES.map((stage, index) => (
                 <li key={stage.key} className="grid grid-cols-[1.5rem_1fr] gap-2 text-compact">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-canvas font-mono text-xs text-ink-muted">{index + 1}</span>
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-canvas font-mono text-compact text-ink-muted">{index + 1}</span>
                   <span>
                     <span className="font-semibold text-ink">{stage.label}</span>
-                    <span className="block text-xs text-ink-muted">{stage.detail}</span>
+                    <span className="block text-compact text-ink-muted">{stage.detail}</span>
                   </span>
                 </li>
               ))}
             </ol>
           </div>
           <div className="rounded-2xl border border-forest-accent/20 bg-forest-accent-soft/50 p-5">
-            <h2 className="flex items-center gap-2 text-sm font-bold text-ink">
+            <h2 className="flex items-center gap-2 text-sm font-semibold text-ink">
               <Lock className="h-4 w-4 text-forest-accent" aria-hidden="true" /> The verified layer stays the same
             </h2>
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+            <p className="mt-2 text-compact leading-relaxed text-ink-muted">
               The team designs your brand layer. Origin, verification and impact statements still come from ForestOS records, and the finished experience passes
               the same publish checks as any template.
             </p>

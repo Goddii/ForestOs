@@ -40,7 +40,7 @@ export default function ReportsPage() {
             className={`flex flex-col p-5 ${selected === definition.id ? 'ring-2 ring-forest-accent' : ''}`}
           >
             <p className="font-semibold text-ink">{definition.title}</p>
-            <p className="mt-1.5 flex-1 text-xs leading-relaxed text-ink-muted">{definition.description}</p>
+            <p className="mt-1.5 flex-1 text-compact leading-relaxed text-ink-muted">{definition.description}</p>
             <p className="mt-3 font-mono text-label text-ink-faint">{reports[definition.id].rows.length} rows</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               <ActionButton variant={selected === definition.id ? 'primary' : 'ghost'} icon={null} onClick={() => setSelected(definition.id)}>

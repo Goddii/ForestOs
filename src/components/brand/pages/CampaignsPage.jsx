@@ -30,15 +30,15 @@ function CampaignCard({ campaign }) {
           <CampaignThemeTag theme={campaign.theme} />
           <CampaignStatusBadge status={campaign.status} />
         </div>
-        <h3 className="mt-3 text-xl font-bold tracking-tight text-ink">{campaign.name}</h3>
-        <p className="mt-0.5 font-mono text-xs text-ink-faint">
+        <h3 className="mt-3 text-xl font-semibold tracking-tight text-ink">{campaign.name}</h3>
+        <p className="mt-0.5 font-mono text-compact text-ink-faint">
           {campaign.period.start}
           {campaign.period.end ? ` to ${campaign.period.end}` : ', open-ended'}
         </p>
         <p className="mt-3 max-w-[65ch] text-sm leading-relaxed text-ink">{campaign.objective}</p>
         <dl className="mt-4 grid gap-3 text-compact sm:grid-cols-2">
           <div>
-            <dt className="text-xs text-ink-faint">Products</dt>
+            <dt className="text-compact text-ink-faint">Products</dt>
             <dd className="mt-0.5 flex flex-wrap gap-x-3">
               {products.map((product) => (
                 <Link key={product.id} to={path(`products/${product.id}`)} className="text-ink underline decoration-line-strong underline-offset-2 hover:text-forest-accent">
@@ -48,7 +48,7 @@ function CampaignCard({ campaign }) {
             </dd>
           </div>
           <div>
-            <dt className="text-xs text-ink-faint">Channels</dt>
+            <dt className="text-compact text-ink-faint">Channels</dt>
             <dd className="mt-0.5 text-ink">{campaign.channels.join(', ')}</dd>
           </div>
         </dl>
@@ -56,7 +56,7 @@ function CampaignCard({ campaign }) {
       <div className="flex flex-col justify-between gap-4 rounded-xl bg-canvas p-4">
         {experience ? (
           <div>
-            <p className="text-xs text-ink-faint">QR experience</p>
+            <p className="text-compact text-ink-faint">QR experience</p>
             <Link to={path(`experiences/${experience.id}`)} className="mt-0.5 block font-semibold text-ink hover:text-forest-accent">
               {experience.customisation.title}
             </Link>
@@ -67,17 +67,17 @@ function CampaignCard({ campaign }) {
         )}
         {scans && scans.scans > 0 ? (
           <div>
-            <p className="text-3xl font-bold leading-none tracking-tight text-ink">{scans.scans.toLocaleString('en-US')}</p>
-            <p className="mt-1 text-xs text-ink-muted">scans during the campaign</p>
+            <p className="text-3xl font-bold leading-none tracking-tight tabular-nums text-ink">{scans.scans.toLocaleString('en-US')}</p>
+            <p className="mt-1 text-compact text-ink-muted">scans during the campaign</p>
             <Link
               to={`${path('analytics')}?exp=${campaign.experienceId}`}
-              className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-forest-accent hover:text-forest-accent-dark"
+              className="mt-2 inline-flex items-center gap-1 text-compact font-semibold text-forest-accent hover:text-forest-accent-dark"
             >
               Performance <ArrowRight className="h-3 w-3" aria-hidden="true" />
             </Link>
           </div>
         ) : (
-          <p className="text-xs text-ink-faint">No scans yet.</p>
+          <p className="text-compact text-ink-faint">No scans yet.</p>
         )}
       </div>
     </article>
@@ -109,7 +109,7 @@ export default function CampaignsPage() {
         <div className="space-y-10">
           {groups.map((group) => (
             <section key={group.status} aria-label={`${CAMPAIGN_STATUS_LABELS[group.status]} campaigns`}>
-              <h2 className="mb-4 text-lg font-bold text-ink">
+              <h2 className="mb-4 text-lg font-semibold text-ink">
                 {CAMPAIGN_STATUS_LABELS[group.status]} <span className="font-normal text-ink-faint">{group.campaigns.length}</span>
               </h2>
               <div className="space-y-4">

@@ -77,7 +77,7 @@ export default function CapitalFlow({ onShowPayments }) {
                 <span className="block font-sans text-lg font-bold tabular-nums text-ink">
                   {formatMillions(position[step.key], position.currency)}
                 </span>
-                <span className="block text-xs tabular-nums text-ink-faint">
+                <span className="block text-compact tabular-nums text-ink-faint">
                   {Math.round(shareOf(position[step.key], position.committed) * 100)}% of committed
                 </span>
               </span>
@@ -147,12 +147,12 @@ function StageBreakdown({ step, capital, onShowPayments }) {
 
   return (
     <div className="border-t border-line bg-canvas px-5 py-4 sm:pl-[calc(12rem+2.75rem)]">
-      <p className="text-xs font-semibold text-ink-muted">{isTranches ? 'By tranche' : 'By allocation'}</p>
+      <p className="text-compact font-semibold text-ink-muted">{isTranches ? 'By tranche' : 'By allocation'}</p>
       <ul className="mt-2 space-y-1.5">
         {rows.map((row) => (
           <li key={row.id} className="flex items-center justify-between gap-3 text-sm">
             <span className="text-ink-muted">{row.label}</span>
-            <span className="font-mono text-xs font-semibold tabular-nums text-ink">{row.value}</span>
+            <span className="font-mono text-compact font-semibold tabular-nums text-ink">{row.value}</span>
           </li>
         ))}
       </ul>

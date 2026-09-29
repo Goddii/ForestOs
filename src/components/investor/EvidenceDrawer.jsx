@@ -42,7 +42,7 @@ function EvidenceRecordBody({ record }) {
         <p className="font-mono text-label uppercase tracking-label-wide text-forest-accent">
           Evidence record
         </p>
-        <h3 className="mt-1 font-sans text-xl font-bold leading-tight text-ink">{record.title}</h3>
+        <h3 className="mt-1 font-sans text-xl font-semibold leading-tight text-ink">{record.title}</h3>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <ConfidenceIndicator status={record.status} />
@@ -89,7 +89,7 @@ function EvidenceRecordBody({ record }) {
         <Section eyebrow="Audit trail">
           <ol className="space-y-2 border-l border-line pl-4">
             {record.detail.auditTrail.map((entry, index) => (
-              <li key={index} className="relative text-xs leading-snug text-ink-muted">
+              <li key={index} className="relative text-compact leading-snug text-ink-muted">
                 <span className="absolute -left-[1.09rem] top-1.5 h-1.5 w-1.5 rounded-full bg-forest-accent" />
                 {entry}
               </li>
@@ -110,7 +110,7 @@ function ZoneBody({ zone, onOpenEvidence }) {
         <p className="font-mono text-label uppercase tracking-label-wide text-forest-accent">
           Conservation zone
         </p>
-        <h3 className="mt-1 font-sans text-xl font-bold leading-tight text-ink">{zone.label}</h3>
+        <h3 className="mt-1 font-sans text-xl font-semibold leading-tight text-ink">{zone.label}</h3>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <ConfidenceIndicator status={zone.confidence} />
@@ -126,7 +126,7 @@ function ZoneBody({ zone, onOpenEvidence }) {
         </div>
         <div>
           <dt className="font-mono text-label uppercase tracking-label text-ink-faint">Status</dt>
-          <dd className="mt-0.5 text-xl font-bold text-ink">{status}</dd>
+          <dd className="mt-0.5 text-xl font-semibold text-ink">{status}</dd>
         </div>
         <div>
           <dt className="font-mono text-label uppercase tracking-label text-ink-faint">

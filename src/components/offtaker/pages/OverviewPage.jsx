@@ -44,7 +44,7 @@ export default function OverviewPage() {
     <div className="space-y-12">
       <div className="flex flex-col gap-3 border-b border-line pb-8">
         <p className="font-mono text-label uppercase tracking-label-wide text-ink-faint">{BUYER_TYPE_LABELS[ws.account.buyerType]}</p>
-        <h1 className="font-display text-5xl leading-[1.05] text-ink sm:text-6xl">{ws.org.name}</h1>
+        <h1 className="font-display text-4xl leading-[1.05] text-ink sm:text-display">{ws.org.name}</h1>
         <p className="max-w-[68ch] text-sm leading-relaxed text-ink-muted">
           Market: {ws.account.market}. Tea from the Nyayo Tea Zone buffer belt, with each batch’s journey, quality
           record, documents and conservation link, read from NTZDC’s own records and scoped to your organisation and role.
@@ -53,18 +53,18 @@ export default function OverviewPage() {
 
       {/* The answer first: the four things a buyer needs to be true before sourcing */}
       <section aria-labelledby="confidence-heading">
-        <h2 id="confidence-heading" className="text-2xl font-bold tracking-tight text-ink">
+        <h2 id="confidence-heading" className="text-2xl font-semibold tracking-tight text-ink">
           Can you source this tea with confidence?
         </h2>
         <ol className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-line bg-line shadow-card md:grid-cols-2 xl:grid-cols-4">
           {checks.map((check) => (
             <li key={check.key} className="flex flex-col bg-card p-5">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-bold text-ink">{check.title}</p>
+                <p className="text-sm font-semibold text-ink">{check.title}</p>
                 <StageStatusBadge status={check.status} />
               </div>
-              <p className="mt-3 text-lg font-bold leading-snug text-ink">{check.headline}</p>
-              <p className="mt-2 flex-1 text-xs leading-relaxed text-ink-muted">{check.detail}</p>
+              <p className="mt-3 text-lg font-semibold leading-snug text-ink">{check.headline}</p>
+              <p className="mt-2 flex-1 text-compact leading-relaxed text-ink-muted">{check.detail}</p>
               <Link
                 to={path(check.to)}
                 className="mt-4 inline-flex items-center gap-1 text-label font-semibold uppercase tracking-label text-forest-accent hover:text-forest-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
@@ -79,22 +79,22 @@ export default function OverviewPage() {
       <section aria-label="Volumes" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <ContentCard className="p-5">
           <StatCard label="Available to buy" value={ws.totals.availableKg} unit="kg" separator="," />
-          <p className="mt-3 text-xs text-ink-muted">{ws.totals.availableLots} unallocated lots, sealed and ready</p>
+          <p className="mt-3 text-compact text-ink-muted">{ws.totals.availableLots} unallocated lots, sealed and ready</p>
         </ContentCard>
         <ContentCard className="p-5">
           <StatCard label="Committed, not yet delivered" value={ws.totals.committedOpenKg} unit="kg" separator="," />
-          <p className="mt-3 text-xs text-ink-muted">{ws.totals.openCommitments} open commitment{ws.totals.openCommitments === 1 ? '' : 's'}</p>
+          <p className="mt-3 text-compact text-ink-muted">{ws.totals.openCommitments} open commitment{ws.totals.openCommitments === 1 ? '' : 's'}</p>
         </ContentCard>
         <ContentCard className="p-5">
           <StatCard label="Delivered to you" value={ws.totals.deliveredKg} unit="kg" separator="," />
-          <p className="mt-3 text-xs text-ink-muted">Across {ws.allocated.filter((b) => b.commitment?.status === 'delivered').length} batches</p>
+          <p className="mt-3 text-compact text-ink-muted">Across {ws.allocated.filter((b) => b.commitment?.status === 'delivered').length} batches</p>
         </ContentCard>
         <ContentCard className="p-5">
           <StatCard label="Traceability coverage" value={`${ws.totals.traceability.pct}%`} accent />
           <div className="mt-3 h-1.5 rounded-full bg-canvas-sunk" aria-hidden="true">
             <div className="h-1.5 rounded-full bg-forest-accent" style={{ width: `${ws.totals.traceability.pct}%` }} />
           </div>
-          <p className="mt-2 text-xs text-ink-muted">
+          <p className="mt-2 text-compact text-ink-muted">
             {formatKg(ws.totals.traceability.tracedKg)} of {formatKg(ws.totals.traceability.visibleKg)} verified source to batch
           </p>
         </ContentCard>
@@ -128,7 +128,7 @@ export default function OverviewPage() {
           <SectionHeading title="Source zones" />
           <ContentCard className="p-5">
             <VolumeBars rows={zones.map(([zone, value]) => ({ key: zone, label: zone, value }))} />
-            <p className="mt-4 text-xs text-ink-faint">Made tea visible to you (yours and available)</p>
+            <p className="mt-4 text-compact text-ink-faint">Made tea visible to you (yours and available)</p>
           </ContentCard>
         </div>
       </section>
@@ -143,7 +143,7 @@ export default function OverviewPage() {
                   <li key={document.id} className="flex items-start justify-between gap-3 px-5 py-3.5">
                     <div className="min-w-0">
                       <p className="text-compact font-medium text-ink">{document.title}</p>
-                      <p className="mt-0.5 text-xs text-ink-faint">{document.issuer}</p>
+                      <p className="mt-0.5 text-compact text-ink-faint">{document.issuer}</p>
                     </div>
                     <DocumentStatusBadge status={document.status} />
                   </li>
@@ -172,7 +172,7 @@ export default function OverviewPage() {
                 <dd className="text-xl font-bold tabular-nums text-ink">{ws.conservation.evidence.length}</dd>
               </div>
             </dl>
-            <p className="mt-4 text-xs leading-relaxed text-ink-muted">
+            <p className="mt-4 text-compact leading-relaxed text-ink-muted">
               {ws.conservation.connection.connectedKg > 0
                 ? `From ${ws.conservation.connection.connectedCentreIds.length} source centre${ws.conservation.connection.connectedCentreIds.length === 1 ? '' : 's'} whose catchment overlaps buffer segments with verified planting or protection work.`
                 : `None of your sourced tea comes from a centre linked to verified conservation work yet. ${ws.conservation.connectedAvailable.length} available lot${ws.conservation.connectedAvailable.length === 1 ? ' does' : 's do'}.`}

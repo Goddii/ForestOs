@@ -43,7 +43,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
       <div className="rounded-xl border border-line bg-card p-4">
         <p className="text-sm font-semibold text-ink">{label}</p>
         <p className="mt-2 text-sm text-ink-muted">Not yet measured.</p>
-        <p className="mt-3 text-xs leading-snug text-ink-faint">{methodology}</p>
+        <p className="mt-3 text-compact leading-snug text-ink-faint">{methodology}</p>
       </div>
     )
   }
@@ -75,7 +75,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
       <p className="text-sm font-semibold text-ink">{label}</p>
       <p className="mt-2 flex items-baseline gap-1.5">
         <span className="font-sans text-2xl font-bold tabular-nums text-ink">{formatNumber(latest.value)}</span>
-        <span className="text-xs text-ink-muted">
+        <span className="text-compact text-ink-muted">
           {unit} · {latest.year}
         </span>
       </p>
@@ -189,7 +189,7 @@ export default function PerformanceChart({ label, unit, methodology, series, sca
         </div>
       </div>
 
-      <p className="mt-3 text-xs leading-snug text-ink-faint">{methodology}</p>
+      <p className="mt-3 text-compact leading-snug text-ink-faint">{methodology}</p>
 
       <table className="sr-only">
         <caption>{label}</caption>

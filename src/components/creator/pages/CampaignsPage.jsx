@@ -80,10 +80,10 @@ function CampaignCard({ campaign, wide = false }) {
           {campaign.products.map((product) => (
             <li key={product.id} className="rounded-xl bg-canvas px-4 py-3">
               <p className="text-compact font-semibold text-ink">{product.name}</p>
-              <p className="text-xs text-ink-muted">{product.packs.map((pack) => `${PACK_TYPE_LABELS[pack.type]} ${pack.size}`).join(', ')}</p>
+              <p className="text-compact text-ink-muted">{product.packs.map((pack) => `${PACK_TYPE_LABELS[pack.type]} ${pack.size}`).join(', ')}</p>
               <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
                 {product.codes.map((code) => (
-                  <li key={code.id} className="flex items-center gap-1.5 text-xs text-ink">
+                  <li key={code.id} className="flex items-center gap-1.5 text-compact text-ink">
                     Batch #{code.batchId} <CodeStateBadge state={code.state} />
                   </li>
                 ))}
@@ -100,7 +100,7 @@ function CampaignCard({ campaign, wide = false }) {
                   <QrCode className="h-4 w-4 text-ink-faint" aria-hidden="true" />
                   {experience.name}
                 </p>
-                <p className="text-xs text-ink-faint">
+                <p className="text-compact text-ink-faint">
                   {experience.template.name}, {EXPERIENCE_STATUS_LABELS[experience.status].toLowerCase()}
                 </p>
               </div>

@@ -35,7 +35,7 @@ export default function UseOfFundsChain({ category, currency, onShowPayments }) 
   return (
     <div className="grid gap-5 sm:grid-cols-3">
       <ChainStep label="Paid for">
-        <p className="text-xs text-ink-muted">
+        <p className="text-compact text-ink-muted">
           {paymentCount} payment{paymentCount === 1 ? '' : 's'} · {formatMillions(category.verified, currency)} of{' '}
           {formatMillions(category.deployed, currency)} verified{' '}
           <ActionButton variant="text" onClick={() => onShowPayments({ status: 'all', categoryId: category.id })}>
@@ -45,7 +45,7 @@ export default function UseOfFundsChain({ category, currency, onShowPayments }) 
       </ChainStep>
 
       <ChainStep label="Produced">
-        <ul className="list-disc space-y-1 pl-4 text-xs text-ink-muted">
+        <ul className="list-disc space-y-1 pl-4 text-compact text-ink-muted">
           {category.outputs.map((output) => (
             <li key={output}>{output}</li>
           ))}
@@ -56,7 +56,7 @@ export default function UseOfFundsChain({ category, currency, onShowPayments }) 
         {outcomes.length > 0 ? (
           <ul className="space-y-1">
             {outcomes.map((outcome) => (
-              <li key={outcome.id} className="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <li key={outcome.id} className="flex flex-wrap items-center justify-between gap-2 text-compact">
                 <span className="text-ink-muted">
                   <span className="font-semibold tabular-nums text-ink">
                     {formatNumber(outcome.value)}
@@ -71,7 +71,7 @@ export default function UseOfFundsChain({ category, currency, onShowPayments }) 
             ))}
           </ul>
         ) : (
-          <p className="text-xs text-ink-muted">
+          <p className="text-compact text-ink-muted">
             Measured through the programme's output indicators (
             {getComponent(category.componentId)?.title ?? 'programme management'}), not a single outcome figure.
           </p>

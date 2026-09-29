@@ -88,7 +88,7 @@ export default function QualityPage() {
           <SectionHeading title="Rejection reasons" description="Across the batches you can see." />
           <ContentCard className="p-5">
             <VolumeBars rows={reasons.map(([reason, kg]) => ({ key: reason, label: REJECTION_REASON_LABELS[reason], value: kg }))} />
-            <p className="mt-4 text-xs text-ink-muted">
+            <p className="mt-4 text-compact text-ink-muted">
               {formatKg(rejected)} rejected of {formatKg(received)} received ({((rejected / received) * 100).toFixed(1)}%).
             </p>
           </ContentCard>
@@ -145,7 +145,7 @@ export default function QualityPage() {
                   },
                 }
               }),
-              { key: 'notes', header: 'Tasting notes', cell: (b) => <span className="text-xs text-ink-muted">{b.quality?.notes}</span> },
+              { key: 'notes', header: 'Tasting notes', cell: (b) => <span className="text-compact text-ink-muted">{b.quality?.notes}</span> },
               { key: 'state', header: 'Verification', cell: (b) => (b.quality ? <VerificationStateBadge state={currentState(b.quality.verification)} /> : '—') },
             ]}
           />

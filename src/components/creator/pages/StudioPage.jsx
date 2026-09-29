@@ -94,7 +94,7 @@ export default function StudioPage() {
                 {template.sections.map((section) => (
                   <li
                     key={section.key}
-                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs ${
+                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-compact ${
                       section.layer === 'verified' ? 'bg-forest-accent-soft text-forest-accent-dark' : 'bg-canvas text-ink-muted'
                     }`}
                   >

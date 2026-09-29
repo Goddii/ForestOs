@@ -30,7 +30,7 @@ export default function BrandNav() {
           <p className="truncate text-compact font-semibold text-bone" title={org.name}>
             {org.name}
           </p>
-          <p className="truncate text-xs text-sage-300">{roleConfig.label}</p>
+          <p className="truncate text-compact text-sage-300">{roleConfig.label}</p>
         </div>
       </div>
 

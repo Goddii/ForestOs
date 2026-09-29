@@ -60,7 +60,7 @@ export default function ImpactMetricCard({ metric }) {
         <p className="mt-2 text-2xl font-bold text-ink-faint">—</p>
       )}
 
-      <p className="mt-3 text-xs leading-relaxed text-ink-muted">{metric.evidenceSummary}</p>
+      <p className="mt-3 text-compact leading-relaxed text-ink-muted">{metric.evidenceSummary}</p>
       <div className="mt-3 flex items-center justify-between gap-2 border-t border-line pt-3">
         <ConfidenceIndicator status={metric.confidence} />
       </div>

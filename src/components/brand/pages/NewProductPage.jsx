@@ -104,7 +104,7 @@ export default function NewProductPage() {
       <form onSubmit={handleSubmit} noValidate className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="space-y-10">
           <section className="space-y-5" aria-label="The product">
-            <h2 className="text-lg font-bold text-ink">The product</h2>
+            <h2 className="text-lg font-semibold text-ink">The product</h2>
             <div className="grid gap-5 md:grid-cols-2">
               <Field label="Product name" error={errors.name}>
                 {(props) => <input {...props} className={inputClass} value={form.name} onChange={set('name')} autoComplete="off" />}
@@ -125,7 +125,7 @@ export default function NewProductPage() {
           </section>
 
           <section className="space-y-5" aria-label="Packaging">
-            <h2 className="text-lg font-bold text-ink">Packaging</h2>
+            <h2 className="text-lg font-semibold text-ink">Packaging</h2>
             <ChoiceGroup legend="Pack type">
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {Object.entries(PACK_TYPE_LABELS).map(([key, label]) => (
@@ -149,7 +149,7 @@ export default function NewProductPage() {
           </section>
 
           <section className="space-y-5" aria-label="Tea source">
-            <h2 className="text-lg font-bold text-ink">Tea source</h2>
+            <h2 className="text-lg font-semibold text-ink">Tea source</h2>
             <ChoiceGroup
               legend="Lot to pack from"
               helper={`Lots ${ws.packer.name} holds for its customers, with the volume no other brand has reserved. You can connect a lot later.`}
@@ -157,7 +157,7 @@ export default function NewProductPage() {
               <div className="grid gap-2 lg:grid-cols-2">
                 <ChoiceCard name="lot" value="" checked={form.lotTraceId === ''} onChange={set('lotTraceId')}>
                   <span className="text-compact font-semibold text-ink">Connect a lot later</span>
-                  <span className="mt-0.5 block text-xs text-ink-muted">The product stays a draft and cannot carry a QR experience until it has a lot.</span>
+                  <span className="mt-0.5 block text-compact text-ink-muted">The product stays a draft and cannot carry a QR experience until it has a lot.</span>
                 </ChoiceCard>
                 {ws.availableLots.map((lot) => (
                   <ChoiceCard key={lot.traceId} name="lot" value={lot.traceId} checked={form.lotTraceId === lot.traceId} onChange={set('lotTraceId')}>
@@ -167,10 +167,10 @@ export default function NewProductPage() {
                       </span>
                       <LotVerificationBadge status={lot.verificationStatus} />
                     </span>
-                    <span className="mt-1 block text-xs leading-relaxed text-ink-muted">
+                    <span className="mt-1 block text-compact leading-relaxed text-ink-muted">
                       {lot.region}. Grade {lot.grade}, {lot.harvestMonth}. {formatKg(lot.remainingKg)} unallocated of {formatKg(lot.madeTeaKg)}.
                     </span>
-                    <span className="mt-1.5 flex items-center gap-1.5 text-xs text-ink-muted">
+                    <span className="mt-1.5 flex items-center gap-1.5 text-compact text-ink-muted">
                       {lot.centre?.segmentIds.length > 0 ? (
                         <>
                           <ShieldCheck className="h-3.5 w-3.5 text-forest-accent" aria-hidden="true" /> Beside verified buffer conservation work
@@ -196,7 +196,7 @@ export default function NewProductPage() {
             <input type="checkbox" checked={form.createExperience} onChange={set('createExperience')} className="mt-0.5 h-4 w-4 accent-[var(--color-forest-accent)]" />
             <span>
               <span className="text-compact font-semibold text-ink">Start a QR experience for this product</span>
-              <span className="mt-0.5 block text-xs text-ink-muted">A draft on the Verified batch story template. Nothing is published until you publish it.</span>
+              <span className="mt-0.5 block text-compact text-ink-muted">A draft on the Verified batch story template. Nothing is published until you publish it.</span>
             </span>
           </label>
 
@@ -217,7 +217,7 @@ export default function NewProductPage() {
 
         <aside className="xl:sticky xl:top-8 xl:self-start" aria-label="Pack preview">
           <PackRender product={preview} kit={ws.kit} />
-          <p className="mt-3 text-xs leading-relaxed text-ink-faint">A generated render in your brand colours. Upload real pack artwork in Assets.</p>
+          <p className="mt-3 text-compact leading-relaxed text-ink-faint">A generated render in your brand colours. Upload real pack artwork in Assets.</p>
         </aside>
       </form>
     </div>

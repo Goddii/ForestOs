@@ -78,7 +78,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
   }
 
   if (rows.length === 0) {
-    return <p className="px-4 py-6 text-xs text-ink-muted sm:px-5">{emptyMessage}</p>
+    return <p className="px-4 py-6 text-compact text-ink-muted sm:px-5">{emptyMessage}</p>
   }
 
   return (
@@ -104,7 +104,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
           return (
             <Fragment key={row.id}>
               <tr className={isOpen ? 'bg-canvas' : 'transition-colors duration-200 hover:bg-canvas'}>
-                <td className={`${CELL} hidden whitespace-nowrap font-mono text-xs text-ink-faint sm:table-cell`}>{row.date}</td>
+                <td className={`${CELL} hidden whitespace-nowrap font-mono text-compact text-ink-faint sm:table-cell`}>{row.date}</td>
                 <th scope="row" className={`${CELL} text-left font-normal`}>
                   <button
                     type="button"
@@ -119,7 +119,7 @@ export default function ExpenditureList({ rows, showCategory = false, emptyMessa
                       aria-hidden="true"
                     />
                   </button>
-                  <span className="mt-0.5 block text-xs text-ink-faint">
+                  <span className="mt-0.5 block text-compact text-ink-faint">
                     <span className="font-mono sm:hidden">{row.date} · </span>
                     {showCategory && categoryLabels[row.categoryId]}
                   </span>

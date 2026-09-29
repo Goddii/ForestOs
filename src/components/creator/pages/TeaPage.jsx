@@ -25,11 +25,11 @@ function Origin({ story }) {
 
 function VerificationLine({ story }) {
   return story.isVerified ? (
-    <p className="flex items-center gap-1.5 text-xs text-forest-accent-dark">
+    <p className="flex items-center gap-1.5 text-compact text-forest-accent-dark">
       <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> {story.verification.standard}, verified
     </p>
   ) : (
-    <p className="flex items-center gap-1.5 text-xs text-warning">
+    <p className="flex items-center gap-1.5 text-compact text-warning">
       <CircleAlert className="h-3.5 w-3.5" aria-hidden="true" /> Verification in progress. {story.verification.satelliteCheck}
     </p>
   )
@@ -86,7 +86,7 @@ export default function TeaPage() {
                           Batch #{code.batchId} <CodeStateBadge state={code.state} />
                         </p>
                         <Origin story={code.batch} />
-                        <p className="text-xs text-ink-muted">
+                        <p className="text-compact text-ink-muted">
                           Sealed {formatDate(code.batch.sealedAt)}, {code.packs.toLocaleString('en-GB')} packs {code.status === 'packed' ? `packed ${formatDate(code.date)}` : `scheduled for ${formatDate(code.date)}`}
                         </p>
                         <VerificationLine story={code.batch} />
@@ -163,11 +163,11 @@ function AvailableBatch({ batch, products, onBooked }) {
         <p className="font-display text-2xl text-ink">Batch #{batch.batchId}</p>
         <div className="mt-1.5 grid gap-1.5">
           <Origin story={batch} />
-          <p className="text-xs text-ink-muted">
+          <p className="text-compact text-ink-muted">
             Sealed {formatDate(batch.sealedAt)}, {leftKg.toLocaleString('en-GB')} kg of made tea free
           </p>
           <VerificationLine story={batch} />
-          <a href={batch.proofUrl} target="_blank" rel="noreferrer" className="text-xs font-semibold text-forest-accent hover:text-forest-accent-dark">
+          <a href={batch.proofUrl} target="_blank" rel="noreferrer" className="text-compact font-semibold text-forest-accent hover:text-forest-accent-dark">
             Batch record
           </a>
         </div>
@@ -201,7 +201,7 @@ function AvailableBatch({ batch, products, onBooked }) {
             <button type="submit" className="rounded-full bg-forest-accent px-5 py-2 text-compact font-semibold text-white transition-colors hover:bg-forest-accent-dark active:translate-y-px">
               Book this batch
             </button>
-            {check.ok && <span className="text-xs text-ink-muted">Uses {check.kg.toLocaleString('en-GB')} kg of made tea</span>}
+            {check.ok && <span className="text-compact text-ink-muted">Uses {check.kg.toLocaleString('en-GB')} kg of made tea</span>}
           </div>
         </form>
       )}

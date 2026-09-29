@@ -102,7 +102,7 @@ export default function AnalyticsPage() {
           </SectionTitle>
           <div className="mt-6 overflow-x-auto">
             <table className="w-full min-w-[30rem] text-left text-compact">
-              <thead className="text-xs text-ink-faint">
+              <thead className="text-compact text-ink-faint">
                 <tr className="border-b border-line">
                   <th scope="col" className="py-2 pr-3 font-medium">Experience</th>
                   <th scope="col" className="py-2 pr-3 text-right font-medium">Scans</th>

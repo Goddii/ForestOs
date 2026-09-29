@@ -51,7 +51,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
 
   return (
     <div>
-      <ul className="flex flex-wrap gap-x-5 gap-y-1.5 border-b border-line px-4 py-3 text-xs text-ink-muted sm:px-5">
+      <ul className="flex flex-wrap gap-x-5 gap-y-1.5 border-b border-line px-4 py-3 text-compact text-ink-muted sm:px-5">
         {LEGEND.map((item) => (
           <li key={item.label} className="flex items-center gap-1.5">
             <span className={`h-2.5 w-2.5 rounded-[3px] ${item.swatch}`} aria-hidden="true" />
@@ -93,7 +93,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
                         aria-hidden="true"
                       />
                     </button>
-                    <span className="mt-0.5 block text-xs text-ink-faint">{category.percentage}% of budget</span>
+                    <span className="mt-0.5 block text-compact text-ink-faint">{category.percentage}% of budget</span>
                     <span className="mt-2 block md:hidden">
                       <BudgetBar category={category} maxBudget={maxBudget} />
                     </span>
@@ -120,7 +120,7 @@ export default function UseOfFundsBars({ onShowPayments }) {
             )
           })}
         </tbody>
-        <tfoot className="border-t border-line-strong bg-canvas font-bold">
+        <tfoot className="border-t border-line-strong bg-canvas font-semibold">
           <tr>
             <th scope="row" className="px-4 py-3 text-left sm:px-5">Total · {currency}</th>
             <td className="hidden md:table-cell" />

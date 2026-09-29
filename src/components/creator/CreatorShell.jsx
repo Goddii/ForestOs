@@ -37,7 +37,7 @@ export default function CreatorShell({ children }) {
           <img src={creator.portrait.src} alt="" width={44} height={55} className="h-14 w-11 rounded-md object-cover" />
           <div className="min-w-0">
             <p className="truncate font-display text-xl leading-tight text-ink">{creator.name}</p>
-            <p className="truncate text-xs text-ink-faint">{creator.discipline}</p>
+            <p className="truncate text-compact text-ink-faint">{creator.discipline}</p>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export default function CreatorShell({ children }) {
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-compact font-semibold text-ink lg:hidden">{creator.name}</p>
             <Badge tone="warning">Demo environment</Badge>
-            <p className="text-xs text-ink-faint">Data as of {asOf}</p>
+            <p className="text-compact text-ink-faint">Data as of {asOf}</p>
           </div>
           <ActionButton to={path('studio')} variant="primary" icon={Wand2} iconPosition="left">
             Experience Studio

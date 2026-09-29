@@ -51,7 +51,7 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {value !== undefined && (
-                  <span className={`font-mono text-xs font-semibold tabular-nums ${state === 'rejected' ? 'text-ink-faint line-through' : 'text-ink'}`}>
+                  <span className={`font-mono text-compact font-semibold tabular-nums ${state === 'rejected' ? 'text-ink-faint line-through' : 'text-ink'}`}>
                     {formatNumber(value)} {unit}
                   </span>
                 )}
@@ -64,7 +64,7 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
               </div>
             </div>
 
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+            <p className="mt-2 text-compact leading-relaxed text-ink-muted">
               {decision ? (
                 <>
                   {decision.state === 'verified' ? 'Verified' : decision.state === 'rejected' ? 'Rejected' : 'Returned'} {decision.at} by{' '}
@@ -91,7 +91,7 @@ export default function ActivityList({ rows, emptyMessage = 'No activities recor
                 ))}
               </div>
             ) : (
-              <p className="mt-1.5 text-xs text-ink-faint">No evidence submitted yet.</p>
+              <p className="mt-1.5 text-compact text-ink-faint">No evidence submitted yet.</p>
             )}
           </li>
         )

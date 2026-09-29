@@ -88,7 +88,7 @@ export default function BatchDetailPage() {
           <TraceJourney journey={journey} />
         </ContentCard>
         {delivery && (
-          <p className="mt-3 text-xs text-ink-faint">
+          <p className="mt-3 text-compact text-ink-faint">
             Delivery reconciliation tolerance: {VARIANCE_TOLERANCE_PCT}% of the weigh-in tickets, NTZDC’s own sign-off rule.
           </p>
         )}
@@ -107,7 +107,7 @@ export default function BatchDetailPage() {
                   ]}
                   max={intake.receivedKg}
                 />
-                <p className="mt-4 text-xs text-ink-muted">
+                <p className="mt-4 text-compact text-ink-muted">
                   {formatKg(intake.receivedKg)} green leaf received; {((intake.rejectedKg / intake.receivedKg) * 100).toFixed(1)}% rejected at the weigh-in.
                 </p>
                 <div className="mt-3">
@@ -134,7 +134,7 @@ export default function BatchDetailPage() {
                   <div key={metric.id} className="flex items-baseline justify-between gap-4 py-2.5">
                     <dt>
                       <span className="text-compact text-ink">{metric.label}</span>
-                      <span className="block text-xs text-ink-faint">
+                      <span className="block text-compact text-ink-faint">
                         {metric.method}
                       </span>
                     </dt>
@@ -145,7 +145,7 @@ export default function BatchDetailPage() {
                   </div>
                 ))}
                 <div className="py-2.5">
-                  <dt className="text-xs text-ink-faint">Tasting notes</dt>
+                  <dt className="text-compact text-ink-faint">Tasting notes</dt>
                   <dd className="text-compact text-ink-muted">{quality.notes}</dd>
                 </div>
               </dl>
@@ -165,7 +165,7 @@ export default function BatchDetailPage() {
                 ? `${batch.centre.name}’s catchment overlaps buffer segments with verified planting or protection work.`
                 : `${batch.centre?.name ?? 'This centre'} is not yet linked to a verified conservation programme.`}
             </p>
-            <p className="mt-2 text-xs text-ink-muted">
+            <p className="mt-2 text-compact text-ink-muted">
               Canopy on the source plot: {record.plot.canopyBaseline2020Pct}% in 2020, {record.plot.canopyNowPct}% now (satellite).
             </p>
             <ActionButton to={path('origin')} className="mt-4">
@@ -179,19 +179,19 @@ export default function BatchDetailPage() {
             {commitment ? (
               <dl className="grid grid-cols-2 gap-4 text-compact">
                 <div>
-                  <dt className="text-xs text-ink-faint">Commitment</dt>
+                  <dt className="text-compact text-ink-faint">Commitment</dt>
                   <dd className="font-mono text-ink">{commitment.id}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-ink-faint">Your reference</dt>
+                  <dt className="text-compact text-ink-faint">Your reference</dt>
                   <dd className="font-mono text-ink">{commitment.reference}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-ink-faint">Status</dt>
+                  <dt className="text-compact text-ink-faint">Status</dt>
                   <dd className="text-ink">{COMMITMENT_STATUS_LABELS[commitment.status]}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-ink-faint">Price</dt>
+                  <dt className="text-compact text-ink-faint">Price</dt>
                   <dd className="text-ink">{commitment.priceKesPerKg != null ? `KES ${commitment.priceKesPerKg}/kg` : 'Not shown for your role'}</dd>
                 </div>
               </dl>

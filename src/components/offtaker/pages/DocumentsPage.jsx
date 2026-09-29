@@ -34,7 +34,7 @@ export default function DocumentsPage() {
         ))}
       </div>
       <DocumentTable key={tab} documents={ws.documents} kinds={tab ? [tab] : undefined} />
-      <p className="text-xs text-ink-faint">
+      <p className="text-compact text-ink-faint">
         {ws.withheldDocumentCount} further documents about your supply are limited to other roles in your organisation. Downloads are
         placeholders until a document store is connected.
       </p>

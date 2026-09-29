@@ -61,7 +61,7 @@ export default function RiskCard({ risk }) {
         </div>
       </dl>
 
-      <p className="mt-3 text-xs leading-relaxed text-ink-muted">
+      <p className="mt-3 text-compact leading-relaxed text-ink-muted">
         <span className="text-ink-faint">Mitigation — </span>
         {risk.mitigation}
       </p>

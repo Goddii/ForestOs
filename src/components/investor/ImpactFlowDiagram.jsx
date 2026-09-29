@@ -54,7 +54,7 @@ export default function ImpactFlowDiagram() {
               {String(index + 1).padStart(2, '0')}
             </span>
             <div>
-              <p className="text-xl font-bold text-ink">{stage.label}</p>
+              <p className="text-xl font-semibold text-ink">{stage.label}</p>
               <p className="mt-1 text-compact leading-relaxed text-ink-muted">{stage.detail}</p>
             </div>
           </div>

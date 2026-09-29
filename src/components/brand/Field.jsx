@@ -29,13 +29,13 @@ export default function Field({ label, helper, error, optional = false, children
         {optional && <span className="ml-1.5 font-normal text-ink-faint">Optional</span>}
       </label>
       {helper && (
-        <p id={helperId} className="-mt-0.5 text-xs leading-relaxed text-ink-muted">
+        <p id={helperId} className="-mt-0.5 text-compact leading-relaxed text-ink-muted">
           {helper}
         </p>
       )}
       {children({ id, 'aria-describedby': describedBy, 'aria-invalid': error ? true : undefined })}
       {error && (
-        <p id={errorId} className="text-xs font-medium text-danger">
+        <p id={errorId} className="text-compact font-medium text-danger">
           {error}
         </p>
       )}
@@ -55,13 +55,13 @@ export function ChoiceGroup({ legend, helper, error, children, className = '' })
     <fieldset className={`grid gap-2 ${className}`} aria-describedby={describedBy}>
       <legend className="text-sm font-semibold text-ink">{legend}</legend>
       {helper && (
-        <p id={`${id}-helper`} className="-mt-1 text-xs leading-relaxed text-ink-muted">
+        <p id={`${id}-helper`} className="-mt-1 text-compact leading-relaxed text-ink-muted">
           {helper}
         </p>
       )}
       {children}
       {error && (
-        <p id={`${id}-error`} className="text-xs font-medium text-danger">
+        <p id={`${id}-error`} className="text-compact font-medium text-danger">
           {error}
         </p>
       )}
