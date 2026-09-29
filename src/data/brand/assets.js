@@ -69,7 +69,7 @@ export const VERIFICATION_MARK = {
 /** Files each brand team uploaded. */
 export const BRAND_UPLOADS = [
   { id: 'up-kil-01', brandOrgId: 'org-brand-kilele', name: 'Kilele logo, primary', type: 'SVG', sizeKb: 14, uploadedBy: 'tm-kil-4', uploadedAt: '2026-06-12', usage: 'Logo' },
-  { id: 'up-kil-02', brandOrgId: 'org-brand-kilele', name: 'Kilele logo, one colour', type: 'SVG', sizeKb: 9, uploadedBy: 'tm-kil-4', uploadedAt: '2026-06-12', usage: 'Logo' },
+  { id: 'up-kil-02', brandOrgId: 'org-brand-kilele', name: 'Kilele logo, one colour', variant: 'mono', type: 'SVG', sizeKb: 9, uploadedBy: 'tm-kil-4', uploadedAt: '2026-06-12', usage: 'Logo' },
   { id: 'up-kil-03', brandOrgId: 'org-brand-kilele', name: 'Mau Highland Black tin label, print-ready', type: 'PDF', sizeKb: 4820, uploadedBy: 'tm-kil-3', uploadedAt: '2026-08-18', usage: 'Packaging' },
   { id: 'up-kil-04', brandOrgId: 'org-brand-kilele', name: 'Mau Mornings table talker, A6', type: 'PDF', sizeKb: 2210, uploadedBy: 'tm-kil-4', uploadedAt: '2026-08-27', usage: 'Campaign' },
   { id: 'up-kil-05', brandOrgId: 'org-brand-kilele', name: 'Chai pouch front panel, draft 3', type: 'PDF', sizeKb: 3940, uploadedBy: 'tm-kil-4', uploadedAt: '2026-09-16', usage: 'Packaging' },
