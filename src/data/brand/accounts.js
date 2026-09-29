@@ -8,6 +8,7 @@
 /**
  * @typedef {Object} BrandKit
  * @property {string} monogram     two letters for the generated logo mark
+ * @property {'terraces' | 'acacia' | 'arched-h'} [mark]  drawn logo mark; the monogram is used when absent
  * @property {string} wordmark     how the name is set on packs and experiences
  * @property {string} primary      brand colour (hex)
  * @property {string} accent       secondary brand colour (hex)
@@ -32,7 +33,7 @@ export const BRAND_ACCOUNTS = [
     footprint: '14 cafés in Nairobi and Mombasa, plus retail tins at the counter',
     packerOrgId: 'org-offtaker-rvt',
     defaultRole: 'brand_lead',
-    kit: { monogram: 'KC', wordmark: 'KILELE', primary: '#23483a', accent: '#c7773f', ink: '#f6f1e7' },
+    kit: { monogram: 'KC', mark: 'terraces', wordmark: 'KILELE', primary: '#23483a', accent: '#c7773f', ink: '#f6f1e7' },
     team: [
       { id: 'tm-kil-1', name: 'Wanjiru Mwangi', title: 'Head of Brand', role: 'brand_lead', status: 'active', lastActive: '2026-09-24' },
       { id: 'tm-kil-2', name: 'Brian Otieno', title: 'Marketing Manager', role: 'marketing', status: 'active', lastActive: '2026-09-23' },
@@ -48,7 +49,7 @@ export const BRAND_ACCOUNTS = [
     footprint: '6 hotels and safari lodges across Kenya: guest rooms, lounges and lodge shops',
     packerOrgId: 'org-offtaker-rvt',
     defaultRole: 'brand_lead',
-    kit: { monogram: 'MC', wordmark: 'MARA CREST', primary: '#7b3222', accent: '#d7b16b', ink: '#fbf5ea' },
+    kit: { monogram: 'MC', mark: 'acacia', wordmark: 'MARA CREST', primary: '#7b3222', accent: '#d7b16b', ink: '#fbf5ea' },
     team: [
       { id: 'tm-mc-1', name: 'Amina Hassan', title: 'Director of Brand & Guest Experience', role: 'brand_lead', status: 'active', lastActive: '2026-09-24' },
       { id: 'tm-mc-2', name: 'Kevin Mutua', title: 'Sustainability Manager', role: 'marketing', status: 'active', lastActive: '2026-09-21' },
@@ -64,7 +65,7 @@ export const BRAND_ACCOUNTS = [
     footprint: 'One 212-room luxury hotel: afternoon tea service, in-room amenities and the hotel boutique',
     packerOrgId: 'org-offtaker-rvt',
     defaultRole: 'brand_lead',
-    kit: { monogram: 'HG', wordmark: 'THE HALDEN', primary: '#1d2a45', accent: '#b89a5c', ink: '#f7f3ea' },
+    kit: { monogram: 'HG', mark: 'arched-h', wordmark: 'THE HALDEN', primary: '#1d2a45', accent: '#b89a5c', ink: '#f7f3ea' },
     team: [
       { id: 'tm-hg-1', name: 'Charlotte Ndegwa', title: 'Director of Marketing', role: 'brand_lead', status: 'active', lastActive: '2026-09-22' },
       { id: 'tm-hg-2', name: 'Moses Karanja', title: 'Executive Pastry Chef, Afternoon Tea', role: 'product', status: 'active', lastActive: '2026-09-17' },
