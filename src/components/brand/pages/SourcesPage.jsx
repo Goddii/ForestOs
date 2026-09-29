@@ -18,7 +18,7 @@ function Facts({ rows }) {
     <dl className="grid gap-x-6 gap-y-3 text-compact sm:grid-cols-2">
       {rows.map(([label, value]) => (
         <div key={label}>
-          <dt className="text-xs text-ink-faint">{label}</dt>
+          <dt className="text-compact text-ink-faint">{label}</dt>
           <dd className="mt-0.5 text-ink [overflow-wrap:anywhere]">{value}</dd>
         </div>
       ))}
@@ -42,10 +42,10 @@ function LotCard({ lot }) {
         <div className="p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-xl font-bold tracking-tight text-ink">
+              <h2 className="text-xl font-semibold tracking-tight text-ink">
                 Lot #{lot.code}, {lot.block}
               </h2>
-              <p className="mt-0.5 font-mono text-xs text-ink-faint">{lot.traceId}</p>
+              <p className="mt-0.5 font-mono text-compact text-ink-faint">{lot.traceId}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <SourceTag kind="forestos" />
@@ -91,7 +91,7 @@ function LotCard({ lot }) {
         </div>
       </div>
       <div className="border-t border-line bg-canvas/60 px-6 py-4">
-        <p className="mb-2 text-xs font-semibold text-ink-muted">Your allocation from this lot</p>
+        <p className="mb-2 text-compact font-semibold text-ink-muted">Your allocation from this lot</p>
         <DataTable
           minWidth="30rem"
           caption={`Products packed from lot ${lot.code}`}

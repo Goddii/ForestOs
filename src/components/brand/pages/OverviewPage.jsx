@@ -54,8 +54,8 @@ function Figure({ label, value, detail, to }) {
   return (
     <Link to={to} className="group block bg-card px-5 py-5 transition-colors duration-150 hover:bg-canvas focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500/50">
       <p className="text-compact text-ink-muted">{label}</p>
-      <p className="mt-2 text-3xl font-bold leading-none tracking-tight text-ink">{value}</p>
-      <p className="mt-2 text-xs leading-snug text-ink-faint">{detail}</p>
+      <p className="mt-2 text-3xl font-bold leading-none tracking-tight tabular-nums text-ink">{value}</p>
+      <p className="mt-2 text-compact leading-snug text-ink-faint">{detail}</p>
     </Link>
   )
 }
@@ -74,7 +74,7 @@ export default function OverviewPage() {
       <div className="flex flex-col gap-5 border-b border-line pb-8 sm:flex-row sm:items-center">
         <BrandMark kit={ws.kit} size={64} />
         <div className="min-w-0">
-          <h1 className="font-display text-5xl leading-[1.05] text-ink sm:text-6xl">{ws.org.name}</h1>
+          <h1 className="font-display text-4xl leading-[1.05] text-ink sm:text-display">{ws.org.name}</h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-relaxed text-ink-muted">
             {BRAND_SEGMENT_LABELS[ws.account.segment]}: {ws.account.footprint}. Tea packed for you by {ws.packer.name} from verified Nyayo
             Tea Zone lots. You shape the product and the story; ForestOS supplies the origin and conservation record underneath it.
@@ -150,7 +150,7 @@ export default function OverviewPage() {
                       <PackRender product={product} kit={ws.kit} className="w-20 shrink-0" />
                       <div className="min-w-0 flex-1 py-1">
                         <p className="truncate font-semibold text-ink">{product.name}</p>
-                        <p className="mt-0.5 truncate text-xs text-ink-muted">
+                        <p className="mt-0.5 truncate text-compact text-ink-muted">
                           {product.lots.length > 0 ? `Lot ${product.lots.map((lot) => `#${lot.code}`).join(', ')}, ${product.lots[0].block}` : 'No lot connected'}
                         </p>
                         <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
@@ -193,7 +193,7 @@ export default function OverviewPage() {
         </div>
 
         <section aria-labelledby="activity-heading" className="xl:border-l xl:border-line xl:pl-10">
-          <h2 id="activity-heading" className="text-2xl font-bold tracking-tight text-ink">
+          <h2 id="activity-heading" className="text-2xl font-semibold tracking-tight text-ink">
             Recent activity
           </h2>
           <ol className="mt-5 space-y-4">

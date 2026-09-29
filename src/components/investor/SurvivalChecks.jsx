@@ -32,7 +32,7 @@ export default function SurvivalChecks() {
             </div>
             <div className="flex items-center gap-3">
               {check.status === 'observed' && (
-                <span className="font-mono text-xs tabular-nums text-ink">
+                <span className="font-mono text-compact tabular-nums text-ink">
                   {formatNumber(check.surviving)} of {formatNumber(check.planted)} ({Math.round((check.surviving / check.planted) * 100)}%)
                 </span>
               )}

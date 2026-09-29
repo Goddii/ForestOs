@@ -35,7 +35,7 @@ export default function MediaFigure({ asset, aspect = 'aspect-[3/2]', showCaptio
         )}
       </div>
       <figcaption className="mt-1.5 text-label leading-snug text-ink-faint">
-        {showCaption && <span className="block text-xs text-ink-muted">{asset.caption}</span>}
+        {showCaption && <span className="block text-compact text-ink-muted">{asset.caption}</span>}
         Photo:{' '}
         <a href={asset.credit.url} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-2 hover:text-ink-muted">
           {asset.credit.author}

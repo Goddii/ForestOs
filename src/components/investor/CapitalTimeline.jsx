@@ -26,8 +26,8 @@ export default function CapitalTimeline() {
             <p className={`mt-1 text-base font-semibold leading-tight ${isReceived ? 'text-ink' : 'text-ink-muted'}`}>
               {formatCurrencyShort(isReceived ? tranche.receivedKes : tranche.plannedKes)}
             </p>
-            <p className="mt-1 text-xs leading-snug text-ink-muted">{tranche.milestone}</p>
-            {isLate && <p className="mt-1 text-xs font-medium text-warning">Past its planned date, not yet received</p>}
+            <p className="mt-1 text-compact leading-snug text-ink-muted">{tranche.milestone}</p>
+            {isLate && <p className="mt-1 text-compact font-medium text-warning">Past its planned date, not yet received</p>}
           </li>
         )
       })}

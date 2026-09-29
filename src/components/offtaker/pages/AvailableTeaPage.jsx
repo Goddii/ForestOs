@@ -82,7 +82,7 @@ export default function AvailableTeaPage() {
                     ))}
                     <div>
                       <dt className="text-label text-ink-faint">Tasting notes</dt>
-                      <dd className="text-xs leading-snug text-ink-muted">{batch.quality.notes}</dd>
+                      <dd className="text-compact leading-snug text-ink-muted">{batch.quality.notes}</dd>
                     </div>
                   </dl>
                 )}
@@ -94,7 +94,7 @@ export default function AvailableTeaPage() {
             )
           })}
           {ws.reservationRequests.length > 0 && (
-            <p className="text-xs text-ink-faint">
+            <p className="text-compact text-ink-faint">
               Demo: reservation requests are kept in this browser session only and are not sent to NTZDC.
             </p>
           )}

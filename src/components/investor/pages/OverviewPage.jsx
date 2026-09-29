@@ -75,7 +75,7 @@ export default function OverviewPage() {
                       {item.category}
                     </p>
                     <p className="mt-1 text-sm font-medium text-ink">{item.headline}</p>
-                    <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{item.detail}</p>
+                    <p className="mt-0.5 text-compact leading-relaxed text-ink-muted">{item.detail}</p>
                   </div>
                   <ChevronRight
                     className="h-4 w-4 shrink-0 text-ink-faint opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100"

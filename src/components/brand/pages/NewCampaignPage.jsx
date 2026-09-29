@@ -84,7 +84,7 @@ export default function NewCampaignPage() {
                     <Icon className="h-4 w-4 text-forest-accent" aria-hidden="true" />
                     {theme.label}
                   </span>
-                  <span className="mt-0.5 block text-xs text-ink-muted">{theme.description}</span>
+                  <span className="mt-0.5 block text-compact text-ink-muted">{theme.description}</span>
                 </ChoiceCard>
               )
             })}
@@ -105,7 +105,7 @@ export default function NewCampaignPage() {
             {ws.products.map((product) => (
               <ChoiceCard key={product.id} type="checkbox" name="products" value={product.id} checked={form.productIds.includes(product.id)} onChange={() => toggleProduct(product.id)}>
                 <span className="text-compact font-semibold text-ink">{product.name}</span>
-                <span className="block text-xs text-ink-muted">{product.line}</span>
+                <span className="block text-compact text-ink-muted">{product.line}</span>
               </ChoiceCard>
             ))}
           </div>

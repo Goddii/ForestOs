@@ -71,7 +71,7 @@ export default function StoryPage() {
             <div key={fact.id} className="flex flex-col-reverse border-t border-line pt-4">
               <dt className="mt-1 text-compact text-ink-muted">
                 {fact.label}
-                <span className="block text-xs text-ink-faint">{fact.source}</span>
+                <span className="block text-compact text-ink-faint">{fact.source}</span>
               </dt>
               <dd className="text-3xl font-semibold tabular-nums text-ink">{fact.value}</dd>
             </div>
@@ -136,7 +136,7 @@ export default function StoryPage() {
           {assets.forestos.map((photo) => (
             <li key={photo.id} className="mb-4 break-inside-avoid">
               <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" className="h-auto w-full rounded-xl" />
-              <p className="mt-2 text-xs text-ink-faint">{photo.title}</p>
+              <p className="mt-2 text-compact text-ink-faint">{photo.title}</p>
             </li>
           ))}
         </ul>

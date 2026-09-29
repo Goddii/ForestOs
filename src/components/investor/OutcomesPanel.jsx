@@ -53,7 +53,7 @@ function OutcomeCard({ outcome, yours, onEvidence }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-sm font-semibold text-ink">{indicator.label}</h3>
-          <p className="mt-1 max-w-[52ch] text-xs leading-relaxed text-ink-muted">{indicator.method}</p>
+          <p className="mt-1 max-w-[52ch] text-compact leading-relaxed text-ink-muted">{indicator.method}</p>
         </div>
         <div className="shrink-0 text-right">
           {isMeasured ? (
@@ -98,7 +98,7 @@ export default function OutcomesPanel() {
   return (
     <div className="space-y-6">
       <div>
-        <ul className="mb-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-ink-muted" aria-label="Chart key">
+        <ul className="mb-3 flex flex-wrap gap-x-5 gap-y-1 text-compact text-ink-muted" aria-label="Chart key">
           <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-forest-accent" />Programme</li>
           <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-forest-accent-dark" />On sites {terms.yours} funded</li>
           <li className="flex items-center gap-1.5"><span className="h-3 w-0.5 bg-ink" />Target</li>
@@ -116,7 +116,7 @@ export default function OutcomesPanel() {
           {IMPACT_GOALS.map((goal) => (
             <li key={goal.id} className="rounded-xl border border-dashed border-line-strong p-4">
               <p className="text-compact font-semibold text-ink">{goal.label}</p>
-              <p className="mt-1 text-xs leading-relaxed text-ink-muted">{goal.status}</p>
+              <p className="mt-1 text-compact leading-relaxed text-ink-muted">{goal.status}</p>
             </li>
           ))}
         </ul>

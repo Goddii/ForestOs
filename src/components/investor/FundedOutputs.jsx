@@ -49,7 +49,7 @@ export default function FundedOutputs() {
                   {formatNumber(row.fundedVerified)}
                   <span className="ml-1.5 text-sm font-medium text-ink-muted">{row.indicator.unit}</span>
                 </p>
-                <p className="mt-1 text-xs text-ink-faint">
+                <p className="mt-1 text-compact text-ink-faint">
                   {row.pending > 0 ? (
                     <>
                       <span className="font-semibold text-warning">

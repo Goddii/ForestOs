@@ -33,8 +33,8 @@ function Tile({ label, value, detail }) {
   return (
     <div className="bg-card px-5 py-5">
       <p className="text-compact text-ink-muted">{label}</p>
-      <p className="mt-2 text-3xl font-bold leading-none tracking-tight text-ink">{value}</p>
-      <p className="mt-2 text-xs text-ink-faint">{detail}</p>
+      <p className="mt-2 text-3xl font-bold leading-none tracking-tight tabular-nums text-ink">{value}</p>
+      <p className="mt-2 text-compact text-ink-faint">{detail}</p>
     </div>
   )
 }
@@ -137,7 +137,7 @@ export default function AnalyticsPage() {
             ))}
           </select>
         </label>
-        <p className="text-xs text-ink-faint">
+        <p className="text-compact text-ink-faint">
           {data.from} to {ws.asOf}
         </p>
       </div>
@@ -180,7 +180,7 @@ export default function AnalyticsPage() {
                 format: (value) => value.toLocaleString('en-US'),
               }))}
             />
-            <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-ink-faint">
+            <p className="mt-5 flex items-start gap-2 text-compact leading-relaxed text-ink-faint">
               <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
               County or country only. Any place with fewer than {ws.analyticsFloor} scans is pooled into “Other locations”.
             </p>

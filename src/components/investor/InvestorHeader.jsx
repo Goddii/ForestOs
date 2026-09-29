@@ -28,7 +28,7 @@ export default function InvestorHeader() {
     <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line bg-card px-6 py-4 shadow-[0_1px_0_0_rgba(20,32,25,0.03)] sm:px-8 lg:flex-nowrap">
       {/* The identity group wraps within itself so the actions stay pinned right, whatever the funder's name length */}
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
-        <p className="font-sans text-base lg:max-w-[18rem] lg:truncate font-bold leading-tight text-ink" title={org.name}>
+        <p className="font-sans text-base lg:max-w-[18rem] lg:truncate font-semibold leading-tight text-ink" title={org.name}>
           {org.name}
         </p>
         <span className="text-line-strong">·</span>
@@ -39,7 +39,7 @@ export default function InvestorHeader() {
           <select
             value={org.slug}
             onChange={(event) => switchFunder(event.target.value)}
-            className="max-w-[16rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-xs normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+            className="max-w-[16rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-compact normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
           >
             {FUNDER_ORGANISATIONS.map((funder) => (
               <option key={funder.slug} value={funder.slug}>

@@ -163,7 +163,7 @@ export default function HomePage() {
             {recentActivity(campaigns, experiences).map((event) => (
               <li key={`${event.date}-${event.text}`} className="flex items-baseline justify-between gap-4 py-3">
                 <p className="text-compact text-ink">{event.text}</p>
-                <time dateTime={event.date} className="shrink-0 text-xs tabular-nums text-ink-faint">
+                <time dateTime={event.date} className="shrink-0 text-compact tabular-nums text-ink-faint">
                   {formatDate(event.date)}
                 </time>
               </li>

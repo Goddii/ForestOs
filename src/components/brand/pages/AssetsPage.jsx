@@ -16,8 +16,8 @@ function PhotoCard({ photo }) {
         <img src={`${photo.src}.jpg`} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" className="aspect-[3/2] w-full rounded-xl object-cover" />
       </picture>
       <p className="mt-2 text-compact font-semibold text-ink">{photo.caption}</p>
-      <p className="text-xs text-ink-muted">{photo.landscape}</p>
-      <p className="mt-1 text-xs text-ink-faint">
+      <p className="text-compact text-ink-muted">{photo.landscape}</p>
+      <p className="mt-1 text-compact text-ink-faint">
         {photo.credit ? (
           <>
             {photo.credit.author}, {photo.credit.license}.{' '}
@@ -30,12 +30,12 @@ function PhotoCard({ photo }) {
         )}
       </p>
       {photo.showsPeople && (
-        <p className="mt-1.5 flex items-start gap-1.5 text-xs text-warning">
+        <p className="mt-1.5 flex items-start gap-1.5 text-compact text-warning">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           Shows people: needs a consented field photo before marketing use
         </p>
       )}
-      <a href={`${photo.src}.jpg`} download className="mt-2 inline-flex items-center gap-1 self-start text-xs font-semibold text-forest-accent hover:underline">
+      <a href={`${photo.src}.jpg`} download className="mt-2 inline-flex items-center gap-1 self-start text-compact font-semibold text-forest-accent hover:underline">
         <Download className="h-3.5 w-3.5" aria-hidden="true" /> Download
       </a>
     </li>
@@ -60,14 +60,14 @@ export default function AssetsPage() {
 
       <section aria-label="Verification mark" className="grid gap-6 rounded-2xl border border-line bg-card p-6 shadow-card md:grid-cols-[16rem_minmax(0,1fr)]">
         <div className="grid place-items-center rounded-xl bg-canvas p-8">
-          <span className="inline-flex items-center gap-2 rounded-full border-2 border-forest-accent bg-card px-4 py-2 text-sm font-bold text-forest-accent-dark">
+          <span className="inline-flex items-center gap-2 rounded-full border-2 border-forest-accent bg-card px-4 py-2 text-sm font-semibold text-forest-accent-dark">
             <ShieldCheck className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
             {VERIFICATION_MARK.name}
           </span>
         </div>
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-lg font-bold text-ink">Verification mark</h2>
+            <h2 className="text-lg font-semibold text-ink">Verification mark</h2>
             <SourceTag kind="forestos" />
           </div>
           <ul className="mt-3 space-y-2 text-compact text-ink">
@@ -115,10 +115,10 @@ export default function AssetsPage() {
           columns={[
             { key: 'name', header: 'File', cell: (row) => <span className="font-semibold text-ink">{row.name}</span> },
             { key: 'usage', header: 'Used for', cell: (row) => row.usage },
-            { key: 'type', header: 'Type', cell: (row) => <span className="font-mono text-xs">{row.type}</span> },
+            { key: 'type', header: 'Type', cell: (row) => <span className="font-mono text-compact">{row.type}</span> },
             { key: 'size', header: 'Size', align: 'right', cell: (row) => (row.sizeKb >= 1000 ? `${(row.sizeKb / 1000).toFixed(1)} MB` : `${row.sizeKb} KB`) },
             { key: 'by', header: 'Uploaded by', cell: (row) => memberName(row.uploadedBy) },
-            { key: 'at', header: 'Date', cell: (row) => <span className="font-mono text-xs">{row.uploadedAt}</span> },
+            { key: 'at', header: 'Date', cell: (row) => <span className="font-mono text-compact">{row.uploadedAt}</span> },
           ]}
         />
       </section>

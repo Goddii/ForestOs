@@ -33,7 +33,7 @@ export default function ProductDetailPage() {
             <ProductStatusBadge status={product.status} />
             <SourceTag kind="brand" />
           </div>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-[2.1rem]">{product.name}</h1>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-title">{product.name}</h1>
           <p className="mt-1 text-sm text-ink-muted">{product.line}</p>
           <p className="mt-4 max-w-[65ch] text-sm leading-relaxed text-ink">{product.description}</p>
           <dl className="mt-6 grid gap-4 text-compact sm:grid-cols-2 xl:grid-cols-4">
@@ -44,7 +44,7 @@ export default function ProductDetailPage() {
               ['On sale since', product.launchDate ?? 'Not launched'],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="text-xs text-ink-faint">{label}</dt>
+                <dt className="text-compact text-ink-faint">{label}</dt>
                 <dd className="mt-0.5 text-ink">{value}</dd>
               </div>
             ))}
@@ -102,7 +102,7 @@ export default function ProductDetailPage() {
                 <li key={campaign.id} className="flex items-center justify-between gap-3 px-5 py-3.5">
                   <span className="text-compact text-ink">
                     {campaign.name}
-                    <span className="ml-2 text-xs text-ink-faint">
+                    <span className="ml-2 text-compact text-ink-faint">
                       from {campaign.period.start}
                       {campaign.period.end ? ` to ${campaign.period.end}` : ''}
                     </span>

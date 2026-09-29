@@ -57,7 +57,7 @@ export function Figure({ value, label, note }) {
     <div>
       <p className="text-3xl font-semibold tabular-nums tracking-tight text-ink">{typeof value === 'number' ? value.toLocaleString('en-GB') : value}</p>
       <p className="mt-1 text-compact text-ink-muted">{label}</p>
-      {note && <p className="text-xs text-ink-faint">{note}</p>}
+      {note && <p className="text-compact text-ink-faint">{note}</p>}
     </div>
   )
 }
@@ -65,7 +65,7 @@ export function Figure({ value, label, note }) {
 /** Marks something a creator cannot change. */
 export function LockedTag({ children = 'Verified by ForestOS, locked' }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-forest-accent-dark">
+    <span className="inline-flex items-center gap-1.5 text-compact font-semibold text-forest-accent-dark">
       <Lock className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
       {children}
     </span>

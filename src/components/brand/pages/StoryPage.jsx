@@ -33,7 +33,7 @@ function ActivityRow({ activity, isLast }) {
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <Badge tone={verified ? 'verified' : 'warning'}>{STATE_LABELS[state]}</Badge>
           {verified && decision && (
-            <span className="text-xs text-ink-muted">
+            <span className="text-compact text-ink-muted">
               {decision.at}, {INDEPENDENCE_LABELS[decision.independence].toLowerCase()}
             </span>
           )}
@@ -45,7 +45,7 @@ function ActivityRow({ activity, isLast }) {
                 key={id}
                 type="button"
                 onClick={() => openEvidence(id)}
-                className="inline-flex items-center gap-1 rounded-full border border-line px-2.5 py-1 text-xs font-medium text-forest-accent transition-colors hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+                className="inline-flex items-center gap-1 rounded-full border border-line px-2.5 py-1 text-compact font-medium text-forest-accent transition-colors hover:border-forest-accent/40 hover:bg-forest-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
               >
                 <Paperclip className="h-3 w-3" strokeWidth={2} aria-hidden="true" />
                 Evidence {id}
@@ -81,13 +81,13 @@ export default function StoryPage() {
               <source srcSet={`${hero.src}.webp`} type="image/webp" />
               <img src={`${hero.src}.jpg`} alt={hero.alt} width={hero.width} height={hero.height} className="aspect-[3/2] w-full rounded-2xl object-cover" />
             </picture>
-            <figcaption className="mt-2 text-xs text-ink-faint">
+            <figcaption className="mt-2 text-compact text-ink-faint">
               {hero.caption}. Illustrative photo{hero.credit ? `: ${hero.credit.author}, ${hero.credit.license}` : ''}.
             </figcaption>
           </figure>
         )}
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">Where your tea grows</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-ink">Where your tea grows</h2>
           <div className="mt-4 space-y-4 text-sm leading-relaxed text-ink">
             {ws.lots.length === 0 && <p className="text-ink-muted">Connect a lot to a product to see its landscape.</p>}
             {evidence.centres.length > 0 && (
@@ -110,7 +110,7 @@ export default function StoryPage() {
           {evidence.segmentIds.length > 0 && (
             <ul className="mt-5 flex flex-wrap gap-2">
               {evidence.segmentIds.map((id) => (
-                <li key={id} className="rounded-full border border-line px-3 py-1 text-xs text-ink-muted">
+                <li key={id} className="rounded-full border border-line px-3 py-1 text-compact text-ink-muted">
                   {segmentLabel(id)}
                 </li>
               ))}

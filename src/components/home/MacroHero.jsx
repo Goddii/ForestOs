@@ -1,5 +1,4 @@
 import { ArrowDown } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import CinematicHero from '../cinematic/CinematicHero'
 import BatchLookupBar from './BatchLookupBar'
 import { PLATFORM } from '../../lib/platformData'
@@ -18,12 +17,9 @@ function scrollToProof() {
 export default function MacroHero({ videoRef }) {
   return (
     <CinematicHero videoRef={videoRef} storyLines={STORY_LINES} cueLabel={null}>
-      <p className="font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-sage-300">
-        940 km · 5 water towers · 16 counties
-      </p>
       <h1
         id="hero-heading"
-        className="mt-4 max-w-[22ch] font-display text-4xl leading-[1.05] text-bone sm:text-6xl"
+        className="max-w-[22ch] font-display text-4xl leading-[1.05] text-bone sm:text-6xl"
       >
         {PLATFORM.tagline}
       </h1>
@@ -47,12 +43,6 @@ export default function MacroHero({ videoRef }) {
             Scanned a pack of this tea?
           </p>
           <BatchLookupBar variant="compact" />
-          <Link
-            to="/passport/majani/802"
-            className="mt-2 inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-sage-500 underline decoration-sage-500/40 underline-offset-2 transition-colors hover:text-amber-400 hover:decoration-amber-400/60"
-          >
-            Or see it as a Majani Passport tenant →
-          </Link>
         </div>
       </div>
     </CinematicHero>

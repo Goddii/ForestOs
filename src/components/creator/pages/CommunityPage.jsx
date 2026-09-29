@@ -29,7 +29,7 @@ export default function CommunityPage() {
             <li key={link.kind} className="flex items-center justify-between gap-3 border-b border-line py-4">
               <div className="min-w-0">
                 <p className="font-semibold text-ink">{link.label}</p>
-                <p className="truncate font-mono text-xs text-ink-faint">{link.href}</p>
+                <p className="truncate font-mono text-compact text-ink-faint">{link.href}</p>
               </div>
               <div className="flex shrink-0 items-center gap-3">
                 {link.isDemo && <Badge tone="neutral">Demo link</Badge>}

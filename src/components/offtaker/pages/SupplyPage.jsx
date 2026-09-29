@@ -77,7 +77,7 @@ export default function SupplyPage() {
         <ContentCard className="p-5">
           <p className="text-3xl font-bold tabular-nums text-ink">{centres.length}</p>
           <p className="mt-1.5 font-mono text-label uppercase tracking-label-wide text-ink-faint">Collection centres</p>
-          <p className="mt-3 text-xs text-ink-muted">{centres.filter((c) => c.conservationLinked).length} linked to verified conservation work</p>
+          <p className="mt-3 text-compact text-ink-muted">{centres.filter((c) => c.conservationLinked).length} linked to verified conservation work</p>
         </ContentCard>
       </section>
 
@@ -96,7 +96,7 @@ export default function SupplyPage() {
                 cell: (centre) => (
                   <>
                     <p className="font-medium text-ink">{centre.name}</p>
-                    <p className="text-xs text-ink-faint">
+                    <p className="text-compact text-ink-faint">
                       {centre.zone}, delivers to {centre.factory}
                     </p>
                   </>
@@ -110,7 +110,7 @@ export default function SupplyPage() {
                 cell: (c) => (
                   <>
                     <span className="font-semibold text-ink">~{formatKg(c.forecastKg)}</span>
-                    <span className="block text-xs text-ink-faint">
+                    <span className="block text-compact text-ink-faint">
                       {c.forecastLow.toLocaleString('en-US')}–{c.forecastHigh.toLocaleString('en-US')}
                     </span>
                   </>
@@ -126,7 +126,7 @@ export default function SupplyPage() {
               },
             ]}
           />
-          <p className="mt-3 text-xs leading-relaxed text-ink-faint">{FORECAST_BASIS}</p>
+          <p className="mt-3 text-compact leading-relaxed text-ink-faint">{FORECAST_BASIS}</p>
         </div>
       </section>
 
@@ -148,7 +148,7 @@ export default function SupplyPage() {
                 return f ? (
                   <>
                     <span className="text-ink">~{formatKg(f.expectedKg)}</span>
-                    <span className="block text-xs text-ink-faint">
+                    <span className="block text-compact text-ink-faint">
                       {f.lowKg.toLocaleString('en-US')}–{f.highKg.toLocaleString('en-US')}
                     </span>
                   </>

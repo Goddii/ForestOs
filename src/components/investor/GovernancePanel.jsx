@@ -42,8 +42,8 @@ export default function GovernancePanel() {
               <p className="font-mono text-label font-semibold uppercase tracking-label text-forest-accent">
                 {FUNCTION_LABEL[member.function]}
               </p>
-              <p className="mt-1.5 text-lg font-bold text-ink">{member.name}</p>
-              <p className="text-xs text-ink-muted">{member.role}</p>
+              <p className="mt-1.5 text-lg font-semibold text-ink">{member.name}</p>
+              <p className="text-compact text-ink-muted">{member.role}</p>
               <p className="mt-2 text-compact leading-relaxed text-ink-muted">
                 {member.responsibility}
               </p>

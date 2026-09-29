@@ -41,17 +41,17 @@ function BufferSegments() {
             return (
               <tr key={segment.id}>
                 <td className="py-3 pl-5 pr-4 text-compact font-medium text-ink">{segment.label}</td>
-                <td className="px-4 py-3 text-xs text-ink-muted">{TENURE_LABELS[segment.tenure]}</td>
-                <td className="px-4 py-3 text-xs text-ink-muted">{LAND_USE_LABELS[segment.landUse]}</td>
-                <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink">{km(segment.lengthKm)} km</td>
-                <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink-muted">{Math.round(segment.areaHa)} ha</td>
-                <td className="py-3 pl-4 pr-5 text-right font-mono text-xs tabular-nums text-forest-accent">{funded.length}</td>
+                <td className="px-4 py-3 text-compact text-ink-muted">{TENURE_LABELS[segment.tenure]}</td>
+                <td className="px-4 py-3 text-compact text-ink-muted">{LAND_USE_LABELS[segment.landUse]}</td>
+                <td className="px-4 py-3 text-right font-mono text-compact tabular-nums text-ink">{km(segment.lengthKm)} km</td>
+                <td className="px-4 py-3 text-right font-mono text-compact tabular-nums text-ink-muted">{Math.round(segment.areaHa)} ha</td>
+                <td className="py-3 pl-4 pr-5 text-right font-mono text-compact tabular-nums text-forest-accent">{funded.length}</td>
               </tr>
             )
           })}
         </tbody>
       </table>
-      <p className="border-t border-line px-5 py-3 text-xs text-ink-faint">
+      <p className="border-t border-line px-5 py-3 text-compact text-ink-faint">
         {Object.entries(totals)
           .map(([tenure, length]) => `${km(length)} km ${TENURE_LABELS[tenure].toLowerCase()}`)
           .join('; ')}

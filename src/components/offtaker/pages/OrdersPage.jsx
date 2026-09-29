@@ -45,7 +45,7 @@ export default function OrdersPage() {
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="font-mono text-base font-semibold text-ink">{commitment.id}</p>
-                  <p className="mt-0.5 text-xs text-ink-muted">
+                  <p className="mt-0.5 text-compact text-ink-muted">
                     {commitment.type === 'contract' ? 'Contract' : 'Spot purchase'}, your reference {commitment.reference}, {commitment.period.start} to {commitment.period.end}
                   </p>
                 </div>
@@ -76,7 +76,7 @@ export default function OrdersPage() {
                 <div className="absolute inset-y-0 left-0 rounded-full bg-forest-accent/35" style={{ width: `${shareOf(allocatedKg, commitment.volumeKg) * 100}%` }} />
                 <div className="absolute inset-y-0 left-0 rounded-full bg-forest-accent" style={{ width: `${shareOf(deliveredKg, commitment.volumeKg) * 100}%` }} />
               </div>
-              <p className="mt-2 flex flex-wrap gap-x-4 text-xs text-ink-faint">
+              <p className="mt-2 flex flex-wrap gap-x-4 text-compact text-ink-faint">
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-forest-accent" aria-hidden="true" />Delivered</span>
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-forest-accent/35" aria-hidden="true" />Allocated</span>
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-canvas-sunk" aria-hidden="true" />Not yet allocated</span>
@@ -104,7 +104,7 @@ export default function OrdersPage() {
             { key: 'date', header: 'Date', cell: (e) => <span className="font-mono text-label tabular-nums text-ink-muted">{e.date}</span> },
             { key: 'commitment', header: 'Commitment', cell: (e) => <span className="font-mono text-label text-ink">{e.commitment.id}</span> },
             { key: 'volume', header: 'Volume', align: 'right', cell: (e) => formatKg(e.volumeKg) },
-            { key: 'batch', header: 'Batch', cell: (e) => (e.batchTraceId ? <span className="font-mono text-label text-ink">{e.batchTraceId}</span> : <span className="text-xs text-ink-faint">To be allocated</span>) },
+            { key: 'batch', header: 'Batch', cell: (e) => (e.batchTraceId ? <span className="font-mono text-label text-ink">{e.batchTraceId}</span> : <span className="text-compact text-ink-faint">To be allocated</span>) },
             { key: 'status', header: 'Status', cell: (e) => <Badge tone={e.status === 'delivered' ? 'verified' : 'neutral'}>{e.status}</Badge> },
           ]}
         />
@@ -123,11 +123,11 @@ export default function OrdersPage() {
               ))}
             </ul>
           </ContentCard>
-          <p className="mt-2 text-xs text-ink-faint">Demo: requests are not sent anywhere and clear when the session ends.</p>
+          <p className="mt-2 text-compact text-ink-faint">Demo: requests are not sent anywhere and clear when the session ends.</p>
         </section>
       )}
 
-      <p className="text-xs text-ink-faint">
+      <p className="text-compact text-ink-faint">
         {ws.commitments.filter((c) => OPEN_COMMITMENT_STATUSES.has(c.status)).length} open commitments. Prices are illustrative placeholders, not NTZDC’s commercial terms.
       </p>
     </div>

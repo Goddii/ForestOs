@@ -58,7 +58,6 @@ colors:
 typography:
   display:
     fontFamily: "'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif"
-    fontFamilyPortal: "'Newsreader', ui-serif, Georgia, 'Times New Roman', serif  # .dash subtree only"
     fontSize: "clamp(2.25rem, 5vw, 3.75rem)"
     fontWeight: 400
     lineHeight: 1.08
@@ -161,17 +160,32 @@ Dark-ground: one deep forest-green scale carries almost every background, sage a
 ### Named Rules
 **The Instrument Register Rule.** Any value that is measured, timestamped, or identifies a record (IDs, coordinates, KES/kg, hectares, dates, plot refs) renders in JetBrains Mono, uppercase-tracked when it's a label. Any value that is narrated (headlines, body copy, captions) renders in Archivo or Instrument Serif. Never mix the two roles on the same string.
 
-### Investor console (`/investor/*`) type ramp
+### Partner portal type ramp (`/funder`, `/offtaker`, `/brand`, `/creator`)
 
-A separate, tighter, all-sans scale — no Instrument Serif below the page
-`<h1>` (see "The investor console" Named Rule). All Archivo unless noted.
+One shared scale for every partner console, all sans. Body, UI, headings and
+data are Archivo (variable, `wght@400..700`) and JetBrains Mono. There is no
+serif in portal chrome: the `investor`, `offtaker`, `brand-portal` and
+`creator-portal` root classes re-point `--font-display` to Archivo at weight
+650 (`src/index.css`), which covers hero titles and the nav-rail portal name.
+Exception: consumer-app artwork drawn inside a console (the creator
+`PhonePreview`) opts back into Instrument Serif with `.portal-serif`.
+Roles are theme tokens in `src/index.css`, so components use `text-label`,
+`text-compact`, `text-title` and `text-display` instead of literal sizes.
+Tailwind's `text-xs` (12px) is not used in portals: it sat one pixel from
+`text-compact` with no separate job. The older `.dash` scope in `index.css` is
+applied by no shell and is inactive.
 
-- **Page H1** (400, `text-5xl`–`text-6xl`, Instrument Serif — the one serif use): the project name only.
-- **Section heading** (700, `text-2xl`–`text-[1.75rem]`, `tracking-tight`): every `SectionHeading` `<h2>`.
-- **Card title** (600–700, `text-xl`, or `text-[13px]` for a dense list-row title): evidence/report/governance card headings.
-- **Body** (400, `text-[14px]`, line-height relaxed): descriptive copy under a heading, capped `max-w-[62ch]`.
-- **Data figure** (700–800, `text-2xl`–`text-5xl`, `tabular-nums`): every `StatCard`/`MetricCard` headline number.
-- **Micro label** (500–600, `text-[9px]`–`text-[13px]`, uppercase, tracked `0.1em`–`0.22em`, JetBrains Mono): metadata lines, badge text, nav items, table headers, axis labels — the console's own dense-data register, distinct from the public site's label scale but built on the same mono/uppercase/tracked idea.
+- **Label** (`text-label`, 11px, 500-600, uppercase, `tracking-label` or `tracking-label-wide`, JetBrains Mono): table headers, badges, metadata lines, chart axis labels. 11px is the floor for portal chrome.
+- **Compact** (`text-compact`, 13px / 1.25rem, 400-600): dense list and card body, table cells, small mono figures, form helper text.
+- **Body** (`text-sm`, 14px): descriptive copy, capped near 62ch.
+- **Card / section heading** (`text-lg` to `text-2xl`, 600, `tracking-tight` from xl up): headings and record names. Bold (700) is not used for headings.
+- **Page title** (`text-3xl` on mobile, `sm:text-title` 2.125rem, 600, `tracking-tight`): every portal page `<h1>` (`PageHeader`, product and experience titles). Overview hero titles use `font-display` at `text-4xl sm:text-display` (650).
+- **Figure** (`text-2xl`-`text-4xl`, 700, `tabular-nums`, sans): KPI and metric headline numbers. Small table figures use `font-mono tabular-nums` at compact or label size.
+- **Weights:** 400 body, 500 secondary UI, 600 labels, names and headings, 700 KPI figures and wordmarks only.
+
+Documented exception: consumer-app previews drawn inside portals (brand
+`ExperiencePreview`, creator `PhonePreview`) render a phone screen at device
+scale, so they use 10-16px literals. That is scaled artwork, not portal chrome.
 
 ## Layout
 

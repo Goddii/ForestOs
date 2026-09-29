@@ -73,7 +73,7 @@ export default function QrCodesPage() {
                       </div>
                       <div className="sm:col-span-2">
                         <dt className="text-ink-faint">Opens</dt>
-                        <dd className="break-all font-mono text-xs text-ink">{url}</dd>
+                        <dd className="break-all font-mono text-compact text-ink">{url}</dd>
                       </div>
                     </dl>
                   </div>

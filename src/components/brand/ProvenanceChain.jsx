@@ -49,7 +49,7 @@ export default function ProvenanceChain({ product, experience, packerName, path 
               <li key={allocation.id} className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-semibold text-ink">
-                    Lot #{allocation.lot.code} <span className="font-mono text-xs font-normal text-ink-faint">{allocation.lot.traceId}</span>
+                    Lot #{allocation.lot.code} <span className="font-mono text-compact font-normal text-ink-faint">{allocation.lot.traceId}</span>
                   </p>
                   <p className="mt-0.5 text-compact text-ink-muted">
                     {formatKg(allocation.allocatedKg)} of {formatKg(allocation.lot.madeTeaKg)} {allocation.status === 'packed' ? `packed ${allocation.date}` : `scheduled for ${allocation.date}`} by {packerName.replace(/\.$/, '')}. Grade {allocation.lot.grade}, {allocation.lot.harvestMonth} harvest, {allocation.lot.factory}.
@@ -74,14 +74,14 @@ export default function ProvenanceChain({ product, experience, packerName, path 
           <dl className="grid gap-x-6 gap-y-3 text-compact sm:grid-cols-2">
             {lots.map((lot) => (
               <div key={lot.traceId} className="sm:col-span-2">
-                <dt className="text-xs text-ink-faint">{lot.block}</dt>
+                <dt className="text-compact text-ink-faint">{lot.block}</dt>
                 <dd className="mt-0.5 text-ink">
                   {lot.landscape}, {lot.region}. Tea buffer at {lot.centre?.name ?? lot.record.plot.centre} collection centre, water towers {lot.record.land.waterTowers.join(', ')}. Plot canopy {lot.record.plot.canopyBaseline2020Pct}% in 2020, {lot.record.plot.canopyNowPct}% now.
                 </dd>
               </div>
             ))}
             <div className="sm:col-span-2">
-              <dt className="text-xs text-ink-faint">Buffer segments linked</dt>
+              <dt className="text-compact text-ink-faint">Buffer segments linked</dt>
               <dd className="mt-0.5 text-ink">
                 {evidence.segmentIds.length > 0 ? `${evidence.segmentIds.length} segment${evidence.segmentIds.length === 1 ? '' : 's'} of the forest buffer beside ${centres.map((c) => c.name).join(', ')}` : 'None linked to this collection centre yet'}
               </dd>
@@ -108,7 +108,7 @@ export default function ProvenanceChain({ product, experience, packerName, path 
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-ink-muted">
+            <p className="mt-3 text-compact text-ink-muted">
               {evidence.verified.length} verified record{evidence.verified.length === 1 ? '' : 's'}
               {evidence.pending.length > 0 && `, ${evidence.pending.length} still in verification`}.{' '}
               <Link to={path('story')} className="font-semibold text-forest-accent underline-offset-2 hover:underline">
@@ -165,7 +165,7 @@ export default function ProvenanceChain({ product, experience, packerName, path 
             </span>
             <div className="rounded-2xl border border-line bg-card p-5 shadow-card">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <h3 className="text-sm font-bold text-ink">{node.title}</h3>
+                <h3 className="text-sm font-semibold text-ink">{node.title}</h3>
                 <SourceTag kind={node.owner} />
               </div>
               {node.body}

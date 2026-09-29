@@ -35,7 +35,7 @@ export default function TraceabilityPage() {
         <ContentCard className="p-5">
           <p className="text-3xl font-bold tabular-nums text-forest-accent">{ws.totals.traceability.pct}%</p>
           <p className="mt-1.5 font-mono text-label uppercase tracking-label-wide text-ink-faint">Volume fully traced</p>
-          <p className="mt-3 text-xs text-ink-muted">
+          <p className="mt-3 text-compact text-ink-muted">
             {formatKg(ws.totals.traceability.tracedKg)} of {formatKg(ws.totals.traceability.visibleKg)}
           </p>
         </ContentCard>
@@ -66,7 +66,7 @@ export default function TraceabilityPage() {
               cell: (batch) => (
                 <>
                   <p className="font-mono font-semibold text-ink">{batch.traceId}</p>
-                  <p className="text-xs text-ink-faint">{formatKg(batch.madeTeaKg)}</p>
+                  <p className="text-compact text-ink-faint">{formatKg(batch.madeTeaKg)}</p>
                 </>
               ),
             },

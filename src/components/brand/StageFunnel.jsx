@@ -21,7 +21,7 @@ export default function StageFunnel({ funnel }) {
               <span className="text-ink">{row.label}</span>
               <span className="flex items-baseline gap-3">
                 {row.fromPrevious !== null && (
-                  <span className={`inline-flex items-center gap-1 text-xs ${isDrop ? 'font-semibold text-warning' : 'text-ink-faint'}`}>
+                  <span className={`inline-flex items-center gap-1 text-compact ${isDrop ? 'font-semibold text-warning' : 'text-ink-faint'}`}>
                     {isDrop && <TrendingDown className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />}
                     {row.fromPrevious}% carried on{isDrop ? ', biggest drop' : ''}
                   </span>

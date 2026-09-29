@@ -31,7 +31,7 @@ export default function CompliancePage() {
           </ContentCard>
         ))}
       </section>
-      <p className="-mt-8 text-xs text-ink-faint">
+      <p className="-mt-8 text-compact text-ink-faint">
         {ws.documents.length} documents visible to your role. {ws.withheldDocumentCount} more about your supply are limited to other roles in your organisation.
       </p>
 
@@ -43,7 +43,7 @@ export default function CompliancePage() {
               <li key={document.id} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
                   <p className="font-medium text-ink">{document.title}</p>
-                  <p className="mt-0.5 text-xs text-ink-muted">
+                  <p className="mt-0.5 text-compact text-ink-muted">
                     {document.issuer}, issued {document.issuedDate}
                     {document.expiryDate ? `, expires ${document.expiryDate}` : ''}
                   </p>
@@ -85,7 +85,7 @@ export default function CompliancePage() {
         <DocumentTable documents={compliance} />
       </section>
 
-      <p className="text-xs text-ink-faint">
+      <p className="text-compact text-ink-faint">
         Status rules: “{DOCUMENT_STATUS_LABELS.expiring}” flags documents within {EXPIRY_NOTICE_DAYS} days of expiry, a portal notice window rather than a regulatory
         requirement. Issuers are placeholders until NTZDC confirms who issues each document.
       </p>

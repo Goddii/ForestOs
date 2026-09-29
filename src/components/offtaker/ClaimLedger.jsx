@@ -23,7 +23,7 @@ export default function ClaimLedger({ claims }) {
     <div className="space-y-6">
       {ORDER.filter((basis) => claims.some((claim) => claim.basis === basis)).map((basis) => (
         <section key={basis} aria-labelledby={`claims-${basis}`}>
-          <h3 id={`claims-${basis}`} className="text-sm font-bold text-ink">
+          <h3 id={`claims-${basis}`} className="text-sm font-semibold text-ink">
             {GROUP_TITLES[basis]}
           </h3>
           <ul className="mt-2 divide-y divide-line rounded-2xl border border-line bg-card shadow-card">
@@ -33,7 +33,7 @@ export default function ClaimLedger({ claims }) {
                 <li key={claim.id} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div className="min-w-0">
                     <p className="font-medium text-ink">{claim.statement}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-ink-muted">{claim.source}</p>
+                    <p className="mt-1 text-compact leading-relaxed text-ink-muted">{claim.source}</p>
                     {claim.evidenceIds.length > 0 && (
                       <div className="mt-2 flex flex-wrap gap-1">
                         {claim.evidenceIds.map((id) => (

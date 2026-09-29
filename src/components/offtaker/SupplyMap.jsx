@@ -62,7 +62,7 @@ export default function SupplyMap({ centres, onSelect, className = '' }) {
   return (
     <div className={`relative overflow-hidden rounded-2xl border border-line bg-canvas shadow-card ${className}`}>
       <div ref={containerRef} className="h-full min-h-[22rem] w-full" role="img" aria-label="Map of Nyayo Tea Zone collection centres; values are listed in the table" />
-      <div className="absolute bottom-3 left-3 z-[1000] rounded-lg border border-line bg-card/95 px-3 py-2 text-xs text-ink-muted shadow-card">
+      <div className="absolute bottom-3 left-3 z-[1000] rounded-lg border border-line bg-card/95 px-3 py-2 text-compact text-ink-muted shadow-card">
         <p className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full border-2 border-forest-accent bg-forest-accent/55" aria-hidden="true" /> Tea available now
         </p>

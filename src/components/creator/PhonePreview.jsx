@@ -92,7 +92,7 @@ export default function PhonePreview({ creative, template, verified, statements,
   }
 
   return (
-    <div className="mx-auto w-[18rem] rounded-[2.4rem] border-[6px] border-slate-deep bg-slate-deep shadow-[0_24px_60px_-24px_rgba(8,20,14,0.55)]">
+    <div className="portal-serif mx-auto w-[18rem] rounded-[2.4rem] border-[6px] border-slate-deep bg-slate-deep shadow-[0_24px_60px_-24px_rgba(8,20,14,0.55)]">
       <div
         className="h-[34rem] overflow-y-auto rounded-[1.9rem] bg-forest-950 pb-6"
         role="region"

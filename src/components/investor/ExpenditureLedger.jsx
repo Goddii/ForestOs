@@ -42,7 +42,7 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
                 type="button"
                 aria-pressed={isOn}
                 onClick={() => onFilterChange({ ...filter, status: option.value })}
-                className={`cursor-pointer rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-accent/50 ${
+                className={`cursor-pointer rounded-md px-3 py-1.5 text-compact font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-accent/50 ${
                   isOn ? 'bg-card text-ink shadow-sm' : 'text-ink-muted hover:text-ink'
                 }`}
               >
@@ -53,12 +53,12 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
           })}
         </div>
 
-        <label className="flex items-center gap-2 text-xs text-ink-muted">
+        <label className="flex items-center gap-2 text-compact text-ink-muted">
           <span className="sr-only">Category</span>
           <select
             value={filter.categoryId}
             onChange={(event) => onFilterChange({ ...filter, categoryId: event.target.value })}
-            className="rounded-lg border border-line bg-card px-2.5 py-1.5 font-sans text-xs text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-accent/50"
+            className="rounded-lg border border-line bg-card px-2.5 py-1.5 font-sans text-compact text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-accent/50"
           >
             <option value="all">All categories</option>
             {USE_OF_FUNDS.map((category) => (
@@ -73,13 +73,13 @@ export default function ExpenditureLedger({ filter, onFilterChange }) {
           <button
             type="button"
             onClick={() => onFilterChange(ALL_PAYMENTS)}
-            className="cursor-pointer text-xs font-semibold text-forest-accent hover:text-forest-accent-dark"
+            className="cursor-pointer text-compact font-semibold text-forest-accent hover:text-forest-accent-dark"
           >
             Clear filters
           </button>
         )}
 
-        <p className="ml-auto text-xs tabular-nums text-ink-muted" aria-live="polite">
+        <p className="ml-auto text-compact tabular-nums text-ink-muted" aria-live="polite">
           {rows.length} payment{rows.length === 1 ? '' : 's'} ·{' '}
           <span className="font-semibold text-ink">{formatMillions(sumAmounts(rows), CAPITAL_POSITION.currency)}</span>
         </p>

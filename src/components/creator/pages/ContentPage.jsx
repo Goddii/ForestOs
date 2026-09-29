@@ -58,7 +58,7 @@ export default function ContentPage() {
               <li key={experience.id} className="grid gap-4 border-t border-line pt-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
                 <div>
                   <p className="font-semibold text-ink">{experience.name}</p>
-                  <p className="mt-0.5 text-xs text-ink-faint">{experience.campaign.title}</p>
+                  <p className="mt-0.5 text-compact text-ink-faint">{experience.campaign.title}</p>
                   <div className="mt-2">
                     <StatusBadge status={experience.status} />
                   </div>

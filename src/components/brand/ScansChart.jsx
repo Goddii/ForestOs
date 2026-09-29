@@ -91,14 +91,14 @@ export default function ScansChart({ rows, label }) {
           {ticks.map((tick) => (
             <g key={tick}>
               <line x1={PAD.left} x2={width - PAD.right} y1={y(tick)} y2={y(tick)} stroke="var(--color-line)" strokeWidth="1" />
-              <text x={PAD.left - 8} y={y(tick) + 3.5} textAnchor="end" className="fill-ink-faint text-[10px] tabular-nums">
+              <text x={PAD.left - 8} y={y(tick) + 4} textAnchor="end" className="fill-ink-faint text-label tabular-nums">
                 {Math.round(tick).toLocaleString('en-US')}
               </text>
             </g>
           ))}
           {rows.map((row, index) =>
             (index % labelEvery === 0 && last - index >= labelEvery) || index === last ? (
-              <text key={row.date} x={x(index)} y={HEIGHT - 8} textAnchor={index === 0 ? 'start' : index === last ? 'end' : 'middle'} className="fill-ink-faint text-[10px]">
+              <text key={row.date} x={x(index)} y={HEIGHT - 8} textAnchor={index === 0 ? 'start' : index === last ? 'end' : 'middle'} className="fill-ink-faint text-label">
                 {formatDay(row.date)}
               </text>
             ) : null,
@@ -115,7 +115,7 @@ export default function ScansChart({ rows, label }) {
         </svg>
         {point && (
           <div
-            className="pointer-events-none absolute top-1 z-10 rounded-lg border border-line bg-card px-3 py-2 text-xs shadow-card"
+            className="pointer-events-none absolute top-1 z-10 rounded-lg border border-line bg-card px-3 py-2 text-compact shadow-card"
             style={{ left: Math.min(Math.max(x(active) - 70, 0), width - 150) }}
             role="status"
           >
@@ -129,13 +129,13 @@ export default function ScansChart({ rows, label }) {
         type="button"
         onClick={() => setShowTable((open) => !open)}
         aria-expanded={showTable}
-        className="mt-2 text-xs font-semibold text-forest-accent underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+        className="mt-2 text-compact font-semibold text-forest-accent underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
       >
         {showTable ? 'Hide the table' : 'Show as a table'}
       </button>
       {showTable && (
         <div className="mt-2 max-h-64 overflow-y-auto rounded-lg border border-line">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-compact">
             <caption className="sr-only">{label}</caption>
             <thead className="sticky top-0 bg-canvas font-mono text-label uppercase tracking-label text-ink-faint">
               <tr>

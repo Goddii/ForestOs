@@ -81,14 +81,14 @@ function ContributionPane({ workspace }) {
       <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4">
         {figures.map((figure) => (
           <div key={figure.key}>
-            <dt className="flex items-center gap-1.5 text-xs text-ink-muted">
+            <dt className="flex items-center gap-1.5 text-compact text-ink-muted">
               <span className={`h-2.5 w-2.5 rounded-[3px] ${figure.swatch}`} aria-hidden="true" />
               {figure.label}
             </dt>
             <dd className="mt-1 font-sans text-2xl font-bold tabular-nums text-ink">
               {formatCurrencyShort(figure.value, '').trim()}
             </dd>
-            <dd className="text-xs tabular-nums text-ink-faint">{figure.note}</dd>
+            <dd className="text-compact tabular-nums text-ink-faint">{figure.note}</dd>
           </div>
         ))}
       </dl>
@@ -187,9 +187,9 @@ function TranchePane({ workspace }) {
           />
         ))}
       </div>
-      <p className="mt-1.5 text-xs text-ink-faint">Tranche {next.number} of {next.count}</p>
+      <p className="mt-1.5 text-compact text-ink-faint">Tranche {next.number} of {next.count}</p>
       <div className="mt-4 border-t border-line pt-4">
-        <p className="text-xs font-semibold text-ink">Released when</p>
+        <p className="text-compact font-semibold text-ink">Released when</p>
         <p className="mt-0.5 text-sm leading-snug text-ink-muted">{next.tranche.milestone}</p>
       </div>
     </div>

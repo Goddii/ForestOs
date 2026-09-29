@@ -29,7 +29,7 @@ export default function PublishPanel({ experience, codes, qrPath, onPublish }) {
               )}
               <span>
                 <span className={check.ok ? 'text-ink' : 'font-semibold text-ink'}>{check.label}</span>
-                {!check.ok && <span className="block text-xs text-ink-muted">{check.detail}</span>}
+                {!check.ok && <span className="block text-compact text-ink-muted">{check.detail}</span>}
               </span>
             </li>
           ))}
@@ -50,7 +50,7 @@ export default function PublishPanel({ experience, codes, qrPath, onPublish }) {
 
       <div className="border-t border-line pt-6">
         <h2 className="text-lg font-semibold text-ink">Pack codes</h2>
-        <p className="mt-1 text-xs text-ink-muted">One code per batch, printed by ForestOS. Each opens this experience with its own batch record.</p>
+        <p className="mt-1 text-compact text-ink-muted">One code per batch, printed by ForestOS. Each opens this experience with its own batch record.</p>
         {codes.length === 0 ? (
           <p className="mt-3 text-compact text-ink-muted">No packs carry this experience yet.</p>
         ) : (
@@ -59,7 +59,7 @@ export default function PublishPanel({ experience, codes, qrPath, onPublish }) {
               <li key={code.id} className="flex items-center justify-between gap-3 py-2.5 text-compact">
                 <span className="min-w-0">
                   <span className="block font-semibold text-ink">Batch #{code.batchId}</span>
-                  <span className="block truncate text-xs text-ink-faint">{code.product.name}</span>
+                  <span className="block truncate text-compact text-ink-faint">{code.product.name}</span>
                 </span>
                 <CodeStateBadge state={code.state} />
               </li>

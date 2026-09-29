@@ -69,7 +69,7 @@ export default function ProductsPage() {
                   <div className="flex flex-1 flex-col p-5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="text-lg font-bold leading-snug text-ink">{product.name}</p>
+                        <p className="text-lg font-semibold leading-snug text-ink">{product.name}</p>
                         <p className="text-compact text-ink-muted">{product.line}</p>
                       </div>
                       <ProductStatusBadge status={product.status} />

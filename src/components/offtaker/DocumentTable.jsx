@@ -73,7 +73,7 @@ export default function DocumentTable({ documents, kinds, showFilters = true }) 
                 <p className="mt-0.5 font-mono text-label text-ink-faint">
                   {document.id} · {DOCUMENT_KIND_LABELS[document.kind]}
                 </p>
-                {document.withdrawnReason && <p className="mt-1 text-xs text-ink-muted">{document.withdrawnReason}</p>}
+                {document.withdrawnReason && <p className="mt-1 text-compact text-ink-muted">{document.withdrawnReason}</p>}
               </>
             ),
           },
@@ -104,7 +104,7 @@ export default function DocumentTable({ documents, kinds, showFilters = true }) 
                   ))}
                 </div>
               ) : (
-                <span className="text-xs text-ink-faint">Document only</span>
+                <span className="text-compact text-ink-faint">Document only</span>
               ),
           },
           { key: 'verification', header: 'Verification', cell: (document) => <VerificationStateBadge state={currentState(document.verification)} /> },

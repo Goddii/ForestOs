@@ -53,7 +53,7 @@ function InviteForm() {
         Invite
       </ActionButton>
       {sent && (
-        <p className="text-xs text-ink-muted md:col-span-4" role="status">
+        <p className="text-compact text-ink-muted md:col-span-4" role="status">
           Invitation recorded for {sent}. No email is sent in this demo.
         </p>
       )}
@@ -79,19 +79,19 @@ export default function TeamPage() {
               header: 'Person',
               cell: (row) => (
                 <span className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-canvas-sunk text-xs font-bold text-ink-muted" aria-hidden="true">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-canvas-sunk text-compact font-semibold text-ink-muted" aria-hidden="true">
                     {initials(row.name)}
                   </span>
                   <span>
                     <span className="block font-semibold text-ink">{row.name}</span>
-                    <span className="text-xs text-ink-muted">{row.title}</span>
+                    <span className="text-compact text-ink-muted">{row.title}</span>
                   </span>
                 </span>
               ),
             },
             { key: 'role', header: 'Role', cell: (row) => BRAND_ROLE_CONFIG[row.role].label },
             { key: 'status', header: 'Status', cell: (row) => <Badge tone={row.status === 'active' ? 'live' : 'neutral'}>{row.status === 'active' ? 'Active' : 'Invited'}</Badge> },
-            { key: 'seen', header: 'Last active', cell: (row) => <span className="font-mono text-xs">{row.lastActive ?? 'Not yet'}</span> },
+            { key: 'seen', header: 'Last active', cell: (row) => <span className="font-mono text-compact">{row.lastActive ?? 'Not yet'}</span> },
           ]}
         />
         {ws.permissions.manageTeam ? <InviteForm /> : <PermissionNote permission="manageTeam" />}

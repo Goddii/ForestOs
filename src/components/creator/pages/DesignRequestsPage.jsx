@@ -109,7 +109,7 @@ export default function DesignRequestsPage() {
             </Field>
           </div>
 
-          <p className="flex items-start gap-2 rounded-xl bg-canvas px-4 py-3 text-xs text-ink-muted">
+          <p className="flex items-start gap-2 rounded-xl bg-canvas px-4 py-3 text-compact text-ink-muted">
             <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             The team designs your creative layer and packaging. Verified batch records and pack codes stay exactly as recorded.
           </p>
@@ -149,19 +149,19 @@ function RequestCard({ request, campaign }) {
   const stage = DESIGN_REQUEST_STAGES[stageIndex]
   return (
     <li className="rounded-2xl border border-line p-5">
-      <p className="text-xs text-ink-faint">
+      <p className="text-compact text-ink-faint">
         {DESIGN_REQUEST_KINDS[request.kind]}, sent {formatDate(request.submittedAt)}
       </p>
       <p className="mt-1 font-semibold text-ink">{campaign?.title}</p>
       <p className="mt-2 text-compact leading-relaxed text-ink-muted">{request.brief}</p>
-      {request.features.length > 0 && <p className="mt-2 text-xs text-ink-faint">{request.features.map((key) => ALL_FEATURES[key]).join(', ')}</p>}
+      {request.features.length > 0 && <p className="mt-2 text-compact text-ink-faint">{request.features.map((key) => ALL_FEATURES[key]).join(', ')}</p>}
       <ol className="mt-4 flex gap-1" aria-label={`Stage ${stageIndex + 1} of ${DESIGN_REQUEST_STAGES.length}: ${stage.label}`}>
         {DESIGN_REQUEST_STAGES.map((entry, index) => (
           <li key={entry.key} className={`h-1.5 flex-1 rounded-full ${index <= stageIndex ? 'bg-forest-accent' : 'bg-line'}`} />
         ))}
       </ol>
       <p className="mt-2 text-compact font-semibold text-ink">{stage.label}</p>
-      <p className="text-xs text-ink-muted">
+      <p className="text-compact text-ink-muted">
         {stage.detail} Needed by {formatDate(request.launchBy)}.
       </p>
     </li>

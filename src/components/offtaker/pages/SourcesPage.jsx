@@ -48,7 +48,7 @@ export default function SourcesPage() {
         <SectionHeading title="Supplier" />
         <ContentCard className="flex flex-col gap-4 p-6 md:flex-row md:items-start md:justify-between">
           <div>
-            <p className="text-xl font-bold text-ink">{supplier.name}</p>
+            <p className="text-xl font-semibold text-ink">{supplier.name}</p>
             <p className="mt-1 max-w-[60ch] text-compact leading-relaxed text-ink-muted">
               State corporation that manages the tea-and-trees buffer belt around Kenya’s gazetted forests, runs the collection centres and
               factories, and records every batch’s journey in ForestOS.
@@ -67,20 +67,20 @@ export default function SourcesPage() {
           {factories.map((factory) => (
             <ContentCard key={factory.name} className="p-5">
               <p className="font-semibold text-ink">{factory.name}</p>
-              <p className="mt-1 text-xs text-ink-muted">Fed by {factory.centres.join(', ')}</p>
+              <p className="mt-1 text-compact text-ink-muted">Fed by {factory.centres.join(', ')}</p>
               <p className="mt-3 text-sm tabular-nums text-ink">
                 {factory.batches.length} batch{factory.batches.length === 1 ? '' : 'es'}, {formatKg(factory.batches.reduce((s, b) => s + b.madeTeaKg, 0))}
               </p>
               <ul className="mt-4 space-y-2 border-t border-line pt-3">
                 {factory.documents.length ? (
                   factory.documents.map((document) => (
-                    <li key={document.id} className="flex items-start justify-between gap-2 text-xs">
+                    <li key={document.id} className="flex items-start justify-between gap-2 text-compact">
                       <span className="text-ink-muted">{document.title.split(',')[0]}</span>
                       <DocumentStatusBadge status={document.status} />
                     </li>
                   ))
                 ) : (
-                  <li className="text-xs text-ink-faint">No factory documents visible to your role.</li>
+                  <li className="text-compact text-ink-faint">No factory documents visible to your role.</li>
                 )}
               </ul>
             </ContentCard>
@@ -109,7 +109,7 @@ export default function SourcesPage() {
             },
           ]}
         />
-        <p className="mt-3 text-xs text-ink-faint">
+        <p className="mt-3 text-compact text-ink-faint">
           Counts are summed across the batches you can see; counts below {floor} show as “fewer than {floor}”. Names, ID numbers, phone numbers
           and payments are never shared with buyers.
         </p>

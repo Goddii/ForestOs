@@ -69,7 +69,7 @@ export default function ReportCard({ report }) {
           <dd className="mt-0.5 font-sans font-medium text-ink-muted">{report.dataSources.join(' · ')}</dd>
         </div>
       </dl>
-      <p className="mt-2 pl-10 text-xs leading-relaxed text-ink-muted">{report.dataCoverage}</p>
+      <p className="mt-2 pl-10 text-compact leading-relaxed text-ink-muted">{report.dataCoverage}</p>
 
       {report.snapshot && (
         <dl className="mt-4 ml-10 grid grid-cols-2 gap-x-6 gap-y-3 rounded-xl border border-line bg-canvas-sunk p-4 sm:grid-cols-3">
@@ -85,7 +85,7 @@ export default function ReportCard({ report }) {
 
       <ol className="mt-4 ml-10 flex flex-wrap gap-x-5 gap-y-1.5" aria-label="Approval chain">
         {report.approvals.map((approval) => (
-          <li key={approval.step} className="flex items-center gap-1.5 text-xs">
+          <li key={approval.step} className="flex items-center gap-1.5 text-compact">
             {approval.at ? (
               <CheckCircle2 className="h-3.5 w-3.5 text-forest-accent" strokeWidth={2.25} aria-hidden="true" />
             ) : (

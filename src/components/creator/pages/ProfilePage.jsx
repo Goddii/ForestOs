@@ -17,7 +17,7 @@ export default function ProfilePage() {
     <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:items-start">
       <figure>
         <img src={creator.portrait.src} alt={creator.portrait.alt} width={720} height={900} className="aspect-[4/5] w-full rounded-2xl bg-forest-950 object-cover" />
-        <figcaption className="mt-2 text-xs text-ink-faint">{creator.portrait.credit}</figcaption>
+        <figcaption className="mt-2 text-compact text-ink-faint">{creator.portrait.credit}</figcaption>
       </figure>
 
       <div>

@@ -90,7 +90,7 @@ export default function BatchTable({ batches, showAccessFilter = true, extraColu
             cell: (batch) => (
               <>
                 <p className="font-mono font-semibold text-ink">{batch.traceId}</p>
-                <p className="mt-0.5 text-xs text-ink-faint">Factory lot {batch.record.processing.lotId}</p>
+                <p className="mt-0.5 text-compact text-ink-faint">Factory lot {batch.record.processing.lotId}</p>
               </>
             ),
           },
@@ -101,7 +101,7 @@ export default function BatchTable({ batches, showAccessFilter = true, extraColu
             cell: (batch) => (
               <>
                 <p className="text-ink">{batch.centre?.name}</p>
-                <p className="text-xs text-ink-faint">{batch.zone}</p>
+                <p className="text-compact text-ink-faint">{batch.zone}</p>
               </>
             ),
           },

@@ -26,7 +26,7 @@ export default function ExperiencePreview({ customisation, kit, heroAsset, lot, 
         {/* Brand layer */}
         <div className="flex items-center gap-2.5 px-4 py-3" style={{ backgroundColor: colours.primary, color: kit.ink }}>
           {customisation.showLogo && <BrandMark kit={markKit} size={28} />}
-          <span className="text-[11px] font-bold tracking-[0.2em]">{kit.wordmark}</span>
+          <span className="text-[11px] font-bold tracking-label-wide">{kit.wordmark}</span>
         </div>
         {heroAsset ? (
           <picture>
@@ -37,7 +37,7 @@ export default function ExperiencePreview({ customisation, kit, heroAsset, lot, 
           <div className="aspect-[4/3] w-full bg-canvas" />
         )}
         <div className="px-4 pb-4 pt-4">
-          <p className="text-xl font-bold leading-tight tracking-tight text-ink">{customisation.title || 'Campaign title'}</p>
+          <p className="text-xl font-semibold leading-tight tracking-tight text-ink">{customisation.title || 'Campaign title'}</p>
           <p className={`mt-2 text-[13px] leading-relaxed ${customisation.story ? 'text-ink-muted' : 'italic text-ink-faint'}`}>
             {customisation.story || 'Your story appears here.'}
           </p>
@@ -45,7 +45,7 @@ export default function ExperiencePreview({ customisation, kit, heroAsset, lot, 
 
         {/* Verified layer: ForestOS styling, locked */}
         <div className="mx-3 rounded-xl border border-forest-accent/25 bg-forest-accent-soft/50 p-3.5">
-          <p className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-label text-forest-accent-dark">
+          <p className="flex items-center justify-between text-label font-semibold uppercase tracking-label text-forest-accent-dark">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
               Verified by ForestOS

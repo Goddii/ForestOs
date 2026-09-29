@@ -45,13 +45,13 @@ export default function TraceJourney({ journey }) {
               <p className="mt-1 text-sm font-semibold leading-snug text-ink">{stage.title}</p>
               <StageStatusBadge status={stage.status} className="mt-2" />
               {stage.attestation && (
-                <p className="mt-2 text-xs leading-snug text-ink-muted">
+                <p className="mt-2 text-compact leading-snug text-ink-muted">
                   {stage.attestation.role}, {stage.attestation.at}
                   <span className="block text-ink-faint">{INDEPENDENCE_LABELS[stage.attestation.independence]}</span>
                 </p>
               )}
               {stage.rows.length > 0 && (
-                <dl className="mt-3 space-y-1.5 border-t border-line pt-3 text-xs">
+                <dl className="mt-3 space-y-1.5 border-t border-line pt-3 text-compact">
                   {stage.rows.map((row) => (
                     <div key={row.k}>
                       <dt className="text-ink-faint">{row.k}</dt>
@@ -60,7 +60,7 @@ export default function TraceJourney({ journey }) {
                   ))}
                 </dl>
               )}
-              {stage.note && <p className="mt-3 rounded-lg bg-canvas px-3 py-2 text-xs leading-snug text-ink-muted">{stage.note}</p>}
+              {stage.note && <p className="mt-3 rounded-lg bg-canvas px-3 py-2 text-compact leading-snug text-ink-muted">{stage.note}</p>}
             </div>
           </li>
         )
