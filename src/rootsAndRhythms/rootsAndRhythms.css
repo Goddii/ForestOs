@@ -1,0 +1,49 @@
+/* Keyframes for /roots-and-rhythms, ported from the Figma Make file's index.css.
+   Every name is rr-prefixed so nothing collides with the rest of the site. */
+@keyframes rr-wave-bar { 0%, 100% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } }
+@keyframes rr-pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.8); } }
+@keyframes rr-leaf-float {
+  0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-110vh) translateX(var(--dx)) rotate(var(--rot)) scale(0.5); opacity: 0; }
+}
+@keyframes rr-orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -30px) scale(1.08); }
+  66% { transform: translate(-15px, 18px) scale(0.94); }
+}
+@keyframes rr-sway { 0%, 100% { transform: rotate(-2.5deg) translateY(0); } 50% { transform: rotate(2.5deg) translateY(-10px); } }
+@keyframes rr-fade-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes rr-slide-in-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes rr-slide-in-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes rr-scale-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+@keyframes rr-ripple-out { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(2.8); opacity: 0; } }
+@keyframes rr-glow-pulse { 0%, 100% { box-shadow: 0 0 18px rgba(29, 185, 84, 0.35); } 50% { box-shadow: 0 0 40px rgba(29, 185, 84, 0.65); } }
+@keyframes rr-modal-in { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes rr-breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 24px rgba(29, 185, 84, 0.12); }
+  50% { transform: scale(1.03); box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55), 0 0 48px rgba(29, 185, 84, 0.28); }
+}
+@keyframes rr-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes rr-spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes rr-letter-drop {
+  from { opacity: 0; transform: translateY(-30px) rotateX(60deg); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg); filter: blur(0); }
+}
+@keyframes rr-shimmer-bar { 0% { background-position: -300% center; } 100% { background-position: 300% center; } }
+@keyframes rr-float-badge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes rr-card-rise { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes rr-border-trace { 0% { clip-path: inset(0 100% 0 0); } 100% { clip-path: inset(0 0 0 0); } }
+
+.rr-scroll { scrollbar-width: none; overscroll-behavior: none; }
+.rr-scroll::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rr-root *, .rr-root *::before, .rr-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .rr-decor { display: none; }
+}

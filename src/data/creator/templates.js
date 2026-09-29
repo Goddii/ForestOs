@@ -105,6 +105,21 @@ export const CREATOR_TEMPLATES = [
       S('cta', 'Earn'),
     ],
   },
+  {
+    id: 'tpl-tea-soundscape',
+    name: 'Tea Soundscape Pledge',
+    summary: 'A pack-scan landing built around a forest soundscape player, a live tree counter and a one-tap tree pledge.',
+    route: '/roots-and-rhythms',
+    coverSrc: '/media/roots-and-rhythms/moss-arm.jpg',
+    coverAlt: 'A moss-covered arm wrapped in vines and leaves, reaching up from a pale wooden surface',
+    sections: [
+      S('hook', 'Headline'),
+      S('music', 'Soundscape player'),
+      S('impact', 'Tree counter'),
+      S('community', 'Community roots'),
+      S('cta', 'Tree pledge'),
+    ],
+  },
 ]
 
 /** @param {string} id */

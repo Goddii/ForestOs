@@ -105,9 +105,9 @@ describe('buildCreatorWorkspace', () => {
     expect(workspace.designRequests.length).toBeGreaterThan(1)
   })
 
-  it('offers all six templates, each opening an existing route', () => {
+  it('offers all seven templates, each opening an existing route', () => {
     const { templates } = buildCreatorWorkspace('nyashinski')
-    expect(templates).toHaveLength(6)
+    expect(templates).toHaveLength(7)
     templates.forEach((template) => expect(template.route).toMatch(/^\//))
   })
 
