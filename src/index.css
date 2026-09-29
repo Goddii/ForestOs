@@ -490,6 +490,10 @@
 .cesium-widget-credits a {
   color: var(--color-sage-300) !important;
 }
+/* Home map only: keep the imagery credit above the map's bottom fade (z-10) */
+.belt-map .cesium-viewer-bottom {
+  z-index: 15;
+}
 /* Not an Ion project — drop the Ion logo, keep imagery attribution text */
 .cesium-credit-logoContainer {
   display: none !important;

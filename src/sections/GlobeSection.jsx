@@ -17,6 +17,10 @@ import { useBatch } from '../lib/batchContext'
 const GLOBE_VIGNETTE =
   'radial-gradient(120% 78% at 50% 42%, transparent 50%, rgba(8,20,14,0.34) 78%, rgba(8,20,14,0.9) 100%)'
 
+// Home only: fog from the end of the canopy dive settling into forest-950.
+const DIVE_BRIDGE =
+  'linear-gradient(to bottom, rgba(8,20,14,0) 0%, rgba(8,20,14,0.35) 38%, rgba(8,20,14,0.82) 72%, #08140e 100%)'
+
 const globeFallback = (
   <div className="grid h-full place-items-center bg-forest-900 p-8 text-center">
     <p className="max-w-sm text-sm text-bone-300">
@@ -98,6 +102,15 @@ export default function GlobeSection({
 
   return (
     <section id="proof" className="relative z-10 scroll-mt-20 bg-forest-950">
+      {/* Home only: the canopy dive ends on bright fog, so a bridge above this
+          section fades the fixed video into forest-950 instead of cutting to it. */}
+      {macroMode && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-60 h-60"
+          style={{ background: DIVE_BRIDGE }}
+        />
+      )}
       <div className="mx-auto max-w-6xl px-6 pb-10 pt-20 sm:px-8 sm:pt-28">
         {introOverride ? (
           <SectionIntro {...introOverride} />
@@ -124,7 +137,9 @@ export default function GlobeSection({
       <Reveal className="relative">
         <div
           ref={mapRef}
-          className="relative h-[68svh] min-h-[420px] w-full overflow-hidden border-y border-bone/10 bg-forest-900 sm:h-[82svh]"
+          className={`relative h-[68svh] min-h-[420px] w-full overflow-hidden bg-forest-900 sm:h-[82svh] ${
+            macroMode ? 'belt-map border-t border-bone/10' : 'border-y border-bone/10'
+          }`}
         >
           <ErrorBoundary fallback={globeFallback}>
             <Globe
@@ -143,6 +158,15 @@ export default function GlobeSection({
             className="pointer-events-none absolute inset-0 z-10"
             style={{ background: GLOBE_VIGNETTE }}
           />
+
+          {/* Home only: the map fades into the ledger below rather than ending
+              on a border. The imagery credit stays above this (see index.css). */}
+          {macroMode && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[45%] bg-gradient-to-t from-forest-950 via-forest-950/55 to-transparent"
+            />
+          )}
 
           {/* HUD */}
           <div className="pointer-events-none absolute inset-0 z-20 p-4 sm:p-6">

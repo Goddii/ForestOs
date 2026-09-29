@@ -209,7 +209,7 @@ export default function BeltLedger() {
     <section
       ref={sectionRef}
       id="belt-ledger"
-      className="relative z-10 scroll-mt-20 overflow-hidden bg-forest-950 py-20 sm:py-28"
+      className="relative z-10 scroll-mt-20 overflow-hidden bg-forest-950 pb-20 pt-12 sm:pb-28 sm:pt-16"
     >
       <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
