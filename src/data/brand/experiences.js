@@ -107,7 +107,7 @@ export const BRAND_EXPERIENCES = [
     customisation: {
       title: 'A cup from the Mau',
       heroAssetId: 'fos-mau-forest',
-      story: 'The tea in your room was grown on the Kiptunga buffer of the Mau Forest, one of Kenya’s five water towers. Scan to see the lot it came from and the forest work checked alongside it.',
+      story: 'The tea in your room was grown on the Kiptunga buffer of the Mau Forest, one of Kenya’s nine water towers. Scan to see the lot it came from and the forest work checked alongside it.',
       metricIds: ['ind-seedlings', 'ind-plots-audited'],
       cta: { label: 'Book a forest walk', href: 'https://example.com/maracrest/experiences' },
       socialLinks: [

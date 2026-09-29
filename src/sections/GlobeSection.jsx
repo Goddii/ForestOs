@@ -116,7 +116,7 @@ export default function GlobeSection({
           <SectionIntro {...introOverride} />
         ) : macroMode ? (
           <SectionIntro
-            eyebrow="5 blocks · 14,250 ha · 5 water towers"
+            eyebrow="5 blocks · 14,250 ha · 5 of 9 water towers"
             title="Five forest blocks, held as one contiguous buffer."
             body="Mau, the Aberdares, Mt. Kenya, Cherangany and Mt. Elgon — the water towers that feed every major river. Select a block to fly to its sector."
           />

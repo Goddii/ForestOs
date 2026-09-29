@@ -21,5 +21,5 @@ test('a buyer with no connected supply is pending on origin, not verified', () =
 test('an expired required certificate flags compliance for roles that can see it', () => {
   const compliance = sourcingConfidence(buildOfftakerWorkspace('rift-valley-tea', 'compliance')).find((check) => check.key === 'compliance')
   expect(compliance.status).toBe('flagged')
-  expect(compliance.detail).toContain('Mariashoni')
+  expect(compliance.detail).toContain('Kipchabo')
 })

@@ -24,7 +24,7 @@ export default function MacroHero({ videoRef }) {
         {PLATFORM.tagline}
       </h1>
       <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed text-bone-300">
-        Kenya&rsquo;s tea grows in a ring around five great forest blocks. ForestOS
+        Kenya&rsquo;s tea grows in a ring around its water towers. ForestOS
         turns that belt into a verifiable buffer, proven plot by plot.
       </p>
 
