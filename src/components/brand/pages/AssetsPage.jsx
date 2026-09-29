@@ -7,6 +7,20 @@ import DataTable from '../../offtaker/DataTable'
 import ActionButton from '../../investor/ui/ActionButton'
 import { downloadQrSvg } from '../QrCode'
 import { ExperienceStatusBadge, SourceTag } from '../StatusBadges'
+import { BRAND_MARK_ART } from '../brandMarkArtMap'
+
+/** The uploaded logo drawn on white, as the file would open. One-colour files use the brand colour only. */
+function LogoThumb({ kit, isOneColour }) {
+  const Art = BRAND_MARK_ART[kit.mark]
+  if (!Art) return null
+  return (
+    <span className="inline-grid h-10 w-10 place-items-center rounded-lg border border-line bg-white" aria-hidden="true">
+      <svg viewBox="0 0 256 256" className="h-7 w-7" focusable="false">
+        <Art ink={kit.primary} accent={isOneColour ? kit.primary : kit.accent} />
+      </svg>
+    </span>
+  )
+}
 
 function PhotoCard({ photo }) {
   return (
@@ -113,7 +127,16 @@ export default function AssetsPage() {
           rows={ws.uploads}
           empty="No files uploaded yet."
           columns={[
-            { key: 'name', header: 'File', cell: (row) => <span className="font-semibold text-ink">{row.name}</span> },
+            {
+              key: 'name',
+              header: 'File',
+              cell: (row) => (
+                <span className="flex items-center gap-3">
+                  {row.usage === 'Logo' && row.type === 'SVG' && <LogoThumb kit={ws.kit} isOneColour={row.variant === 'mono'} />}
+                  <span className="font-semibold text-ink">{row.name}</span>
+                </span>
+              ),
+            },
             { key: 'usage', header: 'Used for', cell: (row) => row.usage },
             { key: 'type', header: 'Type', cell: (row) => <span className="font-mono text-compact">{row.type}</span> },
             { key: 'size', header: 'Size', align: 'right', cell: (row) => (row.sizeKb >= 1000 ? `${(row.sizeKb / 1000).toFixed(1)} MB` : `${row.sizeKb} KB`) },

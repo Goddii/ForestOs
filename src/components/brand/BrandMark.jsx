@@ -1,6 +1,4 @@
-import { Acacia, ArchedH, Terraces } from './brandMarkArt'
-
-const BRAND_MARK_ART = { terraces: Terraces, acacia: Acacia, 'arched-h': ArchedH }
+import { BRAND_MARK_ART } from './brandMarkArtMap'
 
 /** Share of the tile the drawn mark occupies; the rest is breathing room. */
 const ART_SHARE = 0.66

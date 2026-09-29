@@ -1,3 +1,5 @@
+import { BRAND_MARK_ART } from './brandMarkArtMap'
+
 /**
  * A flat render of a product's pack, generated from the product record and
  * the brand kit so every product has a consistent visual before the brand's
@@ -20,13 +22,14 @@ export default function PackRender({ product, kit, aspect = 'aspect-[4/5]', clas
     >
       <svg viewBox="0 0 200 250" className="h-[82%] w-auto drop-shadow-[0_18px_22px_rgba(20,40,32,0.22)]" role="img" aria-label={`${product.name}, ${product.packaging.size} ${type}`}>
         <PackShape type={type} kit={kit} />
-        <text x="100" y={LABEL_Y[type]} textAnchor="middle" fill={kit.ink} style={{ font: '700 11px Archivo, sans-serif', letterSpacing: '0.22em' }}>
+        <PackMark type={type} kit={kit} />
+        <text x="100" y={labelY(type, kit)} textAnchor="middle" fill={kit.ink} style={{ font: '700 11px Archivo, sans-serif', letterSpacing: '0.22em' }}>
           {kit.wordmark}
         </text>
-        <text x="100" y={LABEL_Y[type] + 22} textAnchor="middle" fill={kit.ink} style={{ font: '600 12px Archivo, sans-serif' }}>
+        <text x="100" y={labelY(type, kit) + 22} textAnchor="middle" fill={kit.ink} style={{ font: '600 12px Archivo, sans-serif' }}>
           {truncate(product.name, 20)}
         </text>
-        <text x="100" y={LABEL_Y[type] + 38} textAnchor="middle" fill={kit.ink} opacity="0.72" style={{ font: '500 8.5px Archivo, sans-serif', letterSpacing: '0.08em' }}>
+        <text x="100" y={labelY(type, kit) + 38} textAnchor="middle" fill={kit.ink} opacity="0.72" style={{ font: '500 8.5px Archivo, sans-serif', letterSpacing: '0.08em' }}>
           {truncate(product.packaging.size.toUpperCase(), 28)}
         </text>
         <QrMark type={type} kit={kit} />
@@ -36,6 +39,29 @@ export default function PackRender({ product, kit, aspect = 'aspect-[4/5]', clas
 }
 
 const LABEL_Y = { tin: 118, pouch: 128, box: 112, sachet: 122 }
+
+const MARK_SIZE = 24
+/** Room the mark takes above the wordmark on the flat-fronted packs. */
+const MARK_LABEL_SHIFT = 10
+const MARK_GAP_ABOVE_LABEL = 36
+/** On the box the mark sits on the lid, which is the accent colour, so it is drawn in the kit's dark colour alone. */
+const BOX_LID_CENTRE = [100, 72]
+
+const hasMark = (kit) => Boolean(kit.mark && BRAND_MARK_ART[kit.mark])
+const labelY = (type, kit) => LABEL_Y[type] + (hasMark(kit) && type !== 'box' ? MARK_LABEL_SHIFT : 0)
+
+/** The brand's mark as part of the pack's lockup, above the wordmark (on the lid for a box). */
+function PackMark({ type, kit }) {
+  if (!hasMark(kit)) return null
+  const Art = BRAND_MARK_ART[kit.mark]
+  const isBox = type === 'box'
+  const [x, y] = isBox ? [BOX_LID_CENTRE[0] - MARK_SIZE / 2, BOX_LID_CENTRE[1] - MARK_SIZE / 2] : [100 - MARK_SIZE / 2, labelY(type, kit) - MARK_GAP_ABOVE_LABEL]
+  return (
+    <g transform={`translate(${x} ${y}) scale(${MARK_SIZE / 256})`} aria-hidden="true">
+      <Art ink={isBox ? kit.primary : kit.ink} accent={isBox ? kit.primary : kit.accent} />
+    </g>
+  )
+}
 
 const truncate = (text, length) => (text.length > length ? `${text.slice(0, length - 1)}…` : text)
 
