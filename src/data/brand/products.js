@@ -26,8 +26,8 @@ export const BRAND_PRODUCTS = [
   {
     id: 'prd-kil-mau-black',
     brandOrgId: 'org-brand-kilele',
-    name: 'Mau Highland Black',
-    line: 'Kilele Origin Teas',
+    name: 'Gold Label Black Tea',
+    line: 'JAVA HOUSE Origin Teas',
     teaType: 'Black tea, CTC',
     description: 'A brisk, bright black tea from the South West Mau buffer belt, brewed in every Kilele café and sold in tins at the counter.',
     packaging: { type: 'tin', size: '100 g loose leaf', material: 'Recycled steel tin, paper label', qrPlacement: 'Printed on the back label' },
@@ -38,8 +38,8 @@ export const BRAND_PRODUCTS = [
   {
     id: 'prd-kil-chai',
     brandOrgId: 'org-brand-kilele',
-    name: 'Nessuit Chai Masala',
-    line: 'Kilele Origin Teas',
+    name: 'House Chai',
+    line: 'JAVA HOUSE Origin Teas',
     teaType: 'Black tea with ginger, cardamom and cinnamon',
     description: 'Kilele’s house chai, blended on a Nessuit black tea base for the café milk-tea menu.',
     packaging: { type: 'pouch', size: '250 g', material: 'Compostable kraft pouch', qrPlacement: 'Front panel, bottom right' },

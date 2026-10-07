@@ -118,7 +118,7 @@ function buildExperience(experience, context) {
     approvedMetrics,
     scans,
     readiness,
-    livePath: `/batch/${PLACEHOLDER_BATCH_ID}?exp=${experience.shortCode}`,
+    livePath: experience.shortCode === 'kil-mau' ? '/java' : `/batch/${PLACEHOLDER_BATCH_ID}?exp=${experience.shortCode}`,
   }
 }
 
