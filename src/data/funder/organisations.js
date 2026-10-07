@@ -106,7 +106,7 @@ export const ORGANISATIONS = [
   {
     id: 'org-brand-kilele',
     slug: 'kilele-coffee-house',
-    name: 'Kilele Coffee House',
+    name: 'JAVA HOUSE',
     note: 'Demo café chain',
     type: 'brand',
     isPlaceholder: true,
