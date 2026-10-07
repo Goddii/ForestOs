@@ -50,6 +50,12 @@ const GROUPS = [
         note: "Figma-sourced wild forest honey QR experience: origin tracing, lab reports, certificate downloads, and batch reordering.",
       },
       {
+        href: '/java',
+        title: 'Java House Kenya — Gold Label',
+        tag: 'Prototype',
+        note: 'Interactive conservation tea experience: animated timeline, dynamic Safaricom Bonga points slider, and an interactive SVG map for the store locator.',
+      },
+      {
         href: '/passport/majani/921',
         title: 'Majani Passport (tenant passport)',
         tag: 'Approved design',
