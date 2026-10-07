@@ -2,7 +2,7 @@ import { useState, useRef, useMemo, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   MapPin, Navigation, ChevronDown, Phone, Clock,
-  Leaf, TreePine, Award, X, Zap, Star, Compass,
+  Leaf, TreePine, Award, Zap, Star, Compass,
 } from "lucide-react";
 
 import "./java.css";
@@ -236,12 +236,34 @@ const HERO_LEAVES = [
   { left: "38%", top: "30%", size: 14, color: "#2E6B3A", rotateInit: 15, yRange: -160, rotateRange: -25 },
 ];
 
-function HeroSection({ scrollYProgress }) {
-  const leafMotions = HERO_LEAVES.map((leaf) => ({
-    y: useTransform(scrollYProgress, [0, 1], [0, leaf.yRange]),
-    rotate: useTransform(scrollYProgress, [0, 1], [leaf.rotateInit, leaf.rotateInit + leaf.rotateRange])
-  }));
+/**
+ * One hero leaf. `useTransform` has to run in a component body, not inside the
+ * `HERO_LEAVES.map()` callback — calling a hook in a callback breaks the Rules
+ * of Hooks (hook count is only stable there because the list is a fixed module
+ * constant, and it stops the React Compiler from optimising the section).
+ * Extracting the leaf keeps the rendered output identical.
+ */
+function HeroLeaf({ leaf, index, scrollYProgress }) {
+  const y = useTransform(scrollYProgress, [0, 1], [0, leaf.yRange]);
+  const rotate = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [leaf.rotateInit, leaf.rotateInit + leaf.rotateRange]
+  );
 
+  return (
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{ left: leaf.left, top: leaf.top, y, rotate }}
+      animate={{ y: [0, -12, 0] }}
+      transition={{ duration: 3 + index * 0.4, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
+    >
+      <TeaLeaf size={leaf.size} color={leaf.color} opacity={0.65 + (index % 3) * 0.1} />
+    </motion.div>
+  );
+}
+
+function HeroSection({ scrollYProgress }) {
   const titleY = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
@@ -255,15 +277,7 @@ function HeroSection({ scrollYProgress }) {
       <TribalPattern id="hero-tribal" opacity={0.22} />
 
       {HERO_LEAVES.map((leaf, i) => (
-        <motion.div
-          key={i}
-          className="absolute pointer-events-none"
-          style={{ left: leaf.left, top: leaf.top, y: leafMotions[i].y, rotate: leafMotions[i].rotate }}
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
-        >
-          <TeaLeaf size={leaf.size} color={leaf.color} opacity={0.65 + (i % 3) * 0.1} />
-        </motion.div>
+        <HeroLeaf key={i} leaf={leaf} index={i} scrollYProgress={scrollYProgress} />
       ))}
 
       <motion.div
