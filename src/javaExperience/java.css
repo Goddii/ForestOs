@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+.java-experience {
+  --background: #08150A;
+  --foreground: #EDE8DC;
+  --card: #0F2012;
+  --primary: #D4A84B;
+  --secondary: #172B1A;
+  --muted-foreground: #7A9A7E;
+  --border: rgba(212, 168, 75, 0.15);
+  
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Map tailwind utility classes used in the design to our custom variables within this scope */
+.java-experience .bg-background { background-color: var(--background); }
+.java-experience .bg-card { background-color: var(--card); }
+.java-experience .bg-secondary { background-color: var(--secondary); }
+.java-experience .bg-primary { background-color: var(--primary); }
+
+.java-experience .text-primary { color: var(--primary); }
+.java-experience .text-muted-foreground { color: var(--muted-foreground); }
+
+.java-experience .border-border { border-color: var(--border); }
+
+/* Specific opacity variations used in the Figma export */
+.java-experience .border-primary\/25 { border-color: rgba(212, 168, 75, 0.25); }
+.java-experience .border-primary\/40 { border-color: rgba(212, 168, 75, 0.40); }
+.java-experience .border-primary\/50 { border-color: rgba(212, 168, 75, 0.50); }
+.java-experience .bg-primary\/15 { background-color: rgba(212, 168, 75, 0.15); }
+
+/* Hide scrollbar for the phone view */
+.java-experience::-webkit-scrollbar {
+  display: none;
+}
+.java-experience {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
