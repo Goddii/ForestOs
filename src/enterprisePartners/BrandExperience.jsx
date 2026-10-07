@@ -15,6 +15,8 @@ import PassportPanel from './components/PassportPanel'
 import ClaimVsFact from './components/game/ClaimVsFact'
 import QuestDrawer from './components/game/QuestDrawer'
 import StampBook from './components/game/StampBook'
+import PlotAdoption from './components/game/PlotAdoption'
+import ImpactLeague from './components/game/ImpactLeague'
 import SeasonMeter from './components/game/SeasonMeter'
 import TierUpToast from './components/game/TierUpToast'
 import XpRing from './components/game/XpRing'
@@ -67,6 +69,8 @@ export default function BrandExperience() {
     toNextTier,
     tierUp,
     dismissTierUp,
+    adoptedPlotId,
+    adoptPlot,
     missionProgress,
     recordQuestEvent,
     advance,
@@ -117,6 +121,8 @@ export default function BrandExperience() {
     quests,
     nextAction,
     recordQuestEvent,
+    adoptedPlotId,
+    adoptPlot,
     switchBrand,
     otherBrandId: nextBrandId(brand.id),
   })
@@ -534,9 +540,21 @@ function PlayStage({ advance, quests, nextAction, xp, recordQuestEvent, brand })
   )
 }
 
-/** The shared passport plus the stamp book (brief 5.6) and the season loop. */
+/**
+ * The shared passport, and the three return hooks that sit under it: the stamp
+ * book (5.6), plot adoption (5.6) and the Conservation Impact League (5.7),
+ * plus the Road to COP32 season meter (5.2).
+ */
 function PassportStage(ctx) {
-  const { passport, verification, switchBrand, otherBrandId } = ctx
+  const {
+    passport,
+    verification,
+    switchBrand,
+    otherBrandId,
+    adoptedPlotId,
+    adoptPlot,
+    tier,
+  } = ctx
   return (
     <>
       <PassportPanel
@@ -545,9 +563,11 @@ function PassportStage(ctx) {
         onSwitchBrand={switchBrand}
         otherBrandId={otherBrandId}
       />
-      <div className="mx-auto max-w-lg px-6 pb-12">
+      <div className="mx-auto max-w-lg space-y-10 px-6 pb-12">
         <StampBook stamps={passport.stamps} />
-        <SeasonMeter className="mt-6" />
+        <PlotAdoption adoptedPlotId={adoptedPlotId} onAdopt={adoptPlot} tier={tier} />
+        <ImpactLeague stamps={passport.stamps} />
+        <SeasonMeter />
       </div>
     </>
   )

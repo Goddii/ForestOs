@@ -10,6 +10,32 @@ import { CANOPY_TIERS, XP_AWARDS } from '../data/game'
 
 /** Stable empty array so a stampless passport keeps its memo dependencies. */
 const NO_STAMPS = []
+
+/**
+ * The adopted plot's own key. It deliberately lives outside the passport and
+ * outside the session reset: plot adoption is the return hook (brief 5.6), so
+ * it has to survive a brand switch, a new QR and a reload.
+ */
+const ADOPTED_PLOT_KEY = 'forestos.enterprise.adopted-plot.v1'
+
+function loadAdoptedPlotId() {
+  try {
+    return window.localStorage.getItem(ADOPTED_PLOT_KEY) || null
+  } catch {
+    return null
+  }
+}
+
+function saveAdoptedPlotId(plotId) {
+  try {
+    if (plotId) window.localStorage.setItem(ADOPTED_PLOT_KEY, plotId)
+    else window.localStorage.removeItem(ADOPTED_PLOT_KEY)
+  } catch {
+    // Private windows and blocked storage: the journey still renders, the
+    // adoption is simply session-only, which the UI already says.
+  }
+  return plotId || null
+}
 import {
   applicableQuestEntries,
   hasBothBrandStamps,
@@ -89,6 +115,7 @@ export function useEnterpriseFlow({
   const [missionsDone, setMissionsDone] = useState([])
   const [questCtx, setQuestCtx] = useState(EMPTY_QUEST_CTX)
   const [tierUp, setTierUp] = useState(null)
+  const [adoptedPlotId, setAdoptedPlotId] = useState(loadAdoptedPlotId)
 
   const entryKey = `${brandId}:${startAt}:${forestRef}:${verificationStatus}`
   const [prevEntryKey, setPrevEntryKey] = useState(entryKey)
@@ -214,6 +241,11 @@ export function useEnterpriseFlow({
 
   const dismissTierUp = useCallback(() => setTierUp(null), [])
 
+  /** Adopt a plot — persisted, and never cleared by a session reset. */
+  const adoptPlot = useCallback((plotId) => {
+    setAdoptedPlotId(saveAdoptedPlotId(plotId))
+  }, [])
+
   return {
     stages,
     stage,
@@ -233,6 +265,8 @@ export function useEnterpriseFlow({
     tierPct: progress.pct,
     tierUp,
     dismissTierUp,
+    adoptedPlotId,
+    adoptPlot,
     missionProgress,
     recordQuestEvent,
     advance,

@@ -94,9 +94,9 @@ const XP_TABLE = [
 /** The tiers XP unlocks (brief 5.5). Tiers unlock content, never discounts. */
 const TIER_TABLE = [
   ['Visitor', '0 XP', 'The QR journey and your first stamp'],
-  ['Explorer', '75 XP', 'Origin chapters and the stamp book'],
-  ['Guardian', '250 XP', 'A named plot adoption and field-officer notes'],
-  ['Custodian', '500 XP', 'A downloadable Conservation Passport'],
+  ['Explorer', '75 XP', 'The origin beats and the stamp book'],
+  ['Guardian', '250 XP', 'Field-officer notes on your adopted plot'],
+  ['Custodian', '500 XP', 'Your full conservation record, held in the passport'],
 ]
 
 const BUSINESS = [

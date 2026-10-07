@@ -25,14 +25,15 @@ export const XP_AWARDS = {
 
 /**
  * Canopy XP tiers (thresholds ILLUSTRATIVE, per brief 5.5). Tiers unlock
- * content — story chapters, a named plot adoption, field-officer notes, a
- * downloadable passport — never discounts.
+ * content, never discounts — and each `unlocks` line describes something that
+ * actually exists in this prototype. Plot adoption itself stays open to every
+ * tier; what Guardian adds is the field officer's note on the plot you adopted.
  */
 export const CANOPY_TIERS = [
   { id: 'visitor', label: 'Visitor', atXp: 0, unlocks: 'The QR journey and your first stamp.' },
-  { id: 'explorer', label: 'Explorer', atXp: 75, unlocks: 'Origin story chapters and the stamp book.' },
-  { id: 'guardian', label: 'Guardian', atXp: 250, unlocks: 'A named plot adoption and field-officer notes.' },
-  { id: 'custodian', label: 'Custodian', atXp: 500, unlocks: 'A downloadable Conservation Passport.' },
+  { id: 'explorer', label: 'Explorer', atXp: 75, unlocks: 'The origin beats and the stamp book.' },
+  { id: 'guardian', label: 'Guardian', atXp: 250, unlocks: 'Field-officer notes on your adopted plot.' },
+  { id: 'custodian', label: 'Custodian', atXp: 500, unlocks: 'Your full conservation record, held in the passport.' },
 ]
 
 /**
