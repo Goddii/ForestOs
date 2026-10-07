@@ -44,6 +44,12 @@ const GROUPS = [
         note: 'Figma-sourced Terra Tea × Spotify pack landing: letter-drop headline, glass soundscape player driving a moss-arm visual, live tree counter, moss-fingerprint tree pledge.',
       },
       {
+        href: '/honey',
+        title: "Bree's Bees Forest Honey",
+        tag: 'Prototype',
+        note: "Figma-sourced wild forest honey QR experience: origin tracing, lab reports, certificate downloads, and batch reordering.",
+      },
+      {
         href: '/passport/majani/921',
         title: 'Majani Passport (tenant passport)',
         tag: 'Approved design',

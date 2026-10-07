@@ -1,0 +1,92 @@
+@theme {
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-cream: #fffbeb;
+}
+
+.liquid-shine::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.48), transparent);
+  animation: shine 3.6s ease-in-out infinite;
+}
+
+.aurora-bg {
+  background:
+    radial-gradient(circle at 15% 18%, rgba(245, 158, 11, 0.1), transparent 28%),
+    radial-gradient(circle at 85% 42%, rgba(16, 185, 129, 0.12), transparent 34%),
+    radial-gradient(circle at 40% 85%, rgba(217, 119, 6, 0.08), transparent 30%),
+    #021b15;
+  animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-card::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  content: '';
+  opacity: 0;
+  background: radial-gradient(circle at 70% 15%, rgba(245, 158, 11, 0.13), transparent 42%);
+  transition: opacity 400ms ease;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.dewdrop::before {
+  position: absolute;
+  inset: 50%;
+  content: '';
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+}
+
+.dewdrop:active::before {
+  animation: dewdrop-ripple 550ms ease-out;
+}
+
+@keyframes shine {
+  0%,
+  68% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(120%) skewX(-18deg);
+  }
+}
+
+@keyframes dewdrop-ripple {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(18);
+  }
+}
+
+@keyframes aurora-drift {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+    filter: hue-rotate(0deg);
+  }
+  to {
+    transform: scale(1.08) translate3d(-2%, 2%, 0);
+    filter: hue-rotate(8deg);
+  }
+}
