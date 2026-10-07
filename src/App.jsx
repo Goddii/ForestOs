@@ -30,6 +30,8 @@ const LivingAnthem = lazy(() => import('./routes/LivingAnthem'))
 // pack landing), ported from a Figma Make file. Own folder
 // (`src/rootsAndRhythms/`), own route file; does not touch any other route.
 const RootsAndRhythms = lazy(() => import('./routes/RootsAndRhythms'))
+// "Bree's Bees Forest Honey" — prototype.
+const HoneyExperience = lazy(() => import('./honeyExperience/HoneyExperience'))
 // A plain link list to every prototype/comparison/demo build in this repo,
 // for quickly switching between them in a demo — links out only, changes
 // nothing about the routes it lists.
@@ -91,6 +93,7 @@ export default function App() {
         <Route path="/sound-of-the-shield" element={<SoundOfTheShield />} />
         <Route path="/living-anthem" element={<LivingAnthem />} />
         <Route path="/roots-and-rhythms" element={<RootsAndRhythms />} />
+        <Route path="/honey" element={<HoneyExperience />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/launch" element={<LaunchEdition />} />
         <Route path="/funder" element={<Navigate to="/funder/funder-a" replace />} />
