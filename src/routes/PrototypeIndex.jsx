@@ -11,6 +11,18 @@ import { ArrowUpRight } from 'lucide-react'
  */
 const GROUPS = [
   {
+    label: 'ForestOS × Safaricom × Java House (investor prototype)',
+    items: [
+      {
+        href: '/enterprise-partners',
+        title: 'Enterprise tea traceability + conservation platform',
+        tag: 'Prototype',
+        note:
+          'Gamified QR journeys for proposed Safaricom and Java House layers — Claim vs Fact mini-game, XP ring, quests and stamp book — plus the shared Forest Passport, tea packaging, touchpoints, and a 15-frame investor deck. Tea-first · honestly labelled.',
+      },
+    ],
+  },
+  {
     label: 'Nyashinski × Majani campaign prototypes',
     items: [
       {

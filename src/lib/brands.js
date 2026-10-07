@@ -12,6 +12,13 @@ import { BELT_BLOCKS } from './platformData'
 // here. Only Nyashinski Tea is a real collaboration; the rest are plausible
 // placeholders that keep the standings honest.
 export const BRANDS = {
+  // NOTE: Safaricom is deliberately absent. The Safaricom × ForestOS layer is
+  // a PROPOSED concept (see `src/enterprisePartners/data/brands.js`), not a
+  // confirmed partnership — and every entry here feeds the public home-page
+  // Conservation Impact League and brand beat. Listing it as `real: true` with
+  // invented conservation figures would present a partnership that does not
+  // exist, so its accent tokens live in `index.css` and its experience data
+  // lives in the isolated enterprise prototype instead.
   nyashinski: {
     id: 'nyashinski',
     name: 'Nyashinski Tea',

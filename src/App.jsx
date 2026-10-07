@@ -37,6 +37,7 @@ const JavaExperience = lazy(() => import('./javaExperience/JavaExperience'))
 // for quickly switching between them in a demo — links out only, changes
 // nothing about the routes it lists.
 const PrototypeIndex = lazy(() => import('./routes/PrototypeIndex'))
+const EnterprisePartnersView = lazy(() => import('./routes/EnterprisePartnersView'))
 const LaunchEdition = lazy(() => import('./routes/LaunchEdition'))
 // Funder workspace — the funder-agnostic ESG console (Sept 2026). Each
 // funding organisation gets `/funder/:orgSlug`; the old `/investor` URLs
@@ -97,6 +98,7 @@ export default function App() {
         <Route path="/honey" element={<HoneyExperience />} />
         <Route path="/java" element={<JavaExperience />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
+        <Route path="/enterprise-partners/*" element={<EnterprisePartnersView />} />
         <Route path="/launch" element={<LaunchEdition />} />
         <Route path="/funder" element={<Navigate to="/funder/funder-a" replace />} />
         <Route path="/funder/:orgSlug/*" element={<FunderView />} />
@@ -119,6 +121,14 @@ export default function App() {
         <Route path="/solutions/passport-access" element={<PassportAccess />} />
         <Route path="/solutions/audience-scan-analytics" element={<AudienceScanAnalytics />} />
         <Route path="/solutions/commission-earnings" element={<CommissionEarnings />} />
+        {/* Isolated per-brand entry points for the Enterprise Partners build.
+            Each opens one brand's journey; both feed the same shared Forest
+            Passport and the same verification engine. `/forestos-safaricom-
+            javahouse` lands on the hub so a deck link can pick either. */}
+        <Route path="/safaricom" element={<Navigate to="/enterprise-partners/experience/safaricom" replace />} />
+        <Route path="/javahouse" element={<Navigate to="/enterprise-partners/experience/java-house" replace />} />
+        <Route path="/forestos-safaricom-javahouse" element={<Navigate to="/enterprise-partners" replace />} />
+        <Route path="/javahouse-experience" element={<Navigate to="/enterprise-partners/experience/java-house" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>

@@ -1,0 +1,109 @@
+@layer components {
+  /* The brand accents come from the shared tokens in `src/index.css` so each
+     proposed brand layer has exactly one definition. */
+  .enterprise-safaricom {
+    --ep-brand: var(--color-safaricom-accent);
+    --ep-brand-soft: color-mix(in srgb, var(--ep-brand) 18%, transparent);
+    --ep-brand-ring: color-mix(in srgb, var(--ep-brand) 45%, transparent);
+  }
+
+  .enterprise-java-house {
+    --ep-brand: var(--color-javahouse-accent);
+    --ep-brand-soft: color-mix(in srgb, var(--ep-brand) 22%, transparent);
+    --ep-brand-ring: color-mix(in srgb, var(--ep-brand) 50%, transparent);
+  }
+
+  .ep-brand-accent {
+    color: var(--ep-brand, var(--color-amber-400));
+  }
+
+  .ep-brand-border {
+    border-color: var(--ep-brand-ring, color-mix(in srgb, var(--color-amber-400) 40%, transparent));
+  }
+
+  .ep-brand-bg-soft {
+    background-color: var(--ep-brand-soft, color-mix(in srgb, var(--color-amber-400) 12%, transparent));
+  }
+
+  .ep-motion {
+    transition-timing-function: var(--ease-out-expo);
+  }
+
+  @keyframes ep-verify-sweep {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0.4;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .ep-verify-sweep::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--color-river-400) 55%, transparent),
+      transparent
+    );
+    animation: ep-verify-sweep 1.4s var(--ease-out-expo) forwards;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ep-verify-sweep::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  @keyframes ep-pulse-node {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-river-400) 35%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 0 8px transparent;
+    }
+  }
+
+  .ep-node-active {
+    animation: ep-pulse-node 2.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ep-node-active {
+      animation: none;
+    }
+  }
+
+  /* The XP ring fills when its value changes; reduced motion gets the value
+     immediately with no transition. */
+  .ep-ring-progress {
+    transition: stroke-dashoffset 0.7s var(--ease-out-expo);
+  }
+}
+
+/* `safe-area-inset-top` / `-bottom` were used as class names throughout this
+   prototype but never defined anywhere, so they were dead classes and the
+   fixed header and the tier-up toast sat under the notch. Real padding now. */
+.safe-area-inset-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ep-ring-progress {
+    transition: none;
+  }
+}

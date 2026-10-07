@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './enterprisePartners/enterprisePartners.css';
 
 @theme {
   /* Forest ground — deep greens fading to near-black */
@@ -66,6 +67,18 @@
      reuses `forest-950/900/850` directly (unchanged, dark) for real
      contrast against the white content canvas. */
   --color-forest-accent: #176b45;
+  /* ── Brand accent tokens (isolated accents on the dark ForestOS canvas) ──
+     The single source of truth for the proposed Safaricom and Java House
+     experience layers: `enterprisePartners.css` derives its `--ep-brand` from
+     these, so a brand's accent is defined once. They are restrained accents
+     scoped to their own experience — never a full green (or brown) wash — and
+     `-soft` are the pale surfaces for use on light contexts, not on this dark
+     canvas. Both remain PROPOSED brand layers: see
+     `src/enterprisePartners/data/brands.js`. */
+  --color-safaricom-accent: #2db34a;
+  --color-safaricom-accent-soft: #e7f6ea;
+  --color-javahouse-accent: #b8956a;
+  --color-javahouse-accent-soft: #fdf6e3;
   --color-forest-accent-dark: #0b3d2a;
   --color-forest-accent-soft: #e8f2ec;
   /* Warning/danger status, tuned for text-on-white contrast (distinct from
