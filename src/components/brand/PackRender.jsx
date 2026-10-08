@@ -12,8 +12,11 @@ const SHAPES = { tin: Tin, pouch: Pouch, box: Box, sachet: Sachet }
  * portal besides the experience preview). Every pack carries the same cream
  * label, with the QR where the pack prints it.
  *
+ * When the product has a `packImage` URL, that image is shown instead of the
+ * generated SVG pack render.
+ *
  * @param {{
- *   product: { name: string, line: string, packaging: { type: 'tin' | 'pouch' | 'box' | 'sachet', size: string } },
+ *   product: { name: string, line: string, packaging: { type: 'tin' | 'pouch' | 'box' | 'sachet', size: string }, packImage?: string },
  *   kit: import('../../data/brand/accounts').BrandKit,
  *   aspect?: string,
  *   className?: string,
@@ -21,8 +24,24 @@ const SHAPES = { tin: Tin, pouch: Pouch, box: Box, sachet: Sachet }
  */
 export default function PackRender({ product, kit, aspect = 'aspect-[4/5]', className = '' }) {
   const id = useId().replace(/:/g, '')
-  const { type } = product.packaging
+  const { type, packImage } = product.packaging
   const Shape = SHAPES[type] ?? Tin
+
+  if (packImage) {
+    return (
+      <figure
+        className={`relative isolate grid ${aspect} place-items-center overflow-hidden rounded-2xl ${className}`}
+        style={{ background: `linear-gradient(160deg, ${kit.primary}14, ${kit.accent}24)` }}
+      >
+        <img
+          src={packImage}
+          alt={`${product.name}, ${product.packaging.size} ${type}`}
+          className="h-full w-full object-contain"
+        />
+      </figure>
+    )
+  }
+
   return (
     <figure
       className={`relative isolate grid ${aspect} place-items-center overflow-hidden rounded-2xl ${className}`}

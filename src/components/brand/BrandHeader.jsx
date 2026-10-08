@@ -6,6 +6,7 @@ import { useBrand, useBrandPath } from './BrandWorkspaceContext'
 import Badge from '../investor/ui/Badge'
 import ActionButton from '../investor/ui/ActionButton'
 import SignOutButton from '../investor/ui/SignOutButton'
+import BrandMark from './BrandMark'
 
 const selectClass =
   'max-w-[15rem] rounded-md border border-line bg-card px-2 py-1 font-sans text-compact normal-case tracking-normal text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50'
@@ -17,7 +18,7 @@ const selectClass =
  * effect of a role on the same view can be compared directly.
  */
 export default function BrandHeader() {
-  const { org, account, role, setRole, basePath, asOf, permissions } = useBrand()
+  const { org, account, role, setRole, basePath, asOf, permissions, kit } = useBrand()
   const path = useBrandPath()
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -26,6 +27,7 @@ export default function BrandHeader() {
   return (
     <header className="flex flex-col gap-4 border-b border-line bg-card px-4 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
+        <BrandMark kit={kit} size={40} className="mr-2" label={org.name} />
         <p className="text-base font-semibold leading-tight text-ink" title={org.name}>
           {org.name}
         </p>
