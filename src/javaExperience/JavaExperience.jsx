@@ -12,6 +12,12 @@ const cupImg = "/media/java/cup.jpg";
 const ppletreesImg = "/media/java/ppletrees.jpg";
 const jungleImg = "/media/java/jungle.jpg";
 const javaTeaImg = "/media/java/java_tea.jpeg";
+const javaHouseLogo = "/media/java/java_house_logo.png";
+const javaHouseLogoHero64 = "/media/java/java_house_logo_hero_64.png";
+const javaHouseLogoFooter56 = "/media/java/java_house_logo_footer_56.png";
+const javaHouseLogoFooter36 = "/media/java/java_house_logo_footer_36.png";
+const javaHouseLogo32 = "/media/java/java_house_logo_32.png";
+const javaHouseQr = "/media/java/java_house_qr.png";
 const teaFillVid = "/media/java/teafillvid.mp4";
 const watertreeVid = "/media/java/watertree.mp4";
 
@@ -148,21 +154,23 @@ function TribalPattern({ id, opacity = 1 }) {
   );
 }
 
-function SunLogo({ size = 44 }) {
-  const rays = Array.from({ length: 12 }, (_, i) => {
-    const a = (i * 30 * Math.PI) / 180;
-    return { x1: 22 + 13 * Math.cos(a), y1: 22 + 13 * Math.sin(a), x2: 22 + 19 * Math.cos(a), y2: 22 + 19 * Math.sin(a) };
-  });
+function JavaHouseLogo({ size = 40 }) {
+  // Use pre-sized variants that fill the container perfectly
+  let logoSrc;
+  if (size >= 64) logoSrc = javaHouseLogoHero64;
+  else if (size >= 56) logoSrc = javaHouseLogoFooter56;
+  else if (size >= 36) logoSrc = javaHouseLogoFooter36;
+  else logoSrc = javaHouseLogo32;
+
   return (
-    <svg width={size} height={size} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="22" cy="22" r="11" fill="#D4A84B" />
-      {rays.map((r, i) => (
-        <line key={i} x1={r.x1} y1={r.y1} x2={r.x2} y2={r.y2} stroke="#D4A84B" strokeWidth="1.8" strokeLinecap="round" />
-      ))}
-      <circle cx="19" cy="21" r="1.2" fill="#08150A" />
-      <circle cx="25" cy="21" r="1.2" fill="#08150A" />
-      <path d="M18.5 25.5 Q22 28 25.5 25.5" stroke="#08150A" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-    </svg>
+    <img
+      src={logoSrc}
+      alt="Java House Kenya"
+      width={size}
+      height={size}
+      className="object-cover"
+      style={{ imageRendering: 'auto' }}
+    />
   );
 }
 
@@ -200,6 +208,9 @@ export default function JavaExperience() {
           "Java House Gold Label Black Tea" opens when a customer scans the QR code on the packaging. This is a live
           preview of that mobile build — every interaction works exactly as it does on a phone.
         </p>
+        <div className="mt-2 overflow-hidden rounded-2xl border border-border">
+          <img src={javaHouseQr} alt="Java House QR code on packaging" className="w-full h-auto object-cover" />
+        </div>
       </div>
 
       {/* Phone Wrapper */}
@@ -274,9 +285,9 @@ function HeroSection({ scrollYProgress }) {
           initial={{ scale: 0.7, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-5 w-16 h-16 rounded-full border border-primary/40 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+          className="mb-5 w-16 h-16 rounded-full border border-primary/40 flex items-center justify-center bg-black/30 backdrop-blur-sm overflow-hidden"
         >
-          <SunLogo size={40} />
+          <JavaHouseLogo size={64} />
         </motion.div>
         <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}
           className="text-primary tracking-[0.25em] text-xs uppercase font-medium mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>
@@ -436,6 +447,10 @@ function TimelineSection() {
             <div className="flex items-center gap-1 mt-2">
               {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={11} className="fill-primary text-primary" />)}
               <span className="text-muted-foreground text-[10px] ml-1.5 font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>4.9 (238)</span>
+            </div>
+            <div className="mt-2 flex items-center gap-2">
+              <img src={javaHouseQr} alt="QR code on packaging" className="w-8 h-8 rounded border border-border object-contain" />
+              <span className="text-muted-foreground text-[10px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>Scan QR on pack</span>
             </div>
           </div>
         </motion.div>
@@ -730,6 +745,10 @@ function StoreLocator() {
               >
                 <Compass className="text-muted-foreground/40 mb-3" size={32} />
                 <p className="text-muted-foreground text-sm font-sans">Select a location on the map to view details and opening hours.</p>
+                <div className="mt-4 flex items-center gap-2 justify-center">
+                  <img src={javaHouseQr} alt="QR code" className="w-10 h-10 rounded border border-border object-contain" />
+                  <span className="text-muted-foreground text-[10px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>Scan to explore</span>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -744,8 +763,8 @@ function Footer() {
     <footer className="relative bg-[#08150A] border-t border-border py-12 overflow-hidden">
       <TribalPattern id="footer-tribal" opacity={0.1} />
       <div className="relative z-10 px-6 max-w-md mx-auto text-center">
-        <div className="w-14 h-14 rounded-full border border-primary/30 flex items-center justify-center mx-auto mb-4 bg-[#0F2012]">
-          <SunLogo size={36} />
+        <div className="w-14 h-14 rounded-full border border-primary/30 flex items-center justify-center mx-auto mb-4 bg-[#0F2012] overflow-hidden">
+          <JavaHouseLogo size={36} />
         </div>
         <p className="text-primary font-medium tracking-widest text-xs uppercase mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Java House Kenya</p>
         <h3 className="text-[#EDE8DC] text-xl font-semibold mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>Gold Label Black Tea</h3>

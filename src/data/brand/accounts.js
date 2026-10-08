@@ -33,7 +33,7 @@ export const BRAND_ACCOUNTS = [
     footprint: '14 cafés in Nairobi and Mombasa, plus retail tins at the counter',
     packerOrgId: 'org-offtaker-rvt',
     defaultRole: 'brand_lead',
-    kit: { monogram: 'JH', mark: 'terraces', wordmark: 'JAVA HOUSE', primary: '#08150A', accent: '#D4A84B', ink: '#EDE8DC' },
+    kit: { monogram: 'JH', mark: 'terraces', wordmark: 'JAVA HOUSE', primary: '#08150A', accent: '#D4A84B', ink: '#EDE8DC', logo: '/media/java/java_house_logo.png' },
     team: [
       { id: 'tm-kil-1', name: 'Wanjiru Mwangi', title: 'Head of Brand', role: 'brand_lead', status: 'active', lastActive: '2026-09-24' },
       { id: 'tm-kil-2', name: 'Brian Otieno', title: 'Marketing Manager', role: 'marketing', status: 'active', lastActive: '2026-09-23' },
