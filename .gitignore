@@ -39,3 +39,6 @@ graphify-out/
 # Internal reference docs — kept local, not pushed
 PRODUCT.md
 docs/
+
+# Agent session transcripts — local machine state, never part of the shipped app
+freebuff-chat-*.md
