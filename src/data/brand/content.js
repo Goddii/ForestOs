@@ -50,7 +50,7 @@ export const BRAND_CONTENT = [
     brandOrgId: 'org-brand-kilele',
     type: 'social',
     title: 'Launch post, Instagram',
-    body: 'Every tin plants a tree. Our new Mau Highland Black is in all 14 cafés from today.',
+    body: 'Every tin plants a tree. Our new Gold Label Black Tea is in all 14 cafés from today.',
     status: 'draft',
     claimIds: ['clm-kil-04'],
     usedIn: [],

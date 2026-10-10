@@ -82,7 +82,7 @@ describe('buildBrandWorkspace', () => {
     const request = { id: 'dr-new-1', brandOrgId: 'org-brand-kilele', productIds: ['prd-kil-chai'], status: 'received', submittedAt: '2026-09-24' }
     const kilele = buildBrandWorkspace('kilele-coffee-house', undefined, { designRequests: [request] })
     expect(kilele.designRequests.map((r) => r.id)).toEqual(['dr-new-1'])
-    expect(kilele.designRequests[0].products.map((p) => p.name)).toEqual(['Nessuit Chai Masala'])
+    expect(kilele.designRequests[0].products.map((p) => p.name)).toEqual(['House Chai'])
     const maraCrest = buildBrandWorkspace('mara-crest-hotels', undefined, { designRequests: [request] })
     expect(maraCrest.designRequests.every((r) => r.brandOrgId === 'org-brand-maracrest')).toBe(true)
     expect(maraCrest.designRequests.length).toBeGreaterThan(0)
