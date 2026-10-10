@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ConceptTag, DisplayHeadline, FadeIn, Kicker, PartnerCta } from './ui'
+import BrandLogo from './BrandLogo'
 import { BRANDS } from '../data/brands'
 
 function hasStamp(stamps, slug) {
@@ -55,8 +56,8 @@ export default function PassportPanel({
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-3">
-        <StampSlot label="Safaricom stamp" active={saf} accent={BRANDS.safaricom.accentHex} />
-        <StampSlot label="Java House stamp" active={jh} accent={BRANDS['java-house'].accentHex} />
+        <StampSlot label="Safaricom stamp" active={saf} brand={BRANDS.safaricom} />
+        <StampSlot label="Java House stamp" active={jh} brand={BRANDS['java-house']} />
       </div>
 
       <ul className="mt-6 space-y-2 text-[13px] text-bone-300">
@@ -85,7 +86,7 @@ export default function PassportPanel({
   )
 }
 
-function StampSlot({ label, active, accent }) {
+function StampSlot({ label, active, brand }) {
   return (
     <div
       className={
@@ -93,14 +94,28 @@ function StampSlot({ label, active, accent }) {
         (active ? 'border-river-400/35 bg-river-400/8' : 'border-bone/12 bg-forest-900/40')
       }
     >
+      {/* The stamp sits on white paper — a real passport stamp is ink on a
+          page, and several brand logos are dark artwork that needs the
+          ground to read at this size. */}
       <div
-        className="mx-auto grid h-12 w-12 place-items-center rounded-full border-2"
-        style={{ borderColor: active ? accent : 'color-mix(in srgb, var(--color-bone) 20%, transparent)' }}
+        className={
+          'mx-auto grid h-14 w-full place-items-center rounded-lg border-2 p-2 ' +
+          (active
+            ? 'border-river-400/45 bg-white'
+            : 'border-dashed border-bone/25 bg-forest-950/40')
+        }
         aria-hidden="true"
       >
-        <span className="font-mono text-[10px] uppercase">{active ? '✓' : '—'}</span>
+        {active ? (
+          <BrandLogo brand={brand} size={18} plate={false} label={null} />
+        ) : (
+          <span className="font-mono text-[10px] uppercase text-bone-500/70">—</span>
+        )}
       </div>
       <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.12em] text-sage-500">{label}</p>
+      <p className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.1em] text-bone-500">
+        {active ? 'Collected' : 'Not yet collected'}
+      </p>
     </div>
   )
 }

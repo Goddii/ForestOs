@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ChevronDown, TrendingUp } from 'lucide-react'
 import { STANDINGS, STANDINGS_TREES_MAX } from '../../lib/brands'
 import VerificationBadge from '../ui/VerificationBadge'
+import BrandLogo from '../ui/BrandLogo'
 
 /**
  * The competitive read — every sponsoring brand ranked by the conservation it
@@ -52,6 +53,15 @@ export default function ImpactLeague({ onExplore }) {
                     >
                       {String(entry.rank).padStart(2, '0')}
                     </span>
+
+                    {/* The brand's own mark, where a league table always puts
+                        it: beside the name it belongs to. */}
+                    <BrandLogo
+                      brand={entry}
+                      size={20}
+                      label={null}
+                      className="self-center shrink-0"
+                    />
 
                     <span className="min-w-0 flex-1">
                       <span

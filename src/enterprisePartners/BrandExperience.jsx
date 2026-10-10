@@ -9,6 +9,7 @@ import { DEMO_FOREST_REF, resolveForestRef } from './data/verification'
 import { ILLUSTRATIVE_IMPACT } from './data/traceChain'
 import { useEnterpriseFlow } from './hooks/useEnterpriseFlow'
 import ExperienceChrome from './components/ExperienceChrome'
+import BrandLogo from './components/BrandLogo'
 import TraceTimeline from './components/TraceTimeline'
 import CanopyReveal from './components/CanopyReveal'
 import PassportPanel from './components/PassportPanel'
@@ -197,7 +198,7 @@ function Shell({ children, footer }) {
   )
 }
 
-function SafaricomScan({ simulateScan }) {
+function SafaricomScan({ brand, simulateScan }) {
   return (
     <Shell
       footer={
@@ -211,8 +212,15 @@ function SafaricomScan({ simulateScan }) {
       }
     >
       <FadeIn>
-        <Kicker>Safaricom × ForestOS · CONCEPT</Kicker>
-        <DisplayHeadline className="mt-3">Connect. Transform. Conserve.</DisplayHeadline>
+        <BrandLogo
+          brand={brand}
+          variant="lockup"
+          size={32}
+          suffix="× ForestOS · concept experience"
+          label={`${brand.name} logo lockup`}
+          note
+        />
+        <DisplayHeadline className="mt-5">Connect. Transform. Conserve.</DisplayHeadline>
         <p className="mt-3 text-[15px] leading-relaxed text-bone-300">
           Discover the conservation story behind verified Kenyan tea.
         </p>
@@ -221,8 +229,9 @@ function SafaricomScan({ simulateScan }) {
         <div className="relative mx-auto grid max-w-xs place-items-center rounded-2xl border border-bone/15 bg-forest-900/60 p-8">
           <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 30% 20%, var(--ep-brand-soft), transparent 55%)' }} />
           <QrCode className="h-24 w-24 text-bone" strokeWidth={1} aria-hidden="true" />
-          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">
-            ForestOS · Safaricom
+          <p className="mt-4 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500">
+            <BrandLogo brand={brand} size={14} label={null} />
+            ForestOS verification
           </p>
           <p className="mt-2 flex items-center gap-2 font-mono text-[11px] text-river-400">
             <Signal className="h-3.5 w-3.5" aria-hidden="true" /> Verification ready
@@ -233,7 +242,7 @@ function SafaricomScan({ simulateScan }) {
   )
 }
 
-function JavaHouseScan({ simulateScan }) {
+function JavaHouseScan({ brand, simulateScan }) {
   return (
     <Shell
       footer={
@@ -247,8 +256,15 @@ function JavaHouseScan({ simulateScan }) {
       }
     >
       <FadeIn>
-        <Kicker>Java House × ForestOS · CONCEPT</Kicker>
-        <DisplayHeadline className="mt-3">Your cup can carry a bigger story.</DisplayHeadline>
+        <BrandLogo
+          brand={brand}
+          variant="lockup"
+          size={32}
+          suffix="× ForestOS · concept experience"
+          label={`${brand.name} logo lockup`}
+          note
+        />
+        <DisplayHeadline className="mt-5">Your cup can carry a bigger story.</DisplayHeadline>
         <p className="mt-3 text-[15px] leading-relaxed text-bone-300">
           Everyday café choices connected to verified tea landscapes and forest-buffer conservation
           — not coffee origin claims unless officially verified.
@@ -325,7 +341,8 @@ function VerifyStage({ brand, batch, verification, advance }) {
               <dd className="mt-1 text-river-400">{batch.verification?.status}</dd>
             </div>
           </dl>
-          <p className="mt-3 border-t border-bone/10 pt-3 text-[12px] text-bone-400">
+          <p className="mt-3 flex items-center gap-2 border-t border-bone/10 pt-3 text-[12px] text-bone-400">
+            <BrandLogo brand={brand} size={14} label={null} />
             Powered by ForestOS verification engine · {brand.name} experience layer
           </p>
         </FadeIn>
@@ -616,7 +633,11 @@ function ShareStage({ brand, batch, verification, advance }) {
         <DisplayHeadline className="mt-3">Verified social card</DisplayHeadline>
       </FadeIn>
       <FadeIn delay={0.1} className="mt-6 overflow-hidden rounded-2xl border border-bone/15 bg-gradient-to-br from-forest-800 to-forest-950 p-5">
-        <p className="font-display text-lg leading-snug text-bone">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-bone/10 pb-3">
+          <BrandLogo brand={brand} variant="lockup" size={22} suffix="verified via ForestOS" />
+          <ConceptTag variant="illustrative">Concept</ConceptTag>
+        </div>
+        <p className="mt-4 font-display text-lg leading-snug text-bone">
           “I contributed to conservation through ForestOS.”
         </p>
         <dl className="mt-4 space-y-2 font-mono text-[11px] text-sage-300">
@@ -627,7 +648,7 @@ function ShareStage({ brand, batch, verification, advance }) {
         </dl>
         <div className="mt-4 flex items-center justify-between border-t border-bone/10 pt-4 text-[10px] uppercase tracking-[0.14em] text-sage-500">
           <span>ForestOS</span>
-          <span>{brand.name}</span>
+          <BrandLogo brand={brand} size={14} label={null} />
           <Share2 className="h-4 w-4 text-bone" aria-hidden="true" />
         </div>
       </FadeIn>

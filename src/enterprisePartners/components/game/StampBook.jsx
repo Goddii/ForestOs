@@ -2,6 +2,7 @@ import { Bell, CupSoda, Gift, Mountain } from 'lucide-react'
 import { buildStampBoard } from '../../lib/game'
 import { XP_AWARDS } from '../../data/game'
 import { ConceptTag } from '../ui'
+import BrandLogo from '../BrandLogo'
 
 const GLYPHS = {
   signal: Bell,
@@ -26,6 +27,13 @@ export default function StampBook({ stamps = [], className = '' }) {
       <ul className="mt-3 space-y-3">
         {board.map((series) => {
           const Glyph = GLYPHS[series.glyph] ?? Gift
+          // Brand series carry the brand's real logo; the rest keep a
+          // neutral glyph until a brand behind them is confirmed.
+          const SlotGlyph = series.brandId ? (
+            <BrandLogo brand={series.brandId} size={17} />
+          ) : (
+            <Glyph className="h-4 w-4" strokeWidth={1.9} />
+          )
           return (
             <li key={series.id} className="rounded-xl border border-bone/12 bg-forest-900/50 p-3">
               <div className="flex items-center justify-between gap-3">
@@ -48,7 +56,7 @@ export default function StampBook({ stamps = [], className = '' }) {
                       }
                       aria-hidden="true"
                     >
-                      {filled ? <Glyph className="h-4 w-4" strokeWidth={1.9} /> : <span className="text-[10px]">·</span>}
+                      {filled ? SlotGlyph : <span className="text-[10px]">·</span>}
                     </span>
                   )
                 })}

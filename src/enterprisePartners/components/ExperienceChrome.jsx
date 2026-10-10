@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeftRight, Leaf } from 'lucide-react'
 import { BRANDS, nextBrandId } from '../data/brands'
 import { ConceptTag } from './ui'
+import BrandLogo from './BrandLogo'
 import XpRing from './game/XpRing'
 
 export default function ExperienceChrome({
@@ -26,13 +27,16 @@ export default function ExperienceChrome({
           <Leaf className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
         </Link>
 
-        <div className="min-w-0 flex-1 text-center">
-          <p className="truncate font-mono text-[9px] uppercase tracking-[0.2em] text-sage-500">
-            ForestOS · {brand.name}
-          </p>
-          <p className="truncate font-mono text-[10px] text-bone-500">
-            {forestRef || '—'} · {stageIndex + 1}/{stageTotal}
-          </p>
+        <div className="flex min-w-0 flex-1 items-center justify-center gap-2">
+          <BrandLogo brand={brand} size={16} label={null} />
+          <div className="min-w-0 text-center">
+            <p className="truncate font-mono text-[9px] uppercase tracking-[0.2em] text-sage-500">
+              ForestOS · {brand.name}
+            </p>
+            <p className="truncate font-mono text-[10px] text-bone-500">
+              {forestRef || '—'} · {stageIndex + 1}/{stageTotal}
+            </p>
+          </div>
         </div>
 
         <button

@@ -11,6 +11,11 @@ import { BELT_BLOCKS } from './platformData'
 // Keyed by `brandId`. `BELT_BLOCKS[].brandId` and `batchChain` records point
 // here. Only Nyashinski Tea is a real collaboration; the rest are plausible
 // placeholders that keep the standings honest.
+//
+// Each entry also carries a `mark` + `logoAccent`: an ORIGINAL emblem drawn
+// for this prototype (`src/components/ui/brandMarkArt.jsx`), because none of
+// these brands ships a real logo file. How the emblem is paired with its
+// wordmark lives in `ui/brandMarkArtMap`.
 export const BRANDS = {
   // NOTE: Safaricom is deliberately absent. The Safaricom × ForestOS layer is
   // a PROPOSED concept (see `src/enterprisePartners/data/brands.js`), not a
@@ -29,6 +34,9 @@ export const BRANDS = {
     attribution: 'Nyashinski',
     campaign: 'Road to COP32',
     retail: 'Carrefour Kenya',
+    // Crafted emblem — the collaboration ships no downloadable logo.
+    mark: 'nyashinski',
+    logoAccent: '#c2603f',
     conservationKesPerPack: 75,
     conservationFundKes: 8_600_000,
     packsSold: 562_340,
@@ -48,6 +56,8 @@ export const BRANDS = {
     blockId: 'aberdares',
     treesFunded: 9_200,
     trendHa: 90,
+    mark: 'riftValley',
+    logoAccent: '#8fae5e',
   },
   meridian: {
     id: 'meridian',
@@ -56,6 +66,8 @@ export const BRANDS = {
     blockId: 'mt-kenya',
     treesFunded: 7_600,
     trendHa: 140,
+    mark: 'meridian',
+    logoAccent: '#4d93c4',
   },
   nordicChai: {
     id: 'nordicChai',
@@ -64,6 +76,8 @@ export const BRANDS = {
     blockId: 'cherangany',
     treesFunded: 3_210,
     trendHa: 20,
+    mark: 'nordicChai',
+    logoAccent: '#7cc0d8',
   },
   westRidge: {
     id: 'westRidge',
@@ -72,6 +86,8 @@ export const BRANDS = {
     blockId: 'mt-elgon',
     treesFunded: 1_980,
     trendHa: 0,
+    mark: 'westRidge',
+    logoAccent: '#d9a441',
   },
 }
 
@@ -108,6 +124,10 @@ export const STANDINGS = Object.values(BRANDS)
       centres: block?.collectionCentres.length ?? 0,
       treesFunded: brand.treesFunded,
       trendHa: brand.trendHa,
+      // Logo identity, so the league table and the feature panel can show it.
+      mark: brand.mark,
+      logo: brand.logo,
+      logoAccent: brand.logoAccent,
     }
   })
   .sort((a, b) => b.treesFunded - a.treesFunded)

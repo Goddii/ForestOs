@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Package, Presentation, QrCode, Store } from 'lucide-react'
 import { ConceptTag, DisplayHeadline, Kicker } from './components/ui'
+import BrandLogo from './components/BrandLogo'
 import { DEMO_FOREST_REF, PENDING_FOREST_REF } from './data/verification'
 import './enterprisePartners.css'
 
@@ -10,24 +11,28 @@ const LINKS = [
     href: '/enterprise-partners/experience/safaricom',
     title: 'Safaricom × ForestOS QR journey',
     icon: QrCode,
+    brand: 'safaricom',
     note: 'Scan → verify → impact → canopy → Bonga concept → share → passport',
   },
   {
     href: '/enterprise-partners/experience/java-house',
     title: 'Java House × ForestOS tea journey',
     icon: QrCode,
+    brand: 'java-house',
     note: 'Discover → trace → conservation → canopy → shared passport',
   },
   {
     href: '/enterprise-partners/packaging',
     title: 'Java House tea packaging suite',
     icon: Package,
+    brand: 'java-house',
     note: 'Box, pouch, cup, retail & limited conservation edition',
   },
   {
     href: '/enterprise-partners/touchpoints',
     title: 'Safaricom physical & digital touchpoints',
     icon: Store,
+    brand: 'safaricom',
     note: 'Standee, till sticker, Bundle Ya Wakulima poster, SMS landing',
   },
   {
@@ -62,6 +67,29 @@ export default function EnterpriseHub() {
           <ConceptTag variant="tbc">Partnerships TBC</ConceptTag>
         </div>
 
+        {/* Real brand logo files, not redrawn approximations — what stays
+            labelled as concept is the partnership, not the artwork. */}
+        <div className="mt-8 rounded-2xl border border-bone/12 bg-forest-900/55 p-5">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-sage-500">
+            Proposed partner layers
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <PartnerCard
+              brand="safaricom"
+              role="Connectivity layer"
+              body="QR touchpoints, verification prompts and the proposed Bonga reward concept."
+            />
+            <PartnerCard
+              brand="java-house"
+              role="Café experience"
+              body="Tea packaging, in-store scans and the shared conservation passport."
+            />
+          </div>
+          <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.14em] text-bone-500">
+            Real brand logos shown · proposed partnerships · not confirmed
+          </p>
+        </div>
+
         <div className="mt-8 rounded-2xl border border-bone/12 bg-forest-900/55 p-5">
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-sage-500">
             Demo verification tokens
@@ -88,17 +116,25 @@ export default function EnterpriseHub() {
             <li key={item.href}>
               <Link
                 to={item.href}
-                className="group flex items-start justify-between gap-4 px-5 py-4 transition-colors hover:bg-bone/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-river-400 sm:px-6"
+                className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-bone/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-river-400 sm:px-6"
               >
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <item.icon className="h-4 w-4 text-sage-500" strokeWidth={1.75} aria-hidden="true" />
-                    <p className="font-sans text-[15px] font-semibold">{item.title}</p>
-                  </div>
-                  <p className="mt-1 text-[13px] leading-relaxed text-bone-500">{item.note}</p>
-                  <p className="mt-1.5 font-mono text-[11px] text-sage-500">{item.href}</p>
-                </div>
-                <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-bone-500 group-hover:text-bone" strokeWidth={1.75} aria-hidden="true" />
+                <span className="flex min-w-0 items-center gap-4">
+                  {/* The tile carries the ACTION (scan, pack, standee, deck);
+                      the partner's real logo rides on the right, so the row
+                      never prints the brand name twice. */}
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-bone/12 bg-forest-950/70 text-sage-500 transition-colors group-hover:border-bone/25">
+                    <item.icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-sans text-[15px] font-semibold">{item.title}</span>
+                    <span className="mt-0.5 block text-[13px] leading-relaxed text-bone-500">{item.note}</span>
+                    <span className="mt-1 block font-mono text-[11px] text-sage-500">{item.href}</span>
+                  </span>
+                </span>
+                <span className="flex shrink-0 items-center gap-3">
+                  {item.brand ? <BrandLogo brand={item.brand} size={16} label={null} /> : null}
+                  <ArrowUpRight className="h-4 w-4 text-bone-500 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone" strokeWidth={1.75} aria-hidden="true" />
+                </span>
               </Link>
             </li>
           ))}
@@ -106,6 +142,22 @@ export default function EnterpriseHub() {
 
         <AssumptionsFooter className="mt-16" />
       </div>
+    </div>
+  )
+}
+
+/** One proposed partner: its real logo, the layer it would carry, the scope. */
+function PartnerCard({ brand, role, body }) {
+  return (
+    <div className="rounded-xl border border-bone/12 bg-forest-950/50 p-4">
+      <BrandLogo brand={brand} size={24} />
+      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-sage-500">
+        {role}
+      </p>
+      <p className="mt-1.5 text-[13px] leading-relaxed text-bone-400">{body}</p>
+      <p className="mt-3 inline-flex">
+        <ConceptTag variant="proposed">Proposed · TBC</ConceptTag>
+      </p>
     </div>
   )
 }

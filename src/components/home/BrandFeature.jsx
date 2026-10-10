@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import { STANDINGS, resolveBrand } from '../../lib/brands'
+import BrandLogo from '../ui/BrandLogo'
 
 /**
  * The lead brand, given room. An asymmetric editorial panel — product plate on
@@ -31,9 +32,12 @@ export default function BrandFeature({ onExplore }) {
       </figure>
 
       <div>
-        <p className="inline-flex items-center rounded-full border border-amber-400/40 bg-amber-400/[0.12] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-amber-400">
-          #{leader.rank} on the belt this quarter
-        </p>
+        <div className="flex flex-wrap items-center gap-4">
+          <BrandLogo brand={leader} size={54} label={null} />
+          <p className="inline-flex items-center rounded-full border border-amber-400/40 bg-amber-400/[0.12] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-amber-400">
+            #{leader.rank} on the belt this quarter
+          </p>
+        </div>
         <p className="mt-4 font-display text-3xl leading-tight text-bone sm:text-4xl">
           {leader.name}
         </p>

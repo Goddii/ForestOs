@@ -38,6 +38,17 @@ no Cesium Ion account.
 `public/media/forest1.webm` is the cinematic hero background. Replace it with any
 `.webm`/`.mp4` of the same name to change the footage.
 
+### Brand logos
+
+`public/media/logos/` holds the real brand files (Safaricom, Java House,
+M-PESA, Sentinel-2, Carrefour) used by the home page's enabling-partners wall,
+the Conservation Impact League and the enterprise prototype. They render
+through `src/components/ui/BrandLogo.jsx`, which puts image logos on a white
+plate (several are dark ink and vanish on the forest ground) and falls back to
+the brand name if a file fails to load. The five fictional Impact League brands
+and NTZDC have no official artwork, so they use original emblems drawn in
+`src/components/ui/brandMarkArt.jsx`. `size` is always the logo **height**.
+
 ## Page structure
 
 | Section | File | Notes |

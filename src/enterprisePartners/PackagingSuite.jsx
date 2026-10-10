@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { QrCode } from 'lucide-react'
 import { ConceptTag, DisplayHeadline, Kicker } from './components/ui'
+import EnterpriseNav from './components/EnterpriseNav'
+import BrandLogo from './components/BrandLogo'
 import { DEMO_FOREST_REF } from './data/verification'
 import { TRACE_STEPS } from './data/traceChain'
 import { AssumptionsFooter } from './EnterpriseHub'
@@ -21,11 +23,9 @@ export default function PackagingSuite() {
   }, [])
 
   return (
-    <div className="min-h-svh bg-bone text-forest-950 px-6 py-16 sm:px-10">
-      <div className="mx-auto max-w-5xl">
-        <Link to="/enterprise-partners" className="font-mono text-[11px] uppercase tracking-[0.16em] text-forest-800">
-          ← Enterprise hub
-        </Link>
+    <div className="min-h-svh bg-bone text-forest-950">
+      <EnterpriseNav current="/enterprise-partners/packaging" variant="light" />
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10">
         <Kicker>Java House × ForestOS · CONCEPT</Kicker>
         <DisplayHeadline as="h1" className="mt-3 text-forest-950">
           Tea with a trace.
@@ -73,9 +73,12 @@ export default function PackagingSuite() {
 function PackFront() {
   return (
     <div className="rounded-2xl border border-forest-800/20 bg-[#f8f4eb] p-8 shadow-lg">
-      <p className="font-sans text-xs font-semibold tracking-[0.35em] text-forest-950">JAVA HOUSE</p>
-      <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-forest-800/70">
-        ForestOS conservation edition
+      <BrandLogo brand="java-house" size={40} label="Java House logo" />
+      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-forest-800/70">
+        × ForestOS conservation edition
+      </p>
+      <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-forest-800/75">
+        Official Java House logo · partnership proposed, not confirmed
       </p>
       <h2 className="mt-6 font-display text-4xl text-forest-950">Tea with a trace.</h2>
       <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-forest-800/75">
@@ -121,7 +124,19 @@ function PackBack() {
 function PackTile({ title, sub }) {
   return (
     <div className="rounded-xl border border-forest-800/15 bg-[#f8f4eb] p-5">
-      <div className="aspect-[3/4] rounded-lg border border-dashed border-forest-800/25 bg-gradient-to-b from-white to-[#ebe3d4]" />
+      {/* A mini pack front instead of an empty placeholder: the mark, the
+          format name and the scan cue a real tile would carry. */}
+      <div className="grid aspect-[3/4] place-items-center rounded-lg border border-forest-800/20 bg-gradient-to-b from-white to-[#ebe3d4] p-4">
+        <div className="flex flex-col items-center text-center">
+          <BrandLogo brand="java-house" size={26} label={null} />
+          <p className="mt-3 font-mono text-[8px] uppercase tracking-[0.14em] text-forest-800/70">
+            Tea with a trace
+          </p>
+          <span className="mt-4 grid h-9 w-9 place-items-center rounded-md border border-forest-950 bg-white">
+            <QrCode className="h-6 w-6 text-forest-950" strokeWidth={1.5} aria-hidden="true" />
+          </span>
+        </div>
+      </div>
       <p className="mt-3 font-semibold text-forest-950">{title}</p>
       <p className="mt-1 text-[12px] text-forest-800/75">{sub}</p>
     </div>

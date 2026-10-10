@@ -14,6 +14,11 @@ export const BRANDS = {
     stampGlyph: 'signal',
     /** Restrained accent — not a full green UI takeover */
     accentHex: '#2db34a',
+    /** Real logo file, served from `public/media/logos/`. */
+    logo: '/media/logos/safaricom.svg',
+    /** Display form of the name, used only if the file fails to load. */
+    wordmark: 'safaricom',
+    markNote: 'Official Safaricom logo · partnership proposed, not confirmed',
   },
   'java-house': {
     id: 'java-house',
@@ -25,6 +30,10 @@ export const BRANDS = {
     stampLabel: 'Java House stamp',
     stampGlyph: 'cup',
     accentHex: '#b8956a',
+    /** Real logo file, served from `public/media/logos/`. */
+    logo: '/media/logos/java-house.svg',
+    wordmark: 'Java House',
+    markNote: 'Official Java House logo · partnership proposed, not confirmed',
   },
 }
 

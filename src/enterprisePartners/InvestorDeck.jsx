@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { ConceptTag, DisplayHeadline, Kicker } from './components/ui'
+import EnterpriseNav from './components/EnterpriseNav'
+import BrandLogo from './components/BrandLogo'
 import { AssumptionsFooter } from './EnterpriseHub'
 import './enterprisePartners.css'
 
@@ -8,6 +9,7 @@ const FRAMES = [
   {
     n: '01',
     title: 'Ecosystem',
+    brands: ['safaricom', 'java-house'],
     body: 'ForestOS at the centre. Safaricom and Java House as sibling brand layers feeding shared conservation infrastructure.',
   },
   {
@@ -18,36 +20,43 @@ const FRAMES = [
   {
     n: '03',
     title: 'Safaricom scan',
+    brands: ['safaricom'],
     body: 'Physical touchpoint → QR → ForestOS verify → discover. Connectivity layer, not forest ownership.',
   },
   {
     n: '04',
     title: 'Safaricom impact',
+    brands: ['safaricom'],
     body: 'Verified tea and conservation dashboard with illustrative counters until production data connects.',
   },
   {
     n: '05',
     title: 'Safaricom + Bonga',
+    brands: ['safaricom'],
     body: 'Proposed reward participation — clearly labelled, no implied live integration.',
   },
   {
     n: '06',
     title: 'Java House packaging',
+    brands: ['java-house'],
     body: 'Premium tea packaging suite communicating traceability + conservation, not coffee origin claims.',
   },
   {
     n: '07',
     title: 'Java House QR',
+    brands: ['java-house'],
     body: 'Package scan → tea story → progressive evidence.',
   },
   {
     n: '08',
     title: 'Java House conservation',
+    brands: ['java-house'],
     body: 'Tea batch → plot → verified conservation record → 2015 vs today reveal.',
   },
   {
     n: '09',
     title: 'Shared passport',
+    brands: ['safaricom', 'java-house'],
     body: 'Safaricom stamp + Java House stamp in one Bonga × Forest Passport with tier progression.',
   },
   {
@@ -108,18 +117,54 @@ const BUSINESS = [
 ]
 
 export default function InvestorDeck() {
+  const [activeFrame, setActiveFrame] = useState(FRAMES[0].n)
+
   useEffect(() => {
     document.title = 'Investor deck — ForestOS enterprise prototype'
   }, [])
 
+  // Which frame is on screen — the sticky header doubles as a position
+  // indicator so a reader always knows how deep into 15 frames they are.
+  useEffect(() => {
+    const frames = document.querySelectorAll('section[id^="frame-"]')
+    if (!('IntersectionObserver' in window) || frames.length === 0) return undefined
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveFrame(entry.target.id.replace('frame-', ''))
+        })
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    )
+    frames.forEach((frame) => io.observe(frame))
+    return () => io.disconnect()
+  }, [])
+
+  const progress =
+    (FRAMES.findIndex((frame) => frame.n === activeFrame) + 1) / FRAMES.length
+
   return (
     <div className="min-h-svh bg-forest-950 text-bone">
-      <div className="sticky top-0 z-30 border-b border-bone/10 bg-forest-950/95 px-6 py-4 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-          <Link to="/enterprise-partners" className="font-mono text-[11px] uppercase tracking-[0.16em] text-sage-500">
-            ← Hub
-          </Link>
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-sage-500">Presentation · 1024px+</p>
+      <div className="sticky top-0 z-30 border-b border-bone/10 bg-forest-950/95 backdrop-blur">
+        <EnterpriseNav current="/enterprise-partners/investor" sticky={false} />
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 pt-3">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-sage-500">
+            <span className="hidden sm:inline">Presentation · 1024px+</span>
+          </p>
+          <p className="tnum font-mono text-[10px] uppercase tracking-[0.18em] text-bone">
+            Frame {activeFrame} / {FRAMES.length}
+          </p>
+        </div>
+        <div className="mx-auto mb-3 mt-2 h-0.5 max-w-4xl overflow-hidden rounded-full bg-forest-800">
+          <div
+            className="h-full rounded-full bg-amber-400 transition-[width] duration-500 ep-motion"
+            style={{ width: `${Math.round(progress * 100)}%` }}
+            role="progressbar"
+            aria-valuemin={1}
+            aria-valuemax={FRAMES.length}
+            aria-valuenow={FRAMES.findIndex((frame) => frame.n === activeFrame) + 1}
+            aria-label="Deck progress"
+          />
         </div>
       </div>
 
@@ -130,7 +175,16 @@ export default function InvestorDeck() {
             className="mb-16 min-h-[min(72svh,720px)] scroll-mt-24 rounded-3xl border border-bone/12 bg-gradient-to-br from-forest-900/80 to-forest-950 p-8 sm:p-12"
             id={`frame-${frame.n}`}
           >
-            <Kicker>Frame {frame.n}</Kicker>
+            <div className="flex items-start justify-between gap-4">
+              <Kicker>Frame {frame.n}</Kicker>
+              {frame.brands ? (
+                <span className="flex items-center gap-2 pt-1">
+                  {frame.brands.map((id) => (
+                    <BrandLogo key={id} brand={id} size={18} />
+                  ))}
+                </span>
+              ) : null}
+            </div>
             <DisplayHeadline as="h2" className="mt-3">
               {frame.title}
             </DisplayHeadline>

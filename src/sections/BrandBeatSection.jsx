@@ -4,6 +4,7 @@ import SectionIntro from '../components/ui/SectionIntro'
 import Cop32Milestone from '../components/home/Cop32Milestone'
 import { useBatch } from '../lib/batchContext'
 import { resolveBrand } from '../lib/brands'
+import BrandLogo from '../components/ui/BrandLogo'
 
 function scrollToProof() {
   document.getElementById('proof')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -13,6 +14,7 @@ function scrollToProof() {
 function BrandIdentity({ batch, brand }) {
   return (
     <div>
+      {brand?.mark ? <BrandLogo brand={brand} size={46} label={null} className="mb-4" /> : null}
       <p className="font-display text-3xl leading-tight text-bone sm:text-4xl">{batch.brand}</p>
       <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-sage-500">
         {batch.product}
