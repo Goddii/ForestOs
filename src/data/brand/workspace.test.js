@@ -46,7 +46,7 @@ describe('buildBrandWorkspace', () => {
     expect(buildBrandWorkspace('kilele-coffee-house', 'agency').permissions.publishExperiences).toBe(false)
   })
 
-  test('Kilele’s Mau tea is backed by verified Kiptunga work; Halden’s Mount Kenya tea is not', () => {
+  test('Java House’s Mau tea is backed by verified Kiptunga work; Halden’s Mount Kenya tea is not', () => {
     const kilele = buildBrandWorkspace('kilele-coffee-house')
     const mau = kilele.products.find((p) => p.id === 'prd-kil-mau-black')
     expect(mau.evidence.metrics.map((m) => m.id)).toContain('ind-seedlings')

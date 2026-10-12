@@ -10,8 +10,8 @@ const chevron = (top, reach) =>
   `M${128 - reach} ${top + reach} L128 ${top} L${128 + reach} ${top + reach} V${top + reach + CHEVRON_DEPTH} L128 ${top + CHEVRON_DEPTH} L${128 - reach} ${top + reach + CHEVRON_DEPTH} Z`
 
 /**
- * Kilele: "two leaves and a bud" as terraces that read as one peak. The bud
- * (top row) carries the accent colour.
+ * Java House: "two leaves and a bud" as terraces that read as one peak. The
+ * bud (top row) carries the accent colour.
  */
 export function Terraces({ ink, accent }) {
   return (

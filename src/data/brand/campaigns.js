@@ -20,7 +20,7 @@
 
 /** @type {BrandCampaign[]} */
 export const BRAND_CAMPAIGNS = [
-  // ── Kilele Coffee House ───────────────────────────────────────────────────
+  // ── JAVA HOUSE ────────────────────────────────────────────────────────────
   {
     id: 'cmp-kil-mornings',
     brandOrgId: 'org-brand-kilele',
@@ -48,7 +48,7 @@ export const BRAND_CAMPAIGNS = [
   {
     id: 'cmp-kil-sessions',
     brandOrgId: 'org-brand-kilele',
-    name: 'Kilele Sessions',
+    name: 'Java House Sessions',
     theme: 'artists',
     status: 'draft',
     period: { start: '2027-01-15', end: null },

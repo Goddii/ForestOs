@@ -63,9 +63,9 @@ export const BRAND_EXPERIENCES = [
     customisation: {
       title: 'Mau Mornings',
       heroAssetId: 'fos-mau',
-      story: 'Every Kilele morning starts on the edge of the Mau. This tin was packed from one lot grown on the Kiptunga tea buffer, where the tea gardens hold the line for the forest behind them.',
+      story: 'Every Java House morning starts on the edge of the Mau. This tin was packed from one lot grown on the Kiptunga tea buffer, where the tea gardens hold the line for the forest behind them.',
       metricIds: ['ind-seedlings', 'ind-tea-ha', 'ind-patrols'],
-      cta: { label: 'Find your nearest Kilele', href: 'https://example.com/kilele/cafes' },
+      cta: { label: 'Find your nearest Java House', href: 'https://example.com/kilele/cafes' },
       socialLinks: [{ network: 'Instagram', href: 'https://example.com/kilele/instagram' }],
       musicLink: null,
       communityLink: null,

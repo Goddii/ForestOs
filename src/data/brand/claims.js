@@ -23,7 +23,7 @@
 
 /** @type {BrandClaim[]} */
 export const BRAND_CLAIMS = [
-  // ── Kilele Coffee House ───────────────────────────────────────────────────
+  // ── JAVA HOUSE ────────────────────────────────────────────────────────────
   {
     id: 'clm-kil-01',
     brandOrgId: 'org-brand-kilele',

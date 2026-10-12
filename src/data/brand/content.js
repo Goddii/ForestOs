@@ -20,13 +20,13 @@
 
 /** @type {ContentItem[]} */
 export const BRAND_CONTENT = [
-  // ── Kilele Coffee House ───────────────────────────────────────────────────
+  // ── JAVA HOUSE ────────────────────────────────────────────────────────────
   {
     id: 'cnt-kil-01',
     brandOrgId: 'org-brand-kilele',
     type: 'story',
     title: 'Mau Mornings experience story',
-    body: 'Every Kilele morning starts on the edge of the Mau. This tin was packed from one lot grown on the Kiptunga tea buffer, where the tea gardens hold the line for the forest behind them.',
+    body: 'Every Java House morning starts on the edge of the Mau. This tin was packed from one lot grown on the Kiptunga tea buffer, where the tea gardens hold the line for the forest behind them.',
     status: 'approved',
     claimIds: ['clm-kil-02'],
     usedIn: ['exp-kil-mau'],
@@ -74,7 +74,7 @@ export const BRAND_CONTENT = [
     brandOrgId: 'org-brand-kilele',
     type: 'cta',
     title: 'Café finder',
-    body: 'Find your nearest Kilele',
+    body: 'Find your nearest Java House',
     status: 'approved',
     claimIds: [],
     usedIn: ['exp-kil-mau'],
