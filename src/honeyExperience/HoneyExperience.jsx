@@ -36,6 +36,7 @@ import './honey.css'
 const ease = [0.22, 1, 0.36, 1]
 
 const beesImage = '/media/honey/bees.jpg'
+const brandLogo = '/media/honey/logobrees.jpeg'
 const handsImage = '/media/honey/hands.jpg'
 const honeyVideo = '/media/honey/honey_video.mp4'
 const waterTreeVideo = '/media/honey/watertree.mp4'
@@ -106,9 +107,22 @@ const flavors = [
 ]
 
 function HoneyMark() {
+  // The brand logo ships as a JPEG on a white ground, so it becomes a
+  // circular badge: the image fills the chip edge-to-edge inside a 2px
+  // amber ring (the ring keeps the mark's glow language; the white corners
+  // of the JPEG become the badge itself, so nothing seams against the
+  // dark UI). Decorative — the adjacent wordmark carries the name for
+  // screen readers.
   return (
-    <div className="relative grid size-9 shrink-0 place-items-center rounded-full bg-amber-400 text-emerald-950 shadow-[0_0_24px_rgba(245,158,11,.35)]">
-      <Droplet className="size-4.5 fill-current" strokeWidth={1.8} />
+    <div className="relative grid size-9 shrink-0 place-items-center rounded-full bg-amber-400 p-[2px] shadow-[0_0_24px_rgba(232,168,92,.35)]">
+      <img
+        src={brandLogo}
+        alt=""
+        width={36}
+        height={36}
+        draggable="false"
+        className="size-full rounded-full object-cover"
+      />
       <span className="absolute -right-0.5 -top-0.5 size-2 rounded-full border border-emerald-950 bg-cream" />
     </div>
   )
