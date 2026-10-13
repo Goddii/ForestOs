@@ -33,6 +33,7 @@ const RootsAndRhythms = lazy(() => import('./routes/RootsAndRhythms'))
 // "Bree's Bees Forest Honey" — prototype.
 const HoneyExperience = lazy(() => import('./honeyExperience/HoneyExperience'))
 const JavaExperience = lazy(() => import('./javaExperience/JavaExperience'))
+const Pitch = lazy(() => import('./pitch/Pitch'))
 // A plain link list to every prototype/comparison/demo build in this repo,
 // for quickly switching between them in a demo — links out only, changes
 // nothing about the routes it lists.
@@ -96,6 +97,7 @@ export default function App() {
         <Route path="/roots-and-rhythms" element={<RootsAndRhythms />} />
         <Route path="/honey" element={<HoneyExperience />} />
         <Route path="/java" element={<JavaExperience />} />
+<Route path="/pitch" element={<Pitch />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/launch" element={<LaunchEdition />} />
         <Route path="/funder" element={<Navigate to="/funder/funder-a" replace />} />
