@@ -16,11 +16,12 @@
 }
 
 .aurora-bg {
+  /* Transparent base (was #021b15): the aurora now tints the pinned video
+     plane behind the hero + Section 01 intro instead of masking it. */
   background:
-    radial-gradient(circle at 15% 18%, rgba(245, 158, 11, 0.1), transparent 28%),
+    radial-gradient(circle at 15% 18%, rgba(232, 168, 92, 0.1), transparent 28%),
     radial-gradient(circle at 85% 42%, rgba(16, 185, 129, 0.12), transparent 34%),
-    radial-gradient(circle at 40% 85%, rgba(217, 119, 6, 0.08), transparent 30%),
-    #021b15;
+    radial-gradient(circle at 40% 85%, rgba(232, 168, 92, 0.08), transparent 30%);
   animation: aurora-drift 14s ease-in-out infinite alternate;
 }
 
@@ -36,7 +37,7 @@
   border-radius: inherit;
   content: '';
   opacity: 0;
-  background: radial-gradient(circle at 70% 15%, rgba(245, 158, 11, 0.13), transparent 42%);
+  background: radial-gradient(circle at 70% 15%, rgba(232, 168, 92, 0.13), transparent 42%);
   transition: opacity 400ms ease;
 }
 
@@ -89,4 +90,120 @@
     transform: scale(1.08) translate3d(-2%, 2%, 0);
     filter: hue-rotate(8deg);
   }
+}
+
+/* ── Reduced motion: kill background animation loops ─────────────────────────
+   Per emil-design-eng + Vercel Web Interface Guidelines: autoplay motion
+   alongside other content must respect prefers-reduced-motion. The global
+   rule in index.css only kills CSS `animation-duration`; these keyframes are
+   CSS animations so they are covered, but we also collapse the particle
+   motion here. ──────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-shine::after {
+    animation: none;
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  .aurora-bg {
+    animation: none;
+    transform: scale(1);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* ── Hover gating: touch devices trigger :hover on tap, causing false
+   positives. Per emil-design-eng, gate hover effects behind a real
+   hovering-pointer media query. ────────────────────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+  .dewdrop:hover {
+    transform: translateY(-1px) scale(1.01);
+  }
+}
+
+/* ── Type floor (post card-redesign) ───────────────────────────────────────
+   The layout critique set an 11px floor for functional text. Every micro
+   size on this page is now a named Tailwind step at or above that floor
+   (`text-xs` = 12px for labels and body, `text-sm` = 14px for lead copy);
+   the card radius is always `rounded-3xl` (24px) from HoneyCard — no card
+   may pass a second, conflicting radius class. */
+
+/* ── Certificate seal: active-state glow ring ──────────────────────────────
+   The Star-Border pattern, reduced to a breathing amber ring: it marks the
+   Certificate of Purity as the page's one "accredited" state while open.
+   Static ring under prefers-reduced-motion. */
+.honey-seal {
+  animation: honey-seal 2.6s ease-in-out infinite;
+}
+
+@keyframes honey-seal {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(232, 168, 92, 0.35),
+      0 0 18px -8px rgba(232, 168, 92, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(232, 168, 92, 0.7),
+      0 0 30px -6px rgba(232, 168, 92, 0.85);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .honey-seal {
+    animation: none;
+    box-shadow:
+      0 0 0 1px rgba(232, 168, 92, 0.5),
+      0 0 18px -8px rgba(232, 168, 92, 0.5);
+  }
+}
+
+/* ── Typography: balanced headings + tabular numerals ───────────────────────
+   impeccable craft-floor: "balanced headings" and "tabular figures for data".
+   The `.tnum` class from index.css is reused; `.honey-heading` applies
+   text-wrap-balance to every display headline so orphaned words / widows
+   never land in a single column. ────────────────────────────────────────── */
+.honey-heading {
+  text-wrap: balance;
+}
+.honey-heading .font-display {
+  text-wrap: balance;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* ── Safe-area insets: phone chrome ───────────────────────────────────────────
+   The fixed reorder bar and sticky header must clear notches and the iOS
+   home bar. Exposed as utility classes so the component markup stays clean.
+   ───────────────────────────────────────────────────────────────────────── */
+.honey-safe-top {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+.honey-safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* ── Phone-chrome focus ring ────────────────────────────────────────────────
+   The menu / share buttons land near the Dynamic Island cutout on iOS. A
+   visible focus ring here must not collide with the chrome. ───────────────── */
+.honey-chrome-button {
+  outline-offset: 2px;
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: transparent;
+  transition: outline-color 150ms ease-out;
+}
+.honey-chrome-button:focus-visible {
+  outline-color: var(--color-amber-400);
+}
+
+/* ── Scroll-padding for in-page anchors ─────────────────────────────────────
+   Section IDs are targeted by the mobile menu's scrollIntoView. Account for
+   the sticky header so anchors don't land underneath it. ─────────────────── */
+[id] {
+  scroll-margin-top: 5rem;
 }

@@ -1,0 +1,272 @@
+/* ForestOS Honey Partnership Pitch — design tokens
+   Light theme. Paper ground, forest green primary, honey amber secondary.
+   Distinct from the dark consumer /honey experience on purpose: this is a
+   boardroom / presentation surface, so it reads bright and calm. */
+
+:root {
+  --pitch-paper: #f7f5f0;
+  --pitch-paper-sunk: #eae6dc;
+  --pitch-ink: #17251c;
+  --pitch-ink-soft: #435246;
+  --pitch-ink-faint: #6b766c;
+
+  --pitch-forest: #176b45;
+  --pitch-forest-soft: #e8f2ec;
+  --pitch-forest-deep: #0b3d2a;
+
+  --pitch-honey: #e8a85c;
+  --pitch-honey-deep: #ce8e4e;
+  --pitch-honey-soft: #fdf3e0;
+
+  --pitch-line: #e0dbcb;
+  --pitch-line-strong: #c9d3c8;
+
+  --pitch-card: #ffffff;
+
+  --font-display: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Liberation Mono', monospace;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+.pitch-root {
+  background: var(--pitch-paper);
+  color: var(--pitch-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ───────────────────────────────────────────────────────── */
+.pitch-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.pitch-headline-lg {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.pitch-headline-md {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.pitch-headline-sm {
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+}
+
+.pitch-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--pitch-ink-soft);
+}
+
+.pitch-body-sm {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--pitch-ink-faint);
+}
+
+.pitch-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pitch-ink-faint);
+}
+
+.pitch-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* ── Accent utilities ─────────────────────────────────────────────────── */
+.pitch-accent {
+  color: var(--pitch-forest);
+}
+
+.pitch-honey {
+  color: var(--pitch-honey-deep);
+}
+
+/* ── Dividers ─────────────────────────────────────────────────────────── */
+.pitch-rule {
+  height: 1px;
+  background: var(--pitch-line);
+}
+
+.pitch-rule-strong {
+  height: 1px;
+  background: var(--pitch-line-strong);
+}
+
+/* ── Scene shell ──────────────────────────────────────────────────────── */
+.pitch-scene {
+  position: relative;
+  width: 100%;
+}
+
+.pitch-scene-pad {
+  padding: clamp(4rem, 9vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+}
+
+/* ── Reveal (scroll-triggered) ────────────────────────────────────────── */
+.pitch-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.pitch-reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .pitch-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── SVG line-art stroke width ──────────────────────────────────────────
+   Standardized to 2.4px across all pitch SVG elements. The .stix design
+   assets use 2.2-2.4px; the current Character component uses 1.6px which
+   reads as too thin on a light boardroom background. ──────────────── */
+.pitch-graph {
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* ── SVG text styling (standardized classes) ──────────────────────────── */
+.pitch-svg-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--pitch-ink-faint);
+}
+
+.pitch-svg-label-forest {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--pitch-forest);
+}
+
+.pitch-svg-caption {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  line-height: 1.4;
+  fill: var(--pitch-ink-faint);
+}
+
+.pitch-svg-body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  fill: var(--pitch-ink-soft);
+}
+
+.pitch-svg-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  fill: var(--pitch-forest);
+}
+
+/* ── Line-art SVG palette (used by Character / Jar / Graph) ────────────── */
+.pitch-stroke {
+  stroke: var(--pitch-forest);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.pitch-stroke-honey {
+  stroke: var(--pitch-honey-deep);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.pitch-stroke-soft {
+  stroke: var(--pitch-ink);
+  stroke-opacity: 0.55;
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.pitch-stroke-faint {
+  stroke: var(--pitch-ink-faint);
+  stroke-opacity: 0.35;
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.pitch-fill-none {
+  fill: none;
+}
+
+.pitch-fill-paper {
+  fill: var(--pitch-paper);
+}
+
+.pitch-fill-card {
+  fill: var(--pitch-card);
+}
+
+.pitch-fill-forest {
+  fill: var(--pitch-forest);
+}
+
+.pitch-fill-honey {
+  fill: var(--pitch-honey);
+}
+
+.pitch-fill-ink {
+  fill: var(--pitch-ink);
+}
+
+/* ── Presentation / fullscreen mode ───────────────────────────────────── */
+.pitch-presentation {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--pitch-paper);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pitch-presentation .pitch-scene-pad {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.pitch-presentation-toggle {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 90;
+}
+
+/* ── Hover gating (touch devices) ─────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .pitch-hover-gate:hover {
+    background: none !important;
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+}
