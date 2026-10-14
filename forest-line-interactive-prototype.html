@@ -83,6 +83,39 @@ h1,.display{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size
 .mini-s{font-size:10.5px;line-height:1.3;margin-top:3px}
 .ok{color:var(--green)} .bad{color:var(--red)} .warn{color:var(--amber-2)}
 
+/* alerts */
+.alert{border-radius:var(--r);padding:12px 13px;margin-bottom:9px;border:1px solid}
+.alert.red{background:var(--red-wash);border-color:#EFC5BA}
+.alert.amber{background:var(--amber-wash);border-color:#EDD3AE}
+.alert.slim{margin-top:10px}
+.alert-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.alert-top b{font-size:13px;line-height:1.3}
+.alert p{font-size:11.5px;color:var(--ink-2);line-height:1.45;margin-top:4px}
+.alert p b{color:var(--ink)}
+.alert-actions{display:flex;gap:7px;margin-top:10px}
+.tag{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.tag.red{background:#fff;color:var(--red)} .alert .tag.red{border:1px solid #EFC5BA}
+.tag.amber{background:var(--amber-wash);color:var(--amber-2)} .alert .tag.amber{background:#fff}
+.tag.green{background:var(--green-wash);color:var(--green-2)}
+.tag.teal{background:#E3EEF0;color:#2B6470}
+.mbtn{flex:1;text-align:center;font-size:12px;font-weight:600;padding:9px 8px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.mbtn.solid{background:var(--green);border-color:var(--green);color:#fff}
+.mbtn.solid-red{background:var(--red);border-color:var(--red);color:#fff}
+
+/* cards and lists */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px}
+.row-card{display:flex;justify-content:space-between;align-items:center}
+.row-card b{font-size:13.5px}
+.row-card p{font-size:12px;margin-top:2px}
+.list{padding:2px 13px}
+.li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line-2);font-size:12.5px}
+.li:first-child{border-top:0}
+.li b{font-weight:600}
+.li div span{display:block;font-size:11px;color:var(--ink-3);margin-top:1px}
+.li.more{justify-content:space-between}
+.amt{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+
+/* segmented toggle */
 </style>
 </head>
 <body>
@@ -91,18 +124,6 @@ h1,.display{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size
     <div class="eyebrow">FIELD CAPTURE &middot; FORESTOS EDGE</div>
     <h1>Forest Line &amp; ForestOS</h1>
     <p>Interactive prototype &middot; South West Mau &middot; Monday 28 September 2026</p>
-  </div>
-  <div class="phone" style="margin:20px auto">
-    <div class="screen">
-      <div class="statusbar"><span>6:28</span><span>●●●&nbsp; 61%</span></div>
-      <div class="scroll">
-        <div class="hero">
-          <div class="hero-k">FIELD SIMULATOR</div>
-          <div class="hero-t">Forest Line</div>
-          <div class="hero-s">Run your block. Muster, weigh-in and pay, in one place.</div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 </body>
