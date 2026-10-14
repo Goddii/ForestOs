@@ -85,6 +85,13 @@ const GROUPS = [
         tag: 'Live route',
         note: 'The real ForestOS trace page every prototype above links out to for its "full proof" CTA.',
       },
+      {
+        href: '/forest-line-interactive-prototype.html',
+        title: 'Forest Line & ForestOS — Field Capture Prototype',
+        tag: 'Standalone',
+        note: 'Interactive 34-screen field simulator: Tea Supervisor, Conservation Supervisor, Collection Centre & Factory Leaf Clerks, plus the Zone Manager web dashboard with SHA-256 masterroll attestation.',
+        external: true,
+      },
     ],
   },
   {
@@ -131,6 +138,7 @@ const TAG_STYLES = {
   'Approved design': 'border-sage-500/40 bg-sage-500/10 text-sage-300',
   'Live route': 'border-bone/25 bg-bone/5 text-bone-300',
   Comparison: 'border-river-500/40 bg-river-500/10 text-river-300',
+  Standalone: 'border-amber-500/40 bg-amber-500/10 text-amber-300',
 }
 
 export default function PrototypeIndex() {
