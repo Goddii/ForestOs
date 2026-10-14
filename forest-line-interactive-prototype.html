@@ -288,15 +288,97 @@ h1,.display{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size
 .signin .sub{margin-bottom:10px}
 .signin .link{text-align:right;margin-top:10px}
 
+/* tab bar */
+.tabbar{height:70px;flex-shrink:0;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding:0 6px 8px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-weight:600;color:var(--ink-3);min-width:52px}
+.tab.on{color:var(--green)}
+
+.snap{display:flex;align-items:center;gap:8px;margin-top:12px;background:rgba(255,255,255,.08);border-radius:10px;padding:8px 10px;font-size:11.5px;color:#DDE8E4}
+.snap b{margin-left:auto;color:#7FD8B0;font-weight:700}
+.scale-hint{font-size:11.5px;color:#A9C6BB;margin-top:8px}
+.read-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.read{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:11px 12px}
+.read p{font-size:11px;color:var(--ink-2)}
+.read b{display:block;font-size:20px;font-weight:800;margin-top:2px}
+.read span{display:block;font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.read em{display:block;font-style:normal;font-size:10.5px;color:var(--green);font-weight:600;margin-top:4px}
+.confirm{display:flex;align-items:center;gap:8px;margin-top:10px;background:var(--green-wash);color:var(--green-2);font-size:12px;font-weight:600;padding:10px 12px;border-radius:12px}
+.btn-row{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+.btn-row .btn{margin-top:14px}
+.card .tag.red,.log .tag.red{background:var(--red-wash)}
+.gsec{flex-basis:100%;margin:26px 0 -6px;border-top:1px solid rgba(232,228,216,.14);padding-top:26px}
+.gsec h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:#E8E4D8}
+.gsec p{font-size:14px;color:#B9C2BB;max-width:760px;line-height:1.55;margin-top:6px}
+.align-pill.trees{background:#E6EEDF;color:#3F6127}
+.align-pill.clerk{background:#E7ECF4;color:#34507A}
+.target{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:12px}
+.target span{font-size:12px;font-weight:600}
+.stepper{display:flex;align-items:center;gap:12px}
+.stepper i{width:30px;height:30px;border-radius:9px;background:#ECE7DB;display:grid;place-items:center;font-style:normal;font-weight:700}
+.stepper b{font-size:16px;min-width:34px;text-align:center}
+.cp{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line-2)}
+.cp:first-child{border-top:0}
+.cp .dotc{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);margin:0 auto}
+.cp .dotc.done{background:var(--green);border-color:var(--green)}
+.cp .dotc.now{border-color:var(--green);box-shadow:0 0 0 4px var(--green-wash)}
+.cp b{font-size:12.5px;display:block}
+.cp span{font-size:11px;color:var(--ink-2)}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.types span{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center;font-size:11.5px;font-weight:600}
+.types span.on{background:var(--red);border-color:var(--red);color:#fff}
+.scale{margin-top:12px;background:var(--forest);border-radius:18px;padding:16px;color:#fff}
+.scale-top{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:#A9C6BB}
+.scale-top b{color:#fff;font-weight:600;display:flex;align-items:center;gap:6px}
+.scale-top b i{width:8px;height:8px;border-radius:50%;background:#4CC38A;display:inline-block}
+.scale-read{font-size:48px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.scale-read small{font-size:16px;font-weight:600;color:#A9C6BB;margin-left:4px}
+.scale-s{font-size:11.5px;color:#C8DAD2;margin-top:2px}
+.calc{display:grid;grid-template-columns:1fr auto;gap:6px 10px;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px;font-size:12.5px}
+.calc span{color:var(--ink-2)}
+.calc b{text-align:right}
+.calc .tot{border-top:1px solid var(--line-2);padding-top:7px;font-size:14px}
+.calc .tot span{color:var(--ink);font-weight:600}
+.sent{display:flex;align-items:center;gap:8px;margin-top:12px;background:var(--green-wash);color:var(--green-2);font-size:12px;font-weight:600;padding:10px 12px;border-radius:12px}
+.bridge{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.bridge div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:11px 12px}
+.bridge p{font-size:11px;color:var(--ink-2)}
+.bridge b{display:block;font-size:20px;font-weight:800;margin-top:2px}
+.bridge span{font-size:10.5px;color:var(--ink-3)}
+.bridge .net{grid-column:1/-1;background:var(--forest);border-color:var(--forest);color:#fff}
+.bridge .net p{color:#A9C6BB} .bridge .net span{color:#C8DAD2}
+.gauge{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px}
+.gauge-top{display:flex;justify-content:space-between;align-items:baseline}
+.gauge-top b{font-size:24px;font-weight:800}
+.gauge-top span{font-size:11.5px;color:var(--ink-2)}
+.gbar{position:relative;height:10px;border-radius:999px;background:var(--line-2);margin-top:10px}
+.gbar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.gbar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.gscale{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-3);margin-top:5px}
+.dn{background:#F1EDE2;border-radius:var(--r);padding:12px 13px;margin-top:12px}
+.dn b{display:block;font-size:13.5px}
+.dn span{font-size:11.5px;color:var(--ink-2)}
+
 </style>
 </head>
 <body>
-<div id="hub" class="hub">
-  <div class="page-head">
-    <div class="eyebrow">FIELD CAPTURE &middot; FORESTOS EDGE</div>
-    <h1>Forest Line &amp; ForestOS</h1>
-    <p>Interactive prototype &middot; South West Mau &middot; Monday 28 September 2026</p>
+<header class="hub-top">
+  <h1>Forest Line &amp; ForestOS<span>Interactive prototype &middot; South West Mau &middot; Monday 28 September 2026</span></h1>
+  <div class="hub-ctrl">
+    <button class="hbtn" id="hints">Show tappable areas</button>
+    <button class="hbtn" id="restart">Restart role</button>
   </div>
+</header>
+<div class="hub" id="hub">
+  <aside class="roles">
+    <p class="hlab">In the field &middot; phone apps</p>
+    <div id="rolelist"></div>
+    <p class="hlab" style="margin-top:16px">At the office &middot; web</p>
+    <button class="role" data-role="zm"><em>Web dashboard</em><b>Zone Manager</b><span>Reads everything the apps record. Signs masterrolls, escalates, sends queries.</span></button>
+    <div class="flowmap"><b>How it fits together.</b> Supervisors and leaf clerks record everything on their phones. The Zone Manager&#39;s dashboard only reads and adds it up. The apps are the source of truth.</div>
+    <p class="keys"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> step through screens &middot; <kbd>H</kbd> tappable areas</p>
+  </aside>
+  <main class="stage" id="stage"></main>
+  <aside class="list" id="list"></aside>
 </div>
 </body>
 </html>
