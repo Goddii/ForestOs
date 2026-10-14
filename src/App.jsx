@@ -35,9 +35,9 @@ const HoneyExperience = lazy(() => import('./honeyExperience/HoneyExperience'))
 const JavaExperience = lazy(() => import('./javaExperience/JavaExperience'))
 const Pitch = lazy(() => import('./pitch/Pitch'))
 // "Green Bonga" — Safaricom-led × Java House conservation tea QR (Bree's Bees–
-// shaped scroll). Isolated in `src/greenBonga/`; does not touch the enterprise
-const GreenBongaExperience = lazy(() => import('./greenBonga/GreenBongaExperience'))
 const GreenBongaExperienceV1 = lazy(() => import('./greenBonga/GreenBongaExperienceV1'))
+const GreenBongaExperienceV2 = lazy(() => import('./greenBonga/GreenBongaExperienceV2'))
+const GreenBongaExperienceV3 = lazy(() => import('./greenBonga/GreenBongaExperienceV3'))
 // A plain link list to every prototype/comparison/demo build in this repo,
 // for quickly switching between them in a demo — links out only, changes
 // nothing about the routes it lists.
@@ -103,8 +103,9 @@ export default function App() {
         <Route path="/honey" element={<HoneyExperience />} />
         <Route path="/java" element={<JavaExperience />} />
         <Route path="/pitch" element={<Pitch />} />
-        <Route path="/green-bonga" element={<GreenBongaExperience />} />
-        <Route path="/green-bonga-v2" element={<GreenBongaExperience />} />
+        <Route path="/green-bonga" element={<GreenBongaExperienceV3 />} />
+        <Route path="/green-bonga-v3" element={<GreenBongaExperienceV3 />} />
+        <Route path="/green-bonga-v2" element={<GreenBongaExperienceV2 />} />
         <Route path="/green-bonga-v1" element={<GreenBongaExperienceV1 />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/enterprise-partners/*" element={<EnterprisePartnersView />} />

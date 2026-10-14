@@ -69,9 +69,15 @@ const GROUPS = [
       },
       {
         href: '/green-bonga',
-        title: 'Green Bonga (v2) — Java House × Safaricom Experience',
+        title: 'Green Bonga (v3) — Rooted in the Land (Editorial)',
         tag: 'Featured',
-        note: 'The evolved mobile-first QR story: Java House warmth & African geometric motifs, Safaricom Green Bonga 4× reward loop, Gold Label tea story, and ForestOS conservation evidence.',
+        note: 'Authentic Kenyan tea editorial: deep forest greens, warm cream, documentary photography of Mau pickers & rangers, restrained Safaricom green, and calm ForestOS provenance.',
+      },
+      {
+        href: '/green-bonga-v2',
+        title: 'Green Bonga (v2) — Java House × Safaricom QR Story',
+        tag: 'Prototype',
+        note: 'The vibrant mobile-first QR story: Java House warmth & African geometric motifs, Safaricom Green Bonga 4× reward loop, Gold Label tea story, and ForestOS conservation evidence.',
       },
       {
         href: '/green-bonga-v1',

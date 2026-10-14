@@ -1,0 +1,104 @@
+/* ==========================================================================
+   Green Bonga v3: "Rooted in the land. Connected by technology."
+   Kenyan Tea Editorial × Restrained Safaricom Connectivity × ForestOS Provenance
+   ========================================================================== */
+
+@theme {
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  
+  /* Restrained Kenyan Earth & Forest Palette */
+  --color-v3-forest-950: #0a140e;
+  --color-v3-forest-900: #0f1f15;
+  --color-v3-forest-800: #162c1e;
+  --color-v3-earth-950: #110d0a;
+  --color-v3-earth-900: #1a140f;
+  --color-v3-earth-800: #251c15;
+  --color-v3-cream: #faf6ee;
+  --color-v3-linen: #f2ebd9;
+  --color-v3-gold: #c89b3c;
+  --color-v3-gold-light: #e0b75a;
+  --color-v3-terracotta: #b84333;
+  --color-v3-saf-green: #2e8b29;
+  --color-v3-saf-green-bright: #3aa335;
+  --color-v3-forestos-teal: #248277;
+}
+
+/* Organic Forest Atmosphere — Calmer, muted vignette with no neon blurs */
+.v3-ambient-backdrop {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(200, 155, 60, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 85% 30%, rgba(46, 139, 41, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 15% 75%, rgba(184, 67, 51, 0.07) 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(15, 31, 21, 0.5) 0%, transparent 60%),
+    #0c100d;
+}
+
+/* Tactile Paper Grain Overlay */
+.v3-tactile-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Fine-line Kenyan Geometric Border (Restrained, elegant, non-intrusive) */
+.v3-fine-frieze {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(200, 155, 60, 0.35) 0px,
+    rgba(200, 155, 60, 0.35) 4px,
+    transparent 4px,
+    transparent 8px,
+    rgba(46, 139, 41, 0.35) 8px,
+    rgba(46, 139, 41, 0.35) 12px,
+    transparent 12px,
+    transparent 16px
+  );
+  height: 1px;
+  width: 100%;
+}
+
+/* Subtle Organic Button Shine */
+.v3-btn-subtle-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.v3-btn-subtle-shine::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  transform: translateX(-120%) skewX(-16deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  animation: v3-subtle-sheen 5s ease-in-out infinite;
+}
+
+@keyframes v3-subtle-sheen {
+  0%, 75% {
+    transform: translateX(-120%) skewX(-16deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-16deg);
+  }
+}
+
+/* Organic press ripple */
+.v3-press-feedback {
+  position: relative;
+}
+
+.v3-press-feedback:active {
+  transform: scale(0.985);
+  transition: transform 120ms ease;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .v3-btn-subtle-shine::after {
+    animation: none !important;
+  }
+  .v3-press-feedback:active {
+    transform: none !important;
+  }
+}
