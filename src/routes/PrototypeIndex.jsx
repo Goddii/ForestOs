@@ -68,6 +68,12 @@ const GROUPS = [
         note: 'Interactive conservation tea experience: animated timeline, dynamic Safaricom Bonga points slider, and an interactive SVG map for the store locator.',
       },
       {
+        href: '/green-bonga',
+        title: 'Green Bonga — Safaricom × Java House',
+        tag: 'Prototype',
+        note: 'Safaricom-led QR: hook with 4× Green Bonga on Conservation Tea, earn/redeem loop, partnership story, 5M trees context, ForestOS proof. Separate from the enterprise /safaricom journey.',
+      },
+      {
         href: '/passport/majani/921',
         title: 'Majani Passport (tenant passport)',
         tag: 'Approved design',

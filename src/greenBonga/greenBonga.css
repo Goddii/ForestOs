@@ -1,0 +1,120 @@
+@theme {
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-gb-ink: #070d12;
+  --color-gb-navy: #0c1824;
+  --color-gb-teal: #143038;
+  --color-gb-lime: #8fe83a;
+  --color-gb-lime-deep: #5fc41f;
+  --color-gb-cyan: #2ec4b6;
+  --color-gb-java: #c44a3a;
+  --color-gb-bone: #f3eee3;
+}
+
+.gb-aurora {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(143, 232, 58, 0.14), transparent 32%),
+    radial-gradient(circle at 82% 28%, rgba(46, 196, 182, 0.12), transparent 36%),
+    radial-gradient(circle at 40% 88%, rgba(20, 80, 90, 0.35), transparent 40%),
+    #070d12;
+  animation: gb-aurora-drift 16s ease-in-out infinite alternate;
+}
+
+.gb-neon-ribbon {
+  background: linear-gradient(
+    165deg,
+    #1a5c32 0%,
+    #8fe83a 38%,
+    #2ec4b6 72%,
+    #0a2a4a 100%
+  );
+  filter: saturate(1.05);
+  box-shadow:
+    0 0 40px rgba(143, 232, 58, 0.25),
+    0 0 80px rgba(46, 196, 182, 0.12);
+}
+
+.gb-wave-pattern {
+  background-image: repeating-linear-gradient(
+    -8deg,
+    transparent,
+    transparent 10px,
+    rgba(46, 196, 182, 0.06) 10px,
+    rgba(46, 196, 182, 0.06) 20px
+  );
+}
+
+.gb-shine::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: gb-shine 3.8s ease-in-out infinite;
+}
+
+.gb-press::before {
+  position: absolute;
+  inset: 50%;
+  content: '';
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+}
+
+.gb-press:active::before {
+  animation: gb-ripple 520ms ease-out;
+}
+
+@keyframes gb-shine {
+  0%,
+  70% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-18deg);
+  }
+}
+
+@keyframes gb-ripple {
+  0% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(18);
+  }
+}
+
+@keyframes gb-aurora-drift {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(-1.5%, 1.5%, 0);
+  }
+}
+
+@keyframes gb-pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.gb-pulse-ring {
+  animation: gb-pulse-ring 2.4s ease-out infinite;
+}

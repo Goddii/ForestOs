@@ -34,6 +34,10 @@ const RootsAndRhythms = lazy(() => import('./routes/RootsAndRhythms'))
 const HoneyExperience = lazy(() => import('./honeyExperience/HoneyExperience'))
 const JavaExperience = lazy(() => import('./javaExperience/JavaExperience'))
 const Pitch = lazy(() => import('./pitch/Pitch'))
+// "Green Bonga" — Safaricom-led × Java House conservation tea QR (Bree's Bees–
+// shaped scroll). Isolated in `src/greenBonga/`; does not touch the enterprise
+// `/safaricom` gamified journey or other campaign prototypes.
+const GreenBongaExperience = lazy(() => import('./greenBonga/GreenBongaExperience'))
 // A plain link list to every prototype/comparison/demo build in this repo,
 // for quickly switching between them in a demo — links out only, changes
 // nothing about the routes it lists.
@@ -98,7 +102,8 @@ export default function App() {
         <Route path="/roots-and-rhythms" element={<RootsAndRhythms />} />
         <Route path="/honey" element={<HoneyExperience />} />
         <Route path="/java" element={<JavaExperience />} />
-<Route path="/pitch" element={<Pitch />} />
+        <Route path="/pitch" element={<Pitch />} />
+        <Route path="/green-bonga" element={<GreenBongaExperience />} />
         <Route path="/prototypes" element={<PrototypeIndex />} />
         <Route path="/enterprise-partners/*" element={<EnterprisePartnersView />} />
         <Route path="/launch" element={<LaunchEdition />} />
