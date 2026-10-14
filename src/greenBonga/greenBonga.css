@@ -11,29 +11,75 @@
   --color-gb-cyan: #2ec4b6;
   --color-gb-java: #c44a3a;
   --color-gb-bone: #f3eee3;
+  --color-java-cream: #faf5ec;
+  --color-java-gold: #d4a84b;
+  --color-java-amber: #e6b25a;
+  --color-java-rust: #c5382b;
+  --color-java-earth: #1e130c;
+  --color-java-bark: #120b07;
+  --color-saf-green: #3aa335;
 }
 
+/* Warm Java Ambient & Safaricom Aurora blend */
 .gb-aurora {
   background:
-    radial-gradient(circle at 18% 12%, rgba(143, 232, 58, 0.14), transparent 32%),
-    radial-gradient(circle at 82% 28%, rgba(46, 196, 182, 0.12), transparent 36%),
-    radial-gradient(circle at 40% 88%, rgba(20, 80, 90, 0.35), transparent 40%),
-    #070d12;
-  animation: gb-aurora-drift 16s ease-in-out infinite alternate;
+    radial-gradient(circle at 14% 10%, rgba(197, 56, 43, 0.18), transparent 36%),
+    radial-gradient(circle at 86% 22%, rgba(143, 232, 58, 0.15), transparent 38%),
+    radial-gradient(circle at 50% 65%, rgba(212, 168, 75, 0.08), transparent 45%),
+    radial-gradient(circle at 35% 92%, rgba(20, 80, 90, 0.35), transparent 42%),
+    #0a0807;
+  animation: gb-aurora-drift 18s ease-in-out infinite alternate;
 }
 
 .gb-neon-ribbon {
   background: linear-gradient(
     165deg,
-    #1a5c32 0%,
-    #8fe83a 38%,
-    #2ec4b6 72%,
-    #0a2a4a 100%
+    #c5382b 0%,
+    #d4a84b 28%,
+    #8fe83a 62%,
+    #2ec4b6 88%,
+    #0c1824 100%
   );
-  filter: saturate(1.05);
+  filter: saturate(1.15);
   box-shadow:
-    0 0 40px rgba(143, 232, 58, 0.25),
-    0 0 80px rgba(46, 196, 182, 0.12);
+    0 0 45px rgba(212, 168, 75, 0.25),
+    0 0 70px rgba(143, 232, 58, 0.22);
+}
+
+/* African-inspired geometric patterns */
+.african-chevron-pattern {
+  background-image: 
+    repeating-linear-gradient(45deg, rgba(212, 168, 75, 0.08) 0px, rgba(212, 168, 75, 0.08) 2px, transparent 2px, transparent 12px),
+    repeating-linear-gradient(-45deg, rgba(212, 168, 75, 0.08) 0px, rgba(212, 168, 75, 0.08) 2px, transparent 2px, transparent 12px);
+}
+
+.african-diamond-mesh {
+  background-image:
+    linear-gradient(30deg, rgba(255, 255, 255, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.03) 87.5%, rgba(255, 255, 255, 0.03)),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.03) 87.5%, rgba(255, 255, 255, 0.03)),
+    linear-gradient(60deg, rgba(143, 232, 58, 0.04) 25%, transparent 25.5%, transparent 75%, rgba(143, 232, 58, 0.04) 75%, rgba(143, 232, 58, 0.04)),
+    linear-gradient(120deg, rgba(143, 232, 58, 0.04) 25%, transparent 25.5%, transparent 75%, rgba(143, 232, 58, 0.04) 75%, rgba(143, 232, 58, 0.04));
+  background-size: 24px 42px;
+}
+
+.african-frieze-border {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #d4a84b 0px,
+    #d4a84b 6px,
+    transparent 6px,
+    transparent 10px,
+    #c5382b 10px,
+    #c5382b 16px,
+    transparent 16px,
+    transparent 20px,
+    #8fe83a 20px,
+    #8fe83a 26px,
+    transparent 26px,
+    transparent 30px
+  );
+  height: 2px;
+  width: 100%;
 }
 
 .gb-wave-pattern {
@@ -41,8 +87,8 @@
     -8deg,
     transparent,
     transparent 10px,
-    rgba(46, 196, 182, 0.06) 10px,
-    rgba(46, 196, 182, 0.06) 20px
+    rgba(143, 232, 58, 0.05) 10px,
+    rgba(143, 232, 58, 0.05) 20px
   );
 }
 
@@ -51,8 +97,8 @@
   inset: 0;
   content: '';
   transform: translateX(-120%) skewX(-18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-  animation: gb-shine 3.8s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: gb-shine 4s ease-in-out infinite;
 }
 
 .gb-press::before {
@@ -70,9 +116,29 @@
   animation: gb-ripple 520ms ease-out;
 }
 
+/* Subtle steam rising animation */
+@keyframes steam-rise {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-16px) scaleX(1.15) skewX(2deg);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-34px) scaleX(1.3) skewX(-2deg);
+    opacity: 0;
+  }
+}
+
+.animate-steam {
+  animation: steam-rise 3.8s ease-in-out infinite;
+}
+
 @keyframes gb-shine {
   0%,
-  70% {
+  65% {
     transform: translateX(-120%) skewX(-18deg);
   }
   100% {
@@ -96,25 +162,37 @@
     transform: scale(1) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.06) translate3d(-1.5%, 1.5%, 0);
+    transform: scale(1.08) translate3d(-1.5%, 1.5%, 0);
   }
 }
 
 @keyframes gb-pulse-ring {
   0% {
     transform: scale(0.85);
-    opacity: 0.55;
+    opacity: 0.65;
   }
   70% {
-    transform: scale(1.35);
+    transform: scale(1.4);
     opacity: 0;
   }
   100% {
-    transform: scale(1.35);
+    transform: scale(1.4);
     opacity: 0;
   }
 }
 
 .gb-pulse-ring {
   animation: gb-pulse-ring 2.4s ease-out infinite;
+}
+
+/* Accessible reduced-motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .gb-aurora,
+  .gb-neon-ribbon,
+  .gb-shine::after,
+  .gb-pulse-ring,
+  .animate-steam {
+    animation: none !important;
+    transition: none !important;
+  }
 }

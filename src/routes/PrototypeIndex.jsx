@@ -69,9 +69,15 @@ const GROUPS = [
       },
       {
         href: '/green-bonga',
-        title: 'Green Bonga — Safaricom × Java House',
+        title: 'Green Bonga (v2) — Java House × Safaricom Experience',
+        tag: 'Featured',
+        note: 'The evolved mobile-first QR story: Java House warmth & African geometric motifs, Safaricom Green Bonga 4× reward loop, Gold Label tea story, and ForestOS conservation evidence.',
+      },
+      {
+        href: '/green-bonga-v1',
+        title: 'Green Bonga (v1) — Safaricom Lead Prototype',
         tag: 'Prototype',
-        note: 'Safaricom-led QR: hook with 4× Green Bonga on Conservation Tea, earn/redeem loop, partnership story, 5M trees context, ForestOS proof. Separate from the enterprise /safaricom journey.',
+        note: 'Original Safaricom-led prototype: hook with 4× Green Bonga, earn/redeem loop, partnership story, 5M trees context, ForestOS proof.',
       },
       {
         href: '/passport/majani/921',
@@ -139,6 +145,7 @@ const TAG_STYLES = {
   'Live route': 'border-bone/25 bg-bone/5 text-bone-300',
   Comparison: 'border-river-500/40 bg-river-500/10 text-river-300',
   Standalone: 'border-amber-500/40 bg-amber-500/10 text-amber-300',
+  Featured: 'border-emerald-400/50 bg-emerald-400/15 text-emerald-200 shadow-[0_0_12px_rgba(52,211,153,0.25)]',
 }
 
 export default function PrototypeIndex() {
