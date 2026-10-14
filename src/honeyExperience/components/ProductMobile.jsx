@@ -22,36 +22,39 @@ const ease = [0.22, 1, 0.36, 1]
 const PRODUCTS = [
   {
     src: '/media/honey/1ltres.png',
-    alt: "Bree's Bees forest honey — one litre jar",
-    name: 'The Litre Jar',
+    alt: "Adult Dawa 1Litre — Bree's Bees forest honey",
+    name: 'Adult Dawa 1Litre',
     tag: '1 L',
     aspect: 'aspect-square',
     string: '1.75rem',
     sway: 1.1,
     swayDur: 6.5,
     drift: [-16, 16],
+    link: 'https://breesbees.co.ke/product/adult-dawa-1litre/',
   },
   {
     src: '/media/honey/bree.jpeg',
-    alt: "Bree's Bees forest honey — signature jar",
-    name: "Bree's Reserve",
+    alt: "Kasira Honey 1.7kg — Bree's Bees forest honey",
+    name: 'Kasira Honey 1.7kg',
     tag: 'Classic',
     aspect: 'aspect-square',
     string: '3.25rem',
     sway: 1.5,
     swayDur: 8,
     drift: [-30, 30],
+    link: 'https://breesbees.co.ke/product/kasira-honey-1-7kg/',
   },
   {
     src: '/media/honey/breetrre.jpeg',
     alt: 'Bee tree batch forest honey',
-    name: 'Bee Tree Batch',
+    name: 'Bree Dawa Kids - Tree Batch',
     tag: 'Limited',
     aspect: 'aspect-[335/597]',
     string: '1rem',
     sway: 0.85,
     swayDur: 5.6,
     drift: [-10, 10],
+    link: 'https://breesbees.co.ke/',
   },
 ]
 
@@ -90,21 +93,47 @@ function HangJar({ product, index, progress, reduced }) {
           transition={reduced ? {} : { duration: product.swayDur, repeat: Infinity, ease: 'easeInOut', delay: index * 0.7 }}
         >
           <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }}>
-            <figure className="rounded-3xl border border-white/10 bg-white/[0.06] p-2 shadow-[0_18px_40px_-18px_rgba(0,0,0,.65)] backdrop-blur-xl">
-              <div className={`overflow-hidden rounded-2xl bg-emerald-950/40 ${product.aspect}`}>
-                <img
-                  src={product.src}
-                  alt={product.alt}
-                  loading="lazy"
-                  draggable="false"
-                  className="size-full object-cover"
-                />
-              </div>
-              <figcaption className="px-1 pb-1 pt-2 text-center">
-                <div className="text-xs font-semibold leading-tight text-white">{product.name}</div>
-                <div className="mt-0.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-amber-300/90">{product.tag}</div>
-              </figcaption>
-            </figure>
+            {product.link ? (
+              <a
+                href={product.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full"
+                aria-label={`View ${product.name} on Bree's Bees`}
+              >
+                <figure className="rounded-3xl border border-white/10 bg-white/[0.06] p-2 shadow-[0_18px_40px_-18px_rgba(0,0,0,.65)] backdrop-blur-xl">
+                  <div className={`overflow-hidden rounded-2xl bg-emerald-950/40 ${product.aspect}`}>
+                    <img
+                      src={product.src}
+                      alt={product.alt}
+                      loading="lazy"
+                      draggable="false"
+                      className="size-full object-cover"
+                    />
+                  </div>
+                  <figcaption className="px-1 pb-1 pt-2 text-center">
+                    <div className="text-xs font-semibold leading-tight text-white">{product.name}</div>
+                    <div className="mt-0.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-amber-300/90">{product.tag}</div>
+                  </figcaption>
+                </figure>
+              </a>
+            ) : (
+              <figure className="rounded-3xl border border-white/10 bg-white/[0.06] p-2 shadow-[0_18px_40px_-18px_rgba(0,0,0,.65)] backdrop-blur-xl">
+                <div className={`overflow-hidden rounded-2xl bg-emerald-950/40 ${product.aspect}`}>
+                  <img
+                    src={product.src}
+                    alt={product.alt}
+                    loading="lazy"
+                    draggable="false"
+                    className="size-full object-cover"
+                  />
+                </div>
+                <figcaption className="px-1 pb-1 pt-2 text-center">
+                  <div className="text-xs font-semibold leading-tight text-white">{product.name}</div>
+                  <div className="mt-0.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-amber-300/90">{product.tag}</div>
+                </figcaption>
+              </figure>
+            )}
           </motion.div>
         </motion.div>
       </motion.div>
