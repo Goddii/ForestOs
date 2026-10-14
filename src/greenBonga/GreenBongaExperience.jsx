@@ -1183,7 +1183,7 @@ export default function GreenBongaExperience() {
                 scrollToSection('section-bonga')
                 showToast(`+${GREEN_BONGA_EARNED} Green Bonga simulated for this scan!`)
               }}
-              className="gb-shine flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#d4a84b] via-[#8fe83a] to-[#2ec4b6] px-4 text-xs font-black uppercase tracking-wider text-[#0c0907] shadow-lg shadow-[#8fe83a]/20 active:scale-95"
+              className="gb-shine flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#d4a84b] via-[#b8953c] to-[#2f7836] px-4 text-xs font-black uppercase tracking-wider text-[#0c0907] shadow-md shadow-black/40 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4a84b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#120c08] active:scale-[0.98]"
             >
               <Zap className="size-4 fill-current" />
               <span>Simulate +400 GB Earn</span>
