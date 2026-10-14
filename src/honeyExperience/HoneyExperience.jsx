@@ -30,6 +30,7 @@ import SwipeToast from './components/SwipeToast'
 import Magnet from './components/Magnet'
 import SloshGauge from './components/SloshGauge'
 import ProductMobile from './components/ProductMobile'
+import StoreLocator from './components/StoreLocator'
 
 import './honey.css'
 
@@ -382,6 +383,7 @@ export default function HoneyExperience() {
                       { label: '02 Conservation Impact', id: 'section-impact' },
                       { label: '03 Sensory & Lab Report', id: 'section-sensory' },
                       { label: '04 The Jars', id: 'section-jars' },
+                      { label: '05 Where to buy', id: 'section-stores' },
                     ].map((item) => (
                       <button
                         key={item.label}
@@ -816,6 +818,20 @@ export default function HoneyExperience() {
               </p>
             </Reveal>
             <ProductMobile progress={jarsProgress} reduced={reduced} />
+          </section>
+
+          {/* Section 05: Where to buy — illustrated bee-line map */}
+          <section id="section-stores" className="relative z-10 border-t border-white/8 bg-[#02241c] px-4 py-12">
+            <Reveal>
+              <SectionLabel number="05">Where to buy</SectionLabel>
+              <div className="honey-heading font-display text-3xl font-medium leading-[1.05] tracking-tight">
+                Two counters, <span className="font-serif italic text-amber-300">one forest.</span>
+              </div>
+              <p className="mt-3 text-xs leading-5 text-emerald-100/75">
+                Tap a pin to trace the bee-line, then follow it to the counter carrying batch FB-8842.
+              </p>
+            </Reveal>
+            <StoreLocator reduced={reduced} />
           </section>
 
           {/* Footer */}
