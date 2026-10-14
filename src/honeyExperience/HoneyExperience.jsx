@@ -812,7 +812,7 @@ export default function HoneyExperience() {
                 Three jars, <span className="font-serif italic text-amber-300">one forest.</span>
               </div>
               <p className="mt-3 text-xs leading-5 text-emerald-100/75">
-                The same verified harvest — batch FB-8842 — hung out to dry in three sizes. Choose how much of it comes home with you.
+                The same verified harvest — batch FB-8842 — hung out to dry in three sizes. Tap a jar to open it on Bree&apos;s Bees.
               </p>
             </Reveal>
             <ProductMobile progress={jarsProgress} reduced={reduced} />
