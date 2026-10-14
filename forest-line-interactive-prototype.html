@@ -116,6 +116,46 @@ h1,.display{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size
 .amt{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 
 /* segmented toggle */
+.seg{display:flex;background:#ECE7DB;border-radius:999px;padding:4px;gap:4px;margin-top:12px}
+.seg span{flex:1;text-align:center;padding:8px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.seg span.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(23,38,31,.12)}
+
+/* grid chips (were "plots") */
+.gchips{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+.gchip{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 9px}
+.gchip b{display:block;font-size:12px}
+.gchip span{font-size:10.5px;color:var(--ink-3)}
+.gchip.today{border-color:var(--green)}
+.gchip.on{background:var(--green);border-color:var(--green)}
+.gchip.on b,.gchip.on span{color:#fff}
+
+/* plucker search + card */
+.select-btn{display:flex;align-items:center;gap:9px;background:var(--surface);border:1.5px dashed var(--green);border-radius:var(--r);padding:12px 13px;font-size:13px;font-weight:600;color:var(--green)}
+.select-btn em{margin-left:auto;font-style:normal;font-weight:400;font-size:11px;color:var(--ink-3)}
+.pcard{margin-top:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px}
+.pcard-top{display:flex;align-items:center;gap:10px}
+.pcard-name b{display:block;font-size:14px}
+.pcard-name span{font-size:11.5px;color:var(--ink-2)}
+.locked{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--ink-3)}
+.pfacts{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:11px;padding-top:10px;border-top:1px solid var(--line-2)}
+.pfacts div:last-child{grid-column:1/-1}
+.pfacts dt{font-size:10.5px;color:var(--ink-3)}
+.pfacts dd{font-size:12.5px;font-weight:600;margin-top:1px}
+
+.sheet-dim{position:absolute;inset:-4px -18px -18px;background:rgba(18,58,46,.35)}
+.sheet{position:absolute;left:-18px;right:-18px;bottom:-18px;top:70px;background:var(--surface);border-radius:22px 22px 0 0;padding:8px 34px 30px;overflow:hidden}
+.grabber{width:40px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 10px}
+.sheet-h{display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.search{display:flex;align-items:center;gap:9px;margin-top:12px;border:1.5px solid var(--green);border-radius:12px;padding:11px 12px;font-size:14px}
+.typed::after{content:"";display:inline-block;width:1.5px;height:15px;background:var(--green);margin-left:1px;vertical-align:-2px}
+.res{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:12px;margin:0 -8px}
+.res.on{background:var(--green-wash)}
+.res-t b{display:block;font-size:13px}
+.res-t span{font-size:11px;color:var(--ink-2)}
+.tick{margin-left:auto;color:var(--green);font-weight:700}
+.notfound{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-2);font-size:12px;color:var(--ink-2)}
+
+/* chips */
 </style>
 </head>
 <body>
